@@ -7,3 +7,8 @@ android:
 
  
     - android-19
+addons:
+  sonarcloud:
+    organization: "blackphoenix134"
+    token:
+      secure: $SonarToken # encrypted value of your token
