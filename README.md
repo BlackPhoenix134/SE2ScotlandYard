@@ -8,3 +8,4 @@
 'schon wieder ein Test'
 >>>>>>> 02d812acfb1bc82d80b8ed6186b40c4a9d063c8c
 'ein weiterer Test'
+'finaler Test'
