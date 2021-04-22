@@ -1,4 +1,4 @@
-package se2.sy;
+package sy;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
