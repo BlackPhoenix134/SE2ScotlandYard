@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import sy.gameObjects.DebugObject;
-import sy.gameObjects.GameObject;
 import sy.gameObjects.GameObjectManager;
 import sy.rendering.RenderPipeline;
 
@@ -43,9 +42,9 @@ public class Game extends ApplicationAdapter {
 
 	private void stepDraw(float delta) {
 		//other draw code
-		renderPipeline.begin();
+		renderPipeline.getDefaultRenderer().begin();
 		gameObjectManager.draw(delta, renderPipeline);
-		renderPipeline.end();
+		renderPipeline.getDefaultRenderer().end();
 	}
 
 	@Override

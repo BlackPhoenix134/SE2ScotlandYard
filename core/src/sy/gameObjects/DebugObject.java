@@ -34,6 +34,6 @@ public class DebugObject extends GameObject {
 
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
-        pipeline.add(texture, position);
+        pipeline.getDefaultRenderer().add(texture, position);
     }
 }
