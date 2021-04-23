@@ -24,4 +24,9 @@ public abstract class GameObject {
 
     public abstract void update(float delta);
     public abstract void draw(float delta, RenderPipeline pipeline);
+
+    protected void onObjectDestroyed() {
+        
+    }
+
 }

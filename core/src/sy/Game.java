@@ -38,6 +38,7 @@ public class Game extends ApplicationAdapter {
 
 	private void stepWorld(float delta) {
 		gameObjectManager.update(delta);
+		gameObjectManager.postUpdate();
 	}
 
 	private void stepDraw(float delta) {

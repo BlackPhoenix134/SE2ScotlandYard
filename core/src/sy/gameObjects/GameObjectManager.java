@@ -1,7 +1,11 @@
 package sy.gameObjects;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -9,10 +13,23 @@ import sy.rendering.RenderPipeline;
 
 public class GameObjectManager {
     private Map<String, GameObject> gameObjects = new HashMap<>();
+    private List<GameObject> deadObjects = new ArrayList<>();
 
     public void update(float delta) {
-        for(GameObject obj : gameObjects.values())
-            obj.update(delta);
+        for(GameObject obj : gameObjects.values()) {
+            if(obj.isAlive())
+                obj.update(delta);
+            else
+                deadObjects.add(obj);
+        }
+    }
+
+    public void postUpdate() {
+        for(GameObject obj : deadObjects) {
+            gameObjects.remove(obj.getUuid());
+            obj.onObjectDestroyed();
+        }
+        deadObjects.clear();
     }
 
     public void draw(float delta, RenderPipeline pipeline) {
