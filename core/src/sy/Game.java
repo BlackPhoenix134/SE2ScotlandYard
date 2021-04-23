@@ -32,7 +32,7 @@ public class Game extends ApplicationAdapter {
 		renderPipeline = new RenderPipeline(new SpriteBatch(), camera, viewport);
 		renderPipeline.updateBatchMatrix();
 		DebugObject obj = gameObjectManager.create(DebugObject.class);
-		obj.setTexture(new Texture("badlogic.jpg"));
+		obj.setTexture(new Texture("StartDevil.jpeg"));
 	}
 
 	private void stepWorld(float delta) {
