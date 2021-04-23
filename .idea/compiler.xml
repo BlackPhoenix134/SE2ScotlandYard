@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel>
+    <bytecodeTargetLevel target="1.7">
       <module name="core" target="1.7" />
       <module name="desktop" target="1.7" />
+      <module name="SE2ScotlandYard.android" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
