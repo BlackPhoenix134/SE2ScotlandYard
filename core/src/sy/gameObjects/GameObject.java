@@ -18,7 +18,7 @@ public abstract class GameObject {
         return uuid;
     }
 
-    public GameObject(String uuid) {
+    GameObject(String uuid) {
         this.uuid = uuid;
     }
 
@@ -26,7 +26,6 @@ public abstract class GameObject {
     public abstract void draw(float delta, RenderPipeline pipeline);
 
     protected void onObjectDestroyed() {
-        
     }
 
 }

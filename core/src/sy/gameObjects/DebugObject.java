@@ -17,10 +17,9 @@ public class DebugObject extends GameObject {
         this.texture = texture;
     }
 
-    public DebugObject(String uuid) {
+    DebugObject(String uuid) {
         super(uuid);
     }
-
 
     private float bong = 1;
     @Override
