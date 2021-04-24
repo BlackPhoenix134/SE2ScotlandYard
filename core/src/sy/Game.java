@@ -55,6 +55,12 @@ public class Game extends ApplicationAdapter {
                 Gdx.app.log("GAME", "You touched Pos X: "+screenX+", Y: "+screenY);
                 return super.touchDown(screenX,screenY,pointer,button);
             }
+
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+                Gdx.app.log("GAME", "You left the screen at Pos X: "+screenX+", Y: "+screenY);
+                return super.touchUp(screenX, screenY, pointer, button);
+            }
         });
 
     }
