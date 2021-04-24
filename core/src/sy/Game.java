@@ -27,7 +27,7 @@ public class Game extends ApplicationAdapter {
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
     private ExtendViewport viewport;
-    private Texture button_devil;
+    private Texture buttonDevil;
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -43,9 +43,9 @@ public class Game extends ApplicationAdapter {
         renderPipeline.updateBatchMatrix();
         DebugObject obj = gameObjectManager.create(DebugObject.class);
         SYAssetManager.loadAssets();
-        button_devil = SYAssetManager.getAssetManager().get(AssetDescriptors.button_devil);
+        buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.button_devil);
 
-        obj.setTexture(button_devil);
+        obj.setTexture(buttonDevil);
 
 
     }
