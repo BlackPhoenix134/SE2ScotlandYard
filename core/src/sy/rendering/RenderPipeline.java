@@ -25,7 +25,7 @@ public class RenderPipeline implements Disposable {
         this.camera = camera;
         this.viewport = viewport;
         this.defaultRenderer = new DefaultRenderer(batch);
-        this.primitiveRenderer = new PrimitiveRenderer();
+        this.primitiveRenderer = new PrimitiveRenderer(defaultRenderer);
     }
 
     public void updateBatchMatrix() {

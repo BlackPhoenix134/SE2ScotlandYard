@@ -15,6 +15,7 @@ import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameObjectManager;
+import sy.gameObjects.NodeGraphObject;
 import sy.rendering.RenderPipeline;
 
 
@@ -42,6 +43,7 @@ public class Game extends ApplicationAdapter {
         renderPipeline = new RenderPipeline(new SpriteBatch(), camera, viewport);
         renderPipeline.updateBatchMatrix();
         DebugObject obj = gameObjectManager.create(DebugObject.class);
+        gameObjectManager.create(NodeGraphObject.class);
         SYAssetManager.loadAssets();
         buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
 

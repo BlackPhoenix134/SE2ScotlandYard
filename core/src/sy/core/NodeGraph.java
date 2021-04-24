@@ -10,6 +10,10 @@ import java.util.List;
 public class NodeGraph {
     private List<MapNode> nodes = new ArrayList<>();
 
+    public List<MapNode> getNodes() {
+        return nodes;
+    }
+
     public NodeGraph(List<Vector2> positions) {
         for(Vector2 position : positions)
             addNode(position);
