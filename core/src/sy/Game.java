@@ -3,6 +3,7 @@ package sy;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -48,7 +49,13 @@ public class Game extends ApplicationAdapter {
         buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
 
         obj.setTexture(buttonDevil);
-
+        Gdx.input.setInputProcessor(new InputAdapter(){
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                Gdx.app.log("GAME", "You touched Pos X: "+screenX+", Y: "+screenY);
+                return super.touchDown(screenX,screenY,pointer,button);
+            }
+        });
 
     }
 
