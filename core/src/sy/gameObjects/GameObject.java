@@ -1,5 +1,7 @@
 package sy.gameObjects;
 
+import com.badlogic.gdx.math.Vector2;
+
 import sy.rendering.RenderPipeline;
 
 public abstract class GameObject {

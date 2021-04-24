@@ -10,6 +10,14 @@ public class MapNode {
     private Vector2 position = Vector2.Zero;
     private List<Edge> edges = new ArrayList<>();
 
+    public MapNode() {
+
+    }
+
+    public MapNode(Vector2 position) {
+        this.position = position;
+    }
+
     public Vector2 getPosition() {
         return position;
     }
