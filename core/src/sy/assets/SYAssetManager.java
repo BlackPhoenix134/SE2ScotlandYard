@@ -12,7 +12,7 @@ public class SYAssetManager {
     }
 
     public static void loadAssets() {
-        assetManager.load(AssetDescriptors.button_devil);
+        assetManager.load(AssetDescriptors.BUTTON_DEVIL);
         assetManager.finishLoading();
 
     }

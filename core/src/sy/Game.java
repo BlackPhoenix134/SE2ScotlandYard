@@ -43,7 +43,7 @@ public class Game extends ApplicationAdapter {
         renderPipeline.updateBatchMatrix();
         DebugObject obj = gameObjectManager.create(DebugObject.class);
         SYAssetManager.loadAssets();
-        buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.button_devil);
+        buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
 
         obj.setTexture(buttonDevil);
 
