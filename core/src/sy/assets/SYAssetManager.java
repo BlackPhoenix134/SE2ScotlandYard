@@ -13,6 +13,7 @@ public class SYAssetManager {
 
     public static void loadAssets() {
         assetManager.load(AssetDescriptors.BUTTON_DEVIL);
+        assetManager.load(AssetDescriptors.GAME_BOARD);
         assetManager.finishLoading();
 
     }
