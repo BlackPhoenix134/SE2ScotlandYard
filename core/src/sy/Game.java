@@ -16,7 +16,7 @@ import sy.assets.SYAssetManager;
 import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
-import sy.input.CustomInputListener;
+import sy.input.InputHandler;
 import sy.rendering.RenderPipeline;
 
 
@@ -31,6 +31,7 @@ public class Game extends ApplicationAdapter {
     private ExtendViewport viewport;
     private Texture buttonDevil;
 
+    private InputHandler inputHandler;
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -48,9 +49,9 @@ public class Game extends ApplicationAdapter {
         gameObjectManager.create(NodeGraphObject.class);
         SYAssetManager.loadAssets();
         buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
-        
+
         obj.setTexture(buttonDevil);
-        Gdx.input.setInputProcessor(new CustomInputListener());
+        inputHandler = new InputHandler();
     }
 
 
