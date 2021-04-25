@@ -29,7 +29,6 @@ public class Game extends ApplicationAdapter {
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
     private ExtendViewport viewport;
-    private Texture buttonDevil;
 
     private InputHandler inputHandler;
     private Vector2 oldDragValue = new Vector2();
@@ -48,8 +47,7 @@ public class Game extends ApplicationAdapter {
         DebugObject obj = gameObjectManager.create(DebugObject.class);
         gameObjectManager.create(NodeGraphObject.class);
         SYAssetManager.loadAssets();
-        buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
-
+        Texture buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
         obj.setTexture(buttonDevil);
         inputHandler = new InputHandler();
     }
