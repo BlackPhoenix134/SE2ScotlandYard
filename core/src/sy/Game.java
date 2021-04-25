@@ -32,6 +32,7 @@ public class Game extends ApplicationAdapter {
     private Texture buttonDevil;
 
     private InputHandler inputHandler;
+    private Vector2 oldDragValue = new Vector2();
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -78,9 +79,21 @@ public class Game extends ApplicationAdapter {
             stepWorld(delta);
         }
         stepDraw(delta);
-        camera.zoom = inputHandler.getZoomValue();
-        camera.update();
+        updateCam();
         renderPipeline.updateBatchMatrix();
+    }
+
+    //Needs refactoring in other class...
+    private void updateCam(){
+        camera.zoom = inputHandler.getZoomValue();
+        Vector2 drag = inputHandler.getDragValue();
+        if(oldDragValue.x != drag.x || oldDragValue.y != drag.y)
+        {
+            camera.position.add(-drag.x, drag.y, 0);
+            oldDragValue.x = drag.x;
+            oldDragValue.y = drag.y;
+        }
+        camera.update();
     }
 
     @Override

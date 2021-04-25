@@ -3,13 +3,14 @@ package sy.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 
 public class InputHandler extends InputAdapter implements GestureDetector.GestureListener {
     private float currentScale = 1;
     private float zoomValue = 1;
+    private Vector2 dragValue = new Vector2();
+
     public InputHandler(){
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
@@ -21,34 +22,33 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
         return zoomValue;
     }
 
+    public Vector2 getDragValue(){
+        return dragValue;
+    }
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        Gdx.app.log("InputHandler", "You touched Pos X: "+screenX+", Y: "+screenY);
         currentScale = zoomValue;
         return super.touchDown(screenX,screenY,pointer,button);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        Gdx.app.log("InputHandler", "You left the screen at Pos X: "+screenX+", Y: "+screenY);
         return super.touchUp(screenX, screenY, pointer, button);
     }
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        Gdx.app.log("InputHandler", "You dragged to Pos X: "+screenX+", Y: "+screenY);
         return super.touchDragged(screenX, screenY, pointer);
     }
 
     @Override
     public boolean touchDown(float x, float y, int pointer, int button) {
-        Gdx.app.log("InputHandler", "touchDown");
         return false;
     }
 
     @Override
     public boolean tap(float x, float y, int count, int button) {
-        Gdx.app.log("InputHandler", "tapped");
         return false;
     }
 
@@ -64,6 +64,8 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
+        dragValue.x = deltaX;
+        dragValue.y = deltaY;
         return false;
     }
 
