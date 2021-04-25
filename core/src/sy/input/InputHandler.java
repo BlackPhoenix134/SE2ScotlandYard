@@ -3,20 +3,28 @@ package sy.input;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 
 public class InputHandler extends InputAdapter implements GestureDetector.GestureListener {
-
+    private float currentScale = 1;
+    private float zoomValue = 1;
     public InputHandler(){
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         multiplexer.addProcessor(new GestureDetector(this));
         Gdx.input.setInputProcessor(multiplexer);
     }
+
+    public float getZoomValue() {
+        return zoomValue;
+    }
+
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         Gdx.app.log("InputHandler", "You touched Pos X: "+screenX+", Y: "+screenY);
+        currentScale = zoomValue;
         return super.touchDown(screenX,screenY,pointer,button);
     }
 
@@ -66,6 +74,8 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
+        float ratio = initialDistance / distance;
+        this.zoomValue = currentScale * ratio;
         return false;
     }
 

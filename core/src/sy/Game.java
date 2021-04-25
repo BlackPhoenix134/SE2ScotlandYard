@@ -78,6 +78,9 @@ public class Game extends ApplicationAdapter {
             stepWorld(delta);
         }
         stepDraw(delta);
+        camera.zoom = inputHandler.getZoomValue();
+        camera.update();
+        renderPipeline.updateBatchMatrix();
     }
 
     @Override
