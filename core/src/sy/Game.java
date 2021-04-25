@@ -31,6 +31,7 @@ public class Game extends ApplicationAdapter {
     private ExtendViewport viewport;
     private Texture buttonDevil;
 
+
     private World world = new World(new Vector2(0, 0), true);
 
     public Game() {
@@ -47,6 +48,7 @@ public class Game extends ApplicationAdapter {
         gameObjectManager.create(NodeGraphObject.class);
         SYAssetManager.loadAssets();
         buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
+
 
         obj.setTexture(buttonDevil);
         Gdx.input.setInputProcessor(new InputAdapter(){

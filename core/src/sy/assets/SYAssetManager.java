@@ -16,6 +16,7 @@ public class SYAssetManager {
         assetManager.load(AssetDescriptors.GAME_BOARD);
         assetManager.finishLoading();
 
+
     }
 
     public static AssetManager getAssetManager() {
