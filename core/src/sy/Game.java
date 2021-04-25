@@ -45,7 +45,6 @@ public class Game extends ApplicationAdapter {
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(800, 600, camera);
         renderPipeline = new RenderPipeline(new SpriteBatch(), camera, viewport);
-        renderPipeline.updateBatchMatrix();
         DebugObject obj = gameObjectManager.create(DebugObject.class);
         gameObjectManager.create(NodeGraphObject.class);
         SYAssetManager.loadAssets();
