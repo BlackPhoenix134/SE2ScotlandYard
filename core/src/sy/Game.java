@@ -3,7 +3,6 @@ package sy;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +16,7 @@ import sy.assets.SYAssetManager;
 import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
+import sy.input.CustomInputListener;
 import sy.rendering.RenderPipeline;
 
 
@@ -48,29 +48,9 @@ public class Game extends ApplicationAdapter {
         gameObjectManager.create(NodeGraphObject.class);
         SYAssetManager.loadAssets();
         buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
-
-
+        
         obj.setTexture(buttonDevil);
-        Gdx.input.setInputProcessor(new InputAdapter(){
-            @Override
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                Gdx.app.log("GAME", "You touched Pos X: "+screenX+", Y: "+screenY);
-                return super.touchDown(screenX,screenY,pointer,button);
-            }
-
-            @Override
-            public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-                Gdx.app.log("GAME", "You left the screen at Pos X: "+screenX+", Y: "+screenY);
-                return super.touchUp(screenX, screenY, pointer, button);
-            }
-
-            @Override
-            public boolean touchDragged(int screenX, int screenY, int pointer) {
-                Gdx.app.log("GAME", "You dragged to Pos X: "+screenX+", Y: "+screenY);
-                return super.touchDragged(screenX, screenY, pointer);
-            }
-        });
-
+        Gdx.input.setInputProcessor(new CustomInputListener());
     }
 
 
