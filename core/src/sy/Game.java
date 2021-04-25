@@ -59,13 +59,15 @@ public class Game extends ApplicationAdapter {
     private void stepWorld(float delta) {
         gameObjectManager.update(delta);
         gameObjectManager.postUpdate();
+
     }
 
     private void stepDraw(float delta) {
-        //other draw code
         renderPipeline.getDefaultRenderer().begin();
         gameObjectManager.draw(delta, renderPipeline);
         renderPipeline.getDefaultRenderer().end();
+        updateCam();
+        renderPipeline.updateBatchMatrix();
     }
 
     @Override
@@ -79,8 +81,7 @@ public class Game extends ApplicationAdapter {
             stepWorld(delta);
         }
         stepDraw(delta);
-        updateCam();
-        renderPipeline.updateBatchMatrix();
+
     }
 
     //Needs refactoring in other class...

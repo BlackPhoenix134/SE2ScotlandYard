@@ -41,13 +41,16 @@ public class PrimitiveRenderer  implements Disposable {
         return pixmap;
     }
 
-    public static Pixmap createPixmapLine(int radius, Color color, boolean isFilled) {
+    /*
+    public static Pixmap createPixmapLine(Vector2 start, Vector2 end, Color color){
         Pixmap pixmap=new Pixmap(2*radius+1, 2*radius+1, Pixmap.Format.RGBA8888);
         pixmap.setColor(color);
-       
-        pixmap.drawLine(radius, radius, 2*radius, radius);
+        pixmap.drawLine((int)start.x, (int)start.y, (int)end.x, (int)end.y);
         return pixmap;
+
     }
+    */
+
 
     public void updateBatchMatrix(OrthographicCamera camera) {
     }
