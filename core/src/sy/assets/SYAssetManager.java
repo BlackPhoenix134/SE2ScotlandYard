@@ -14,6 +14,8 @@ public class SYAssetManager {
     public static void loadAssets() {
         assetManager.load(AssetDescriptors.BUTTON_DEVIL);
         assetManager.load(AssetDescriptors.GAME_BOARD);
+        assetManager.load(AssetDescriptors.BUTTON_EXIT);
+        assetManager.load(AssetDescriptors.BUTTON_OPTIONS);
         assetManager.finishLoading();
 
 
