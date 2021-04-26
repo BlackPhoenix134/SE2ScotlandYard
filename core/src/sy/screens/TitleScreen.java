@@ -38,7 +38,7 @@ public class TitleScreen extends AbstractScreen {
         camera.position.set(w/2, h/2, 0);
         camera.update();
         batch = new SpriteBatch();
-        img = new Sprite(new Texture(Gdx.files.internal("android/assets/startscreen/StartDevil.png")));
+        img = new Sprite(new Texture(Gdx.files.internal("/startscreen/StartDevil.png")));
 
         tw = img.getWidth();
         th = img.getHeight();
