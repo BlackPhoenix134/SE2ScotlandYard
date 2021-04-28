@@ -21,36 +21,34 @@ import sy.rendering.RenderPipeline;
 
 public class GameScreen extends AbstractScreen {
     private final float TICKS = 1f / 60f;
-Game game;
-private float tickAccumulation = 0;
-
-
+    private float tickAccumulation = 0;
     private GameObjectManager gameObjectManager = new GameObjectManager();
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
-    private ExtendViewport viewport;
+    private ScreenManager screenManager;
 
     private InputHandler inputHandler;
     private Vector2 oldDragValue = new Vector2();
 
     private World world = new World(new Vector2(0, 0), true);
 
-    public GameScreen() {
+    public GameScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager, InputHandler inputHandler) {
+        this.renderPipeline = renderPipeline;
+        this.camera = camera;
+        this.screenManager = screenManager;
+        this.inputHandler = inputHandler;
+
+        gameObjectManager.create(NodeGraphObject.class);
+        DebugObject obj = gameObjectManager.create(DebugObject.class);
+        Texture buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
+        obj.setTexture(buttonDevil);
+
     }
+
 
     @Override
     public void buildStage() {
-            this.game = game;
-            camera = new OrthographicCamera();
-            viewport = new ExtendViewport(800, 600, camera);
-            renderPipeline = new RenderPipeline(new SpriteBatch(), camera, viewport);
-            DebugObject obj = gameObjectManager.create(DebugObject.class);
-            gameObjectManager.create(NodeGraphObject.class);
-            SYAssetManager.loadAssets();
-            Texture buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
-            obj.setTexture(buttonDevil);
-            inputHandler = new InputHandler();
-        }
+    }
 
 
     @Override
@@ -64,12 +62,10 @@ private float tickAccumulation = 0;
             stepTick(delta);
         }
         stepFastUpdate(delta);
-
     }
     private void stepTick(float delta) {
         gameObjectManager.update(delta);
         gameObjectManager.postUpdate();
-
     }
 
     private void stepFastUpdate(float delta) {
@@ -83,15 +79,6 @@ private float tickAccumulation = 0;
 
     @Override
     public void show() {
-
-    }
-
-
-
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height, true);
-        renderPipeline.updateBatchMatrix();
 
     }
 
@@ -109,6 +96,7 @@ private float tickAccumulation = 0;
     public void hide() {
 
     }
+
     //Needs refactoring in other class...
     private void updateCam(){
         camera.zoom = inputHandler.getZoomValue();
@@ -126,7 +114,6 @@ private float tickAccumulation = 0;
     public void dispose() {
         renderPipeline.dispose();
         world.dispose();
-        SYAssetManager.dispose();
 
     }
 }

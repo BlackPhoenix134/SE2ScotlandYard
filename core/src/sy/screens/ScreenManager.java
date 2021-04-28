@@ -2,46 +2,33 @@ package sy.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import sy.screens.AbstractScreen;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ScreenManager {
-
-    private static ScreenManager instance;
-
-
     private Game game;
+    private Map<Class, AbstractScreen> screens = new HashMap<>();
 
-
-    private ScreenManager() {
-        super();
+    public ScreenManager(Game game) {
+        this. game = game;
     }
 
-
-    public static ScreenManager getInstance() {
-        if (instance == null) {
-            instance = new ScreenManager();
-        }
-        return instance;
+    public void addScreen(Class screenClass, AbstractScreen screen) {
+        screens.put(screenClass, screen);
     }
 
-
-    public void initialize(Game game) {
-        this.game = game;
+    public void addScreen(AbstractScreen screen) {
+        screens.put(screen.getClass(), screen);
     }
 
-
-    public void showScreen(ScreenEnum screenEnum, Object... params) {
-
-
+    public void showScreen(Class screenClass) {
         Screen currentScreen = game.getScreen();
-
-
-        AbstractScreen newScreen = screenEnum.getScreen(params);
+        AbstractScreen newScreen = screens.get(screenClass);
         newScreen.buildStage();
         game.setScreen(newScreen);
 
-        // Dispose previous screen
         if (currentScreen != null) {
             currentScreen.dispose();
         }
