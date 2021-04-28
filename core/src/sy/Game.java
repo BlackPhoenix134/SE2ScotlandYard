@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import sy.assets.SYAssetManager;
 import sy.input.InputHandler;
 import sy.rendering.RenderPipeline;
 import sy.screens.ExitScreen;
@@ -22,19 +23,20 @@ public class Game extends com.badlogic.gdx.Game {
 
     @Override
     public void create() {
+        SYAssetManager.loadAssets();
+        inputHandler = new InputHandler();
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(800, 600, camera);
         renderPipeline = new RenderPipeline(new SpriteBatch(), camera, viewport);
         screenManager = new ScreenManager(this);
         screenManager.addScreen(new MainMenuScreen(renderPipeline, camera, screenManager, inputHandler));
-        screenManager.addScreen(new GameScreen());
-
-        screenManager.showScreen(MainMenuScreen.class);
+        screenManager.addScreen(new GameScreen(renderPipeline, camera, screenManager, inputHandler));
+        screenManager.showScreen(GameScreen.class);
     }
 
     @Override
     public void dispose() {
-
+        SYAssetManager.dispose();
     }
 
     @Override

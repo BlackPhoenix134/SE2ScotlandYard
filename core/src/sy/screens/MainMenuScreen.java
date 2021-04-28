@@ -1,19 +1,22 @@
 package sy.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 
 import sy.Game;
+import sy.assets.AssetDescriptors;
+import sy.assets.SYAssetManager;
 import sy.input.InputHandler;
 import sy.rendering.RenderPipeline;
 
 public class MainMenuScreen extends AbstractScreen {
-    private Game game;
-    private float screenWidth, screenHeight,tw,th =0;
+    private float screenWidth, screenHeight;
     private Sprite img;
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
@@ -27,38 +30,36 @@ public class MainMenuScreen extends AbstractScreen {
         this.inputHandler = inputHandler;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
-        img = new Sprite(new Texture(Gdx.files.internal("startscreen/StartDevil.png")));
-        //img.rotate(90);
-        tw = img.getWidth();
-        th = img.getHeight();
-        img.setBounds( screenWidth / 2 , screenHeight / 2, screenWidth / 6, screenHeight / 10);
-        img.setPosition(0,0);
-
+        img = new Sprite(SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL));
+        img.rotate(90);
+        img.setBounds( screenWidth / 2 , screenHeight / 2, screenWidth / 4, screenHeight / 5);
     }
 
     @Override
     public void buildStage() {
-
         Gdx.input.setInputProcessor(new InputAdapter(){
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                if(img.getBoundingRectangle().contains(screenX, screenY)) {
+                //if(img.getBoundingRectangle().contains(screenX, screenY)) {
                     screenManager.showScreen(GameScreen.class);
-                }
+                //}
                 return true;
             }
 
         });
     }
 
+    SpriteBatch batch = new SpriteBatch();
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        renderPipeline.getDefaultRenderer().begin();
-        renderPipeline.getDefaultRenderer().add(img);
-        renderPipeline.getDefaultRenderer().end();
+        batch.begin();
+        img.draw(batch);
+        batch.end();
+
     }
 
     @Override
