@@ -31,7 +31,7 @@ public class Game extends com.badlogic.gdx.Game {
         screenManager = new ScreenManager(this);
         screenManager.addScreen(new MainMenuScreen(renderPipeline, camera, screenManager, inputHandler));
         screenManager.addScreen(new GameScreen(renderPipeline, camera, screenManager, inputHandler));
-        screenManager.showScreen(GameScreen.class);
+        screenManager.showScreen(MainMenuScreen.class);
     }
 
     @Override

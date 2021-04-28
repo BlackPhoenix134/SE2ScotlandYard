@@ -61,7 +61,6 @@ public class GameScreen extends AbstractScreen {
             stepTick(delta);
         }
         stepFastUpdate(delta);
-
     }
     private void stepTick(float delta) {
         gameObjectManager.update(delta);
