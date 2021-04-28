@@ -2,6 +2,7 @@ package sy.rendering;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -30,6 +31,10 @@ public class DefaultRenderer implements Disposable {
     //ToDo: drawing has to take rotation/scale into account
     public void add(Texture img, Vector2 position) {
         batch.draw(img, position.x, position.y);
+    }
+
+    public void add(Sprite sprite) {
+        sprite.draw(batch);
     }
 
     public void end() {

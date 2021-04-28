@@ -13,6 +13,8 @@ public class RenderPipeline implements Disposable {
     private OrthographicCamera camera;
     private Viewport viewport;
 
+
+    //ToDo: abstract begin
     public DefaultRenderer getDefaultRenderer() {
         return defaultRenderer;
     }
