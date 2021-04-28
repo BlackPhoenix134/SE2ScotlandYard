@@ -41,6 +41,7 @@ public class Game extends com.badlogic.gdx.Game {
 
     @Override
     public void resize(int width, int height) {
+        viewport.update(width, height, true);
         renderPipeline.updateBatchMatrix();
     }
 }
