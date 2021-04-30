@@ -14,6 +14,7 @@ import sy.Game;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.gameObjects.DebugObject;
+import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.input.InputHandler;
@@ -39,10 +40,10 @@ public class GameScreen extends AbstractScreen {
         this.inputHandler = inputHandler;
 
         gameObjectManager.create(NodeGraphObject.class);
-        DebugObject obj = gameObjectManager.create(DebugObject.class);
-        Texture buttonDevil = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
-        obj.setTexture(buttonDevil);
 
+        GameBoardObject gameBoardObject = gameObjectManager.create(GameBoardObject.class);
+        Texture gameBoardTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.GAME_BOARD);
+        gameBoardObject.setTexture(gameBoardTexture);
     }
 
 
