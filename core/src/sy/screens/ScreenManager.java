@@ -1,7 +1,6 @@
 package sy.screens;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Screen;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,15 +22,26 @@ public class ScreenManager {
         screens.put(screen.getClass(), screen);
     }
 
-    public void showScreen(Class screenClass) {
-        Screen currentScreen = game.getScreen();
-        AbstractScreen newScreen = screens.get(screenClass);
+    public void showScreen(final Class screenClass) {
+        final AbstractScreen currentScreen = (AbstractScreen) game.getScreen();
+        final AbstractScreen newScreen = screens.get(screenClass);
         newScreen.buildStage();
-        game.setScreen(newScreen);
 
-        if (currentScreen != null) {
-            currentScreen.dispose();
+        if(currentScreen != null){
+            currentScreen.transitionOut(new Runnable(){
+                @Override
+                public void run() {
+                    game.setScreen(newScreen);
+                    newScreen.transitionIn();
+                    currentScreen.dispose();
+                }
+            });
+        }
+        else{
+            game.setScreen(newScreen);
+            newScreen.transitionIn();
         }
     }
+
 
 }
