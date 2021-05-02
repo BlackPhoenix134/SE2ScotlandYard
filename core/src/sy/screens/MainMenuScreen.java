@@ -66,7 +66,22 @@ public class MainMenuScreen extends AbstractScreen {
             }
         });
 
+        btnOptions.addListener(new AliveButton.AliveButtonListener(){
+            @Override
+                    public void onClick(){
+                screenManager.showScreen(OptionsScreen.class);
+            }
+
+        });
+
         addActorsToStage(btnStartGame, btnOptions, btnExitGame);
+
+        btnExitGame.addListener(new AliveButton.AliveButtonListener(){
+            @Override
+            public void onClick(){
+                Gdx.app.exit();
+            }
+        });
     }
 
     @Override
