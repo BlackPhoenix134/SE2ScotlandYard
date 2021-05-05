@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -24,6 +25,7 @@ public class MainMenuScreen extends AbstractScreen {
     private ScreenManager      screenManager;
     private InputHandler       inputHandler;
     private SpriteBatch        batch = new SpriteBatch();
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
 
     public MainMenuScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager, InputHandler inputHandler) {
         this.renderPipeline = renderPipeline;
@@ -62,6 +64,7 @@ public class MainMenuScreen extends AbstractScreen {
         btnStartGame.addListener(new AliveButton.AliveButtonListener() {
             @Override
             public void onClick() {
+                sound.play();
                 screenManager.showScreen(GameScreen.class);
             }
         });
@@ -69,6 +72,7 @@ public class MainMenuScreen extends AbstractScreen {
         btnOptions.addListener(new AliveButton.AliveButtonListener(){
             @Override
                     public void onClick(){
+                sound.play();
                 screenManager.showScreen(OptionsScreen.class);
             }
 
@@ -79,6 +83,7 @@ public class MainMenuScreen extends AbstractScreen {
         btnExitGame.addListener(new AliveButton.AliveButtonListener(){
             @Override
             public void onClick(){
+                sound.play();
                 Gdx.app.exit();
             }
         });
