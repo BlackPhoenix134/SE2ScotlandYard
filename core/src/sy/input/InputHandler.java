@@ -11,9 +11,9 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
     private float zoomValue = 1;
     private Vector2 dragValue = new Vector2();
 
-    private TouchDownListener touchDownListener;
-    public void setTouchDownListener(TouchDownListener listener) {
-        this.touchDownListener = listener;
+    private TouchListener touchListener;
+    public void setTouchListener(TouchListener listener) {
+        this.touchListener = listener;
     }
 
     public InputHandler(){
@@ -38,14 +38,14 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
         currentScale = zoomValue;
-        if(touchDownListener != null){
-            touchDownListener.onTouchDown();
-        }
         return super.touchDown(screenX,screenY,pointer,button);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        if(touchListener != null){
+            touchListener.onTouch(screenX, screenY);
+        }
         return super.touchUp(screenX, screenY, pointer, button);
     }
 

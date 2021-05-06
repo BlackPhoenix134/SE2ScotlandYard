@@ -1,27 +1,22 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import sy.Game;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
-import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.input.InputHandler;
-import sy.input.TouchDownListener;
+import sy.input.TouchListener;
 import sy.rendering.RenderPipeline;
 
-public class GameScreen extends AbstractScreen implements TouchDownListener {
+public class GameScreen extends AbstractScreen implements TouchListener {
     private final float TICKS = 1f / 60f;
     private float tickAccumulation = 0;
     private GameObjectManager gameObjectManager = new GameObjectManager();
@@ -83,7 +78,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener {
     @Override
     public void show() {
         this.inputHandler.setProcesses();
-        this.inputHandler.setTouchDownListener(this);
+        this.inputHandler.setTouchListener(this);
     }
 
     @Override
@@ -122,7 +117,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener {
     }
 
     @Override
-    public void onTouchDown() {
-        Gdx.app.log("Game", "TOUCH");
+    public void onTouch(int x, int y) {
+        Gdx.app.log("Game", "TOUCH ON " + x + ", " + y);
     }
 }
