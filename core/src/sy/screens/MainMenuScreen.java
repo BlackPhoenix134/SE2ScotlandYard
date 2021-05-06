@@ -23,15 +23,13 @@ public class MainMenuScreen extends AbstractScreen {
     private RenderPipeline     renderPipeline;
     private OrthographicCamera camera;
     private ScreenManager      screenManager;
-    private InputHandler       inputHandler;
     private SpriteBatch        batch = new SpriteBatch();
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
 
-    public MainMenuScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager, InputHandler inputHandler) {
+    public MainMenuScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.renderPipeline = renderPipeline;
         this.camera = camera;
         this.screenManager = screenManager;
-        this.inputHandler = inputHandler;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
     }

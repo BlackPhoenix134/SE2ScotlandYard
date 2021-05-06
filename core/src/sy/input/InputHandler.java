@@ -29,10 +29,7 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
     }
 
     public InputHandler(){
-        setProcesses();
-    }
-
-    public void setProcesses(){
+        //Set up the handler
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(this);
         multiplexer.addProcessor(new GestureDetector(this));

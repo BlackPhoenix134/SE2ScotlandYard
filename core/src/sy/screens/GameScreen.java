@@ -35,11 +35,10 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     private World world = new World(new Vector2(0, 0), true);
 
-    public GameScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager, InputHandler inputHandler) {
+    public GameScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.renderPipeline = renderPipeline;
         this.camera = camera;
         this.screenManager = screenManager;
-        this.inputHandler = inputHandler;
 
         gameObjectManager.create(NodeGraphObject.class);
 
@@ -83,11 +82,11 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     @Override
     public void show() {
-        setInputListeners();
+        setUpInputHandler();
     }
 
-    private void setInputListeners(){
-        this.inputHandler.setProcesses();
+    private void setUpInputHandler(){
+        this.inputHandler = new InputHandler();
         this.inputHandler.setTouchUpListener(this);
         this.inputHandler.setTouchDownListener(this);
         this.inputHandler.setZoomListener(this);
