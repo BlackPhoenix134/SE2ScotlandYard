@@ -1,19 +1,15 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import sy.Game;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
-import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
@@ -27,7 +23,7 @@ public class GameScreen extends AbstractScreen {
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
     private ScreenManager screenManager;
-
+    public NodeGraphObject nodeGraphObject;
     private InputHandler inputHandler;
     private Vector2 oldDragValue = new Vector2();
 
@@ -39,11 +35,13 @@ public class GameScreen extends AbstractScreen {
         this.screenManager = screenManager;
         this.inputHandler = inputHandler;
 
-        gameObjectManager.create(NodeGraphObject.class);
-
         GameBoardObject gameBoardObject = gameObjectManager.create(GameBoardObject.class);
         Texture gameBoardTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.GAME_BOARD);
         gameBoardObject.setTexture(gameBoardTexture);
+        //gameObjectManager.create(NodeGraphObject.class);
+
+        nodeGraphObject = new NodeGraphObject("hi");
+
     }
 
 
@@ -57,6 +55,11 @@ public class GameScreen extends AbstractScreen {
         delta = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        if (Gdx.input.isTouched()) {
+            Vector3 v3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+            Gdx.app.log("Koordinaten:", String.valueOf(v3));
+        }
+
         tickAccumulation += Math.min(delta, 0.25f);
         if (tickAccumulation >= TICKS) {
             tickAccumulation -= TICKS; //takes multi phys misses into account (low fps)
@@ -72,6 +75,7 @@ public class GameScreen extends AbstractScreen {
     private void stepFastUpdate(float delta) {
         renderPipeline.getDefaultRenderer().begin();
         gameObjectManager.draw(delta, renderPipeline);
+        nodeGraphObject.draw(delta, renderPipeline);
         renderPipeline.getDefaultRenderer().end();
         updateCam();
         renderPipeline.updateBatchMatrix();
@@ -99,11 +103,10 @@ public class GameScreen extends AbstractScreen {
     }
 
     //Needs refactoring in other class...
-    private void updateCam(){
+    private void updateCam() {
         camera.zoom = inputHandler.getZoomValue();
         Vector2 drag = inputHandler.getDragValue();
-        if(oldDragValue.x != drag.x || oldDragValue.y != drag.y)
-        {
+        if (oldDragValue.x != drag.x || oldDragValue.y != drag.y) {
             camera.position.add(-drag.x, drag.y, 0);
             oldDragValue.x = drag.x;
             oldDragValue.y = drag.y;
