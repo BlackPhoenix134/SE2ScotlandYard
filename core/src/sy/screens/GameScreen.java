@@ -13,10 +13,12 @@ import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.input.InputHandler;
-import sy.input.TouchListener;
+import sy.input.TouchDownListener;
+import sy.input.TouchUpListener;
+import sy.input.ZoomListener;
 import sy.rendering.RenderPipeline;
 
-public class GameScreen extends AbstractScreen implements TouchListener {
+public class GameScreen extends AbstractScreen implements TouchDownListener, TouchUpListener, ZoomListener {
     private final float TICKS = 1f / 60f;
     private float tickAccumulation = 0;
     private GameObjectManager gameObjectManager = new GameObjectManager();
@@ -78,7 +80,8 @@ public class GameScreen extends AbstractScreen implements TouchListener {
     @Override
     public void show() {
         this.inputHandler.setProcesses();
-        this.inputHandler.setTouchListener(this);
+        this.inputHandler.setTouchUpListener(this);
+        this.inputHandler.setZoomListener(this);
     }
 
     @Override
@@ -98,7 +101,7 @@ public class GameScreen extends AbstractScreen implements TouchListener {
 
     //Needs refactoring in other class...
     private void updateCam(){
-        camera.zoom = inputHandler.getZoomValue();
+        camera.zoom = this.zoomValue;
         Vector2 drag = inputHandler.getDragValue();
         if(oldDragValue.x != drag.x || oldDragValue.y != drag.y)
         {
@@ -117,7 +120,22 @@ public class GameScreen extends AbstractScreen implements TouchListener {
     }
 
     @Override
-    public void onTouch(int x, int y) {
-        Gdx.app.log("Game", "TOUCH ON " + x + ", " + y);
+    public void onTouchUp(int screenX, int screenY, int pointer, int button) {
+        Gdx.app.log("Game", "TOUCH ON " + screenX + ", " + screenY);
     }
+
+    @Override
+    public void onTouchDown(int screenX, int screenY, int pointer, int button) {
+        currentScale = zoomValue;
+    }
+
+    private float currentScale = 1;
+    private float zoomValue = 1;
+    @Override
+    public void onZoom(float initialDistance, float distance) {
+        float ratio = initialDistance / distance;
+        this.zoomValue = this.currentScale * ratio;
+    }
+
+
 }

@@ -7,14 +7,23 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 
 public class InputHandler extends InputAdapter implements GestureDetector.GestureListener {
-    private float currentScale = 1;
-    private float zoomValue = 1;
     private Vector2 dragValue = new Vector2();
 
-    private TouchListener touchListener;
-    public void setTouchListener(TouchListener listener) {
-        this.touchListener = listener;
+    private TouchUpListener touchUpListener;
+    public void setTouchUpListener(TouchUpListener touchUpListener) {
+        this.touchUpListener = touchUpListener;
     }
+
+    private ZoomListener zoomListener;
+    public void setZoomListener(ZoomListener zoomListener) {
+        this.zoomListener = zoomListener;
+    }
+
+    private TouchDownListener touchDownListener;
+    public void setTouchDownListener(TouchDownListener touchDownListener) {
+        this.touchDownListener = touchDownListener;
+    }
+
 
     public InputHandler(){
         setProcesses();
@@ -27,24 +36,22 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
         Gdx.input.setInputProcessor(multiplexer);
     }
 
-    public float getZoomValue() {
-        return zoomValue;
-    }
-
     public Vector2 getDragValue(){
         return dragValue;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        currentScale = zoomValue;
+        if(touchDownListener != null){
+            touchDownListener.onTouchDown(screenX, screenY, pointer, button);
+        }
         return super.touchDown(screenX,screenY,pointer,button);
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if(touchListener != null){
-            touchListener.onTouch(screenX, screenY);
+        if(touchUpListener != null){
+            touchUpListener.onTouchUp(screenX, screenY, pointer, button);
         }
         return super.touchUp(screenX, screenY, pointer, button);
     }
@@ -88,9 +95,10 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
 
     @Override
     public boolean zoom(float initialDistance, float distance) {
-        float ratio = initialDistance / distance;
-        this.zoomValue = currentScale * ratio;
-        return false;
+        if(zoomListener != null){
+            zoomListener.onZoom(initialDistance, distance);
+        }
+        return true;
     }
 
     @Override
