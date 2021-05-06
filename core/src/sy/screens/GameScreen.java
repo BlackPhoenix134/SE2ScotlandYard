@@ -18,9 +18,10 @@ import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.input.InputHandler;
+import sy.input.TouchDownListener;
 import sy.rendering.RenderPipeline;
 
-public class GameScreen extends AbstractScreen {
+public class GameScreen extends AbstractScreen implements TouchDownListener {
     private final float TICKS = 1f / 60f;
     private float tickAccumulation = 0;
     private GameObjectManager gameObjectManager = new GameObjectManager();
@@ -49,6 +50,7 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+
     }
 
 
@@ -80,7 +82,8 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void show() {
-
+        this.inputHandler.setProcesses();
+        this.inputHandler.setTouchDownListener(this);
     }
 
     @Override
@@ -116,5 +119,10 @@ public class GameScreen extends AbstractScreen {
         renderPipeline.dispose();
         world.dispose();
 
+    }
+
+    @Override
+    public void onTouchDown() {
+        Gdx.app.log("Game", "TOUCH");
     }
 }
