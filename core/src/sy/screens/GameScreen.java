@@ -13,12 +13,13 @@ import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.input.InputHandler;
+import sy.input.PanListener;
 import sy.input.TouchDownListener;
 import sy.input.TouchUpListener;
 import sy.input.ZoomListener;
 import sy.rendering.RenderPipeline;
 
-public class GameScreen extends AbstractScreen implements TouchDownListener, TouchUpListener, ZoomListener {
+public class GameScreen extends AbstractScreen implements TouchDownListener, TouchUpListener, ZoomListener, PanListener {
     private final float TICKS = 1f / 60f;
     private float tickAccumulation = 0;
     private GameObjectManager gameObjectManager = new GameObjectManager();
@@ -27,7 +28,10 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private ScreenManager screenManager;
 
     private InputHandler inputHandler;
+    private Vector2 dragValue = new Vector2();
     private Vector2 oldDragValue = new Vector2();
+    private float currentScale = 1;
+    private float zoomValue = 1;
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -79,10 +83,15 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     @Override
     public void show() {
+        setInputListeners();
+    }
+
+    private void setInputListeners(){
         this.inputHandler.setProcesses();
         this.inputHandler.setTouchUpListener(this);
         this.inputHandler.setTouchDownListener(this);
         this.inputHandler.setZoomListener(this);
+        this.inputHandler.setPanListener(this);
     }
 
     @Override
@@ -103,12 +112,11 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     //Needs refactoring in other class...
     private void updateCam(){
         camera.zoom = this.zoomValue;
-        Vector2 drag = inputHandler.getDragValue();
-        if(oldDragValue.x != drag.x || oldDragValue.y != drag.y)
+        if(oldDragValue.x != dragValue.x || oldDragValue.y != dragValue.y)
         {
-            camera.position.add(-drag.x, drag.y, 0);
-            oldDragValue.x = drag.x;
-            oldDragValue.y = drag.y;
+            camera.position.add(-dragValue.x, dragValue.y, 0);
+            oldDragValue.x = dragValue.x;
+            oldDragValue.y = dragValue.y;
         }
         camera.update();
     }
@@ -130,13 +138,15 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         currentScale = zoomValue;
     }
 
-    private float currentScale = 1;
-    private float zoomValue = 1;
     @Override
     public void onZoom(float initialDistance, float distance) {
         float ratio = initialDistance / distance;
         this.zoomValue = this.currentScale * ratio;
     }
 
-
+    @Override
+    public void onPan(float x, float y, float deltaX, float deltaY) {
+        dragValue.x = deltaX;
+        dragValue.y = deltaY;
+    }
 }

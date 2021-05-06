@@ -7,16 +7,10 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 
 public class InputHandler extends InputAdapter implements GestureDetector.GestureListener {
-    private Vector2 dragValue = new Vector2();
 
     private TouchUpListener touchUpListener;
     public void setTouchUpListener(TouchUpListener touchUpListener) {
         this.touchUpListener = touchUpListener;
-    }
-
-    private ZoomListener zoomListener;
-    public void setZoomListener(ZoomListener zoomListener) {
-        this.zoomListener = zoomListener;
     }
 
     private TouchDownListener touchDownListener;
@@ -24,6 +18,15 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
         this.touchDownListener = touchDownListener;
     }
 
+    private ZoomListener zoomListener;
+    public void setZoomListener(ZoomListener zoomListener) {
+        this.zoomListener = zoomListener;
+    }
+
+    private PanListener panListener;
+    public void setPanListener(PanListener panListener) {
+        this.panListener = panListener;
+    }
 
     public InputHandler(){
         setProcesses();
@@ -34,10 +37,6 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
         multiplexer.addProcessor(this);
         multiplexer.addProcessor(new GestureDetector(this));
         Gdx.input.setInputProcessor(multiplexer);
-    }
-
-    public Vector2 getDragValue(){
-        return dragValue;
     }
 
     @Override
@@ -83,9 +82,10 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
 
     @Override
     public boolean pan(float x, float y, float deltaX, float deltaY) {
-        dragValue.x = deltaX;
-        dragValue.y = deltaY;
-        return false;
+        if(panListener != null){
+            panListener.onPan(x, y, deltaX, deltaY);
+        }
+        return true;
     }
 
     @Override
