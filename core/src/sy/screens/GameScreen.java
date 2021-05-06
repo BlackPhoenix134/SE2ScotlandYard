@@ -81,6 +81,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     public void show() {
         this.inputHandler.setProcesses();
         this.inputHandler.setTouchUpListener(this);
+        this.inputHandler.setTouchDownListener(this);
         this.inputHandler.setZoomListener(this);
     }
 
