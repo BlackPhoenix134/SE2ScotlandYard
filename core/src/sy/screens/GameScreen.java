@@ -156,10 +156,4 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         dragValue.y = deltaY;
     }
 
-    public void removeInputHandlerEvents(){
-        inputHandler.setTouchUpListener(null);
-        inputHandler.setTouchDownListener(null);
-        inputHandler.setZoomListener(null);
-        inputHandler.setPanListener(null);
-    }
 }
