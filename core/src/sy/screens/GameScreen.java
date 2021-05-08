@@ -64,10 +64,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         delta = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(1, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if (Gdx.input.isTouched()) {
-            Vector3 v3 = camera.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-            Gdx.app.log("Koordinaten:", String.valueOf(v3));
-        }
 
         tickAccumulation += Math.min(delta, 0.25f);
         if (tickAccumulation >= TICKS) {
