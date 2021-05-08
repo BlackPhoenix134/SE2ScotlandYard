@@ -764,6 +764,7 @@ public class NodeGraphObject extends GameObject {
         //edges from node 115
         graph.addEdge(114, 125, MoveType.TAXI);
         graph.addEdge(114, 126, MoveType.TAXI);
+        graph.addEdge(114, 107, MoveType.SHIP);
 
         //edges from node 116
         graph.addEdge(115, 126, MoveType.TAXI);
@@ -954,6 +955,7 @@ public class NodeGraphObject extends GameObject {
         graph.addEdge(156, 169, MoveType.TAXI);
         graph.addEdge(156, 184, MoveType.BUS);
         graph.addEdge(156, 157, MoveType.TAXI);
+        graph.addEdge(156, 114, MoveType.SHIP);
 
         //edges from node 158
         graph.addEdge(157, 158, MoveType.TAXI);
@@ -1089,6 +1091,7 @@ public class NodeGraphObject extends GameObject {
 
         //edges from node 194
         graph.addEdge(193, 194, MoveType.TAXI);
+        graph.addEdge(193, 156, MoveType.SHIP);
 
         //edges from node 195
         graph.addEdge(194, 196, MoveType.TAXI);
