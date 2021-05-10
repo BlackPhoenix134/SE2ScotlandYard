@@ -21,7 +21,7 @@ public class NodeGraphObject extends GameObject {
     //ToDo: scene2d or self made transform hierarchy, if this obejct moves, nodes do not move
     ArrayList<Vector2> nodeposition;
 
-    public NodeGraphObject(String uuid) {
+    NodeGraphObject(String uuid) {
         super(uuid);
         nodeposition = new ArrayList<>();
 
