@@ -37,6 +37,6 @@ public class GameBoardObject extends GameObject {
 
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
-        pipeline.getDefaultRenderer().add(texture, position);
+        pipeline.add(texture, position, 2);
     }
 }

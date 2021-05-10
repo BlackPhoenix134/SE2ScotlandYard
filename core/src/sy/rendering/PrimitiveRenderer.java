@@ -15,11 +15,11 @@ public class PrimitiveRenderer  implements Disposable {
     private DefaultRenderer defaultRenderer;
     private Map<Integer, Primitive> primtiveCache = new HashMap<>();
 
-    public PrimitiveRenderer(DefaultRenderer defaultRenderer) {
+    PrimitiveRenderer(DefaultRenderer defaultRenderer) {
         this.defaultRenderer = defaultRenderer;
     }
 
-    public void drawCircle(Vector2 position, int radius, Color color, boolean isFilled) {
+    void drawCircle(Vector2 position, int radius, Color color, boolean isFilled) {
         PrimitiveCircle primitive = new PrimitiveCircle(radius, color, isFilled);
         if(primtiveCache.containsKey(primitive.hashCode())) {
             primitive = (PrimitiveCircle)primtiveCache.get(primitive.hashCode());
@@ -30,7 +30,19 @@ public class PrimitiveRenderer  implements Disposable {
         defaultRenderer.add(primitive.getTexture(), position);
     }
 
-    public static Pixmap createPixmapCircle(int radius, Color color, boolean isFilled) {
+    <T extends Primitive> T getCachedPrimitive(int hashCode) {
+        return (T)primtiveCache.get(hashCode);
+    }
+
+    boolean isInCache(PrimitiveCircle primitive) {
+        return primtiveCache.containsKey(primitive.hashCode());
+    }
+
+    void toCache(PrimitiveCircle primitive) {
+        primtiveCache.put(primitive.hashCode(), primitive);
+    }
+
+    Pixmap createPixmapCircle(int radius, Color color, boolean isFilled) {
         Pixmap pixmap=new Pixmap(2*radius+1, 2*radius+1, Pixmap.Format.RGBA8888);
         pixmap.setColor(color);
         if(isFilled)
@@ -40,6 +52,8 @@ public class PrimitiveRenderer  implements Disposable {
         pixmap.drawLine(radius, radius, 2*radius, radius);
         return pixmap;
     }
+
+
 
     /*
     public static Pixmap createPixmapLine(Vector2 start, Vector2 end, Color color){
@@ -52,11 +66,14 @@ public class PrimitiveRenderer  implements Disposable {
     */
 
 
-    public void updateBatchMatrix(OrthographicCamera camera) {
+    void updateBatchMatrix(OrthographicCamera camera) {
     }
 
 
     @Override
     public void dispose() {
     }
+
+
+
 }

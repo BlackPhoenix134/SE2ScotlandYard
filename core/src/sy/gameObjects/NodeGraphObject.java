@@ -1112,7 +1112,7 @@ public class NodeGraphObject extends GameObject {
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
         for (MapNode node : graph.getNodes()) {
-            pipeline.getPrimitiveRenderer().drawCircle(node.getPosition(), 27, Color.BLACK, true);
+            pipeline.drawCircle(node.getPosition(), 27, Color.BLACK, true, 50);
         }
     }
 }

@@ -15,7 +15,7 @@ import sy.gameObjects.GameObject;
 public class DefaultRenderer implements Disposable {
     private SpriteBatch batch;
 
-    public DefaultRenderer(SpriteBatch batch) {
+    DefaultRenderer(SpriteBatch batch) {
         this.batch = batch;
     }
 
@@ -29,11 +29,11 @@ public class DefaultRenderer implements Disposable {
     }
 
     //ToDo: drawing has to take rotation/scale into account
-    public void add(Texture img, Vector2 position) {
+    void add(Texture img, Vector2 position) {
         batch.draw(img, position.x, position.y);
     }
 
-    public void add(Sprite sprite) {
+    void add(Sprite sprite) {
         sprite.draw(batch);
     }
 
@@ -41,7 +41,7 @@ public class DefaultRenderer implements Disposable {
         batch.end();
     }
 
-    public void updateBatchMatrix(OrthographicCamera camera) {
+    void updateBatchMatrix(OrthographicCamera camera) {
         batch.setProjectionMatrix(camera.combined);
     }
 }
