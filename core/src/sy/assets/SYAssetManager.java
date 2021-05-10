@@ -23,6 +23,7 @@ public class SYAssetManager {
         assetManager.load(AssetDescriptors.GAME_BOARD);
         assetManager.load(AssetDescriptors.BUTTON_EXIT);
         assetManager.load(AssetDescriptors.BUTTON_OPTIONS);
+        assetManager.load(AssetDescriptors.BUTTON_JOIN);
         assetManager.finishLoading();
 
         pixmap.dispose();
