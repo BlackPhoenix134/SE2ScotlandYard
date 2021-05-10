@@ -13,8 +13,14 @@ public class RenderPipeline implements Disposable {
     private OrthographicCamera camera;
     private Viewport viewport;
 
+    public void begin() {
+        defaultRenderer.begin();
+    }
 
-    //ToDo: abstract begin
+    public void end() {
+        defaultRenderer.end();
+    }
+
     public DefaultRenderer getDefaultRenderer() {
         return defaultRenderer;
     }
@@ -34,7 +40,6 @@ public class RenderPipeline implements Disposable {
         defaultRenderer.updateBatchMatrix(camera);
         primitiveRenderer.updateBatchMatrix(camera);
     }
-
 
     @Override
     public void dispose(){

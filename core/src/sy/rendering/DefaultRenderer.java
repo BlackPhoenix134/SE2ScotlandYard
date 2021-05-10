@@ -24,7 +24,7 @@ public class DefaultRenderer implements Disposable {
         batch.dispose();
     }
 
-    public void begin() {
+    void begin() {
         batch.begin();
     }
 
@@ -37,7 +37,7 @@ public class DefaultRenderer implements Disposable {
         sprite.draw(batch);
     }
 
-    public void end() {
+    void end() {
         batch.end();
     }
 

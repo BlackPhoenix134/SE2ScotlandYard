@@ -78,10 +78,10 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     }
 
     private void stepFastUpdate(float delta) {
-        renderPipeline.getDefaultRenderer().begin();
+        renderPipeline.begin();
         gameObjectManager.draw(delta, renderPipeline);
         nodeGraphObject.draw(delta, renderPipeline);
-        renderPipeline.getDefaultRenderer().end();
+        renderPipeline.end();
         updateCam();
         renderPipeline.updateBatchMatrix();
     }
