@@ -18,8 +18,9 @@ import sy.ui.AliveButton;
 public class MainMenuScreen extends AbstractScreen {
     private float              screenWidth, screenHeight;
     private AliveButton        btnStartGame;
-    private AliveButton        btnOptions;
+   // private AliveButton        btnOptions;
     private AliveButton        btnExitGame;
+    private AliveButton        btnJoinGame;
     private RenderPipeline     renderPipeline;
     private OrthographicCamera camera;
     private ScreenManager      screenManager;
@@ -40,23 +41,28 @@ public class MainMenuScreen extends AbstractScreen {
         float padding = screenHeight * 0.05f;
 
         Texture startGameTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
-        Texture optionsTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_OPTIONS);
+        //Texture optionsTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_OPTIONS);
         Texture exitGameTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_EXIT);
+        Texture joinGameTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_JOIN);
 
         btnStartGame = new AliveButton(startGameTexture);
-        btnOptions   = new AliveButton(optionsTexture);
+        //btnOptions   = new AliveButton(optionsTexture);
         btnExitGame  = new AliveButton(exitGameTexture);
+        btnJoinGame  = new AliveButton(joinGameTexture);
 
         Vector2 btnStartGameSize = Scaling.fillX.apply(startGameTexture.getWidth(), startGameTexture.getHeight(), screenWidth * 0.30f, 0);
-        Vector2 btnOptionsSize   = Scaling.fillX.apply(optionsTexture.getWidth(), optionsTexture.getHeight(), screenWidth * 0.30f, 0);
+        //Vector2 btnOptionsSize   = Scaling.fillX.apply(optionsTexture.getWidth(), optionsTexture.getHeight(), screenWidth * 0.30f, 0);
+        Vector2 btnJoinGameSize = Scaling.fillX.apply(joinGameTexture.getWidth(), joinGameTexture.getHeight(), screenWidth * 0.30f, 0);
         Vector2 btnExitSize      = Scaling.fillX.apply(exitGameTexture.getWidth(), exitGameTexture.getHeight(), screenWidth * 0.30f, 0);
 
+
         btnStartGame.setSize(btnStartGameSize.x, btnStartGameSize.y);
-        btnOptions.setSize(btnOptionsSize.x, btnOptionsSize.y);
+       // btnOptions.setSize(btnOptionsSize.x, btnOptionsSize.y);
+        btnJoinGame.setSize (btnJoinGameSize.x, btnJoinGameSize.y);
         btnExitGame.setSize(btnExitSize.x, btnExitSize.y);
 
         btnStartGame.setPosition( screenWidth/2 - btnStartGame.getWidth()/2, screenHeight - padding - btnStartGame.getHeight());
-        btnOptions.setPosition( screenWidth/2 - btnOptions.getWidth()/2, screenHeight  * 0.5f - btnOptions.getHeight() * 0.5f);
+        btnJoinGame.setPosition( screenWidth/2 - btnJoinGame.getWidth()/2, screenHeight  * 0.5f - btnJoinGame.getHeight() * 0.5f);
         btnExitGame.setPosition(screenWidth/2 - btnExitGame.getWidth()/2, padding);
 
         btnStartGame.addListener(new AliveButton.AliveButtonListener() {
@@ -67,16 +73,16 @@ public class MainMenuScreen extends AbstractScreen {
             }
         });
 
-        btnOptions.addListener(new AliveButton.AliveButtonListener(){
+        btnJoinGame.addListener(new AliveButton.AliveButtonListener(){
             @Override
                     public void onClick(){
                 sound.play();
-                screenManager.showScreen(OptionsScreen.class);
+                //screenManager.showScreen(OptionsScreen.class);
             }
 
         });
 
-        addActorsToStage(btnStartGame, btnOptions, btnExitGame);
+        addActorsToStage(btnStartGame, btnJoinGame, btnExitGame);
 
         btnExitGame.addListener(new AliveButton.AliveButtonListener(){
             @Override
