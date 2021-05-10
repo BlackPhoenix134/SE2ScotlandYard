@@ -9,8 +9,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Scaling;
 
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.connection.ClientStart;
+import sy.connection.ServerStart;
 import sy.input.InputHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
@@ -69,6 +72,8 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
+                ServerStart server = new ServerStart();
+                server.main(null);
                 screenManager.showScreen(GameScreen.class);
             }
         });
@@ -77,7 +82,10 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
                     public void onClick(){
                 sound.play();
-                //screenManager.showScreen(OptionsScreen.class);
+                /* Only for testing purposes active
+                ClientStart client = new ClientStart();
+                client.main(null);
+                screenManager.showScreen(GameScreen.class);*/
             }
 
         });
