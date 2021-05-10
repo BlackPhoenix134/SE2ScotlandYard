@@ -11,4 +11,6 @@ public class Assets {
     //gameboard
     public static final String GAMEBOARD = "gameboard/map.png";
 
+    //player
+    public static final String PLAYER1 = "gamecharacters/player1.png";
 }
