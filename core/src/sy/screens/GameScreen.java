@@ -27,7 +27,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
     private ScreenManager screenManager;
-    public NodeGraphObject nodeGraphObject;
     private InputHandler inputHandler;
     private Vector2 dragValue = new Vector2();
     private Vector2 oldDragValue = new Vector2();
@@ -41,14 +40,11 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         this.camera = camera;
         this.screenManager = screenManager;
 
-        //gameObjectManager.create(NodeGraphObject.class);
+        gameObjectManager.create(NodeGraphObject.class);
 
         GameBoardObject gameBoardObject = gameObjectManager.create(GameBoardObject.class);
         Texture gameBoardTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.GAME_BOARD);
         gameBoardObject.setTexture(gameBoardTexture);
-
-
-        nodeGraphObject = new NodeGraphObject("hi");
 
     }
 
@@ -80,7 +76,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private void stepFastUpdate(float delta) {
         renderPipeline.begin();
         gameObjectManager.draw(delta, renderPipeline);
-        nodeGraphObject.draw(delta, renderPipeline);
         renderPipeline.end();
         updateCam();
         renderPipeline.updateBatchMatrix();
