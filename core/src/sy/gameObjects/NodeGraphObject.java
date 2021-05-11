@@ -21,6 +21,7 @@ public class NodeGraphObject extends GameObject {
     //ToDo: scene2d or self made transform hierarchy, if this obejct moves, nodes do not move
     ArrayList<Vector2> nodeposition;
 
+
     NodeGraphObject(String uuid) {
         super(uuid);
         nodeposition = new ArrayList<>();
@@ -1102,6 +1103,10 @@ public class NodeGraphObject extends GameObject {
         //edges from node 198
         graph.addEdge(197, 198, MoveType.TAXI);
 
+    }
+
+    public ArrayList<Vector2> getNodeposition() {
+        return nodeposition;
     }
 
     @Override
