@@ -3,8 +3,6 @@ package sy.rendering;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 
@@ -20,6 +18,8 @@ public class PrimitiveRenderer  implements Disposable {
     }
 
     void drawCircle(Vector2 position, int radius, Color color, boolean isFilled) {
+        Vector2 centeredPosition = new Vector2(position.x - radius, position.y - radius);
+
         PrimitiveCircle primitive = new PrimitiveCircle(radius, color, isFilled);
         if(primtiveCache.containsKey(primitive.hashCode())) {
             primitive = (PrimitiveCircle)primtiveCache.get(primitive.hashCode());
@@ -27,7 +27,7 @@ public class PrimitiveRenderer  implements Disposable {
             primitive.setTexture(createPixmapCircle(radius, color, isFilled));
             primtiveCache.put(primitive.hashCode(), primitive);
         }
-        defaultRenderer.add(primitive.getTexture(), position);
+        defaultRenderer.add(primitive.getTexture(), centeredPosition);
     }
 
     <T extends Primitive> T getCachedPrimitive(int hashCode) {
