@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import sy.assets.SYAssetManager;
+import sy.assets.ShaderManager;
 import sy.rendering.RenderPipeline;
 import sy.screens.GameScreen;
 import sy.screens.MainMenuScreen;
@@ -22,7 +23,7 @@ public class Game extends com.badlogic.gdx.Game {
         SYAssetManager.loadAssets();
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(800, 600, camera);
-        renderPipeline = new RenderPipeline(new SpriteBatch(), camera, viewport);
+        renderPipeline = new RenderPipeline(new SpriteBatch(), new ShaderManager(), camera, viewport);
         screenManager = new ScreenManager(this);
         screenManager.addScreen(new MainMenuScreen(renderPipeline, camera, screenManager));
         screenManager.addScreen(new GameScreen(renderPipeline, camera, screenManager));

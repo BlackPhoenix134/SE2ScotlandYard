@@ -1,5 +1,6 @@
 package sy.rendering;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
@@ -11,6 +12,7 @@ public class DrawableItem {
     private Vector2 position;
     private Sprite sprite;
     private int drawLayer;
+
 
     public DrawableItem(Texture texture, Vector2 position, int drawLayer) {
         this.texture = texture;
