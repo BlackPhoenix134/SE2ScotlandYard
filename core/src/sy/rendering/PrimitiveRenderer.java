@@ -17,18 +17,6 @@ public class PrimitiveRenderer  implements Disposable {
         this.defaultRenderer = defaultRenderer;
     }
 
-    void drawCircle(Vector2 position, int radius, Color color, boolean isFilled) {
-        Vector2 centeredPosition = new Vector2(position.x - radius, position.y - radius);
-
-        PrimitiveCircle primitive = new PrimitiveCircle(radius, color, isFilled);
-        if(primtiveCache.containsKey(primitive.hashCode())) {
-            primitive = (PrimitiveCircle)primtiveCache.get(primitive.hashCode());
-        } else {
-            primitive.setTexture(createPixmapCircle(radius, color, isFilled));
-            primtiveCache.put(primitive.hashCode(), primitive);
-        }
-        defaultRenderer.add(primitive.getTexture(), centeredPosition);
-    }
 
     <T extends Primitive> T getCachedPrimitive(int hashCode) {
         return (T)primtiveCache.get(hashCode);
