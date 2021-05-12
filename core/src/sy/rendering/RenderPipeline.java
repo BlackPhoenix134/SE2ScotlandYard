@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.Shader;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -52,7 +53,8 @@ public class RenderPipeline implements Disposable {
     }
 
     public void add(Texture img, Vector2 position, int drawLayer) {
-        drawables.add(new DrawableItem(img, position, drawLayer));
+        Vector2 centeredPos = new Vector2(position.x - img.getWidth() / 2f, position.y - img.getHeight() / 2f);
+        drawables.add(new DrawableItem(img, centeredPos, drawLayer));
     }
 
     public void add(Sprite sprite, int drawLayer) {
@@ -61,21 +63,25 @@ public class RenderPipeline implements Disposable {
 
     private void renderDrawables() {
         Collections.sort(drawables, drawableItemComparator);
-
+        ShaderProgram lastShader = ShaderManager.defaultShader;
         defaultRenderer.begin();
-       // batch.setShader(shaderManager.loadDefaultShader());
         for(DrawableItem drawable : drawables) {
+            if(drawable.getShader() != lastShader) {
+                defaultRenderer.end();
+                batch.setShader(drawable.getShader());
+                lastShader = drawable.getShader();
+                batch.begin();
+            }
+
             if(drawable.getSprite() != null)
                 defaultRenderer.add(drawable.getSprite());
             else
                 defaultRenderer.add(drawable.getTexture(), drawable.getPosition());
         }
-
         defaultRenderer.end();
     }
 
     public void drawCircle(Vector2 position, int radius, Color color, boolean isFilled, int drawLayer) {
-        Vector2 centeredPosition = new Vector2(position.x - radius, position.y - radius);
         PrimitiveCircle primitive = new PrimitiveCircle(radius, color, isFilled);
         if(primitiveRenderer.isInCache(primitive)) {
             primitive = (PrimitiveCircle)primitiveRenderer.getCachedPrimitive(primitive.hashCode());
@@ -83,7 +89,7 @@ public class RenderPipeline implements Disposable {
             primitive.setTexture(primitiveRenderer.createPixmapCircle(radius, color, isFilled));
             primitiveRenderer.toCache(primitive);
         }
-       add(primitive.getTexture(), centeredPosition, drawLayer);
+       add(primitive.getTexture(), position, drawLayer);
     }
 
 

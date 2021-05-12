@@ -11,6 +11,7 @@ import java.util.logging.FileHandler;
 
 public class ShaderManager {
     private Map<Integer, ShaderCacheEntry> cache = new HashMap<>();
+    public final static ShaderProgram defaultShader = null; //Passing null to batch makes batch use default shader
 
     public ShaderProgram loadShader(String vertexShaderPath, String fragmentShaderPath) {
         String fullVertexPath = resolvePath(vertexShaderPath);
