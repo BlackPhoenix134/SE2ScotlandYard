@@ -4,13 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.gameObjects.BoundingBoxable;
 import sy.gameObjects.GameBoardObject;
+import sy.gameObjects.GameObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PlayerObject;
@@ -34,7 +37,8 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private float currentScale = 1;
     private float zoomValue = 1;
     private PlayerObject playerObject;
-    private ArrayList<Vector2> nodeposition;
+    private GameBoardObject gameBoardObject;
+    private ArrayList<Vector2> nodeGraphObject;
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -43,15 +47,14 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         this.camera = camera;
         this.screenManager = screenManager;
 
-        nodeposition = gameObjectManager.create(NodeGraphObject.class).getNodeposition();
+        nodeGraphObject = gameObjectManager.create(NodeGraphObject.class).getNodeposition();
 
-        GameBoardObject gameBoardObject = gameObjectManager.create(GameBoardObject.class);
+        gameBoardObject = gameObjectManager.create(GameBoardObject.class);
         Texture gameBoardTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.GAME_BOARD);
         gameBoardObject.setTexture(gameBoardTexture);
 
         playerObject = gameObjectManager.create(PlayerObject.class);
     }
-
 
     @Override
     public void buildStage() {
@@ -114,15 +117,29 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     }
 
-    //Needs refactoring in other class...
     private void updateCam() {
         camera.zoom = this.zoomValue;
         if (oldDragValue.x != dragValue.x || oldDragValue.y != dragValue.y) {
             camera.position.add(-dragValue.x, dragValue.y, 0);
             oldDragValue.x = dragValue.x;
             oldDragValue.y = dragValue.y;
+
+            camera.position.set(clampCam(camera.position,  gameBoardObject.getBoundingBox()));
         }
         camera.update();
+    }
+
+
+
+    private Vector3 clampCam(Vector3 position, Rectangle boundingBox) {
+        return new Vector3(clamp(position.x, boundingBox.x, boundingBox.width)
+        , clamp(position.y, boundingBox.y, boundingBox.height), position.z);
+    }
+
+    private float clamp(float value, float min, float max) {
+        if(value < min)
+            return min;
+        return Math.min(value, max);
     }
 
     @Override
@@ -137,7 +154,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         Gdx.app.log("Game", "TOUCH ON " + screenX + ", " + screenY);
         Vector3 vector3 = camera.unproject(new Vector3(screenX, screenY, 0));
         int range = 40;
-        for (Vector2 pos : nodeposition) {
+        for (Vector2 pos : nodeGraphObject) {
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
                 playerObject.setPosition(pos);
             }
