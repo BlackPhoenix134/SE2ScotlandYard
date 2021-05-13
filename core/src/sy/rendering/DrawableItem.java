@@ -3,6 +3,7 @@ package sy.rendering;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Comparator;
@@ -12,6 +13,7 @@ public class DrawableItem {
     private Vector2 position;
     private Sprite sprite;
     private int drawLayer;
+    private ShaderProgram shader;
 
 
     public DrawableItem(Texture texture, Vector2 position, int drawLayer) {
@@ -39,6 +41,14 @@ public class DrawableItem {
 
     public Vector2 getPosition() {
         return position;
+    }
+
+    public ShaderProgram getShader() {
+        return shader;
+    }
+
+    public void setShader(ShaderProgram shader) {
+        this.shader = shader;
     }
 
     public void setTexture(Texture texture) {

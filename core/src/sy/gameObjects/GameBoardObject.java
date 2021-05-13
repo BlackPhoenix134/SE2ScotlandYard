@@ -1,11 +1,12 @@
 package sy.gameObjects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import sy.rendering.RenderPipeline;
 
-public class GameBoardObject extends GameObject {
+public class GameBoardObject extends GameObject implements BoundingBoxable {
     private Vector2 position = Vector2.Zero;
     private Texture texture;
 
@@ -28,6 +29,13 @@ public class GameBoardObject extends GameObject {
 
     public void setTexture(Texture texture) {
         this.texture = texture;
+    }
+
+    public Rectangle getBoundingBox() {
+        float widthHalf = texture.getWidth() / 2f;
+        float heightHalf =texture.getHeight() / 2f;
+        return new Rectangle(position.x - widthHalf, position.y - heightHalf, position.x + widthHalf, position.y + heightHalf);
+
     }
 
     @Override
