@@ -71,8 +71,8 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
-                ServerHandler sh = new ServerHandler();
-                sh.serverStart();
+               // ServerHandler sh = new ServerHandler();
+                //sh.serverStart();
                 screenManager.showScreen(GameScreen.class);
             }
         });
@@ -82,9 +82,9 @@ public class MainMenuScreen extends AbstractScreen {
                     public void onClick(){
                 sound.play();
                 //Only for testing purposes active
-                ClientHandler ch = new ClientHandler();
-                ch.clientStart();
-                screenManager.showScreen(GameScreen.class);
+                //ClientHandler ch = new ClientHandler();
+                //ch.clientStart();
+                screenManager.showScreen(LobbyMenu.class);
             }
 
         });

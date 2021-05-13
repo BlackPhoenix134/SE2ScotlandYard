@@ -11,6 +11,10 @@ public class AssetDescriptors {
     public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>(Assets.JoinButton, Texture.class);
 
 
+    //gameLobby
+    public static final AssetDescriptor<Texture> BUTTON_GAMEJOIN = new AssetDescriptor<Texture>(Assets.JoinGameButton, Texture.class);
+
+
     //gameboard
     public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>(Assets.GAMEBOARD, Texture.class);
 

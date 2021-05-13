@@ -7,6 +7,7 @@ import sy.assets.SYAssetManager;
 import sy.assets.ShaderManager;
 import sy.rendering.RenderPipeline;
 import sy.screens.GameScreen;
+import sy.screens.LobbyMenu;
 import sy.screens.MainMenuScreen;
 import sy.screens.ScreenManager;
 
@@ -27,6 +28,7 @@ public class Game extends com.badlogic.gdx.Game {
         screenManager = new ScreenManager(this);
         screenManager.addScreen(new MainMenuScreen(renderPipeline, camera, screenManager));
         screenManager.addScreen(new GameScreen(renderPipeline, camera, screenManager));
+        screenManager.addScreen(new LobbyMenu(renderPipeline, camera, screenManager));
         screenManager.showScreen(MainMenuScreen.class);
     }
 
