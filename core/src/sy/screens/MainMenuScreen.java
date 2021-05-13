@@ -12,9 +12,8 @@ import com.badlogic.gdx.utils.Scaling;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
-import sy.connection.ClientStart;
-import sy.connection.ServerStart;
-import sy.input.InputHandler;
+import sy.connection.ClientHandler;
+import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -72,8 +71,8 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
-                ServerStart server = new ServerStart();
-                server.main(null);
+                ServerHandler sh = new ServerHandler();
+                sh.serverStart();
                 screenManager.showScreen(GameScreen.class);
             }
         });
@@ -82,10 +81,10 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
                     public void onClick(){
                 sound.play();
-                /* Only for testing purposes active
-                ClientStart client = new ClientStart();
-                client.main(null);
-                screenManager.showScreen(GameScreen.class);*/
+                //Only for testing purposes active
+                ClientHandler ch = new ClientHandler();
+                ch.clientStart();
+                screenManager.showScreen(GameScreen.class);
             }
 
         });

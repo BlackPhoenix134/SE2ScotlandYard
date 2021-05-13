@@ -1,12 +1,7 @@
-package sy.connection.Listener;
+/*package sy.connection.Listener;
 
-import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.Server;
-
-import sy.connection.packages.request.RequestMovement;
-import sy.connection.packages.response.ResponseMovement;
 
 public class ClientListener extends Listener {
     public void connected(Connection connection) {
@@ -25,3 +20,4 @@ public class ClientListener extends Listener {
 
     }
 }
+*/
