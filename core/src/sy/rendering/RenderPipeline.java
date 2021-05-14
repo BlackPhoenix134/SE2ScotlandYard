@@ -84,7 +84,7 @@ public class RenderPipeline implements Disposable {
     public void drawCircle(Vector2 position, int radius, Color color, boolean isFilled, int drawLayer) {
         PrimitiveCircle primitive = new PrimitiveCircle(radius, color, isFilled);
         if(primitiveRenderer.isInCache(primitive)) {
-            primitive = (PrimitiveCircle)primitiveRenderer.getCachedPrimitive(primitive.hashCode());
+            primitive = primitiveRenderer.getCachedPrimitive(primitive.hashCode());
         } else {
             primitive.setTexture(primitiveRenderer.createPixmapCircle(radius, color, isFilled));
             primitiveRenderer.toCache(primitive);
