@@ -25,6 +25,7 @@ public class DrawableItem {
     public DrawableItem(Sprite sprite, int drawLayer) {
         this.sprite = sprite;
         this.drawLayer = drawLayer;
+        this.sprite.setPosition(sprite.getX() - sprite.getWidth()/2f, sprite.getY() - sprite.getHeight()/2f);
     }
 
     public Texture getTexture() {

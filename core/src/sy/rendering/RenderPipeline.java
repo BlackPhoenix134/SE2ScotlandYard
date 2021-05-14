@@ -58,7 +58,7 @@ public class RenderPipeline implements Disposable {
     }
 
     public void add(Sprite sprite, int drawLayer) {
-        drawables.add(new DrawableItem(sprite, drawLayer));
+        drawables.add(new DrawableItem(sprite,  drawLayer));
     }
 
     private void renderDrawables() {
