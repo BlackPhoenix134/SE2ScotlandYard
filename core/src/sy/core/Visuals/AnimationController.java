@@ -24,6 +24,10 @@ public class AnimationController {
         sheet = frames;
     }
 
+    public int getCurrentFrameIdx() {
+        return currIdx;
+    }
+
     public int getMaxAnimationIdx() {
         return sheet.length - 1;
     }
