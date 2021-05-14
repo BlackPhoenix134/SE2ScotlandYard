@@ -26,14 +26,17 @@ public class SYAssetManager {
         assetManager.load(AssetDescriptors.BUTTON_OPTIONS);
         assetManager.load(AssetDescriptors.BUTTON_JOIN);
         assetManager.load(AssetDescriptors.MONSTER1);
+        assetManager.load(AssetDescriptors.MONSTER2);
+        assetManager.load(AssetDescriptors.MONSTER3);
         assetManager.load(AssetDescriptors.BUTTON_GAMEJOIN);
+        assetManager.load(AssetDescriptors.GHOST_WALKING);
         assetManager.finishLoading();
 
         pixmap.dispose();
     }
 
     public static <T> T getAsset(AssetDescriptor<T> assetDescriptor)  {
-        if(!assetManager.containsAsset(assetDescriptor))
+        if(!assetManager.isLoaded(assetDescriptor))
             assetManager.load(assetDescriptor);
         assetManager.finishLoading();
         return assetManager.get(assetDescriptor);
