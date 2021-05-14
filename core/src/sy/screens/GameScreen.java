@@ -9,9 +9,17 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Vector;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.core.LivingBoard.CritterSpawnerManager;
+import sy.core.Math.GoodMath;
+import sy.core.Math.PoissonDiskSampler;
+import sy.core.Math.Polygon;
+import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
@@ -57,6 +65,20 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
         //client only -> should be handled that way in gameplay classes
 
+
+        Polygon polygon = new Polygon(Arrays.asList(
+                new Vector2(-1097.8313f,23.393494f), new Vector2(-1304.3176f,123.03136f),
+                new Vector2(-1339.7153f,377.37015f), new Vector2(-1242.6996f,467.17535f),
+                new Vector2(-1110.286f,548.45886f), new Vector2(-892.6559f,446.1989f),
+                new Vector2(-861.8468f,378.68118f), new Vector2(-839.55945f,156.4625f)));
+        Vector2 center = polygon.getCenter();
+        List<Vector2> points = PoissonDiskSampler.SampleCircle(Vector2.Zero, 1000, 50);
+        for(Vector2 point : points) {
+            if(polygon.isInsidePoly(point)) {
+                DebugObject dbgObj = gameObjectManager.create(DebugObject.class);
+                dbgObj.setPosition(GoodMath.add(center, point));
+            }
+        }
     }
 
     @Override
