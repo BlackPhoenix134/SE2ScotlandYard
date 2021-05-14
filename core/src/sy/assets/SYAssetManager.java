@@ -1,13 +1,14 @@
 package sy.assets;
 
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.util.AbstractSet;
+
 public class SYAssetManager {
-
-
     private static AssetManager assetManager = new AssetManager();
     public static Texture solid1x1;
 
@@ -29,12 +30,12 @@ public class SYAssetManager {
         assetManager.finishLoading();
 
         pixmap.dispose();
-
-
     }
 
-    public static AssetManager getAssetManager() {
-        return assetManager;
+    public static <T> T getAsset(AssetDescriptor<T> assetDescriptor)  {
+        if(!assetManager.containsAsset(assetDescriptor))
+            assetManager.load(assetDescriptor);
+        return assetManager.get(assetDescriptor);
     }
 
     public static void dispose() {

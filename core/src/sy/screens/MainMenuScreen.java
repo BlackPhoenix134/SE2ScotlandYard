@@ -42,10 +42,10 @@ public class MainMenuScreen extends AbstractScreen {
         Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
 
-        Texture startGameTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_DEVIL);
+        Texture startGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DEVIL);
         //Texture optionsTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_OPTIONS);
-        Texture exitGameTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_EXIT);
-        Texture joinGameTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.BUTTON_JOIN);
+        Texture exitGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_EXIT);
+        Texture joinGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_JOIN);
 
         btnStartGame = new AliveButton(startGameTexture);
         //btnOptions   = new AliveButton(optionsTexture);

@@ -52,7 +52,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         nodeGraphObject = gameObjectManager.create(NodeGraphObject.class).getNodeposition();
 
         gameBoardObject = gameObjectManager.create(GameBoardObject.class);
-        Texture gameBoardTexture = SYAssetManager.getAssetManager().get(AssetDescriptors.GAME_BOARD);
+        Texture gameBoardTexture = SYAssetManager.getAsset(AssetDescriptors.GAME_BOARD);
         gameBoardObject.setTexture(gameBoardTexture);
 
         playerObject = gameObjectManager.create(PlayerObject.class);
@@ -60,6 +60,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
         //client only -> should be handled that way in gameplay classes
         //Critter ghostCritter = gameObjectManager.create(Critter.class);
+        new AnimationController(SYAssetManager.getAsset(AssetDescriptors.GHOST_WALKING), 9, 1);
         //ghostCritter.init(new AnimationController(SYAssetManager.getAssetManager().get(AssetDescriptors.GHOST_WALKING), 9, 1));
     }
 

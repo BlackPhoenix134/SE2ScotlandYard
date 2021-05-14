@@ -18,7 +18,7 @@ public class PlayerObject extends GameObject {
     public PlayerObject(String uuid) {
         super(uuid);
         position = Vector2.Zero;
-        Texture texture = SYAssetManager.getAssetManager().get(AssetDescriptors.MONSTER1);
+        Texture texture = SYAssetManager.getAsset(AssetDescriptors.MONSTER1);
         sprite = new Sprite(texture);
         sprite.setScale(0.45f);
     }
