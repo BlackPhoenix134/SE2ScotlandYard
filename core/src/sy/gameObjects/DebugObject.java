@@ -8,32 +8,26 @@ import sy.rendering.RenderPipeline;
 
 public class DebugObject extends GameObject {
     private Vector2 position = Vector2.Zero;
-    private Texture texture;
-
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
 
     DebugObject(String uuid) {
         super(uuid);
     }
 
-    private float bong = 1;
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        this.position = position;
+    }
+
     @Override
     public void update(float delta) {
-        position.x += 10 * delta;
-        if(position.x > 450)
-            bong = -1;
-        if(position.x < 10)
-            bong = 1;
+
     }
 
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
-        pipeline.add(texture, position, 5);
+        pipeline.drawCircle(position, 8, Color.RED, true, 10000);
     }
 }
