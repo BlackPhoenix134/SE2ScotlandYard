@@ -11,11 +11,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
-import sy.core.Visuals.AnimationController;
-import sy.gameObjects.BoundingBoxable;
-import sy.gameObjects.Critter;
+import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.gameObjects.GameBoardObject;
-import sy.gameObjects.GameObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PlayerObject;
@@ -41,6 +38,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private PlayerObject playerObject;
     private GameBoardObject gameBoardObject;
     private ArrayList<Vector2> nodeGraphObject;
+    private CritterSpawnerManager critterSpawnerManager;
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -56,12 +54,9 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         gameBoardObject.setTexture(gameBoardTexture);
 
         playerObject = gameObjectManager.create(PlayerObject.class);
-
-
+        critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
         //client only -> should be handled that way in gameplay classes
-        //Critter ghostCritter = gameObjectManager.create(Critter.class);
-        new AnimationController(SYAssetManager.getAsset(AssetDescriptors.GHOST_WALKING), 9, 1);
-        //ghostCritter.init(new AnimationController(SYAssetManager.getAssetManager().get(AssetDescriptors.GHOST_WALKING), 9, 1));
+
     }
 
     @Override
@@ -84,6 +79,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     }
 
     private void stepTick(float delta) {
+        critterSpawnerManager.tick(delta);
         gameObjectManager.update(delta);
         gameObjectManager.postUpdate();
     }
@@ -161,6 +157,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     public void onTouchUp(int screenX, int screenY, int pointer, int button) {
         Gdx.app.log("Game", "TOUCH ON " + screenX + ", " + screenY);
         Vector3 vector3 = camera.unproject(new Vector3(screenX, screenY, 0));
+        Gdx.app.log("Koordinaten:", "PathNode node = new PathNode(new Vector2(" +vector3.x+"," +vector3.y + "));");
         int range = 40;
         for (Vector2 pos : nodeGraphObject) {
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
