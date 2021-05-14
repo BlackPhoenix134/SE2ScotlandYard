@@ -19,5 +19,7 @@ public class AssetDescriptors {
     public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>(Assets.GAMEBOARD, Texture.class);
 
     //player
-    public static final AssetDescriptor<Texture> PLAYER_1 = new AssetDescriptor<>(Assets.PLAYER1, Texture.class);
+    public static final AssetDescriptor<Texture> MONSTER1 = new AssetDescriptor<>(Assets.MONSTER1, Texture.class);
+    public static final AssetDescriptor<Texture> MONSTER2 = new AssetDescriptor<>(Assets.MONSTER2, Texture.class);
+    public static final AssetDescriptor<Texture> MONSTER3 = new AssetDescriptor<>(Assets.MONSTER3, Texture.class);
 }

@@ -24,7 +24,7 @@ public class SYAssetManager {
         assetManager.load(AssetDescriptors.BUTTON_EXIT);
         assetManager.load(AssetDescriptors.BUTTON_OPTIONS);
         assetManager.load(AssetDescriptors.BUTTON_JOIN);
-        assetManager.load(AssetDescriptors.PLAYER_1);
+        assetManager.load(AssetDescriptors.MONSTER1);
         assetManager.load(AssetDescriptors.BUTTON_GAMEJOIN);
         assetManager.finishLoading();
 

@@ -1,6 +1,5 @@
 package sy.gameObjects;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 
@@ -18,7 +17,7 @@ public class PlayerObject extends GameObject {
     public PlayerObject(String uuid) {
         super(uuid);
         position = Vector2.Zero;
-        texture = SYAssetManager.getAssetManager().get(AssetDescriptors.PLAYER_1);
+        texture = SYAssetManager.getAssetManager().get(AssetDescriptors.MONSTER1);
 
     }
 
