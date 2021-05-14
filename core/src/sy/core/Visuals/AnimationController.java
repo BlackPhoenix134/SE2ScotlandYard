@@ -4,13 +4,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AnimationController {
-    private int cols;
-    private int rows;
-    private int frameSize;
     TextureRegion[] sheet;
     private int currIdx = 0;
 
-    public AnimationController(Texture animSheet, int cols, int rows, int frameSize) {
+    public AnimationController(Texture animSheet, int cols, int rows) {
         TextureRegion[][] tmp = TextureRegion.split(animSheet,
                 animSheet.getWidth() / cols,
                 animSheet.getHeight() / rows);
