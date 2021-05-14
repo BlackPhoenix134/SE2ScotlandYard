@@ -3,6 +3,7 @@ package sy.core.Math;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -91,6 +92,12 @@ public class PoissonDiskSampler {
         }
 
         return state.Points;
+    }
+
+    public static void normalizeQuadrants(List<Vector2> points, float radius) {
+        float radiusHalf = radius/2f;
+        for(Vector2 point : points)
+            point.set(point.x - radiusHalf, point.y - radiusHalf);
     }
 
     static void AddFirstPoint(Settings settings, State state)

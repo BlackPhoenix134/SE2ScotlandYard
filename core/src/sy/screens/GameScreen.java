@@ -64,21 +64,47 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         playerObject = gameObjectManager.create(PlayerObject.class);
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
         //client only -> should be handled that way in gameplay classes
+       createPoly1();
+        createPoly2();
 
+    }
 
+    private void createPoly1() {
         Polygon polygon = new Polygon(Arrays.asList(
-                new Vector2(-1097.8313f,23.393494f), new Vector2(-1304.3176f,123.03136f),
-                new Vector2(-1339.7153f,377.37015f), new Vector2(-1242.6996f,467.17535f),
-                new Vector2(-1110.286f,548.45886f), new Vector2(-892.6559f,446.1989f),
-                new Vector2(-861.8468f,378.68118f), new Vector2(-839.55945f,156.4625f)));
+                new Vector2(-1097.8313f, 23.393494f), new Vector2(-1304.3176f, 123.03136f),
+                new Vector2(-1339.7153f, 377.37015f), new Vector2(-1242.6996f, 467.17535f),
+                new Vector2(-1110.286f, 548.45886f), new Vector2(-892.6559f, 446.1989f),
+                new Vector2(-861.8468f, 378.68118f), new Vector2(-839.55945f, 156.4625f)));
         Vector2 center = polygon.getCenter();
-        List<Vector2> points = PoissonDiskSampler.SampleCircle(Vector2.Zero, 1000, 50);
-        for(Vector2 point : points) {
-            if(polygon.isInsidePoly(point)) {
+        List<Vector2> points = PoissonDiskSampler.SampleCircle(center, 1000, 70);
+        for (Vector2 point : points) {
+            if (polygon.isInsidePoly(point)) {
                 DebugObject dbgObj = gameObjectManager.create(DebugObject.class);
-                dbgObj.setPosition(GoodMath.add(center, point));
+                dbgObj.setPosition(point);
             }
         }
+    }
+
+    private void createPoly2() {
+        Polygon polygon = new Polygon(Arrays.asList(
+             new Vector2(-844.0476f,-695.5206f),
+            new Vector2(-877.2617f,-72.0f),
+            new Vector2(-546.6297f,32.17176f),
+            new Vector2(-339.79602f,457.91705f),
+            new Vector2(51.225388f,620.9685f),
+            new Vector2(220.31572f,465.4657f),
+            new Vector2(277.68573f,92.56113f),
+            new Vector2(-80.1216f,-168.62306f),
+            new Vector2(-164.66676f,-401.12225f),
+            new Vector2(-600.9803f,-660.79675f)));
+        Vector2 center = polygon.getCenter();
+        List<Vector2> points = PoissonDiskSampler.SampleCircle(center, 1000, 90);
+        for (Vector2 point : points) {
+            if (polygon.isInsidePoly(point)) {
+                DebugObject dbgObj = gameObjectManager.create(DebugObject.class);
+                dbgObj.setPosition(point);
+            }
+       }
     }
 
     @Override
@@ -179,7 +205,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     public void onTouchUp(int screenX, int screenY, int pointer, int button) {
         Gdx.app.log("Game", "TOUCH ON " + screenX + ", " + screenY);
         Vector3 vector3 = camera.unproject(new Vector3(screenX, screenY, 0));
-        Gdx.app.log("Koordinaten:", "PathNode node = new PathNode(new Vector2(" +vector3.x+"," +vector3.y + "));");
+        Gdx.app.log("Koordinaten:", "new Vector2(" +vector3.x+"f," +vector3.y + "f);");
         int range = 40;
         for (Vector2 pos : nodeGraphObject) {
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {

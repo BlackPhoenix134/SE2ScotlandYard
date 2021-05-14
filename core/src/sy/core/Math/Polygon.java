@@ -8,6 +8,10 @@ import java.util.List;
 public class Polygon {
     private List<Vector2> points;
 
+    public List<Vector2> getPoints() {
+        return points;
+    }
+
     public Polygon(List<Vector2> points) {
         this.points = points;
     }
@@ -36,6 +40,12 @@ public class Polygon {
             Vector2 newPoint = new Vector2(currPoint.x + direction.x  * -range, currPoint.y + direction.y * -range);
             points.set(i, newPoint);
         }
+    }
+
+    public void moveBy(Vector2 direction, float distance) {
+        Vector2 normDir = direction.nor();
+        for(Vector2 point : points)
+            point.set(point.x + normDir.x * distance, point.y + normDir.y * distance);
     }
 
     public boolean doIntersection(Vector2 p1, Vector2 q1,
@@ -90,13 +100,16 @@ public class Polygon {
         return (count % 2 == 1);
     }
 
-    public Vector2 getCenter()
-    {
-        Vector2 result = Vector2.Zero;
-        for(Vector2 point : points)
-            result.set(new Vector2(result.x + point.x, result.y + point.y));
-        result.set(result.x / points.size(), result.y / points.size());
-        return result;
+    public Vector2 getCenter() {
+        float newX = 0;
+        float newY = 0;
+
+        for (Vector2 point : points) {
+            newX = newX + point.x;
+            newY = newY + point.y;
+        }
+        return new Vector2(newX / points.size(), newY / points.size());
     }
 }
+
 
