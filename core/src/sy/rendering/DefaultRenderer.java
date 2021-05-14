@@ -34,7 +34,9 @@ public class DefaultRenderer implements Disposable {
     }
 
     void add(Sprite sprite) {
+        sprite.setPosition(sprite.getX() - sprite.getWidth()/2f, sprite.getY() - sprite.getHeight()/2f);
         sprite.draw(batch);
+        sprite.setPosition(sprite.getX() + sprite.getWidth()/2f, sprite.getY() + sprite.getHeight()/2f);
     }
 
     void end() {
