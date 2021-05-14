@@ -24,6 +24,6 @@ public class AssetDescriptors {
     public static final AssetDescriptor<Texture> MONSTER3 = new AssetDescriptor<>(Assets.MONSTER3, Texture.class);
 
     //critter
-    public static final AssetDescriptor<Texture> GHOST_WALKING = new AssetDescriptor<>("characters/ghostWalking.png", Texture.class);
+    public static final AssetDescriptor<Texture> GHOST_WALKING = new AssetDescriptor<>(Assets.GHOST1_WALKING, Texture.class);
 
 }

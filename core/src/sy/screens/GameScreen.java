@@ -11,7 +11,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.core.Visuals.AnimationController;
 import sy.gameObjects.BoundingBoxable;
+import sy.gameObjects.Critter;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObject;
 import sy.gameObjects.GameObjectManager;
@@ -54,6 +56,11 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         gameBoardObject.setTexture(gameBoardTexture);
 
         playerObject = gameObjectManager.create(PlayerObject.class);
+
+
+        //client only -> should be handled that way in gameplay classes
+        //Critter ghostCritter = gameObjectManager.create(Critter.class);
+        //ghostCritter.init(new AnimationController(SYAssetManager.getAssetManager().get(AssetDescriptors.GHOST_WALKING), 9, 1));
     }
 
     @Override
