@@ -1,6 +1,7 @@
 package sy.gameObjects;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 import sy.assets.AssetDescriptors;
@@ -11,14 +12,15 @@ public class PlayerObject extends GameObject {
 
     private int playerID;
     private Vector2 position;
-    private Texture texture;
+    private Sprite sprite;
 
 
     public PlayerObject(String uuid) {
         super(uuid);
         position = Vector2.Zero;
-        texture = SYAssetManager.getAssetManager().get(AssetDescriptors.MONSTER1);
-
+        Texture texture = SYAssetManager.getAssetManager().get(AssetDescriptors.MONSTER1);
+        sprite = new Sprite(texture);
+        sprite.setScale(0.45f);
     }
 
     @Override
@@ -28,7 +30,8 @@ public class PlayerObject extends GameObject {
 
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
-        pipeline.add(texture, position, 55);
+        sprite.setPosition(position.x, position.y);
+        pipeline.add(sprite, 55);
     }
 
     public int getPlayerID() {
@@ -46,13 +49,4 @@ public class PlayerObject extends GameObject {
     public void setPosition(Vector2 position) {
         this.position = position;
     }
-
-    public Texture getTexture() {
-        return texture;
-    }
-
-    public void setTexture(Texture texture) {
-        this.texture = texture;
-    }
-
 }
