@@ -13,7 +13,7 @@ public class Assets {
     public static final String GAMEBOARD = "gameboard/map.png";
 
     //player
-    public static final String MONSTER1 = "gamecharacters/monster1.png";
-    public static final String MONSTER2 = "gamecharacters/monster2.png";
-    public static final String MONSTER3 = "gamecharacters/monster3.png";
+    public static final String MONSTER1 = "characters/monster1.png";
+    public static final String MONSTER2 = "characters/monster2.png";
+    public static final String MONSTER3 = "characters/monster3.png";
 }
