@@ -23,7 +23,7 @@ public class Game extends com.badlogic.gdx.Game {
     public void create() {
         SYAssetManager.loadAssets();
         camera = new OrthographicCamera();
-        viewport = new ExtendViewport(800, 600, camera);
+        viewport = new ExtendViewport(5000, 3000, camera);
         renderPipeline = new RenderPipeline(new SpriteBatch(), new ShaderManager(), camera, viewport);
         screenManager = new ScreenManager(this);
         screenManager.addScreen(new MainMenuScreen(renderPipeline, camera, screenManager));

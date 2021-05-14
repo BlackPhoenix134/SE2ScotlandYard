@@ -27,243 +27,243 @@ public class NodeGraphObject extends GameObject {
         nodeposition = new ArrayList<>();
 
         //1-10
-        nodeposition.add(new Vector2(293, 1827));
-        nodeposition.add(new Vector2(761, 1861));
-        nodeposition.add(new Vector2(1058, 1855));
-        nodeposition.add(new Vector2(1240, 1865));
-        nodeposition.add(new Vector2(1974, 1838));
-        nodeposition.add(new Vector2(2201, 1847));
-        nodeposition.add(new Vector2(2416, 1818));
-        nodeposition.add(new Vector2(190, 1718));
-        nodeposition.add(new Vector2(379, 1713));
-        nodeposition.add(new Vector2(908, 1720));
+        nodeposition.add(new Vector2(-2923, 2636));
+        nodeposition.add(new Vector2(-1532, 2779));
+        nodeposition.add(new Vector2(-603, 2752));
+        nodeposition.add(new Vector2(-43, 2799));
+        nodeposition.add(new Vector2(2186, 2730));
+        nodeposition.add(new Vector2(2889, 2742));
+        nodeposition.add(new Vector2(3563, 2691));
+        nodeposition.add(new Vector2(-3270, 2341));
+        nodeposition.add(new Vector2(-2691, 2338));
+        nodeposition.add(new Vector2(-1066, 2381));
 
         //11-20
-        nodeposition.add(new Vector2(1051, 1699));
-        nodeposition.add(new Vector2(1163, 1726));
-        nodeposition.add(new Vector2(1375, 1730));
-        nodeposition.add(new Vector2(1586, 1775));
-        nodeposition.add(new Vector2(1808, 1798));
-        nodeposition.add(new Vector2(2015, 1720));
-        nodeposition.add(new Vector2(2399, 1645));
-        nodeposition.add(new Vector2(86, 1635));
-        nodeposition.add(new Vector2(266, 1609));
-        nodeposition.add(new Vector2(479, 1669));
+        nodeposition.add(new Vector2(-648, 2297));
+        nodeposition.add(new Vector2(-299, 2367));
+        nodeposition.add(new Vector2(361, 2400));
+        nodeposition.add(new Vector2(1031, 2531));
+        nodeposition.add(new Vector2(1638, 2586));
+        nodeposition.add(new Vector2(2333, 2350));
+        nodeposition.add(new Vector2(3509, 2151));
+        nodeposition.add(new Vector2(-3580, 2087));
+        nodeposition.add(new Vector2(-3039, 2032));
+        nodeposition.add(new Vector2(-2388, 2199));
 
         //21-30
-        nodeposition.add(new Vector2(702, 1572));
-        nodeposition.add(new Vector2(1054, 1546));
-        nodeposition.add(new Vector2(1223, 1630));
-        nodeposition.add(new Vector2(1497, 1616));
-        nodeposition.add(new Vector2(1617, 1594));
-        nodeposition.add(new Vector2(1793, 1724));
-        nodeposition.add(new Vector2(1823, 1614));
-        nodeposition.add(new Vector2(1898, 1663));
-        nodeposition.add(new Vector2(2199, 1597));
-        nodeposition.add(new Vector2(2480, 1611));
+        nodeposition.add(new Vector2(-1700, 1917));
+        nodeposition.add(new Vector2(-615, 1822));
+        nodeposition.add(new Vector2(-107, 2118));
+        nodeposition.add(new Vector2(712, 2046));
+        nodeposition.add(new Vector2(1092, 1959));
+        nodeposition.add(new Vector2(1631, 2367));
+        nodeposition.add(new Vector2(1730, 2058));
+        nodeposition.add(new Vector2(1967, 2169));
+        nodeposition.add(new Vector2(2880, 1983));
+        nodeposition.add(new Vector2(3737, 2025));
 
         //31-40
-        nodeposition.add(new Vector2(160, 1553));
-        nodeposition.add(new Vector2(417, 1490));
-        nodeposition.add(new Vector2(603, 1524));
-        nodeposition.add(new Vector2(928, 1488));
-        nodeposition.add(new Vector2(1113, 1445));
-        nodeposition.add(new Vector2(1187, 1436));
-        nodeposition.add(new Vector2(1305, 1533));
-        nodeposition.add(new Vector2(1548, 1522));
-        nodeposition.add(new Vector2(1672, 1545));
-        nodeposition.add(new Vector2(1871, 1462));
+        nodeposition.add(new Vector2(-3345, 1838));
+        nodeposition.add(new Vector2(-2570, 1663));
+        nodeposition.add(new Vector2(-1998, 1751));
+        nodeposition.add(new Vector2(-1017, 1648));
+        nodeposition.add(new Vector2(-447, 1510));
+        nodeposition.add(new Vector2(-203, 1469));
+        nodeposition.add(new Vector2(138, 1791));
+        nodeposition.add(new Vector2(906, 1759));
+        nodeposition.add(new Vector2(1268, 1817));
+        nodeposition.add(new Vector2(1871, 1560));
 
         //41-50
-        nodeposition.add(new Vector2(1951, 1493));
-        nodeposition.add(new Vector2(2405, 1498));
-        nodeposition.add(new Vector2(34, 1458));
-        nodeposition.add(new Vector2(290, 1402));
-        nodeposition.add(new Vector2(478, 1377));
-        nodeposition.add(new Vector2(637, 1421));
-        nodeposition.add(new Vector2(760, 1458));
-        nodeposition.add(new Vector2(955, 1367));
-        nodeposition.add(new Vector2(1256, 1362));
-        nodeposition.add(new Vector2(1379, 1433));
+        nodeposition.add(new Vector2(2092, 1692));
+        nodeposition.add(new Vector2(3519, 1671));
+        nodeposition.add(new Vector2(-3716, 1554));
+        nodeposition.add(new Vector2(-2939, 1395));
+        nodeposition.add(new Vector2(-2370, 1305));
+        nodeposition.add(new Vector2(-1903, 1450));
+        nodeposition.add(new Vector2(-1533, 1551));
+        nodeposition.add(new Vector2(-930, 1265));
+        nodeposition.add(new Vector2(-5, 1257));
+        nodeposition.add(new Vector2(366, 1498));
 
         //51-60
-        nodeposition.add(new Vector2(1625, 1416));
-        nodeposition.add(new Vector2(1748, 1439));
-        nodeposition.add(new Vector2(1882, 1364));
-        nodeposition.add(new Vector2(1985, 1400));
-        nodeposition.add(new Vector2(2206, 1397));
-        nodeposition.add(new Vector2(2487, 1377));
-        nodeposition.add(new Vector2(128, 1356));
-        nodeposition.add(new Vector2(375, 1330));
-        nodeposition.add(new Vector2(420, 1269));
-        nodeposition.add(new Vector2(520, 1287));
+        nodeposition.add(new Vector2(1123, 1444));
+        nodeposition.add(new Vector2(1509, 1516));
+        nodeposition.add(new Vector2(1925, 1279));
+        nodeposition.add(new Vector2(2228, 1367));
+        nodeposition.add(new Vector2(2897, 1386));
+        nodeposition.add(new Vector2(3779, 1310));
+        nodeposition.add(new Vector2(-3463, 1260));
+        nodeposition.add(new Vector2(-2713, 1174));
+        nodeposition.add(new Vector2(-2568, 1001));
+        nodeposition.add(new Vector2(-2272, 1035));
 
         //61-70
-        nodeposition.add(new Vector2(679, 1262));
-        nodeposition.add(new Vector2(768, 1288));
-        nodeposition.add(new Vector2(979, 1186));
-        nodeposition.add(new Vector2(1105, 1211));
-        nodeposition.add(new Vector2(1238, 1238));
-        nodeposition.add(new Vector2(1324, 1251));
-        nodeposition.add(new Vector2(1468, 1280));
-        nodeposition.add(new Vector2(1642, 1312));
-        nodeposition.add(new Vector2(1797, 1327));
-        nodeposition.add(new Vector2(1988, 1293));
+        nodeposition.add(new Vector2(-1758, 955));
+        nodeposition.add(new Vector2(-1494, 1055));
+        nodeposition.add(new Vector2(-855, 728));
+        nodeposition.add(new Vector2(-461, 803));
+        nodeposition.add(new Vector2(-56, 868));
+        nodeposition.add(new Vector2(187, 935));
+        nodeposition.add(new Vector2(645, 1017));
+        nodeposition.add(new Vector2(1143, 1078));
+        nodeposition.add(new Vector2(1642, 1129));
+        nodeposition.add(new Vector2(2236, 1053));
 
         //71-80
-        nodeposition.add(new Vector2(2175, 1295));
-        nodeposition.add(new Vector2(2362, 1274));
-        nodeposition.add(new Vector2(129, 1256));
-        nodeposition.add(new Vector2(214, 1161));
-        nodeposition.add(new Vector2(331, 1188));
-        nodeposition.add(new Vector2(483, 1201));
-        nodeposition.add(new Vector2(579, 1114));
-        nodeposition.add(new Vector2(719, 1129));
-        nodeposition.add(new Vector2(805, 1156));
-        nodeposition.add(new Vector2(1014, 1104));
+        nodeposition.add(new Vector2(2795, 1051));
+        nodeposition.add(new Vector2(3381, 982));
+        nodeposition.add(new Vector2(-3466, 952));
+        nodeposition.add(new Vector2(-3212, 660));
+        nodeposition.add(new Vector2(-2828, 757));
+        nodeposition.add(new Vector2(-2369, 759));
+        nodeposition.add(new Vector2(-2063, 492));
+        nodeposition.add(new Vector2(-1652, 562));
+        nodeposition.add(new Vector2(-1383, 616));
+        nodeposition.add(new Vector2(-772, 490));
 
         //81-90
-        nodeposition.add(new Vector2(1203, 1082));
-        nodeposition.add(new Vector2(1272, 1124));
-        nodeposition.add(new Vector2(1436, 1150));
-        nodeposition.add(new Vector2(1554, 1202));
-        nodeposition.add(new Vector2(1652, 1242));
-        nodeposition.add(new Vector2(1826, 1169));
-        nodeposition.add(new Vector2(2001, 1125));
-        nodeposition.add(new Vector2(2089, 1110));
-        nodeposition.add(new Vector2(2164, 1170));
-        nodeposition.add(new Vector2(2282, 1167));
+        nodeposition.add(new Vector2(-182, 393));
+        nodeposition.add(new Vector2(44, 543));
+        nodeposition.add(new Vector2(551, 637));
+        nodeposition.add(new Vector2(916, 781));
+        nodeposition.add(new Vector2(1197, 874));
+        nodeposition.add(new Vector2(1727, 685));
+        nodeposition.add(new Vector2(2285, 539));
+        nodeposition.add(new Vector2(2524, 499));
+        nodeposition.add(new Vector2(2735, 656));
+        nodeposition.add(new Vector2(3118, 681));
 
         //91-100
-        nodeposition.add(new Vector2(2467, 1157));
-        nodeposition.add(new Vector2(58, 1064));
-        nodeposition.add(new Vector2(69, 1000));
-        nodeposition.add(new Vector2(225, 1029));
-        nodeposition.add(new Vector2(307, 1048));
-        nodeposition.add(new Vector2(683, 1006));
-        nodeposition.add(new Vector2(750, 1021));
-        nodeposition.add(new Vector2(855, 1056));
-        nodeposition.add(new Vector2(961, 1047));
-        nodeposition.add(new Vector2(1132, 983));
+        nodeposition.add(new Vector2(3116, 681));
+        nodeposition.add(new Vector2(-3672, 371));
+        nodeposition.add(new Vector2(-3635, 162));
+        nodeposition.add(new Vector2(-3164, 252));
+        nodeposition.add(new Vector2(-2912, 305));
+        nodeposition.add(new Vector2(-1753, 158));
+        nodeposition.add(new Vector2(-1555, 226));
+        nodeposition.add(new Vector2(-1237, 333));
+        nodeposition.add(new Vector2(-965, 307));
+        nodeposition.add(new Vector2(-365, 117));
 
         //101-110
-        nodeposition.add(new Vector2(1311, 1054));
-        nodeposition.add(new Vector2(1538, 1136));
-        nodeposition.add(new Vector2(1675, 1163));
-        nodeposition.add(new Vector2(1829, 1091));
-        nodeposition.add(new Vector2(2233, 1057));
-        nodeposition.add(new Vector2(2381, 1033));
-        nodeposition.add(new Vector2(2499, 1024));
-        nodeposition.add(new Vector2(2192, 888));
-        nodeposition.add(new Vector2(788, 871));
-        nodeposition.add(new Vector2(915, 982));
+        nodeposition.add(new Vector2(152, 322));
+        nodeposition.add(new Vector2(803, 578));
+        nodeposition.add(new Vector2(1263, 677));
+        nodeposition.add(new Vector2(1731, 355));
+        nodeposition.add(new Vector2(808, 233));
+        nodeposition.add(new Vector2(3418, 242));
+        nodeposition.add(new Vector2(3729, 259));
+        nodeposition.add(new Vector2(2761, -313));
+        nodeposition.add(new Vector2(-1435, -248));
+        nodeposition.add(new Vector2(-1045, 103));
 
         //111-120
-        nodeposition.add(new Vector2(984, 893));
-        nodeposition.add(new Vector2(1037, 931));
-        nodeposition.add(new Vector2(1205, 920));
-        nodeposition.add(new Vector2(1325, 963));
-        nodeposition.add(new Vector2(1534, 1018));
-        nodeposition.add(new Vector2(1830, 921));
-        nodeposition.add(new Vector2(2029, 845));
-        nodeposition.add(new Vector2(1835, 790));
-        nodeposition.add(new Vector2(2447, 760));
-        nodeposition.add(new Vector2(57, 685));
+        nodeposition.add(new Vector2(-851, -156));
+        nodeposition.add(new Vector2(-678, -70));
+        nodeposition.add(new Vector2(-142, -98));
+        nodeposition.add(new Vector2(189, -49));
+        nodeposition.add(new Vector2(2981, 333));
+        nodeposition.add(new Vector2(1726, -2));
+        nodeposition.add(new Vector2(2271, -46));
+        nodeposition.add(new Vector2(1766, -446));
+        nodeposition.add(new Vector2(3585, -400));
+        nodeposition.add(new Vector2(-3679, -814));
 
         //121-130
-        nodeposition.add(new Vector2(146, 675));
-        nodeposition.add(new Vector2(270, 686));
-        nodeposition.add(new Vector2(581, 692));
-        nodeposition.add(new Vector2(760, 732));
-        nodeposition.add(new Vector2(1088, 843));
-        nodeposition.add(new Vector2(1411, 893));
-        nodeposition.add(new Vector2(1650, 832));
-        nodeposition.add(new Vector2(1944, 489));
-        nodeposition.add(new Vector2(2022, 770));
-        nodeposition.add(new Vector2(1041, 725));
+        nodeposition.add(new Vector2(-3402, -825));
+        nodeposition.add(new Vector2(-3029, -816));
+        nodeposition.add(new Vector2(-2055, -798));
+        nodeposition.add(new Vector2(-1522, -664));
+        nodeposition.add(new Vector2(-495, -326));
+        nodeposition.add(new Vector2(472, -167));
+        nodeposition.add(new Vector2(1205, -333));
+        nodeposition.add(new Vector2(2146, -1348));
+        nodeposition.add(new Vector2(2295, -564));
+        nodeposition.add(new Vector2(-686, -651));
 
         //131-140
-        nodeposition.add(new Vector2(1131, 782));
-        nodeposition.add(new Vector2(1341, 788));
-        nodeposition.add(new Vector2(1555, 688));
-        nodeposition.add(new Vector2(1722, 739));
-        nodeposition.add(new Vector2(2091, 707));
-        nodeposition.add(new Vector2(2380, 592));
-        nodeposition.add(new Vector2(475, 591));
-        nodeposition.add(new Vector2(820, 659));
-        nodeposition.add(new Vector2(1022, 652));
-        nodeposition.add(new Vector2(1332, 671));
+        nodeposition.add(new Vector2(-359, -499));
+        nodeposition.add(new Vector2(226, -462));
+        nodeposition.add(new Vector2(857, -800));
+        nodeposition.add(new Vector2(1435, -633));
+        nodeposition.add(new Vector2(2509, -733));
+        nodeposition.add(new Vector2(3443, -1112));
+        nodeposition.add(new Vector2(-2386, -1079));
+        nodeposition.add(new Vector2(-1355, -897));
+        nodeposition.add(new Vector2(-705, -888));
+        nodeposition.add(new Vector2(222, -810));
 
         //141-150
-        nodeposition.add(new Vector2(1621, 651));
-        nodeposition.add(new Vector2(1828, 609));
-        nodeposition.add(new Vector2(2013, 636));
-        nodeposition.add(new Vector2(82, 458));
-        nodeposition.add(new Vector2(174, 475));
-        nodeposition.add(new Vector2(291, 476));
-        nodeposition.add(new Vector2(382, 501));
-        nodeposition.add(new Vector2(510, 525));
-        nodeposition.add(new Vector2(622, 539));
-        nodeposition.add(new Vector2(745, 584));
+        nodeposition.add(new Vector2(1223, -954));
+        nodeposition.add(new Vector2(1795, -1025));
+        nodeposition.add(new Vector2(2366, -975));
+        nodeposition.add(new Vector2(-3573, -1492));
+        nodeposition.add(new Vector2(-3299, -1457));
+        nodeposition.add(new Vector2(-2944, -1428));
+        nodeposition.add(new Vector2(-2688, -1326));
+        nodeposition.add(new Vector2(-2268, -1337));
+        nodeposition.add(new Vector2(-1939, -1292));
+        nodeposition.add(new Vector2(-1601, -1128));
 
         //151-160
-        nodeposition.add(new Vector2(802, 521));
-        nodeposition.add(new Vector2(887, 581));
-        nodeposition.add(new Vector2(936, 507));
-        nodeposition.add(new Vector2(1140, 557));
-        nodeposition.add(new Vector2(1223, 460));
-        nodeposition.add(new Vector2(1357, 453));
-        nodeposition.add(new Vector2(1483, 454));
-        nodeposition.add(new Vector2(1683, 535));
-        nodeposition.add(new Vector2(1692, 259));
-        nodeposition.add(new Vector2(2103, 458));
+        nodeposition.add(new Vector2(-1397, -1315));
+        nodeposition.add(new Vector2(-1188, -1151));
+        nodeposition.add(new Vector2(-1005, -1329));
+        nodeposition.add(new Vector2(-347, -1195));
+        nodeposition.add(new Vector2(-100, -1493));
+        nodeposition.add(new Vector2(302, -1485));
+        nodeposition.add(new Vector2(674, -1477));
+        nodeposition.add(new Vector2(1315, -1276));
+        nodeposition.add(new Vector2(1331, -2107));
+        nodeposition.add(new Vector2(2546, -1435));
 
         //161-170
-        nodeposition.add(new Vector2(2273, 479));
-        nodeposition.add(new Vector2(2504, 476));
-        nodeposition.add(new Vector2(286, 412));
-        nodeposition.add(new Vector2(415, 417));
-        nodeposition.add(new Vector2(650, 379));
-        nodeposition.add(new Vector2(901, 431));
-        nodeposition.add(new Vector2(1098, 397));
-        nodeposition.add(new Vector2(1158, 340));
-        nodeposition.add(new Vector2(1354, 354));
-        nodeposition.add(new Vector2(1470, 346));
+        nodeposition.add(new Vector2(3093, -1411));
+        nodeposition.add(new Vector2(3746, -1447));
+        nodeposition.add(new Vector2(-2971, -1646));
+        nodeposition.add(new Vector2(-2586, -1632));
+        nodeposition.add(new Vector2(-1851, -1758));
+        nodeposition.add(new Vector2(-1078, -1600));
+        nodeposition.add(new Vector2(-484, -1704));
+        nodeposition.add(new Vector2(-161, -1737));
+        nodeposition.add(new Vector2(247, -1802));
+        nodeposition.add(new Vector2(867, -1995));
 
         //171-180
-        nodeposition.add(new Vector2(2222, 81));
-        nodeposition.add(new Vector2(1879, 352));
-        nodeposition.add(new Vector2(2148, 277));
-        nodeposition.add(new Vector2(2359, 347));
-        nodeposition.add(new Vector2(2478, 253));
-        nodeposition.add(new Vector2(46, 294));
-        nodeposition.add(new Vector2(150, 316));
-        nodeposition.add(new Vector2(332, 329));
-        nodeposition.add(new Vector2(555, 301));
-        nodeposition.add(new Vector2(692, 279));
+        nodeposition.add(new Vector2(1952, -1775));
+        nodeposition.add(new Vector2(1801, -2181));
+        nodeposition.add(new Vector2(2719, -2039));
+        nodeposition.add(new Vector2(3381, -1843));
+        nodeposition.add(new Vector2(3677, -1831));
+        nodeposition.add(new Vector2(-3706, -2000));
+        nodeposition.add(new Vector2(-3378, -1948));
+        nodeposition.add(new Vector2(-2814, -1905));
+        nodeposition.add(new Vector2(-2210, -1858));
+        nodeposition.add(new Vector2(-1714, -2064));
 
         //181-190
-        nodeposition.add(new Vector2(831, 311));
-        nodeposition.add(new Vector2(909, 299));
-        nodeposition.add(new Vector2(1038, 359));
-        nodeposition.add(new Vector2(1284, 253));
-        nodeposition.add(new Vector2(1424, 153));
-        nodeposition.add(new Vector2(1580, 188));
-        nodeposition.add(new Vector2(1823, 235));
-        nodeposition.add(new Vector2(2047, 239));
-        nodeposition.add(new Vector2(148, 141));
-        nodeposition.add(new Vector2(267, 73));
+        nodeposition.add(new Vector2(-1277, -1941));
+        nodeposition.add(new Vector2(-1072, -2008));
+        nodeposition.add(new Vector2(-1066, -2013));
+        nodeposition.add(new Vector2(-701, -1878));
+        nodeposition.add(new Vector2(97, -2126));
+        nodeposition.add(new Vector2(522, -2427));
+        nodeposition.add(new Vector2(964, -2296));
+        nodeposition.add(new Vector2(2430, -2174));
+        nodeposition.add(new Vector2(-3368, -2470));
+        nodeposition.add(new Vector2(-3031, -2674));
 
         //191-199
-        nodeposition.add(new Vector2(415, 193));
-        nodeposition.add(new Vector2(448, 43));
-        nodeposition.add(new Vector2(794, 183));
-        nodeposition.add(new Vector2(833, 134));
-        nodeposition.add(new Vector2(938, 137));
-        nodeposition.add(new Vector2(1088, 219));
-        nodeposition.add(new Vector2(1110, 117));
-        nodeposition.add(new Vector2(1688, 30));
-        nodeposition.add(new Vector2(2077, 44));
+        nodeposition.add(new Vector2(-2573, -2298));
+        nodeposition.add(new Vector2(-2495, -2697));
+        nodeposition.add(new Vector2(-1396, -2167));
+        nodeposition.add(new Vector2(-1271, -2363));
+        nodeposition.add(new Vector2(-975, -2359));
+        nodeposition.add(new Vector2(-517, -2240));
+        nodeposition.add(new Vector2(-327, -2362));
+        nodeposition.add(new Vector2(1279, -2677));
+        nodeposition.add(new Vector2(2502, -2720));
 
         graph = new NodeGraph(nodeposition);
 
@@ -1117,7 +1117,7 @@ public class NodeGraphObject extends GameObject {
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
         for (MapNode node : graph.getNodes()) {
-            pipeline.drawCircle(node.getPosition(), 27, Color.BLACK, true, 50);
+            pipeline.drawCircle(node.getPosition(), 45, Color.BLACK, true, 50);
         }
     }
 }
