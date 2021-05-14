@@ -35,6 +35,7 @@ public class SYAssetManager {
     public static <T> T getAsset(AssetDescriptor<T> assetDescriptor)  {
         if(!assetManager.containsAsset(assetDescriptor))
             assetManager.load(assetDescriptor);
+        assetManager.finishLoading();
         return assetManager.get(assetDescriptor);
     }
 
