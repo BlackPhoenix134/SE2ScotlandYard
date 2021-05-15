@@ -58,5 +58,14 @@ public class ClientHandler extends Listener {
         }
     }
 
+    @Override
+    public void received(Connection connection, Object object) {
+        if(object instanceof PlayerMovement){
+            //Update map?
+        }
+    }
 
+    public void close(){
+        client.close();
+    }
 }
