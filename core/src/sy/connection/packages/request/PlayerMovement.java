@@ -2,12 +2,12 @@ package sy.connection.packages.request;
 
 import com.badlogic.gdx.math.Vector2;
 
-public class RequestMovement {
+public class PlayerMovement {
     private Vector2 originPosition;
     private Vector2 targetPosition;
     private int playerID;
 
-    public RequestMovement(int playerID, Vector2 originPosition, Vector2 targetPosition) {
+    public PlayerMovement(int playerID, Vector2 originPosition, Vector2 targetPosition) {
         this.playerID = playerID;
         this.originPosition = originPosition;
         this.targetPosition = targetPosition;
