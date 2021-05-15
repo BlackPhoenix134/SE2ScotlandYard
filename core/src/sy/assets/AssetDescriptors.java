@@ -3,7 +3,10 @@ package sy.assets;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
 
-public class AssetDescriptors {
+import sy.core.Annotations.AssetDescriptions;
+
+@AssetDescriptions
+public final class AssetDescriptors {
     //startscreen
     public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(Assets.DEVILBUTTON, Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_OPTIONS = new AssetDescriptor<>(Assets.OptionsDevilButton, Texture.class);
@@ -25,5 +28,6 @@ public class AssetDescriptors {
 
     //critter
     public static final AssetDescriptor<Texture> GHOST_WALKING = new AssetDescriptor<>(Assets.GHOST1_WALKING, Texture.class);
+    public static final AssetDescriptor<Texture> SPIDER_WALKING = new AssetDescriptor<>(Assets.SPIDER_WALKING, Texture.class);
 
 }

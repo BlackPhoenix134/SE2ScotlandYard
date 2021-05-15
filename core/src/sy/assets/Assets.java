@@ -18,4 +18,5 @@ public class Assets {
     public static final String MONSTER3 = "characters/monster3.png";
 
     public static final String GHOST1_WALKING = "characters/ghostWalking.png";
+    public static final String SPIDER_WALKING = "characters/spiderWalking.png";
 }
