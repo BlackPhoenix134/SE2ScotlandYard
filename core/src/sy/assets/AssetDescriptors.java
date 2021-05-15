@@ -7,27 +7,22 @@ import sy.core.Annotations.AssetDescriptions;
 
 @AssetDescriptions
 public final class AssetDescriptors {
-    //startscreen
-    public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(Assets.DEVILBUTTON, Texture.class);
-    public static final AssetDescriptor<Texture> BUTTON_OPTIONS = new AssetDescriptor<>(Assets.OptionsDevilButton, Texture.class);
-    public static final AssetDescriptor<Texture> BUTTON_EXIT = new AssetDescriptor<>(Assets.ExitDevilButton, Texture.class);
-    public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>(Assets.JoinButton, Texture.class);
+    private static final String UI = "ui";
+    private static final String WORLD = "startscreen";
+    private static final String CHARACTERS = WORLD + "/characters";
 
+    public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(UI + "/StartDevil.png", Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_OPTIONS = new AssetDescriptor<>(UI + "/OptionsButton.png", Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_EXIT = new AssetDescriptor<>("/ExitDevilButton.png", Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>("/JoinButton.png", Texture.class);
 
-    //gameLobby
-    public static final AssetDescriptor<Texture> BUTTON_GAMEJOIN = new AssetDescriptor<Texture>(Assets.JoinGameButton, Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_GAMEJOIN = new AssetDescriptor<Texture>(UI + "/JoinGame.png", Texture.class);
 
+    public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>( "/map.png", Texture.class);
 
-    //gameboard
-    public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>(Assets.GAMEBOARD, Texture.class);
-
-    //player
-    public static final AssetDescriptor<Texture> MONSTER1 = new AssetDescriptor<>(Assets.MONSTER1, Texture.class);
-    public static final AssetDescriptor<Texture> MONSTER2 = new AssetDescriptor<>(Assets.MONSTER2, Texture.class);
-    public static final AssetDescriptor<Texture> MONSTER3 = new AssetDescriptor<>(Assets.MONSTER3, Texture.class);
-
-    //critter
-    public static final AssetDescriptor<Texture> GHOST_WALKING = new AssetDescriptor<>(Assets.GHOST1_WALKING, Texture.class);
-    public static final AssetDescriptor<Texture> SPIDER_WALKING = new AssetDescriptor<>(Assets.SPIDER_WALKING, Texture.class);
-
+    public static final AssetDescriptor<Texture> MONSTER1 = new AssetDescriptor<>(CHARACTERS + "/monster1.png", Texture.class);
+    public static final AssetDescriptor<Texture> MONSTER2 = new AssetDescriptor<>(CHARACTERS + "/monster2.png", Texture.class);
+    public static final AssetDescriptor<Texture> MONSTER3 = new AssetDescriptor<>(CHARACTERS + "/monster3.png", Texture.class);
+    public static final AssetDescriptor<Texture> GHOST_WALKING = new AssetDescriptor<>( CHARACTERS + "/ghostWalking.png", Texture.class);
+    public static final AssetDescriptor<Texture> SPIDER_WALKING = new AssetDescriptor<>(CHARACTERS + "/spiderWalking.png", Texture.class);
 }

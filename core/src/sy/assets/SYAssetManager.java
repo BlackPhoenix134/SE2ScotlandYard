@@ -6,32 +6,32 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 
+import java.lang.reflect.Field;
 import java.util.AbstractSet;
+import java.util.ArrayList;
+import java.util.List;
 
-public class SYAssetManager {
+import sun.reflect.Reflection;
+import sy.core.Annotations.AssetDescriptions;
+
+public final  class SYAssetManager {
     private static AssetManager assetManager = new AssetManager();
     public static Texture solid1x1;
-
-    private SYAssetManager() {
-    }
 
     public static void loadAssets() {
         Pixmap pixmap = new Pixmap(1,1,Pixmap.Format.RGB888);
         pixmap.setColor(Color.WHITE);
         pixmap.fill();
         solid1x1 = new Texture(pixmap);
-        assetManager.load(AssetDescriptors.BUTTON_DEVIL);
-        assetManager.load(AssetDescriptors.GAME_BOARD);
-        assetManager.load(AssetDescriptors.BUTTON_EXIT);
-        assetManager.load(AssetDescriptors.BUTTON_OPTIONS);
-        assetManager.load(AssetDescriptors.BUTTON_JOIN);
-        assetManager.load(AssetDescriptors.MONSTER1);
-        assetManager.load(AssetDescriptors.MONSTER2);
-        assetManager.load(AssetDescriptors.MONSTER3);
-        assetManager.load(AssetDescriptors.BUTTON_GAMEJOIN);
-        assetManager.load(AssetDescriptors.GHOST_WALKING);
+        Field[] declaredFields = AssetDescriptors.class.getDeclaredFields();
+        for (Field field : declaredFields) {
+            if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
+                try {
+                    assetManager.load((AssetDescriptor<Texture>)field.get(null));
+                } catch (IllegalAccessException _) { }
+            }
+        }
         assetManager.finishLoading();
-
         pixmap.dispose();
     }
 
