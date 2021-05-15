@@ -27,7 +27,9 @@ public final  class SYAssetManager {
         for (Field field : declaredFields) {
             if (java.lang.reflect.Modifier.isStatic(field.getModifiers())) {
                 try {
-                    assetManager.load((AssetDescriptor<Texture>)field.get(null));
+                    Object fieldValue = field.get(null);
+                    if(fieldValue.getClass().equals(AssetDescriptor.class))
+                    assetManager.load((AssetDescriptor<Texture>)fieldValue);
                 } catch (IllegalAccessException _) { }
             }
         }
