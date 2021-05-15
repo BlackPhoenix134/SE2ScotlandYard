@@ -1,5 +1,6 @@
 package sy.connection;
 
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -37,6 +38,16 @@ public class ServerHandler extends Listener{
      /*   Kryo kryo = server.getKryo();
         kryo.register(SomeRequest.class);
         kryo.register(SomeResponse.class);*/
+    }
+
+    @Override
+    public void connected(Connection connection) {
+        Gdx.app.log("SERVER", connection.getRemoteAddressTCP().getHostName() + " connected!");
+    }
+
+    @Override
+    public void disconnected(Connection connection) {
+        Gdx.app.log("SERVER", connection.getRemoteAddressTCP().getHostName() + " disconnected!");
     }
 
     @Override
