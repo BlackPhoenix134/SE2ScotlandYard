@@ -5,8 +5,19 @@ import com.badlogic.gdx.math.Vector2;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MapNode {
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MapNode)) return false;
+        MapNode mapNode = (MapNode) o;
+        return position.equals(mapNode.position);
+    }
+
+
     private Vector2 position = Vector2.Zero;
     private List<Edge> edges = new ArrayList<>();
 
