@@ -3,6 +3,7 @@ package sy.core.LivingBoard;
 
 import com.badlogic.gdx.math.Vector2;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,6 +13,7 @@ import sy.assets.SYAssetManager;
 import sy.core.Math.PoissonDiskSampler;
 import sy.core.Math.Polygon;
 import sy.core.Visuals.AnimationController;
+import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameObjectManager;
 
 public class CritterSpawnerManager {
@@ -38,7 +40,7 @@ public class CritterSpawnerManager {
         node2 = new PathNode(new Vector2(1196.5593f,1169.3883f));
         node.addNode(node2);
         AnimationController animController =  new AnimationController(SYAssetManager.getAsset(AssetDescriptors.GHOST_WALKING),9, 1, 0.3f);
-        BasicCritterSpawner spawner = new BasicCritterSpawner(firstNode, 10, 2, gameObjectManager, animController);
+        BasicCritterSpawner spawner = new BasicCritterSpawner(firstNode, 5, 100, gameObjectManager, animController);
         addSpawner(spawner);
         spawner.setSizeVariation(new Vector2(1.5f, 2f));
     }
@@ -50,15 +52,35 @@ public class CritterSpawnerManager {
                 new Vector2(-1110.286f, 548.45886f), new Vector2(-892.6559f, 446.1989f),
                 new Vector2(-861.8468f, 378.68118f), new Vector2(-839.55945f, 156.4625f)));
         Vector2 center = polygon.getCenter();
-        List<Vector2> points = PoissonDiskSampler.SampleCircle(center, 1000, 70);
-        for (Vector2 point : points) {
-            if (polygon.isInsidePoly(point)) {
-
-            }
-        }
+        List<Vector2> points = PoissonDiskSampler.SampleCircle(center, 1000, 90);
+        SpiderSpawner spawner = new SpiderSpawner(polygon, polygon.filterInside(points), 5, 100, gameObjectManager);
+        spawner.setAmountVariation(new Point(3, 6));
+        spawner.setSizeVariation(new Vector2(0.25f, 0.55f));
+        addSpawner(spawner);
     }
 
-    public void addSpawner(BasicCritterSpawner critterSpawner) {
+    private void initSpiderSpawner2() {
+            Polygon polygon = new Polygon(Arrays.asList(
+                    new Vector2(-844.0476f,-695.5206f),
+                    new Vector2(-877.2617f,-72.0f),
+                    new Vector2(-546.6297f,32.17176f),
+                    new Vector2(-339.79602f,457.91705f),
+                    new Vector2(51.225388f,620.9685f),
+                    new Vector2(220.31572f,465.4657f),
+                    new Vector2(277.68573f,92.56113f),
+                    new Vector2(-80.1216f,-168.62306f),
+                    new Vector2(-164.66676f,-401.12225f),
+                    new Vector2(-600.9803f,-660.79675f)));
+            Vector2 center = polygon.getCenter();
+            List<Vector2> points = PoissonDiskSampler.SampleCircle(center, 1000, 90);
+            SpiderSpawner spawner = new SpiderSpawner(polygon, polygon.filterInside(points), 5, 100, gameObjectManager);
+            spawner.setAmountVariation(new Point(3, 6));
+            spawner.setSizeVariation(new Vector2(0.25f, 0.55f));
+            addSpawner(spawner);
+    }
+
+
+    public void addSpawner(CritterSpawner critterSpawner) {
         critterSpawners.add(critterSpawner);
     }
 

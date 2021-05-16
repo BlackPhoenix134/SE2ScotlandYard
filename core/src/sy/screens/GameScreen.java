@@ -19,6 +19,8 @@ import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.Math.GoodMath;
 import sy.core.Math.PoissonDiskSampler;
 import sy.core.Math.Polygon;
+import sy.core.Visuals.AnimationController;
+import sy.gameObjects.Critter;
 import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
@@ -63,36 +65,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
         playerObject = gameObjectManager.create(PlayerObject.class);
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
-        //client only -> should be handled that way in gameplay classes
-        createPoly1();
-        createPoly2();
-
-    }
-
-    private void createPoly1() {
-
-    }
-
-    private void createPoly2() {
-        Polygon polygon = new Polygon(Arrays.asList(
-             new Vector2(-844.0476f,-695.5206f),
-            new Vector2(-877.2617f,-72.0f),
-            new Vector2(-546.6297f,32.17176f),
-            new Vector2(-339.79602f,457.91705f),
-            new Vector2(51.225388f,620.9685f),
-            new Vector2(220.31572f,465.4657f),
-            new Vector2(277.68573f,92.56113f),
-            new Vector2(-80.1216f,-168.62306f),
-            new Vector2(-164.66676f,-401.12225f),
-            new Vector2(-600.9803f,-660.79675f)));
-        Vector2 center = polygon.getCenter();
-        List<Vector2> points = PoissonDiskSampler.SampleCircle(center, 1000, 90);
-        for (Vector2 point : points) {
-            if (polygon.isInsidePoly(point)) {
-                DebugObject dbgObj = gameObjectManager.create(DebugObject.class);
-                dbgObj.setPosition(point);
-            }
-       }
     }
 
     @Override

@@ -2,9 +2,12 @@ package sy.core.LivingBoard.SpiderStates;
 
 import sy.core.LivingBoard.State;
 import sy.core.LivingBoard.StateMachine;
+import sy.gameObjects.SpiderCritter;
 
-public class StateWander extends State {
-    public StateWander(StateMachine stateMachine) {
+public class StateWander extends State<SpiderCritter> {
+    float lerp;
+
+    public StateWander(StateMachine<SpiderCritter> stateMachine) {
         super(stateMachine);
     }
 

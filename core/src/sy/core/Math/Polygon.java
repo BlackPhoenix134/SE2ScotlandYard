@@ -3,6 +3,7 @@ package sy.core.Math;
 
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Polygon {
@@ -14,6 +15,15 @@ public class Polygon {
 
     public Polygon(List<Vector2> points) {
         this.points = points;
+    }
+
+    public List<Vector2> filterInside(List<Vector2> points) {
+        List<Vector2> ret = new ArrayList<>();
+        for(Vector2 point : points) {
+            if(isInsidePoly(point))
+                ret.add(point);
+        }
+        return ret;
     }
 
     public boolean isOnSegment(Vector2 p, Vector2 q, Vector2 r) {

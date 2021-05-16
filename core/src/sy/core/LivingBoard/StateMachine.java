@@ -10,6 +10,8 @@ public class StateMachine<T extends GameObject> {
     private State<T> currentState;
     private Map<Integer, State<T>> states = new HashMap<>();
 
+    
+
     public StateMachine(T gameObject) {
         this.gameObject = gameObject;
     }
