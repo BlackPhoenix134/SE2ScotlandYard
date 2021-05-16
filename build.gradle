@@ -54,6 +54,8 @@ project(":android") {
 
     configurations { natives }
 
+
+
     dependencies {
         implementation project(":core")
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
