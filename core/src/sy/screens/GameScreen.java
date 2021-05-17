@@ -64,9 +64,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         this.screenManager = screenManager;
     }
 
-        nodeGraphObject = gameObjectManager.create(NodeGraphObject.class);
-        nodelist = nodeGraphObject.getNodeposition();
-
     @Override
     public void buildStage() {
         nodeGraphObject = gameObjectManager.create(NodeGraphObject.class).getNodeposition();
