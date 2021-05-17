@@ -1107,7 +1107,7 @@ public class NodeGraphObject extends GameObject {
 
     }
 
-    public ArrayList<Vector2> getNodeposition() {
+    public ArrayList<Vector2> getNodePosition() {
         return nodeposition;
     }
 

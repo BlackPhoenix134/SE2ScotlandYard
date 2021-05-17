@@ -1,7 +1,6 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,21 +10,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
-import sy.core.Edge;
 import sy.core.LivingBoard.CritterSpawnerManager;
-import sy.core.MapNode;
-import sy.core.Math.PoissonDiskSampler;
-import sy.core.Math.Polygon;
 import sy.core.MoveType;
-import sy.core.NodeGraph;
-import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
@@ -55,7 +44,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private CritterSpawnerManager critterSpawnerManager;
     private NodeGraphObject nodeGraphObject;
 
-
     private World world = new World(new Vector2(0, 0), true);
 
     public GameScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
@@ -66,7 +54,8 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     @Override
     public void buildStage() {
-        nodeGraphObject = gameObjectManager.create(NodeGraphObject.class).getNodeposition();
+        nodeGraphObject =  gameObjectManager.create(NodeGraphObject.class);
+        nodelist = nodeGraphObject.getNodePosition();
         gameBoardObject = gameObjectManager.create(GameBoardObject.class);
         Texture gameBoardTexture = SYAssetManager.getAsset(AssetDescriptors.GAME_BOARD);
         gameBoardObject.setTexture(gameBoardTexture);
