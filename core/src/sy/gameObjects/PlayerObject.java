@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.rendering.RenderPipeline;
@@ -12,12 +14,17 @@ public class PlayerObject extends GameObject {
 
     private int playerID;
     private Vector2 position;
+    /**
+     * Index vom NodeGraphObject (nodepositions)
+     */
+    private int index;
     private Sprite sprite;
 
 
     public PlayerObject(String uuid) {
         super(uuid);
-        position = Vector2.Zero;
+        position = new Vector2(-2923, 2636);
+        index = 0;
         Texture texture = SYAssetManager.getAsset(AssetDescriptors.MONSTER1);
         sprite = new Sprite(texture);
         sprite.setScale(0.45f);
@@ -25,7 +32,6 @@ public class PlayerObject extends GameObject {
 
     @Override
     public void update(float delta) {
-
     }
 
     @Override
@@ -46,7 +52,17 @@ public class PlayerObject extends GameObject {
         this.playerID = playerID;
     }
 
-    public void setPosition(Vector2 position) {
+    public void setPosition(Vector2 position, int index) {
         this.position = position;
+        this.index = index;
     }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
 }

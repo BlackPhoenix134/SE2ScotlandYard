@@ -9,13 +9,14 @@ import java.util.List;
 
 public class NodeGraph {
     private List<MapNode> nodes = new ArrayList<>();
+    private List<Edge> edges = new ArrayList<>();
 
     public List<MapNode> getNodes() {
         return nodes;
     }
 
     public NodeGraph(List<Vector2> positions) {
-        for(Vector2 position : positions)
+        for (Vector2 position : positions)
             addNode(position);
     }
 
@@ -24,11 +25,22 @@ public class NodeGraph {
     }
 
     public void addEdge(int nodeIdx1, int nodeIdx2, List<MoveType> allowedMoves) {
-        Edge e  = new Edge(nodes.get(nodeIdx1), nodes.get(nodeIdx2));
+        Edge e = new Edge(nodes.get(nodeIdx1), nodes.get(nodeIdx2));
         e.addAllowedMove(allowedMoves);
     }
 
     public void addEdge(int nodeIdx1, int nodeIdx2, MoveType allowedMoves) {
         addEdge(nodeIdx1, nodeIdx2, Collections.singletonList(allowedMoves));
+    }
+
+    public boolean edgeExists(int nodeIdx1, int nodeIdx2, MoveType moveType) {
+        MapNode mapNode = nodes.get(nodeIdx2);
+        for (Edge edge : nodes.get(nodeIdx1).getEdges()) {
+            if ((edge.getNode2().equals(mapNode) || edge.getNode1().equals(mapNode)) && edge.isAllowedMove(moveType) ) {
+                return true;
+            }
+        }
+        return false;
+
     }
 }

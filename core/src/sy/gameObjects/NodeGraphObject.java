@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 
 import sy.Game;
@@ -678,6 +679,7 @@ public class NodeGraphObject extends GameObject {
         //edges from node 93
         graph.addEdge(92, 93, MoveType.TAXI);
         graph.addEdge(92, 93, MoveType.BUS);
+        graph.addEdge(92, 78, MoveType.UBAHN);
 
         //edges from node 94
         graph.addEdge(93, 94, MoveType.TAXI);
@@ -1119,5 +1121,9 @@ public class NodeGraphObject extends GameObject {
         for (MapNode node : graph.getNodes()) {
             pipeline.drawCircle(node.getPosition(), 45, Color.BLACK, true, 50);
         }
+    }
+
+    public boolean hasEdge(int from, int to, MoveType moveType) {
+        return graph.edgeExists(from,to, moveType);
     }
 }

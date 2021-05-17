@@ -12,13 +12,20 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.core.Edge;
 import sy.core.LivingBoard.CritterSpawnerManager;
+import sy.core.MapNode;
 import sy.core.Math.PoissonDiskSampler;
 import sy.core.Math.Polygon;
+import sy.core.MoveType;
+import sy.core.NodeGraph;
+import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
@@ -44,8 +51,10 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private float zoomValue = 1;
     private PlayerObject playerObject;
     private GameBoardObject gameBoardObject;
-    private ArrayList<Vector2> nodeGraphObject;
+    private ArrayList<Vector2> nodelist;
     private CritterSpawnerManager critterSpawnerManager;
+    private NodeGraphObject nodeGraphObject;
+
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -55,6 +64,8 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         this.screenManager = screenManager;
     }
 
+        nodeGraphObject = gameObjectManager.create(NodeGraphObject.class);
+        nodelist = nodeGraphObject.getNodeposition();
 
     @Override
     public void buildStage() {
@@ -127,21 +138,20 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     private void updateCam() {
         camera.zoom = this.zoomValue;
+        float scale = this.zoomValue * 2.0f;
         if (oldDragValue.x != dragValue.x || oldDragValue.y != dragValue.y) {
-            camera.position.add(-dragValue.x, dragValue.y, 0);
+            camera.position.add(-dragValue.x * scale, dragValue.y * scale, 0);
             oldDragValue.x = dragValue.x;
             oldDragValue.y = dragValue.y;
 
-            camera.position.set(clampCam(camera.position,  gameBoardObject.getBoundingBox()));
+            camera.position.set(clampCam(camera.position, gameBoardObject.getBoundingBox()));
         }
         camera.update();
     }
 
 
-
     private Vector3 clampCam(Vector3 position, Rectangle boundingBox) {
-        return new Vector3(clamp(position.x, boundingBox.x, boundingBox.width)
-        , clamp(position.y, boundingBox.y, boundingBox.height), position.z);
+        return new Vector3(clamp(position.x, boundingBox.x, boundingBox.width), clamp(position.y, boundingBox.y, boundingBox.height), position.z);
     }
 
     private float clamp(float value, float min, float max) {
@@ -161,11 +171,25 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     public void onTouchUp(int screenX, int screenY, int pointer, int button) {
         Gdx.app.log("Game", "TOUCH ON " + screenX + ", " + screenY);
         Vector3 vector3 = camera.unproject(new Vector3(screenX, screenY, 0));
-        Gdx.app.log("Koordinaten:", "new Vector2(" +vector3.x+"f," +vector3.y + "f);");
+        Gdx.app.log("Koordinaten:", "new Vector2(" + vector3.x + "f," + vector3.y + "f);");
         int range = 40;
-        for (Vector2 pos : nodeGraphObject) {
+
+        int currentindex = playerObject.getIndex();
+
+        for (int i = 0; i < nodelist.size(); i++) {
+            Vector2 pos = nodelist.get(i);
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
-                playerObject.setPosition(pos);
+                Gdx.app.log("Indizes:", "current index: " + currentindex + " clicked index: " + i);
+                if (nodeGraphObject.hasEdge(currentindex, i, MoveType.BUS)) {
+                    playerObject.setPosition(pos, i);
+                } else if (nodeGraphObject.hasEdge(currentindex, i, MoveType.SHIP)) {
+                    playerObject.setPosition(pos, i);
+                } else if (nodeGraphObject.hasEdge(currentindex, i, MoveType.TAXI)) {
+                    playerObject.setPosition(pos, i);
+                } else if (nodeGraphObject.hasEdge(currentindex, i, MoveType.UBAHN)) {
+                    playerObject.setPosition(pos, i);
+                }
+                break;
             }
         }
     }
