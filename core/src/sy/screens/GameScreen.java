@@ -166,8 +166,9 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     private void updateCam() {
         camera.zoom = this.zoomValue;
+        float scale = this.zoomValue * 2.0f;
         if (oldDragValue.x != dragValue.x || oldDragValue.y != dragValue.y) {
-            camera.position.add(-dragValue.x, dragValue.y, 0);
+            camera.position.add(-dragValue.x * scale, dragValue.y * scale, 0);
             oldDragValue.x = dragValue.x;
             oldDragValue.y = dragValue.y;
 
