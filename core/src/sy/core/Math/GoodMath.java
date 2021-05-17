@@ -30,4 +30,18 @@ public abstract class GoodMath {
     public static Vector2 div(Vector2 a, float value) {
         return new Vector2(a.x / value, a.y / value);
     }
+
+    public static Vector2 movveTowards(Vector2 from, Vector2 to, float maxDistanceDelta) {
+        // avoid vector ops because current scripting backends are terrible at inlining
+        float toVectorX = to.x - from.x;
+        float toVectorY = to.y - from.y;
+
+        float sqdist = toVectorX * toVectorX + toVectorY * toVectorY;
+
+        if (sqdist == 0 || (maxDistanceDelta >= 0 && sqdist <= maxDistanceDelta * maxDistanceDelta))
+            return to;
+        float dist = (float)Math.sqrt(sqdist);
+        return new Vector2(from.x + toVectorX / dist * maxDistanceDelta,
+                from.y + toVectorY / dist * maxDistanceDelta);
+    }
 }
