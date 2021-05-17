@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,20 +9,16 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Vector;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.core.LivingBoard.CritterSpawnerManager;
-import sy.core.Math.GoodMath;
 import sy.core.Math.PoissonDiskSampler;
 import sy.core.Math.Polygon;
-import sy.core.Visuals.AnimationController;
-import sy.gameObjects.Critter;
-import sy.gameObjects.DebugObject;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
@@ -56,19 +53,18 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         this.renderPipeline = renderPipeline;
         this.camera = camera;
         this.screenManager = screenManager;
-
-        nodeGraphObject = gameObjectManager.create(NodeGraphObject.class).getNodeposition();
-
-        gameBoardObject = gameObjectManager.create(GameBoardObject.class);
-        Texture gameBoardTexture = SYAssetManager.getAsset(AssetDescriptors.GAME_BOARD);
-        gameBoardObject.setTexture(gameBoardTexture);
-
-        playerObject = gameObjectManager.create(PlayerObject.class);
-        critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
     }
+
 
     @Override
     public void buildStage() {
+        nodeGraphObject = gameObjectManager.create(NodeGraphObject.class).getNodeposition();
+        gameBoardObject = gameObjectManager.create(GameBoardObject.class);
+        Texture gameBoardTexture = SYAssetManager.getAsset(AssetDescriptors.GAME_BOARD);
+        gameBoardObject.setTexture(gameBoardTexture);
+        playerObject = gameObjectManager.create(PlayerObject.class);
+        critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
+
 
     }
 

@@ -2,11 +2,10 @@ package sy.core.LivingBoard;
 
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.List;
 
-import sy.core.Extensions.Collections;
+import sy.core.Function;
 import sy.core.Globals;
-import sy.core.Visuals.AnimationController;
+import sy.core.LivingBoard.StateMachines.StateMachine;
 import sy.gameObjects.Critter;
 import sy.gameObjects.GameObjectManager;
 
@@ -14,21 +13,20 @@ public class BasicCritterSpawner implements CritterSpawner {
     private float tickTimer;
     private float spawnThreshold;
     private float spawnChance;
-    private PathNode path;
     private GameObjectManager goManager;
-    private AnimationController animController;
+    private Function<Critter, StateMachine> critterInitializer;
     private Vector2 sizeVariation = new Vector2(1, 1);
 
     public void setSizeVariation(Vector2 sizeVariation) {
         this.sizeVariation = sizeVariation;
     }
 
-    public BasicCritterSpawner(PathNode path, float spawnThreshold, float spawnChance, GameObjectManager goManager, AnimationController animController) {
-        this.path = path;
+    public BasicCritterSpawner(float spawnThreshold, float spawnChance, GameObjectManager goManager,
+                               Function<Critter, StateMachine> critterInitializer) {
         this.spawnThreshold = spawnThreshold;
         this.spawnChance = spawnChance;
         this.goManager = goManager;
-        this.animController = animController;
+        this.critterInitializer = critterInitializer;
     }
 
     public void tick(float delta) {
@@ -43,14 +41,12 @@ public class BasicCritterSpawner implements CritterSpawner {
 
     private void spawn() {
         Critter critter = goManager.create(Critter.class);
-        critter.init(animController);
+        StateMachine stateMachine = critterInitializer.call(critter);
         critter.getSprite().setScale(Globals.getRandomFloat(sizeVariation.x, sizeVariation.y));
-        critter.follow(path);
     }
 
     private boolean shouldSpawn() {
         return (Globals.RANDOM.nextFloat() * 100) <= spawnChance;
     }
-
 
 }

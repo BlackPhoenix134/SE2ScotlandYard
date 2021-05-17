@@ -1,5 +1,7 @@
 package sy.gameObjects;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import sy.rendering.RenderPipeline;
 
 public abstract class GameObject {
@@ -27,4 +29,5 @@ public abstract class GameObject {
 
     protected void onObjectDestroyed() {
     }
+
 }

@@ -1,22 +1,20 @@
-package sy.core.LivingBoard;
+package sy.core.LivingBoard.StateMachines;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import sy.gameObjects.GameObject;
+public class StateMachine {
+    private State currentState;
+    private Map<Integer, State> states = new HashMap<>();
 
-public class StateMachine<T extends GameObject> {
-    private T gameObject;
-    private State<T> currentState;
-    private Map<Integer, State<T>> states = new HashMap<>();
-
-    
-
-    public StateMachine(T gameObject) {
-        this.gameObject = gameObject;
+    public State getCurrentState() {
+        return currentState;
     }
 
-    public void addState(int id, State<T> state) {
+    public StateMachine() {
+    }
+
+    public void addState(int id, State state) {
         states.put(id, state);
     }
 
@@ -35,5 +33,9 @@ public class StateMachine<T extends GameObject> {
     public void draw(float delta) {
         if(currentState != null)
             currentState.draw(delta);
+    }
+
+    public <T extends StateMachine> State<T> getState(int idx) {
+        return states.get(idx);
     }
 }

@@ -25,7 +25,6 @@ public class DrawableItem {
     public DrawableItem(Sprite sprite, int drawLayer) {
         this.sprite = sprite;
         this.drawLayer = drawLayer;
-        
     }
 
     public Texture getTexture() {

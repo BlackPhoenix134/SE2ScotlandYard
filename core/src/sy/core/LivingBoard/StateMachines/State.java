@@ -1,11 +1,11 @@
-package sy.core.LivingBoard;
+package sy.core.LivingBoard.StateMachines;
 
-import sy.gameObjects.GameObject;
+import sy.core.LivingBoard.StateMachines.StateMachine;
 
-public abstract class State<T extends GameObject> {
-    protected StateMachine<T> stateMachine;
+public abstract class State<T extends StateMachine> {
+    protected T stateMachine;
 
-    public State(StateMachine<T> stateMachine) {
+    public State(T stateMachine) {
         this.stateMachine = stateMachine;
     }
 
