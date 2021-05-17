@@ -9,28 +9,18 @@ import com.badlogic.gdx.math.Vector2;
 public class InputHandler extends InputAdapter implements GestureDetector.GestureListener {
 
     private TouchUpListener touchUpListener;
-
-    public void setTouchUpListener(TouchUpListener touchUpListener) {
-        this.touchUpListener = touchUpListener;
-    }
+    public void setTouchUpListener(TouchUpListener touchUpListener) { this.touchUpListener = touchUpListener; }
 
     private TouchDownListener touchDownListener;
-
-    public void setTouchDownListener(TouchDownListener touchDownListener) {
-        this.touchDownListener = touchDownListener;
-    }
+    public void setTouchDownListener(TouchDownListener touchDownListener) { this.touchDownListener = touchDownListener; }
 
     private ZoomListener zoomListener;
-
-    public void setZoomListener(ZoomListener zoomListener) {
-        this.zoomListener = zoomListener;
-    }
+    public void setZoomListener(ZoomListener zoomListener) { this.zoomListener = zoomListener; }
 
     private PanListener panListener;
+    public void setPanListener(PanListener panListener) { this.panListener = panListener; }
 
-    public void setPanListener(PanListener panListener) {
-        this.panListener = panListener;
-    }
+    private boolean ignoreTouchUp = false;
 
     public InputHandler() {
         //Set up the handler
@@ -50,9 +40,10 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (touchUpListener != null) {
+        if (!ignoreTouchUp && pointer < 1 && touchUpListener != null) { //Fire event only when touchUp should not get ignored + only 1 finger on the screen
             touchUpListener.onTouchUp(screenX, screenY, pointer, button);
         }
+        ignoreTouchUp = false; //Reset ignoring state
         return super.touchUp(screenX, screenY, pointer, button);
     }
 
@@ -85,6 +76,7 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
     public boolean pan(float x, float y, float deltaX, float deltaY) {
         if (panListener != null) {
             panListener.onPan(x, y, deltaX, deltaY);
+            ignoreTouchUp = true; //Ignore next touchUp call
         }
         return true;
     }
@@ -98,6 +90,7 @@ public class InputHandler extends InputAdapter implements GestureDetector.Gestur
     public boolean zoom(float initialDistance, float distance) {
         if (zoomListener != null) {
             zoomListener.onZoom(initialDistance, distance);
+            ignoreTouchUp = true; //Ignore next touchUp call
         }
         return true;
     }
