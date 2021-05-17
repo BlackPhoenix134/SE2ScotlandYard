@@ -31,7 +31,15 @@ public abstract class GoodMath {
         return new Vector2(a.x / value, a.y / value);
     }
 
-    public static Vector2 movveTowards(Vector2 from, Vector2 to, float maxDistanceDelta) {
+    public static boolean equals(Vector2 a, Vector2 b, float theta) {
+        return equals(a.x, b.x, theta) && equals(a.y, b.y, theta);
+    }
+
+    public static boolean equals(float a, float b, float theta) {
+        return Math.abs(a - b) <= theta;
+    }
+
+    public static Vector2 moveTowards(Vector2 from, Vector2 to, float maxDistanceDelta) {
         // avoid vector ops because current scripting backends are terrible at inlining
         float toVectorX = to.x - from.x;
         float toVectorY = to.y - from.y;
