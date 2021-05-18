@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.core.Gameplay;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MoveType;
 import sy.gameObjects.GameBoardObject;
@@ -44,12 +45,18 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private CritterSpawnerManager critterSpawnerManager;
     private NodeGraphObject nodeGraphObject;
 
+    private Gameplay gameplay;
+
     private World world = new World(new Vector2(0, 0), true);
 
     public GameScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.renderPipeline = renderPipeline;
         this.camera = camera;
         this.screenManager = screenManager;
+    }
+
+    public void setGameplay(Gameplay gameplay) {
+        this.gameplay = gameplay;
     }
 
     @Override
@@ -61,8 +68,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         gameBoardObject.setTexture(gameBoardTexture);
         playerObject = gameObjectManager.create(PlayerObject.class);
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
-
-
     }
 
 
@@ -160,9 +165,10 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         Gdx.app.log("Koordinaten:", "new Vector2(" + vector3.x + "f," + vector3.y + "f);");
         int range = 40;
 
+//        if(gameplay.canMove(playerObject, new))
+                //gameplay.move
         int currentindex = playerObject.getIndex();
-
-        for (int i = 0; i < nodelist.size(); i++) {
+        for (int i = 0; i < nodelist.size(); i++) {     //soon handled by click handler
             Vector2 pos = nodelist.get(i);
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
                 Gdx.app.log("Indizes:", "current index: " + currentindex + " clicked index: " + i);

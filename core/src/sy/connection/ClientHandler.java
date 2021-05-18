@@ -6,14 +6,10 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
-import java.net.Inet4Address;
-import java.net.InetAddress;
 
+import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.request.PlayerMovement;
-import sy.connection.packages.request.SomeRequest;
-import sy.connection.packages.response.SomeResponse;
-import sy.screens.GameScreen;
-import sy.screens.ScreenManager;
 
 public class ClientHandler extends Listener {
 
@@ -51,16 +47,19 @@ public class ClientHandler extends Listener {
 
     }
 
-    public static void send(Object object){
-        if(object instanceof PlayerMovement){
-            PlayerMovement playerMovement = (PlayerMovement) object;
-            client.sendTCP(playerMovement);
-        }
+
+    public void send(Object object){
+        send(object, false);
     }
+
+    public void send(Object object, boolean invokeSelf){
+        client.sendTCP(object);
+    }
+
 
     @Override
     public void received(Connection connection, Object object) {
-        if(object instanceof PlayerMovement){
+        if(object instanceof MovePlayerObject){
             //Update map?
         }
     }

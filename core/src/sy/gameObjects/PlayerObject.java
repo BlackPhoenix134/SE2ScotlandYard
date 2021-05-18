@@ -10,8 +10,8 @@ import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.rendering.RenderPipeline;
 
-public class PlayerObject extends GameObject {
-
+public class PlayerObject extends GameObject implements NetworkIdentifiable {
+    private int netId;
     private int playerID;
     private Vector2 position;
     /**
@@ -65,4 +65,11 @@ public class PlayerObject extends GameObject {
         this.index = index;
     }
 
+    @Override
+    public int getNetId() {
+        return 0;
+    }
+    public void setNetId(int netId) {
+        this.netId = netId;
+    }
 }

@@ -8,9 +8,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class MapNode {
-
+    private int id;
     private Vector2 position = Vector2.Zero;
     private List<Edge> edges = new ArrayList<>();
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public MapNode() {
 

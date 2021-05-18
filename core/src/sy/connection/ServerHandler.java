@@ -8,6 +8,8 @@ import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 
+import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.request.PlayerMovement;
 
 public class ServerHandler extends Listener{
@@ -24,7 +26,6 @@ public class ServerHandler extends Listener{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
        /* server.addListener(new Listener(){
             public void received (Connection connection, Object object){
                 SomeRequest request = (SomeRequest)object;
@@ -43,6 +44,34 @@ public class ServerHandler extends Listener{
 
     }
 
+
+    public void sendAll(Object obj) {
+        sendAll(obj, false);
+    }
+
+    public void sendAll(Object obj, boolean invokeSelf) {
+        server.sendToAllTCP(obj);
+    }
+
+
+    public void sendTo(int connectionId, Object obj) {
+        sendTo(connectionId, obj, false);
+    }
+
+    public void sendTo(int connectionId, Object obj, boolean invokeSelf) {
+        server.sendToTCP(connectionId, obj);
+    }
+
+    public void sendAllExcept(int connectionId, Object obj) {
+        sendAllExcept(connectionId, obj, false);
+    }
+
+
+    public void sendAllExcept(int connectionId, Object obj, boolean invokeSelf) {
+        server.sendToAllExceptTCP(connectionId, obj);
+    }
+
+
     @Override
     public void connected(Connection connection) {
         Gdx.app.log("SERVER", "ID: " + connection.getID() + " connected!");
@@ -55,9 +84,12 @@ public class ServerHandler extends Listener{
 
     @Override
     public void received(Connection connection, Object object) {
-        if(object instanceof PlayerMovement){
-            PlayerMovement playerMovement = (PlayerMovement) object;
-            server.sendToAllExceptTCP(connection.getID(),playerMovement); //Send to all TCP except the one who sent it
+        if(object instanceof ClientMoveRequest){
+            //Call ServerGameplay.MovePlayerTo(...)
+        }
+
+        if(object instanceof MovePlayerObject){
+            //Update map?
         }
     }
 
