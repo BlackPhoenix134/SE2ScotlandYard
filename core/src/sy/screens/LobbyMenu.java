@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Scaling;
 
 import sy.assets.AssetDescriptors;
@@ -22,6 +23,7 @@ public class LobbyMenu extends AbstractScreen {
     private ScreenManager screenManager;
     private SpriteBatch batch = new SpriteBatch();
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json")); 
 
 
 
