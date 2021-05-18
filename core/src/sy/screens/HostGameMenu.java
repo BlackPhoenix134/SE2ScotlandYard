@@ -8,15 +8,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Scaling;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
-public class LobbyMenu extends AbstractScreen {
+public class HostGameMenu extends AbstractScreen {
     private float              screenWidth, screenHeight;
-    private AliveButton        btnJoin;
-    private RenderPipeline renderPipeline;
+    private AliveButton        btnHostGame;
+    private RenderPipeline     renderPipeline;
     private OrthographicCamera camera;
     private ScreenManager      screenManager;
     private SpriteBatch batch = new SpriteBatch();
@@ -25,7 +26,7 @@ public class LobbyMenu extends AbstractScreen {
 
 
 
-    public LobbyMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
+    public HostGameMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.renderPipeline = renderPipeline;
         this.camera = camera;
         this.screenManager = screenManager;
@@ -38,26 +39,23 @@ public class LobbyMenu extends AbstractScreen {
         Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
 
-        Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
+        Texture hostGameTexture = SYAssetManager.getAsset(AssetDescriptors.HOST_GAME);
+        btnHostGame = new AliveButton(hostGameTexture);
+        Vector2 btnJoinGameSize    = Scaling.fillX.apply(hostGameTexture.getWidth(), hostGameTexture.getHeight(), screenWidth * 0.30f, 0);
+        btnHostGame.setSize(btnJoinGameSize.x, btnJoinGameSize.y);
+        btnHostGame.setPosition(screenWidth/2 - btnHostGame.getWidth()/2, padding);
 
-        btnJoin = new AliveButton(joinTexture);
+        addActorsToStage(btnHostGame);
 
-        Vector2 btnJoinSize    = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth * 0.30f, 0);
+      btnHostGame.addListener(new AliveButton.AliveButtonListener() {
+          @Override
+          public void onClick() {
+              sound.play();
+              screenManager.showScreen(GameScreen.class);
+          }
+      });
 
-        btnJoin.setSize(btnJoinSize.x, btnJoinSize.y);
 
-        btnJoin.setPosition(screenWidth/2 - btnJoin.getWidth()/2, padding);
-
-        addActorsToStage(btnJoin);
-
-        btnJoin.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                sound.play();
-
-            }
-        });
-        
     }
 
     @Override
