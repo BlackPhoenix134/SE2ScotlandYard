@@ -11,7 +11,6 @@ public final class AssetDescriptors {
     private static final String CHARACTERS = WORLD + "/characters";
 
     public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(UI + "/StartDevil.png", Texture.class);
-    public static final AssetDescriptor<Texture> BUTTON_OPTIONS = new AssetDescriptor<>(UI + "/OptionsButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_EXIT = new AssetDescriptor<>(UI + "/ExitDevilButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>(UI + "/JoinButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_GAMEJOIN = new AssetDescriptor<>(UI + "/JoinGame.png", Texture.class);
