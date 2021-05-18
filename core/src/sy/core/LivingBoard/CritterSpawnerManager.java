@@ -28,7 +28,7 @@ public class CritterSpawnerManager {
     public CritterSpawnerManager(GameObjectManager gameObjectManager) {
         this.gameObjectManager = gameObjectManager;
         initGhostSpawner1();
-        initSpiderSpawner1();
+      //  initSpiderSpawner1();
     }
 
     private void initGhostSpawner1() {
@@ -53,6 +53,7 @@ public class CritterSpawnerManager {
             StateMachineGameObj stateMachine = new StateMachineGameObj(critter);
             CritterFollowPathState critterFollowPathState = new CritterFollowPathState(stateMachine, animationController);
             critter.setStateMachine(stateMachine);
+            critter.getSprite().setPosition(firstNode.getPosition().x, firstNode.getPosition().y);
             critterFollowPathState.setPath(firstNode);
             stateMachine.addState(CritterStates.FOLLOW_PATH.ordinal(), critterFollowPathState);
             stateMachine.transition(CritterStates.FOLLOW_PATH.ordinal());

@@ -1,11 +1,12 @@
 package sy.core.LivingBoard.States;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 import sy.core.LivingBoard.PathNode;
 import sy.core.LivingBoard.StateMachines.State;
 import sy.core.LivingBoard.StateMachines.StateMachineGameObj;
+import sy.core.Math.GoodMath;
 import sy.core.Visuals.AnimationController;
 
 public class CritterFollowPathState extends State<StateMachineGameObj> {
@@ -13,7 +14,7 @@ public class CritterFollowPathState extends State<StateMachineGameObj> {
     private AnimationController animationController;
     private PathNode currPathNode;
     private PathNode nextPathNode;
-    private float lerpValue = 0;
+    //private float lerpValue = 0;
 
     public CritterFollowPathState(StateMachineGameObj stateMachine, AnimationController animationController) {
         super(stateMachine);
@@ -43,12 +44,13 @@ public class CritterFollowPathState extends State<StateMachineGameObj> {
             stateMachine.getGameObject().getSprite().setRegion(animationController.getNextFrame());
         }
         if(currPathNode != null && nextPathNode != null) {
-            float newX = MathUtils.lerp(currPathNode.getPosition().x, nextPathNode.getPosition().x, lerpValue);
-            float newY = MathUtils.lerp(currPathNode.getPosition().y, nextPathNode.getPosition().y, lerpValue);
-            stateMachine.getGameObject().getSprite().setPosition(newX, newY);
-            lerpValue += getLerpIncrementor(currPathNode, nextPathNode) * delta;
-            if(lerpValue >= 1) {
-                lerpValue = 0;
+           // float newX = MathUtils.lerp(currPathNode.getPosition().x, nextPathNode.getPosition().x, lerpValue);
+            //float newY = MathUtils.lerp(currPathNode.getPosition().y, nextPathNode.getPosition().y, lerpValue);
+            Sprite sprite = stateMachine.getGameObject().getSprite();
+            Vector2 currentPos = new Vector2(sprite.getX(), sprite.getY());
+            Vector2 newPos = GoodMath.moveTowards(currentPos, nextPathNode.getPosition(), delta * 200);
+            stateMachine.getGameObject().getSprite().setPosition(newPos.x, newPos.y);
+            if(GoodMath.equals(newPos, nextPathNode.getPosition(), 50)) {
                 currPathNode = nextPathNode;
                 nextPathNode = null;
                 if(currPathNode.hasNextNode())
