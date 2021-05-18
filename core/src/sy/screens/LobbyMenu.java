@@ -7,21 +7,30 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
+
+import org.w3c.dom.Text;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
-public class LobbyMenu extends AbstractScreen{
-    private float              screenWidth, screenHeight;
-    private AliveButton        btnJoinGame;
+public class LobbyMenu extends AbstractScreen {
+    private float screenWidth, screenHeight;
+    private AliveButton btnJoin;
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
-    private ScreenManager      screenManager;
+    private ScreenManager screenManager;
     private SpriteBatch batch = new SpriteBatch();
+    private TextField playerName;
+    private TextField hostIP;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
+
 
 
     public LobbyMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
@@ -30,6 +39,8 @@ public class LobbyMenu extends AbstractScreen{
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
+        textfieldSkin.getFont("default-font").getData().setScale(2.75f);
+
     }
 
     @Override
@@ -37,27 +48,49 @@ public class LobbyMenu extends AbstractScreen{
         Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
 
-        Texture joinGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
-         btnJoinGame = new AliveButton(joinGameTexture);
-        Vector2 btnJoinGameSize    = Scaling.fillX.apply(joinGameTexture.getWidth(), joinGameTexture.getHeight(), screenWidth * 0.30f, 0);
-        btnJoinGame.setSize(btnJoinGameSize.x, btnJoinGameSize.y);
-        btnJoinGame.setPosition(screenWidth/2 - btnJoinGame.getWidth()/2, padding);
+        Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
+        btnJoin = new AliveButton(joinTexture);
+        Vector2 btnJoinSize = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth*0.30f,0);
+        btnJoin.setSize(btnJoinSize.x, btnJoinSize.y);
+        btnJoin.setPosition(screenWidth/2 - btnJoin.getWidth()/2, padding);
 
-        addActorsToStage(btnJoinGame);
+        btnJoin.addListener(new AliveButton.AliveButtonListener() {
+            @Override
+            public void onClick() {
+                sound.play();
+                screenManager.showScreen(MainMenuScreen.class);
+            }
+        });
+
+        addActorsToStage(btnJoin);
+
+        hostIP = new TextField("",textfieldSkin);
+        hostIP.setMessageText("Enter your IP");
+        hostIP.setSize(screenWidth*0.3f, screenHeight*0.1f);
+        hostIP.setPosition(screenWidth/2 - hostIP.getWidth()/2, screenHeight/2 + (hostIP.getHeight()*2));
+        addActorsToStage(hostIP);
+
+        playerName = new TextField("",textfieldSkin);
+        playerName.setMessageText("Enter your name..");
+        playerName.setSize(screenWidth *0.3f, screenHeight*0.1f);
+        playerName.setPosition(screenWidth/2 - playerName.getWidth()/2, screenHeight/2);
+        addActorsToStage(playerName);
 
 
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        super.render(delta); //this render the stage, which is responsible for the screen transitions
+        super.render(delta);
+
     }
 
     @Override
     public void hide(){
         Gdx.input.setInputProcessor(null);
+
     }
 }
 
