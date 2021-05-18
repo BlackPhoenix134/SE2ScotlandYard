@@ -8,7 +8,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
+
+import org.w3c.dom.Text;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
@@ -22,8 +25,10 @@ public class LobbyMenu extends AbstractScreen {
     private OrthographicCamera camera;
     private ScreenManager screenManager;
     private SpriteBatch batch = new SpriteBatch();
+    private TextField playerName;
+    private TextField hostIP;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
-    private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json")); 
+    private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
 
 
@@ -34,6 +39,7 @@ public class LobbyMenu extends AbstractScreen {
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
+        textfieldSkin.getFont("default-font").getData().setScale(2.75f);
 
     }
 
@@ -57,6 +63,18 @@ public class LobbyMenu extends AbstractScreen {
         });
 
         addActorsToStage(btnJoin);
+
+        hostIP = new TextField("",textfieldSkin);
+        hostIP.setMessageText("Enter your IP");
+        hostIP.setSize(screenWidth*0.3f, screenHeight*0.1f);
+        hostIP.setPosition(screenWidth/2 - hostIP.getWidth()/2, screenHeight/2 + (hostIP.getHeight()*2));
+        addActorsToStage(hostIP);
+
+        playerName = new TextField("",textfieldSkin);
+        playerName.setMessageText("Enter your name..");
+        playerName.setSize(screenWidth *0.3f, screenHeight*0.1f);
+        playerName.setPosition(screenWidth/2 - playerName.getWidth()/2, screenHeight/2);
+        addActorsToStage(playerName);
 
 
     }
