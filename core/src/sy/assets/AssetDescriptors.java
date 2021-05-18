@@ -1,5 +1,4 @@
 package sy.assets;
-
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -15,8 +14,9 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> BUTTON_OPTIONS = new AssetDescriptor<>(UI + "/OptionsButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_EXIT = new AssetDescriptor<>(UI + "/ExitDevilButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>(UI + "/JoinButton.png", Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_GAMEJOIN = new AssetDescriptor<>(UI + "/JoinGame.png", Texture.class);
+    public static final AssetDescriptor<Texture> HOST_GAME = new AssetDescriptor<>(UI + "/HostGame.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> BUTTON_GAMEJOIN = new AssetDescriptor<Texture>(UI + "/JoinGame.png", Texture.class);
 
     public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>( WORLD + "/map.png", Texture.class);
 
