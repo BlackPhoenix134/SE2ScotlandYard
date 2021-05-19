@@ -65,7 +65,7 @@ public class MainMenuScreen extends AbstractScreen {
                 sound.play();
                // ServerHandler sh = new ServerHandler();
                 //sh.serverStart();
-                //screenManager.showScreen(HostGameMenu.class);
+                screenManager.showScreen(HostGameMenu.class);
             }
         });
 
