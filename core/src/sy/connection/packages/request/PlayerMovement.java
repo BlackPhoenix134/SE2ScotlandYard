@@ -2,6 +2,10 @@ package sy.connection.packages.request;
 
 import com.badlogic.gdx.math.Vector2;
 
+import sy.core.Annotations.NetworkPackage;
+
+
+@NetworkPackage
 public class PlayerMovement {
     private Vector2 originPosition;
     private Vector2 targetPosition;

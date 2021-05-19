@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
+import sy.connection.packages.SpawnObject;
 import sy.connection.packages.request.PlayerMovement;
 
 public class ClientHandler extends Listener {
@@ -24,9 +25,9 @@ public class ClientHandler extends Listener {
         client.start();
 
         Kryo kryo = client.getKryo();
-        //kryo.register(SomeRequest.class);
-        //kryo.register(SomeResponse.class);
-        kryo.register(PlayerMovement.class);
+        kryo.register(ClientMoveRequest.class);
+        kryo.register(MovePlayerObject.class);
+        kryo.register(SpawnObject.class);
 
         try {
             client.connect(5000, hostIp, tcpPort, udpPort);

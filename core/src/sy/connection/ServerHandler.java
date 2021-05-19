@@ -11,6 +11,7 @@ import java.io.IOException;
 
 import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
+import sy.connection.packages.SpawnObject;
 import sy.connection.packages.request.PlayerMovement;
 
 public class ServerHandler extends Listener{
@@ -44,9 +45,9 @@ public class ServerHandler extends Listener{
         });*/
 
         Kryo kryo = server.getKryo();
-        //kryo.register(SomeRequest.class);
-        //kryo.register(SomeResponse.class);
-        kryo.register(PlayerMovement.class);
+        kryo.register(ClientMoveRequest.class);
+        kryo.register(MovePlayerObject.class);
+        kryo.register(SpawnObject.class);
 
     }
 
