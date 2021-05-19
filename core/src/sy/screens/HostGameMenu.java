@@ -67,6 +67,19 @@ public class HostGameMenu extends AbstractScreen {
 
         addActorsToStage(host);
 
+        userIP = new TextField("",textfieldSkin);
+        userIP.setMessageText("Enter IP from Server");
+        userIP.setSize(screenWidth*0.3f, screenHeight*0.1f);
+        userIP.setPosition(screenWidth/2 - userIP.getWidth()/2, screenHeight/2 + (userIP.getHeight()*2));
+        addActorsToStage(userIP);
+
+        userName = new TextField("",textfieldSkin);
+        userName.setMessageText("Enter Playername");
+        userName.setSize(screenWidth *0.3f, screenHeight*0.1f);
+        userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2);
+        addActorsToStage(userName);
+
+
     }
 
     @Override
