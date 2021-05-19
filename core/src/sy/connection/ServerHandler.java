@@ -2,6 +2,7 @@ package sy.connection;
 
 import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
@@ -13,16 +14,21 @@ import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.request.PlayerMovement;
 
 public class ServerHandler extends Listener{
+    private NetworkPackageCallbacks callbacks;
+    private Server server;
 
-    static Server server;
+    public ServerHandler(NetworkPackageCallbacks callbacks) {
+        this.callbacks = callbacks;
+    }
 
-    public void serverStart(){
+
+    public void serverStart(int tcpPort, int udpPort) {
 
         try {
             server = new Server();
             server.start();
-            server.bind(54555,54777);
-            server.addListener(new ServerHandler());
+            server.bind(tcpPort,udpPort);
+            server.addListener(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -50,6 +56,8 @@ public class ServerHandler extends Listener{
     }
 
     public void sendAll(Object obj, boolean invokeSelf) {
+        if(invokeSelf)
+            callbacks.invoke(obj);
         server.sendToAllTCP(obj);
     }
 
@@ -59,6 +67,8 @@ public class ServerHandler extends Listener{
     }
 
     public void sendTo(int connectionId, Object obj, boolean invokeSelf) {
+        if(invokeSelf)
+            callbacks.invoke(obj);
         server.sendToTCP(connectionId, obj);
     }
 
@@ -66,11 +76,11 @@ public class ServerHandler extends Listener{
         sendAllExcept(connectionId, obj, false);
     }
 
-
     public void sendAllExcept(int connectionId, Object obj, boolean invokeSelf) {
+        if(invokeSelf)
+            callbacks.invoke(obj);
         server.sendToAllExceptTCP(connectionId, obj);
     }
-
 
     @Override
     public void connected(Connection connection) {
@@ -84,13 +94,7 @@ public class ServerHandler extends Listener{
 
     @Override
     public void received(Connection connection, Object object) {
-        if(object instanceof ClientMoveRequest){
-            //Call ServerGameplay.MovePlayerTo(...)
-        }
-
-        if(object instanceof MovePlayerObject){
-            //Update map?
-        }
+        callbacks.invoke(object);
     }
 
 }

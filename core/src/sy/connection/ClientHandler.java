@@ -12,10 +12,14 @@ import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.request.PlayerMovement;
 
 public class ClientHandler extends Listener {
+    private NetworkPackageCallbacks callbacks;
+    private Client client;
 
-    static Client client;
+    public ClientHandler(NetworkPackageCallbacks callbacks) {
+        this.callbacks = callbacks;
+    }
 
-    public void clientStart(){
+    public void clientStart(String hostIp, int tcpPort, int udpPort){
         client = new Client();
         client.start();
 
@@ -25,9 +29,8 @@ public class ClientHandler extends Listener {
         kryo.register(PlayerMovement.class);
 
         try {
-            client.connect(5000, "192.168.0.136", 54555, 54777);
-            client.addListener(new ClientHandler());
-
+            client.connect(5000, hostIp, tcpPort, udpPort);
+            client.addListener(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,15 +56,15 @@ public class ClientHandler extends Listener {
     }
 
     public void send(Object object, boolean invokeSelf){
+        if(invokeSelf)
+            callbacks.invoke(object);
         client.sendTCP(object);
     }
 
 
     @Override
     public void received(Connection connection, Object object) {
-        if(object instanceof MovePlayerObject){
-            //Update map?
-        }
+        callbacks.invoke(object);
     }
 
     public void close(){

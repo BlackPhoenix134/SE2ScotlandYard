@@ -1,5 +1,6 @@
 package sy.gameObjects;
 
 public interface NetworkIdentifiable {
-    public int getNetId();
+     int getNetId();
+     void setNetId(int netId);
 }
