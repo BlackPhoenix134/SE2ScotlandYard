@@ -48,7 +48,7 @@ public class HostGameMenu extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        Gdx.input.setInputProcessor(this);
+       // Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
 
         Texture hostTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);

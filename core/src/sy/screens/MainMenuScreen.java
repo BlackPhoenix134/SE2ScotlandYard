@@ -33,9 +33,14 @@ public class MainMenuScreen extends AbstractScreen {
         screenHeight = Gdx.graphics.getHeight();
     }
 
+   @Override
+    public void show() {
+        Gdx.input.setInputProcessor(this);
+    }
+
     @Override
     public void buildStage() {
-        Gdx.input.setInputProcessor(this);
+        //Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
 
         Texture startGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DEVIL);

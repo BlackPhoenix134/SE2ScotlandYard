@@ -48,7 +48,7 @@ public class LobbyMenu extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        Gdx.input.setInputProcessor(this);
+        //Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
 
         Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
