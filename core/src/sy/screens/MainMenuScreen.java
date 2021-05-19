@@ -9,11 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Scaling;
 
-
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
-import sy.connection.ClientHandler;
-import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -68,7 +65,7 @@ public class MainMenuScreen extends AbstractScreen {
                 sound.play();
                // ServerHandler sh = new ServerHandler();
                 //sh.serverStart();
-                screenManager.showScreen(HostGameMenu.class);
+                //screenManager.showScreen(HostGameMenu.class);
             }
         });
 

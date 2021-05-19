@@ -11,8 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
 
-import org.w3c.dom.Text;
-
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.rendering.RenderPipeline;
@@ -44,6 +42,11 @@ public class LobbyMenu extends AbstractScreen {
     }
 
     @Override
+    public void show() {
+        Gdx.input.setInputProcessor(this);
+    }
+
+    @Override
     public void buildStage() {
         Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
@@ -58,7 +61,7 @@ public class LobbyMenu extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
-                screenManager.showScreen(MainMenuScreen.class);
+                screenManager.showScreen(GameScreen.class);
             }
         });
 
