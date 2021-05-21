@@ -11,12 +11,15 @@ import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.core.MapNode;
 import sy.core.MoveType;
+import sy.core.Tickets;
 import sy.rendering.RenderPipeline;
 
 public class PawnObject extends GameObject implements NetworkIdentifiable {
     private int netId;
     private int playerID;
     private MapNode mapNode;
+    private Tickets tickets;
+
     /**
      * Index vom NodeGraphObject (nodepositions)
      */
@@ -68,6 +71,10 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
 
     public void removeTicket(MoveType type){
 
+    }
+
+    public void setTickets(Tickets tickets){
+        this.tickets = tickets;
     }
 
     @Override

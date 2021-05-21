@@ -11,7 +11,12 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.connection.ClientHandler;
+import sy.connection.NetworkPackageCallbacks;
+import sy.connection.ServerHandler;
 import sy.core.Gameplay;
+import sy.core.GameplayClient;
+import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
 import sy.gameObjects.GameBoardObject;
@@ -66,6 +71,15 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
         gameplay.initialize(nodeGraphObject);
     }
+
+    public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks) {
+        //gameplay = new GameplayServer();
+    }
+
+    public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks) {
+        //gameplay = new GameplayClient();
+    }
+
 
 
     @Override

@@ -16,6 +16,14 @@ public abstract class Gameplay {
         this.nodeGraphObject = nodeGraphObject;
     }
 
+    public int getPlayerTurnId() {
+        return playerTurnId;
+    }
+
+    public void setPlayerTurnId(int playerTurnId) {
+        this.playerTurnId = playerTurnId;
+    }
+
     public boolean isLocalTurn() {
         return playerTurnId == player.getId();
     }

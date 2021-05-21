@@ -6,10 +6,20 @@ import sy.gameObjects.PawnObject;
 
 public class GameplayServer extends Gameplay {
     private ServerHandler server;
+    private int idCount;
 
     public GameplayServer(Player player, ServerHandler server) {
         super(player);
         this.server = server;
+    }
+
+    public void changeTurn(){
+        setPlayerTurnId((getPlayerTurnId() + 1) % idCount);
+        server.sendAll(new PlayerTurn(getPlayerTurnId()), true);
+    }
+
+    public void playerConnected(){
+        idCount++;
     }
 
     @Override
