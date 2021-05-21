@@ -21,6 +21,9 @@ public class NodeGraphObject extends GameObject {
     private NodeGraph graph;
     ArrayList<Vector2> nodeposition;
 
+    public List<MapNode> getMapNodes(){
+        return graph.getNodes();
+    }
 
     NodeGraphObject(String uuid) {
         super(uuid);

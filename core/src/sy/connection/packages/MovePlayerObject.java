@@ -2,15 +2,15 @@ package sy.connection.packages;
 
 import sy.core.Annotations.NetworkPackage;
 import sy.core.MapNode;
-import sy.gameObjects.PlayerObject;
+import sy.gameObjects.PawnObject;
 
 @NetworkPackage
 public class MovePlayerObject {
     public int playerObjectNetId;
     public int newNodeId;
 
-    public MovePlayerObject(PlayerObject playerObject, MapNode newNode) {
-        this.playerObjectNetId = playerObject.getNetId();
+    public MovePlayerObject(PawnObject pawnObject, MapNode newNode) {
+        this.playerObjectNetId = pawnObject.getNetId();
         this.newNodeId = newNode.getId();
     }
 }

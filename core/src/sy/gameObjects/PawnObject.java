@@ -5,15 +5,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.core.MapNode;
+import sy.core.MoveType;
 import sy.rendering.RenderPipeline;
 
-public class PlayerObject extends GameObject implements NetworkIdentifiable {
+public class PawnObject extends GameObject implements NetworkIdentifiable {
     private int netId;
     private int playerID;
-    private Vector2 position;
+    private MapNode mapNode;
     /**
      * Index vom NodeGraphObject (nodepositions)
      */
@@ -21,14 +24,16 @@ public class PlayerObject extends GameObject implements NetworkIdentifiable {
     private Sprite sprite;
 
 
-    public PlayerObject(String uuid) {
+    public PawnObject(String uuid) {
         super(uuid);
-        position = new Vector2(-2923, 2636);
+        mapNode = new MapNode();
+        mapNode.setPosition(new Vector2(-2923, 2636));
         index = 0;
         Texture texture = SYAssetManager.getAsset(AssetDescriptors.MONSTER1);
         sprite = new Sprite(texture);
         sprite.setScale(0.45f);
     }
+
 
     @Override
     public void update(float delta) {
@@ -36,7 +41,7 @@ public class PlayerObject extends GameObject implements NetworkIdentifiable {
 
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
-        sprite.setPosition(position.x, position.y);
+        sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
         pipeline.add(sprite, 55);
     }
 
@@ -44,17 +49,8 @@ public class PlayerObject extends GameObject implements NetworkIdentifiable {
         return playerID;
     }
 
-    public Vector2 getPosition() {
-        return position;
-    }
-
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
-    }
-
-    public void setPosition(Vector2 position, int index) {
-        this.position = position;
-        this.index = index;
     }
 
     public int getIndex() {
@@ -63,6 +59,15 @@ public class PlayerObject extends GameObject implements NetworkIdentifiable {
 
     public void setIndex(int index) {
         this.index = index;
+    }
+
+    public void setMapNode(MapNode mapNode){
+        this.mapNode = mapNode;
+        this.sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
+    }
+
+    public void removeTicket(MoveType type){
+
     }
 
     @Override

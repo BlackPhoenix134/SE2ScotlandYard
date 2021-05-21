@@ -2,7 +2,7 @@ package sy.core;
 
 import sy.connection.ClientHandler;
 import sy.connection.packages.ClientMoveRequest;
-import sy.gameObjects.PlayerObject;
+import sy.gameObjects.PawnObject;
 
 public class GameplayClient extends Gameplay {
     private ClientHandler client;
@@ -13,9 +13,12 @@ public class GameplayClient extends Gameplay {
     }
 
     @Override
-    public void movePlayer(PlayerObject playerObject, MapNode newNode) {
-        if(isLocalTurn() && canMove(playerObject, newNode)) {
-            client.send(new ClientMoveRequest(playerObject, newNode));
+    public void movePlayer(PawnObject pawnObject, MapNode newNode) {
+        MoveType type = canMove(pawnObject, newNode);
+        if(isLocalTurn() && type != null) {
+            pawnObject.setMapNode(newNode);
+            pawnObject.removeTicket(type);
+            client.send(new ClientMoveRequest(pawnObject, newNode));
         }
     }
 }
