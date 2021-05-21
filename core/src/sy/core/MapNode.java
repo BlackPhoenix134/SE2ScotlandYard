@@ -24,8 +24,10 @@ public class MapNode {
 
     }
 
-    public MapNode(Vector2 position) {
+    public MapNode(Vector2 position, int id) {
+
         this.position = position;
+        this.id = id;
     }
 
     public Vector2 getPosition() {

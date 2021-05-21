@@ -16,12 +16,12 @@ public class NodeGraph {
     }
 
     public NodeGraph(List<Vector2> positions) {
-        for (Vector2 position : positions)
-            addNode(position);
+        for(int i = 0; i < positions.size(); i++)
+            addNode(positions.get(i), i);
     }
 
-    public void addNode(Vector2 position) {
-        nodes.add(new MapNode(position));
+    public void addNode(Vector2 position, int id) {
+        nodes.add(new MapNode(position, id));
     }
 
     public void addEdge(int nodeIdx1, int nodeIdx2, List<MoveType> allowedMoves) {
