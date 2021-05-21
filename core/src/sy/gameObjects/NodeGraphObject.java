@@ -19,7 +19,6 @@ import sy.rendering.RenderPipeline;
 
 public class NodeGraphObject extends GameObject {
     private NodeGraph graph;
-    //ToDo: scene2d or self made transform hierarchy, if this obejct moves, nodes do not move
     ArrayList<Vector2> nodeposition;
 
 
