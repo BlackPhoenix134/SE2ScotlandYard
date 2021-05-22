@@ -54,7 +54,7 @@ before_install:
 
 addons:
   sonarcloud:
-    organization: "BlackPhoenix134" # der key der organisation auf sonarcloud.io
+    organization: "blackphoenix134" # der key der organisation auf sonarcloud.io
     token: $SonarToken # Umgebungsvariable auf travis-ci.com
 
 
