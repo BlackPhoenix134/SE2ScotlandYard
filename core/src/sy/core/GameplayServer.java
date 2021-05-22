@@ -1,9 +1,13 @@
 package sy.core;
 
+import com.esotericsoftware.kryonet.Client;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
+import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
 import sy.gameObjects.PawnObject;
 
@@ -14,6 +18,10 @@ public class GameplayServer extends Gameplay {
     public GameplayServer(Player player, ServerHandler server) {
         super(player);
         this.server = server;
+        new NetworkPackageCallbacks().registerCallback(ClientMoveRequest.class, packageObj -> {
+            ClientMoveRequest clientRequest = (ClientMoveRequest) packageObj;
+            server.sendAll(new MovePlayerObject(clientRequest.playerObjNetId, clientRequest.newNodeId), true);
+        });
     }
 
     public void changeTurn(){

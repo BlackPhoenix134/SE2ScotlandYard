@@ -13,4 +13,8 @@ public class MovePlayerObject {
         this.playerObjectNetId = pawnObject.getNetId();
         this.newNodeId = newNode.getId();
     }
+    public MovePlayerObject(int playerObjectNetId, int newNodeId) {
+        this.playerObjectNetId = playerObjectNetId;
+        this.newNodeId = newNodeId;
+    }
 }
