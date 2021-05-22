@@ -8,6 +8,7 @@ import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.request.SomeRequest;
 import sy.core.Consumer;
+import sy.core.PlayerTurn;
 
 public class NetworkPackageCallbacks {
     private Map<Class, Consumer<Object>> packageHandler = new HashMap<>();
@@ -17,16 +18,16 @@ public class NetworkPackageCallbacks {
     }
 
     private void setupHandler() {
-        packageHandler.put(MovePlayerObject.class, packageObject->{
+        //packageHandler.put(PlayerTurn.class, packageObject->{
 
-        });
-
-        packageHandler.put(ClientMoveRequest.class, packageObject->{
-
-        });
+        //});
     }
 
     public void invoke(Object packageObj) {
         packageHandler.get(packageObj.getClass()).call(packageObj);
+    }
+
+    public void registerCallback(Class c, Consumer<Object> consumer){
+        packageHandler.put(c, consumer);
     }
 }

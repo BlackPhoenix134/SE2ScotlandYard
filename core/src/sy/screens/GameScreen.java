@@ -9,11 +9,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 
+import java.util.List;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
+import sy.connection.packages.MovePlayerObject;
 import sy.core.Gameplay;
 import sy.core.GameplayClient;
 import sy.core.GameplayServer;
@@ -49,6 +52,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private NodeGraphObject nodeGraphObject;
     private TicketType ticketType;
     private Gameplay gameplay;
+    private List<PawnObject> pawnPlayerObjects;
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -71,6 +75,18 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         pawnObject = gameObjectManager.create(PawnObject.class);
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
         gameplay.initialize(nodeGraphObject);
+
+        new NetworkPackageCallbacks().registerCallback(MovePlayerObject.class, packageObj -> {
+            MovePlayerObject playerMoved = (MovePlayerObject)packageObj;
+            for(PawnObject player : pawnPlayerObjects){
+                if(player.getNetId() == playerMoved.playerObjectNetId){
+                    MapNode newMapNode = nodeGraphObject.getMapNodes().get(playerMoved.newNodeId);
+                    player.setMapNode(newMapNode);
+                    break;
+                }
+            }
+        });
+
     }
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks) {

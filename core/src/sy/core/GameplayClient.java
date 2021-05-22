@@ -3,6 +3,7 @@ package sy.core;
 import java.util.List;
 
 import sy.connection.ClientHandler;
+import sy.connection.NetworkPackageCallbacks;
 import sy.connection.packages.ClientMoveRequest;
 import sy.gameObjects.PawnObject;
 
@@ -12,6 +13,11 @@ public class GameplayClient extends Gameplay {
     public GameplayClient(Player player, ClientHandler client) {
         super(player);
         this.client = client;
+        new NetworkPackageCallbacks().registerCallback(PlayerTurn.class, packageObj->{
+            PlayerTurn turn = (PlayerTurn) packageObj;
+            setPlayerTurnId(turn.getId());
+        });
+
     }
 
     @Override
