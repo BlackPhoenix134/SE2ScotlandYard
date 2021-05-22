@@ -45,8 +45,6 @@ android:
 
 script:
   - chmod +x gradlew                        # make executable
-  - ./gradlew test jacocoTestReport
-  - ./gradlew lint
   - ./gradlew sonarqube
 
 before_install:
