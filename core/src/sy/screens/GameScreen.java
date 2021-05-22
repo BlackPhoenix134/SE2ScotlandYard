@@ -19,6 +19,7 @@ import sy.core.GameplayClient;
 import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
+import sy.core.TicketType;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
@@ -46,7 +47,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private GameBoardObject gameBoardObject;
     private CritterSpawnerManager critterSpawnerManager;
     private NodeGraphObject nodeGraphObject;
-
+    private TicketType ticketType;
     private Gameplay gameplay;
 
     private World world = new World(new Vector2(0, 0), true);
@@ -180,7 +181,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
             Vector2 pos = node.getPosition();
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
                 //Gdx.app.log("Indizes:", "current index: " + currentindex + " clicked index: " + i);
-                gameplay.movePlayer(pawnObject, node);
+                gameplay.movePlayer(pawnObject, node, ticketType);
                 break;
             }
         }

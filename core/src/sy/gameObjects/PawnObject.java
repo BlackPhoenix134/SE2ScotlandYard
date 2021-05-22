@@ -4,21 +4,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayList;
-import java.util.Map;
-
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.core.MapNode;
 import sy.core.MoveType;
-import sy.core.Tickets;
+import sy.core.TicketType;
 import sy.rendering.RenderPipeline;
 
-public class PawnObject extends GameObject implements NetworkIdentifiable {
+public abstract class PawnObject extends GameObject implements NetworkIdentifiable {
     private int netId;
     private int playerID;
     private MapNode mapNode;
-    private Tickets tickets;
+
+
 
     /**
      * Index vom NodeGraphObject (nodepositions)
@@ -69,13 +67,8 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
         this.sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
     }
 
-    public void removeTicket(MoveType type){
+    public abstract boolean removeTicket(TicketType type);
 
-    }
-
-    public void setTickets(Tickets tickets){
-        this.tickets = tickets;
-    }
 
     @Override
     public int getNetId() {
@@ -84,4 +77,6 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
     public void setNetId(int netId) {
         this.netId = netId;
     }
+
+    public abstract boolean hasEnoughTickets (TicketType ticketType);
 }

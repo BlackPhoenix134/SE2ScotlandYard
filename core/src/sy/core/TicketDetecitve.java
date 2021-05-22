@@ -1,27 +1,17 @@
 package sy.core;
 
-public class Tickets {
+public class TicketDetecitve {
     private int busTickets;
     private int taxiTickets;
     private int ubahnTickets;
-    private int blackTickets;
-    private int doubleTurnTickets;
 
-    public Tickets(int busTickets, int taxiTickets, int ubahnTickets, int blackTickets, int doubleTurnTickets) {
+
+    public TicketDetecitve(int busTickets, int taxiTickets, int ubahnTickets) {
         this.busTickets = busTickets;
         this.taxiTickets = taxiTickets;
         this.ubahnTickets = ubahnTickets;
-        this.blackTickets = blackTickets;
-        this.doubleTurnTickets = doubleTurnTickets;
     }
 
-    public int getDoubleTurnTickets() {
-        return doubleTurnTickets;
-    }
-
-    public void setDoubleTurnTickets(int doubleTurnTickets) {
-        this.doubleTurnTickets = doubleTurnTickets;
-    }
 
     public int getBusTickets() {
         return busTickets;
@@ -47,11 +37,4 @@ public class Tickets {
         this.ubahnTickets = ubahnTickets;
     }
 
-    public int getBlackTickets() {
-        return blackTickets;
-    }
-
-    public void setBlackTickets(int blackTickets) {
-        this.blackTickets = blackTickets;
-    }
 }
