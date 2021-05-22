@@ -97,6 +97,6 @@ project(":core") {
 }
 sonarqube {
     properties {
-        property "sonar.projectKey", "BlackPhoenix134-SE2ScotlandYard"
+        property "sonar.projectKey", "BlackPhoenix134_SE2ScotlandYard"
     }
 }
