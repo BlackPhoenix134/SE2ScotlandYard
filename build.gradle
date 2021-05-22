@@ -10,6 +10,9 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.5.4'
     }
 }
+plugins {
+    id "org.sonarqube" version "3.2.0"
+}
 
 allprojects {
     apply plugin: "eclipse"
@@ -84,16 +87,16 @@ project(":android") {
 project(":core") {
     apply plugin: "java-library"
 
-
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
         api "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
         implementation group: 'com.esotericsoftware', name: 'kryonet', version: '2.22.0-RC1'
-
-
-
-
+    }
+}
+sonarqube {
+    properties {
+        property "sonar.projectKey", "BlackPhoenix134-SE2ScotlandYard"
     }
 }
