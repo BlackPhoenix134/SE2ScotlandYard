@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.core.MapNode;
-import sy.core.MoveType;
 import sy.core.TicketType;
 import sy.rendering.RenderPipeline;
 

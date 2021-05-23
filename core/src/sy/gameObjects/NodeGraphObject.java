@@ -6,12 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-
-
-import sy.Game;
 import sy.core.MapNode;
 import sy.core.MoveType;
 import sy.core.NodeGraph;
@@ -276,7 +271,6 @@ public class NodeGraphObject extends GameObject {
         graph.addEdge(0, 57, MoveType.BUS);
         graph.addEdge(0, 45, MoveType.BUS);
         graph.addEdge(0, 45, MoveType.UBAHN);
-        // graph.addEdge(0,45, allowsMove2Move3);
 
         //Edges from node 2
         graph.addEdge(1, 9, MoveType.TAXI);

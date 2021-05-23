@@ -2,9 +2,6 @@ package sy.core;
 
 import com.esotericsoftware.kryonet.Client;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
 import sy.connection.packages.ClientMoveRequest;

@@ -8,10 +8,10 @@ public class PawnDetectiveObject extends PawnObject {
 
     public PawnDetectiveObject(String uuid, TicketDetecitve ticketDetecitve) {
         super(uuid);
-        setDetecitveTickets(ticketDetecitve);
+        setDetectiveTicket(ticketDetecitve);
     }
 
-    public void setDetecitveTickets(TicketDetecitve ticketDetecitve) {
+    public void setDetectiveTicket(TicketDetecitve ticketDetecitve) {
         this.ticketDetecitve = ticketDetecitve;
     }
 
@@ -40,6 +40,8 @@ public class PawnDetectiveObject extends PawnObject {
                     return true;
                 }
                 break;
+            default:
+                return false;
         }
         return false;
     }
@@ -66,6 +68,8 @@ public class PawnDetectiveObject extends PawnObject {
                     return true;
                 }
                 break;
+            default:
+                return false;
         }
         return false;
     }

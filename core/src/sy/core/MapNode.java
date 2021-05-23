@@ -2,10 +2,9 @@ package sy.core;
 
 import com.badlogic.gdx.math.Vector2;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 
 public class MapNode {
     private int id;

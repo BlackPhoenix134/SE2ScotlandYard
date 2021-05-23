@@ -35,6 +35,8 @@ public class PawnMisterXObject extends PawnObject {
                     return true;
                 }
                 break;
+            default:
+                return false;
         }
         return false;
     }
@@ -57,6 +59,8 @@ public class PawnMisterXObject extends PawnObject {
                     return true;
                 }
                 break;
+            default:
+                return false;
         }
         return false;
     }

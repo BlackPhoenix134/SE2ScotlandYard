@@ -1,7 +1,5 @@
 package sy.core;
 
-import java.util.List;
-
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.packages.ClientMoveRequest;
