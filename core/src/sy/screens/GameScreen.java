@@ -45,6 +45,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private Vector2 oldDragValue = new Vector2();
     private float currentScale = 1;
     private float zoomValue = 1;
+    private ScreenManager screenManager;
     private PawnObject pawnObject;
     private GameBoardObject gameBoardObject;
     private CritterSpawnerManager critterSpawnerManager;
