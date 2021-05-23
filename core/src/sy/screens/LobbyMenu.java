@@ -13,8 +13,13 @@ import com.badlogic.gdx.utils.Scaling;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.connection.ClientHandler;
+import sy.connection.NetworkPackageCallbacks;
+import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
+
+import static sy.screens.GameScreen.*;
 
 public class LobbyMenu extends AbstractScreen {
     private float screenWidth, screenHeight;
@@ -27,6 +32,7 @@ public class LobbyMenu extends AbstractScreen {
     private TextField hostIP;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
 
 
 
@@ -48,6 +54,22 @@ public class LobbyMenu extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
+        ClientHandler client = new ClientHandler(networkPackageCallbacks);
+
+        hostIP = new TextField("",textfieldSkin);
+        hostIP.setMessageText("Enter your IP");
+        hostIP.setSize(screenWidth*0.3f, screenHeight*0.1f);
+        hostIP.setPosition(screenWidth/2 - hostIP.getWidth()/2, screenHeight/2 + (hostIP.getHeight()*2));
+        addActorsToStage(hostIP);
+
+        playerName = new TextField("",textfieldSkin);
+        playerName.setMessageText("Enter your name..");
+        playerName.setSize(screenWidth *0.3f, screenHeight*0.1f);
+        playerName.setPosition(screenWidth/2 - playerName.getWidth()/2, screenHeight/2);
+        addActorsToStage(playerName);
+
+
         //Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
 
@@ -62,22 +84,13 @@ public class LobbyMenu extends AbstractScreen {
             public void onClick() {
                 sound.play();
                 screenManager.showScreen(GameScreen.class);
+                GameScreen.initialize(client, networkPackageCallbacks);
             }
         });
 
         addActorsToStage(btnJoin);
 
-        hostIP = new TextField("",textfieldSkin);
-        hostIP.setMessageText("Enter your IP");
-        hostIP.setSize(screenWidth*0.3f, screenHeight*0.1f);
-        hostIP.setPosition(screenWidth/2 - hostIP.getWidth()/2, screenHeight/2 + (hostIP.getHeight()*2));
-        addActorsToStage(hostIP);
 
-        playerName = new TextField("",textfieldSkin);
-        playerName.setMessageText("Enter your name..");
-        playerName.setSize(screenWidth *0.3f, screenHeight*0.1f);
-        playerName.setPosition(screenWidth/2 - playerName.getWidth()/2, screenHeight/2);
-        addActorsToStage(playerName);
 
 
     }
