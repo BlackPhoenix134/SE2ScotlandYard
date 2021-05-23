@@ -22,14 +22,14 @@ import sy.ui.AliveButton;
 import static sy.screens.GameScreen.*;
 
 public class LobbyMenu extends AbstractScreen {
-    private float screenWidth, screenHeight;
-    private AliveButton btnJoin;
+    private float screenWidth;
+    private float screenHeight;
+    //private AliveButton btnJoin;
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
     private ScreenManager screenManager;
-    private SpriteBatch batch = new SpriteBatch();
-    private TextField playerName;
-    private TextField hostIP;
+    //private TextField playerName;
+    //private TextField hostIP;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
@@ -54,6 +54,10 @@ public class LobbyMenu extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        AliveButton btnJoin;
+        TextField playerName;
+        TextField hostIP;
+
         NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
         ClientHandler client = new ClientHandler(networkPackageCallbacks);
 
