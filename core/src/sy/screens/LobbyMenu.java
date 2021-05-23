@@ -5,31 +5,25 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
-
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
-import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
-import static sy.screens.GameScreen.*;
+
 
 public class LobbyMenu extends AbstractScreen {
     private float screenWidth;
     private float screenHeight;
-    //private AliveButton btnJoin;
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
     private ScreenManager screenManager;
-    //private TextField playerName;
-    //private TextField hostIP;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
@@ -74,7 +68,7 @@ public class LobbyMenu extends AbstractScreen {
         addActorsToStage(playerName);
 
 
-        //Gdx.input.setInputProcessor(this);
+      
         float padding = screenHeight * 0.05f;
 
         Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
