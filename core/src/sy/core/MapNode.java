@@ -57,4 +57,9 @@ public class MapNode {
         MapNode mapNode = (MapNode) o;
         return position.equals(mapNode.position);
     }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }

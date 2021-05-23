@@ -1,11 +1,10 @@
 package sy.gameObjects;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import sy.rendering.RenderPipeline;
 
 public abstract class GameObject {
-    private String uuid = null;
+    private String uuid;
     private boolean isAlive = true;
 
     public boolean isAlive() {

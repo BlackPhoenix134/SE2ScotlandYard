@@ -1,8 +1,8 @@
 package sy.gameObjects;
 
-import com.badlogic.gdx.graphics.Texture;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 
 import sy.core.LivingBoard.StateMachines.StateMachine;
 import sy.rendering.RenderPipeline;

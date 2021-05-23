@@ -3,8 +3,7 @@ package sy.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import sy.gameObjects.GameObject;
-import sy.gameObjects.GameObjectManager;
+
 import sy.gameObjects.NetworkIdentifiable;
 
 public class NetworkObjectManager {

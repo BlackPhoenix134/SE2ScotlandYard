@@ -1,6 +1,5 @@
 package sy.core;
 
-import com.esotericsoftware.kryonet.Client;
 
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
