@@ -21,8 +21,6 @@ import sy.ui.AliveButton;
 public class LobbyMenu extends AbstractScreen {
     private float screenWidth;
     private float screenHeight;
-    private RenderPipeline renderPipeline;
-    private OrthographicCamera camera;
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
@@ -32,8 +30,6 @@ public class LobbyMenu extends AbstractScreen {
 
 
     public LobbyMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
-        this.renderPipeline = renderPipeline;
-        this.camera = camera;
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();

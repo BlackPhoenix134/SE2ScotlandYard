@@ -5,7 +5,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -20,8 +19,6 @@ import sy.ui.AliveButton;
 public class HostGameMenu extends AbstractScreen {
     private float screenWidth;
     private float screenHeight;
-    private RenderPipeline renderPipeline;
-    private OrthographicCamera camera;
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
@@ -32,8 +29,6 @@ public class HostGameMenu extends AbstractScreen {
 
 
     public HostGameMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
-        this.renderPipeline = renderPipeline;
-        this.camera = camera;
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
