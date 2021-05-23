@@ -5,7 +5,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Scaling;
 
@@ -15,19 +14,12 @@ import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
 public class MainMenuScreen extends AbstractScreen {
-    private float              screenWidth, screenHeight;
-    private AliveButton        btnStartGame;
-    private AliveButton        btnExitGame;
-    private AliveButton        btnJoinGame;
-    private RenderPipeline     renderPipeline;
-    private OrthographicCamera camera;
-    private ScreenManager      screenManager;
-    private SpriteBatch        batch = new SpriteBatch();
+    private float screenWidth;
+    private float screenHeight;
+    private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
 
     public MainMenuScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
-        this.renderPipeline = renderPipeline;
-        this.camera = camera;
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
@@ -40,7 +32,9 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
-        //Gdx.input.setInputProcessor(this);
+        AliveButton btnStartGame;
+        AliveButton btnExitGame;
+        AliveButton btnJoinGame;
         float padding = screenHeight * 0.05f;
 
         Texture startGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DEVIL);
@@ -68,8 +62,6 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
-               // ServerHandler sh = new ServerHandler();
-                //sh.serverStart();
                 screenManager.showScreen(HostGameMenu.class);
             }
         });
@@ -78,9 +70,6 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
                     public void onClick(){
                 sound.play();
-                //Only for testing purposes active
-                //ClientHandler ch = new ClientHandler();
-                //ch.clientStart();
                 screenManager.showScreen(LobbyMenu.class);
             }
 
