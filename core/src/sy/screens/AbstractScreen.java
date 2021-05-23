@@ -18,7 +18,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
     private float screenTransitionSpeed = .45f;
 
     protected AbstractScreen() {
-        // super( new StretchViewport(800, 600, new OrthographicCamera()) );
         transitionImg = new Image(SYAssetManager.solid1x1);
         transitionImg.setColor(Color.BLACK);
         transitionImg.setVisible(false);
@@ -58,13 +57,6 @@ public abstract class AbstractScreen extends Stage implements Screen {
     public void render(float delta) {
         super.act(delta);
         super.draw();
-        // Clear screen
-        /*Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        // Calling to Stage methods
-        super.act(delta);
-        super.draw();*/
     }
 
     @Override

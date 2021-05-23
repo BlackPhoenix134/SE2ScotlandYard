@@ -68,7 +68,7 @@ public class LobbyMenu extends AbstractScreen {
         addActorsToStage(playerName);
 
 
-      
+
         float padding = screenHeight * 0.05f;
 
         Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
