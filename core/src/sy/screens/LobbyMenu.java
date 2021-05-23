@@ -26,9 +26,6 @@ public class LobbyMenu extends AbstractScreen {
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
 
-
-
-
     public LobbyMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
@@ -52,14 +49,14 @@ public class LobbyMenu extends AbstractScreen {
         ClientHandler client = new ClientHandler(networkPackageCallbacks);
 
         hostIP = new TextField("",textfieldSkin);
-        hostIP.setMessageText("Enter your IP");
-        hostIP.setSize(screenWidth*0.3f, screenHeight*0.1f);
+        hostIP.setMessageText("Server IP");
+        hostIP.setSize(screenWidth *0.6f, screenHeight*0.1f);
         hostIP.setPosition(screenWidth/2 - hostIP.getWidth()/2, screenHeight/2 + (hostIP.getHeight()*2));
         addActorsToStage(hostIP);
 
         playerName = new TextField("",textfieldSkin);
-        playerName.setMessageText("Enter your name..");
-        playerName.setSize(screenWidth *0.3f, screenHeight*0.1f);
+        playerName.setMessageText("Playername");
+        playerName.setSize(screenWidth *0.6f, screenHeight*0.1f);
         playerName.setPosition(screenWidth/2 - playerName.getWidth()/2, screenHeight/2);
         addActorsToStage(playerName);
 

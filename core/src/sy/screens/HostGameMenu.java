@@ -24,10 +24,6 @@ public class HostGameMenu extends AbstractScreen {
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
 
-
-
-
-
     public HostGameMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
@@ -54,14 +50,14 @@ public class HostGameMenu extends AbstractScreen {
 
 
         userIP = new TextField("",textfieldSkin);
-        userIP.setMessageText("Enter IP from Server");
-        userIP.setSize(screenWidth*0.3f, screenHeight*0.1f);
+        userIP.setMessageText("Enter IP");
+        userIP.setSize(screenWidth *0.6f, screenHeight*0.1f);
         userIP.setPosition(screenWidth/2 - userIP.getWidth()/2, screenHeight/2 + (userIP.getHeight()*2));
         addActorsToStage(userIP);
 
         userName = new TextField("",textfieldSkin);
-        userName.setMessageText("Enter Playername");
-        userName.setSize(screenWidth *0.3f, screenHeight*0.1f);
+        userName.setMessageText("Playername");
+        userName.setSize(screenWidth *0.6f, screenHeight*0.1f);
         userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2);
         addActorsToStage(userName);
 
