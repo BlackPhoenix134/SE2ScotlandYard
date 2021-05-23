@@ -10,9 +10,14 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
+import com.esotericsoftware.kryonet.Client;
+import com.esotericsoftware.kryonet.Server;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.connection.ClientHandler;
+import sy.connection.NetworkPackageCallbacks;
+import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -27,6 +32,8 @@ public class HostGameMenu extends AbstractScreen {
     private TextField userIP;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
+
 
 
 
@@ -48,24 +55,12 @@ public class HostGameMenu extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
+        ServerHandler server = new ServerHandler(networkPackageCallbacks);
+
        // Gdx.input.setInputProcessor(this);
         float padding = screenHeight * 0.05f;
 
-        Texture hostTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
-        host = new AliveButton(hostTexture);
-        Vector2 btnHostSize = Scaling.fillX.apply(hostTexture.getWidth(), hostTexture.getHeight(), screenWidth*0.30f,0);
-        host.setSize(btnHostSize.x, btnHostSize.y);
-        host.setPosition(screenWidth/2 - host.getWidth()/2, padding);
-
-        host.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                sound.play();
-                screenManager.showScreen(GameScreen.class);
-            }
-        });
-
-        addActorsToStage(host);
 
         userIP = new TextField("",textfieldSkin);
         userIP.setMessageText("Enter IP from Server");
@@ -78,6 +73,24 @@ public class HostGameMenu extends AbstractScreen {
         userName.setSize(screenWidth *0.3f, screenHeight*0.1f);
         userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2);
         addActorsToStage(userName);
+
+        Texture hostTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
+        host = new AliveButton(hostTexture);
+        Vector2 btnHostSize = Scaling.fillX.apply(hostTexture.getWidth(), hostTexture.getHeight(), screenWidth*0.30f,0);
+        host.setSize(btnHostSize.x, btnHostSize.y);
+        host.setPosition(screenWidth/2 - host.getWidth()/2, padding);
+
+        host.addListener(new AliveButton.AliveButtonListener() {
+            @Override
+            public void onClick() {
+                sound.play();
+                screenManager.showScreen(GameScreen.class);
+                GameScreen.initialize(server,networkPackageCallbacks);
+            }
+        });
+
+        addActorsToStage(host);
+
 
 
     }
