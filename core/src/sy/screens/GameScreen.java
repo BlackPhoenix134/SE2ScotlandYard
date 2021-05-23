@@ -40,7 +40,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private GameObjectManager gameObjectManager = new GameObjectManager();
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
-    private ScreenManager screenManager;
     private InputHandler inputHandler;
     private Vector2 dragValue = new Vector2();
     private Vector2 oldDragValue = new Vector2();
@@ -142,17 +141,17 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     @Override
     public void pause() {
-
+        //waiting for usage
     }
 
     @Override
     public void resume() {
-
+        //waiting for usage
     }
 
     @Override
     public void hide() {
-
+        //waiting for usage
     }
 
     private void updateCam() {
