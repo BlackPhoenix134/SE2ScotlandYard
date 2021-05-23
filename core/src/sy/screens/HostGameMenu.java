@@ -72,7 +72,7 @@ public class HostGameMenu extends AbstractScreen {
             public void onClick() {
                 sound.play();
                 screenManager.showScreen(GameScreen.class);
-                GameScreen.initialize(server,networkPackageCallbacks);
+                screenManager.getScreen(GameScreen.class).initialize(server,networkPackageCallbacks);
             }
         });
 

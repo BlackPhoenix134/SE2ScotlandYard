@@ -1,9 +1,12 @@
 package sy.screens;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import sy.ui.AliveButton;
 
 
 public class ScreenManager {
@@ -43,5 +46,8 @@ public class ScreenManager {
         }
     }
 
+    public <T extends AbstractScreen> T getScreen(Class<T> screenClass) {
+        return (T)screens.get(screenClass);
+    }
 
 }
