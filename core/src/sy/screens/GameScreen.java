@@ -89,12 +89,14 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     }
 
-    public static void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks) {
-        //gameplay = new GameplayServer();
+    public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks) {
+        //Get player from lobby
+        this.gameplay = new GameplayServer(null, handler);
     }
 
-    public static void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks) {
-        //gameplay = new GameplayClient();
+    public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks) {
+        //Get player from lobby
+        this.gameplay = new GameplayClient(null, handler);
     }
 
 
