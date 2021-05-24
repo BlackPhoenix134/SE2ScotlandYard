@@ -33,16 +33,6 @@ public class ServerHandler extends Listener{
         } catch (IOException e) {
             e.printStackTrace();
         }
-       /* server.addListener(new Listener(){
-            public void received (Connection connection, Object object){
-                SomeRequest request = (SomeRequest)object;
-                System.out.println(request.text);
-
-                SomeResponse response = new SomeResponse();
-                response.text = "Thanks";
-                connection.sendTCP(response);
-            }
-        });*/
 
         Kryo kryo = server.getKryo();
         kryo.register(ClientMoveRequest.class);
