@@ -74,8 +74,7 @@ public class LobbyMenu extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
-                screenManager.showScreen(GameScreen.class);
-                GameScreen.initialize(client, networkPackageCallbacks);
+                screenManager.getScreen(GameScreen.class).initialize(client, networkPackageCallbacks);
             }
         });
 
