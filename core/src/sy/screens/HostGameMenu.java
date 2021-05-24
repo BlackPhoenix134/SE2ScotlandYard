@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,6 +43,7 @@ public class HostGameMenu extends AbstractScreen {
         TextField userName;
         TextField userIP;
         AliveButton host;
+        AliveButton leave;
         NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
         ServerHandler server = new ServerHandler(networkPackageCallbacks);
 
@@ -61,7 +63,7 @@ public class HostGameMenu extends AbstractScreen {
         userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2);
         addActorsToStage(userName);
 
-        Texture hostTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
+        Texture hostTexture = SYAssetManager.getAsset(AssetDescriptors.HOST_GAME);
         host = new AliveButton(hostTexture);
         Vector2 btnHostSize = Scaling.fillX.apply(hostTexture.getWidth(), hostTexture.getHeight(), screenWidth*0.30f,0);
         host.setSize(btnHostSize.x, btnHostSize.y);
@@ -77,6 +79,23 @@ public class HostGameMenu extends AbstractScreen {
         });
 
         addActorsToStage(host);
+
+
+        Texture leaveTexture = SYAssetManager.getAsset(AssetDescriptors.LEAVE);
+        leave = new AliveButton(leaveTexture);
+        Vector2 btnLeaveSize = Scaling.fillX.apply(leaveTexture.getWidth(), leaveTexture.getHeight(), screenWidth*0.30f, 0);
+        leave.setSize(btnLeaveSize.x, btnLeaveSize.y);
+        leave.setPosition(screenWidth-(leave.getWidth()/1.5f), screenHeight - leave.getHeight());
+
+        leave.addListener(new AliveButton.AliveButtonListener() {
+            @Override
+            public void onClick() {
+                sound.play();
+                //screenManager.showScreen(MainMenuScreen.class);
+            }
+        });
+
+        addActorsToStage(leave);
 
 
 
