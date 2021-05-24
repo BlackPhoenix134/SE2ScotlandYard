@@ -62,16 +62,16 @@ public class JoinGameMenu extends AbstractScreen {
 
         userName = new TextField("",textfieldSkin);
         userName.setMessageText("Playername");
-        userName.setSize(screenWidth *0.6f, screenHeight*0.1f);
+        userName.setSize(screenWidth *0.6f, screenHeight*0.1f); 
         userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2);
         addActorsToStage(userName);
 
-        tcpPort = new TextField("25000", textfieldSkin);
+        tcpPort = new TextField("54555", textfieldSkin);
         tcpPort.setSize(screenWidth*0.6f, screenHeight*0.1f);
         tcpPort.setPosition(screenWidth/2 - tcpPort.getWidth()/2, screenHeight/4);
         addActorsToStage(tcpPort);
 
-        udpPort = new TextField("26000", textfieldSkin);
+        udpPort = new TextField("54777", textfieldSkin);
         udpPort.setSize(screenWidth*0.6f, screenHeight*0.1f);
         udpPort.setPosition(screenWidth/2 - udpPort.getWidth()/2, screenHeight/2.7f);
         addActorsToStage(udpPort);
