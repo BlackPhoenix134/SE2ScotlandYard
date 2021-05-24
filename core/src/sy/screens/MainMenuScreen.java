@@ -62,7 +62,7 @@ public class MainMenuScreen extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
-                screenManager.showScreen(HostGameMenu.class);
+                screenManager.showScreen(JoinGameMenu.class);
             }
         });
 

@@ -1,7 +1,6 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,14 +9,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
-import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
-public class HostGameMenu extends AbstractScreen {
+public class JoinGameMenu extends AbstractScreen {
     private float screenWidth;
     private float screenHeight;
     private ScreenManager screenManager;
@@ -25,7 +25,7 @@ public class HostGameMenu extends AbstractScreen {
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
 
-    public HostGameMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
+    public JoinGameMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
@@ -42,13 +42,16 @@ public class HostGameMenu extends AbstractScreen {
     public void buildStage() {
         TextField userName;
         TextField userIP;
+        AliveButton join;
         AliveButton host;
         AliveButton leave;
         NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
-        ServerHandler server = new ServerHandler(networkPackageCallbacks);
+        TextField tcpPort;
+        TextField udpPort;
 
 
         float padding = screenHeight * 0.05f;
+
 
 
         userIP = new TextField("",textfieldSkin);
@@ -63,22 +66,47 @@ public class HostGameMenu extends AbstractScreen {
         userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2);
         addActorsToStage(userName);
 
+        tcpPort = new TextField("25000", textfieldSkin);
+        tcpPort.setSize(screenWidth*0.6f, screenHeight*0.1f);
+        tcpPort.setPosition(screenWidth/2 - tcpPort.getWidth()/2, screenHeight/4);
+        addActorsToStage(tcpPort);
+
+        udpPort = new TextField("26000", textfieldSkin);
+        udpPort.setSize(screenWidth*0.6f, screenHeight*0.1f);
+        udpPort.setPosition(screenWidth/2 - udpPort.getWidth()/2, screenHeight/2.7f);
+        addActorsToStage(udpPort);
+
+
+
         Texture hostTexture = SYAssetManager.getAsset(AssetDescriptors.HOST_GAME);
         host = new AliveButton(hostTexture);
         Vector2 btnHostSize = Scaling.fillX.apply(hostTexture.getWidth(), hostTexture.getHeight(), screenWidth*0.30f,0);
         host.setSize(btnHostSize.x, btnHostSize.y);
-        host.setPosition(screenWidth/2 - host.getWidth()/2, padding);
+        host.setPosition(screenWidth/2 - host.getWidth(), screenHeight/5);
+        addActorsToStage(host);
 
-        host.addListener(new AliveButton.AliveButtonListener() {
+        Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_JOIN);
+        join = new AliveButton(joinTexture);
+        Vector2 btnJoinSize = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth*0.30f,0);
+        host.setSize(btnJoinSize.x, btnJoinSize.y);
+        host.setPosition(screenWidth/2 - join.getWidth(), screenHeight/5);
+        addActorsToStage(join);
+
+
+
+        join.addListener(new AliveButton.AliveButtonListener() {
             @Override
             public void onClick() {
+                ClientHandler client = new ClientHandler(networkPackageCallbacks);
+                client.clientStart(userIP.getText(),Integer.parseInt(tcpPort.getText()),Integer.parseInt(udpPort.getText()));
                 sound.play();
                 screenManager.showScreen(GameScreen.class);
-                screenManager.getScreen(GameScreen.class).initialize(server,networkPackageCallbacks);
+                screenManager.getScreen(GameScreen.class).initialize(client,networkPackageCallbacks);
+
             }
         });
 
-        addActorsToStage(host);
+        addActorsToStage(join);
 
 
         Texture leaveTexture = SYAssetManager.getAsset(AssetDescriptors.LEAVE);
