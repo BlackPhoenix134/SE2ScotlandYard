@@ -83,7 +83,7 @@ public class HostGameMenu extends AbstractScreen {
 
         Texture leaveTexture = SYAssetManager.getAsset(AssetDescriptors.LEAVE);
         leave = new AliveButton(leaveTexture);
-        Vector2 btnLeaveSize = Scaling.fillX.apply(leaveTexture.getWidth(), leaveTexture.getHeight(), screenWidth*0.30f, 0);
+        Vector2 btnLeaveSize = Scaling.fillX.apply(leaveTexture.getWidth(), leaveTexture.getHeight(), screenWidth*0.20f, 0);
         leave.setSize(btnLeaveSize.x, btnLeaveSize.y);
         leave.setPosition(screenWidth-(leave.getWidth()/1.5f), screenHeight - leave.getHeight());
 

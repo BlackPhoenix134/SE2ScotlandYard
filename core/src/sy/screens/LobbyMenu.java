@@ -44,6 +44,7 @@ public class LobbyMenu extends AbstractScreen {
         AliveButton btnJoin;
         TextField playerName;
         TextField hostIP;
+        AliveButton leave;
 
         NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
         ClientHandler client = new ClientHandler(networkPackageCallbacks);
@@ -79,6 +80,22 @@ public class LobbyMenu extends AbstractScreen {
         });
 
         addActorsToStage(btnJoin);
+
+        Texture leaveTexture = SYAssetManager.getAsset(AssetDescriptors.LEAVE);
+        leave = new AliveButton(leaveTexture);
+        Vector2 btnLeaveSize = Scaling.fillX.apply(leaveTexture.getWidth(), leaveTexture.getHeight(), screenWidth*0.20f, 0);
+        leave.setSize(btnLeaveSize.x, btnLeaveSize.y);
+        leave.setPosition(screenWidth-(leave.getWidth()/1.5f), screenHeight - leave.getHeight());
+
+        leave.addListener(new AliveButton.AliveButtonListener() {
+            @Override
+            public void onClick() {
+                sound.play();
+                //screenManager.showScreen(MainMenuScreen.class);
+            }
+        });
+
+        addActorsToStage(leave);
 
 
 
