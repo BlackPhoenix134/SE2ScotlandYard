@@ -35,20 +35,6 @@ public class ClientHandler extends Listener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-       /* SomeRequest request = new SomeRequest();
-        request.text = "Here is the request";
-        client.sendTCP(request);*/
-
-       /* client.addListener(new Listener() {
-            public void received (Connection connection, Object object) {
-                if (object instanceof SomeResponse) {
-                    SomeResponse response = (SomeResponse)object;
-                    System.out.println(response.text);
-                }
-            }
-        });*/
-
     }
 
 
