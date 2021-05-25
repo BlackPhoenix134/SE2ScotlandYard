@@ -1,3 +1,3 @@
 package sy.core;
 
-public enum MoveType { TAXI, BUS, UBAHN }
+public enum MoveType {BIKE, HORSE, DRAGON}

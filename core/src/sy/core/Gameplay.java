@@ -48,13 +48,13 @@ public abstract class Gameplay {
             return false;
         }
 
-        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.BUS) && (ticketType == TicketType.BUS || ticketType == TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.HORSE) && (ticketType == TicketType.HORSE || ticketType == TicketType.BLACK_TICKET)) {
             return true;
         }
-        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.TAXI) && (ticketType == TicketType.TAXI || ticketType == TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.BIKE) && (ticketType == TicketType.BIKE || ticketType == TicketType.BLACK_TICKET)) {
             return true;
         }
-       if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.UBAHN) && (ticketType == TicketType.UBAHN || ticketType == TicketType.BLACK_TICKET)) {
+       if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.DRAGON) && (ticketType == TicketType.DRAGON || ticketType == TicketType.BLACK_TICKET)) {
            return true;
         }
       return false;

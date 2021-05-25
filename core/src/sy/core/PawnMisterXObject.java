@@ -18,7 +18,7 @@ public class PawnMisterXObject extends PawnObject {
     @Override
     public boolean removeTicket(TicketType type) {
 
-        if (type == TicketType.TAXI || type == TicketType.BUS || type == TicketType.UBAHN) {
+        if (type == TicketType.BIKE || type == TicketType.HORSE || type == TicketType.DRAGON) {
             return true;
         }
         switch (type) {
@@ -44,7 +44,7 @@ public class PawnMisterXObject extends PawnObject {
     @Override
     public boolean hasEnoughTickets(TicketType type) {
 
-        if (type == TicketType.TAXI || type == TicketType.BUS || type == TicketType.UBAHN) {
+        if (type == TicketType.BIKE || type == TicketType.HORSE || type == TicketType.DRAGON) {
             return true;
         }
         switch (type) {

@@ -1,15 +1,14 @@
 package sy.core;
 
 public class TicketDetective {
-    public int busTickets;
-    public int taxiTickets;
-    public int ubahnTickets;
+    public int bikeTickets;
+    public int dragonTickets;
+    public int horseTickets;
 
-
-    public TicketDetective(int busTickets, int taxiTickets, int ubahnTickets) {
-        this.busTickets = busTickets;
-        this.taxiTickets = taxiTickets;
-        this.ubahnTickets = ubahnTickets;
+    public TicketDetective(int bikeTickets, int horseTickets,  int dragonTickets) {
+        this.bikeTickets = bikeTickets;
+        this.dragonTickets = dragonTickets;
+        this.horseTickets = horseTickets;
     }
 
 }

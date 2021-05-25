@@ -22,21 +22,21 @@ public class PawnDetectiveObject extends PawnObject {
         }
 
         switch (type) {
-            case BUS:
-                if (ticketDetective.busTickets > 0) {
-                    ticketDetective.busTickets--;
+            case HORSE:
+                if (ticketDetective.bikeTickets > 0) {
+                    ticketDetective.bikeTickets--;
                     return true;
                 }
                 break;
-            case TAXI:
-                if (ticketDetective.taxiTickets > 0) {
-                    ticketDetective.taxiTickets--;
+            case BIKE:
+                if (ticketDetective.dragonTickets > 0) {
+                    ticketDetective.dragonTickets--;
                     return true;
                 }
                 break;
-            case UBAHN:
-                if (ticketDetective.ubahnTickets > 0) {
-                    ticketDetective.ubahnTickets--;
+            case DRAGON:
+                if (ticketDetective.horseTickets > 0) {
+                    ticketDetective.horseTickets--;
                     return true;
                 }
                 break;
@@ -53,18 +53,18 @@ public class PawnDetectiveObject extends PawnObject {
         }
 
         switch (type) {
-            case BUS:
-                if (ticketDetective.busTickets> 0) {
+            case HORSE:
+                if (ticketDetective.bikeTickets > 0) {
                     return true;
                 }
                 break;
-            case TAXI:
-                if (ticketDetective.taxiTickets> 0) {
+            case BIKE:
+                if (ticketDetective.dragonTickets > 0) {
                     return true;
                 }
                 break;
-            case UBAHN:
-                if (ticketDetective.ubahnTickets> 0) {
+            case DRAGON:
+                if (ticketDetective.horseTickets > 0) {
                     return true;
                 }
                 break;
