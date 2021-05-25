@@ -4,15 +4,15 @@ import sy.gameObjects.PawnObject;
 
 public class PawnDetectiveObject extends PawnObject {
 
-    private TicketDetecitve ticketDetecitve;
+    private TicketDetective ticketDetective;
 
-    public PawnDetectiveObject(String uuid, TicketDetecitve ticketDetecitve) {
+    public PawnDetectiveObject(String uuid, TicketDetective ticketDetective) {
         super(uuid);
-        setDetectiveTicket(ticketDetecitve);
+        setDetectiveTicket(ticketDetective);
     }
 
-    public void setDetectiveTicket(TicketDetecitve ticketDetecitve) {
-        this.ticketDetecitve = ticketDetecitve;
+    public void setDetectiveTicket(TicketDetective ticketDetective) {
+        this.ticketDetective = ticketDetective;
     }
 
     @Override
@@ -23,20 +23,20 @@ public class PawnDetectiveObject extends PawnObject {
 
         switch (type) {
             case BUS:
-                if (ticketDetecitve.getBusTickets() > 0) {
-                    ticketDetecitve.setBusTickets(ticketDetecitve.getBusTickets() - 1);
+                if (ticketDetective.busTickets > 0) {
+                    ticketDetective.busTickets--;
                     return true;
                 }
                 break;
             case TAXI:
-                if (ticketDetecitve.getTaxiTickets() > 0) {
-                    ticketDetecitve.setTaxiTickets(ticketDetecitve.getTaxiTickets() - 1);
+                if (ticketDetective.taxiTickets > 0) {
+                    ticketDetective.taxiTickets--;
                     return true;
                 }
                 break;
             case UBAHN:
-                if (ticketDetecitve.getUbahnTickets() > 0) {
-                    ticketDetecitve.setUbahnTickets(ticketDetecitve.getUbahnTickets() - 1);
+                if (ticketDetective.ubahnTickets > 0) {
+                    ticketDetective.ubahnTickets--;
                     return true;
                 }
                 break;
@@ -54,17 +54,17 @@ public class PawnDetectiveObject extends PawnObject {
 
         switch (type) {
             case BUS:
-                if (ticketDetecitve.getBusTickets() > 0) {
+                if (ticketDetective.busTickets> 0) {
                     return true;
                 }
                 break;
             case TAXI:
-                if (ticketDetecitve.getTaxiTickets() > 0) {
+                if (ticketDetective.taxiTickets> 0) {
                     return true;
                 }
                 break;
             case UBAHN:
-                if (ticketDetecitve.getUbahnTickets() > 0) {
+                if (ticketDetective.ubahnTickets> 0) {
                     return true;
                 }
                 break;

@@ -24,14 +24,14 @@ public class PawnMisterXObject extends PawnObject {
         switch (type) {
 
             case BLACK_TICKET:
-                if (ticketMisterX.getBlackTickets() > 0) {
-                    ticketMisterX.setBlackTickets(ticketMisterX.getBlackTickets() - 1);
+                if (ticketMisterX.blackTickets > 0) {
+                    ticketMisterX.blackTickets--;
                     return true;
                 }
                 break;
             case DOUBLETURN_TICKET:
-                if (ticketMisterX.getDoubleTurnTickets() > 0) {
-                    ticketMisterX.setDoubleTurnTickets(ticketMisterX.getDoubleTurnTickets() - 1);
+                if (ticketMisterX.doubleTurnTickets > 0) {
+                    ticketMisterX.doubleTurnTickets--;
                     return true;
                 }
                 break;
@@ -50,12 +50,12 @@ public class PawnMisterXObject extends PawnObject {
         switch (type) {
 
             case BLACK_TICKET:
-                if (ticketMisterX.getBlackTickets() > 0) {
+                if (ticketMisterX.blackTickets > 0) {
                     return true;
                 }
                 break;
             case DOUBLETURN_TICKET:
-                if (ticketMisterX.getDoubleTurnTickets() > 0) {
+                if (ticketMisterX.doubleTurnTickets > 0) {
                     return true;
                 }
                 break;

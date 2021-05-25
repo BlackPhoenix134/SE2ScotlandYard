@@ -22,6 +22,7 @@ import sy.core.GameplayClient;
 import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
+import sy.core.PawnDetectiveObject;
 import sy.core.RemoveTicket;
 import sy.core.TicketType;
 import sy.gameObjects.GameBoardObject;
