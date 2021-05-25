@@ -16,6 +16,11 @@ public abstract class Gameplay {
     public Gameplay(Player player, NetworkPackageCallbacks callbacks) {
         this.player = player;
         this.callbacks = callbacks;
+
+        this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
+            PlayerTurn playerTurn = (PlayerTurn) packageObj;
+            setPlayerTurnId(playerTurn.getIndex());
+        });
     }
 
     public void initialize(NodeGraphObject nodeGraphObject){

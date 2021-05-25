@@ -23,11 +23,6 @@ public class GameplayServer extends Gameplay {
             ClientMoveRequest clientRequest = (ClientMoveRequest) packageObj;
             server.sendAll(new MovePlayerObject(clientRequest.playerObjNetId, clientRequest.newNodeId), true);
         });
-
-        callbacks.registerCallback(PlayerTurn.class, packageObj -> {
-            PlayerTurn playerTurn = (PlayerTurn) packageObj;
-            setPlayerTurnId(playerTurn.getIndex());
-        });
     }
 
     public void changeTurn(){
@@ -47,7 +42,7 @@ public class GameplayServer extends Gameplay {
         if(isLocalTurn() && move) {
             pawnObject.setMapNode(newNode);
             server.sendAll(new MovePlayerObject(pawnObject, newNode), true);
-            server.sendTo(getPlayerTurnId().getID(), new RemoveTicket(ticketType), false);
+            server.sendTo(getPlayerTurnId().getID(), new RemoveTicket(ticketType));
         }
     }
 }
