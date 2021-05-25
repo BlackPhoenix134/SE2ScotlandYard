@@ -9,11 +9,11 @@ public class GameplayClient extends Gameplay {
     private ClientHandler client;
 
     public GameplayClient(Player player, ClientHandler client) {
-        super(player);
+        super(player, client.getCallbacks());
         this.client = client;
-        new NetworkPackageCallbacks().registerCallback(PlayerTurn.class, packageObj->{
+        callbacks.registerCallback(PlayerTurn.class, packageObj->{
             PlayerTurn turn = (PlayerTurn) packageObj;
-            setPlayerTurnId(turn.getId());
+            setPlayerTurnId(turn.getIndex());
         });
 
     }

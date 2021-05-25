@@ -41,6 +41,9 @@ public class ServerHandler extends Listener{
 
     }
 
+    public NetworkPackageCallbacks getCallbacks() {
+        return callbacks;
+    }
 
     public void sendAll(Object obj) {
         sendAll(obj, false);

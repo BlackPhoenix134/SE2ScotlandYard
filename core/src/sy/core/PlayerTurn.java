@@ -1,17 +1,19 @@
 package sy.core;
 
+import com.esotericsoftware.kryonet.Connection;
+
 public class PlayerTurn {
-    private int id;
+    private Connection index;
 
-    public PlayerTurn(int id) {
-        this.id = id;
+    public PlayerTurn(Connection index) {
+        this.index = index;
     }
 
-    public int getId() {
-        return id;
+    public Connection getIndex() {
+        return index;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIndex(Connection index) {
+        this.index = index;
     }
 }

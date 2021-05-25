@@ -1,9 +1,13 @@
 package sy.core;
 
-public class Player {
-    private int id;
+import com.esotericsoftware.kryonet.Connection;
 
-    public int getId() {
-        return id;
+public class Player {
+    private Connection index;
+    public Player(Connection index){
+        this.index = index;
+    }
+    public Connection getIndex() {
+        return index;
     }
 }

@@ -1,33 +1,37 @@
 package sy.core;
 
+import com.esotericsoftware.kryonet.Connection;
 
+import sy.connection.NetworkPackageCallbacks;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnObject;
 
 public abstract class Gameplay {
     private Player player;
-    private int playerTurnId;
+    private Connection playerTurnId;
     private NodeGraphObject nodeGraphObject;
+    protected NetworkPackageCallbacks callbacks;
 
 
-    public Gameplay(Player player) {
+    public Gameplay(Player player, NetworkPackageCallbacks callbacks) {
         this.player = player;
+        this.callbacks = callbacks;
     }
 
     public void initialize(NodeGraphObject nodeGraphObject){
         this.nodeGraphObject = nodeGraphObject;
     }
 
-    public int getPlayerTurnId() {
+    public Connection getPlayerTurnId() {
         return playerTurnId;
     }
 
-    public void setPlayerTurnId(int playerTurnId) {
+    public void setPlayerTurnId(Connection playerTurnId) {
         this.playerTurnId = playerTurnId;
     }
 
     public boolean isLocalTurn() {
-        return playerTurnId == player.getId();
+        return playerTurnId == player.getIndex();
     }
 
     public boolean canMove(PawnObject pawnObject, MapNode toNode, TicketType ticketType) {

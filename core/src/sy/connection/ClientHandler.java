@@ -20,6 +20,10 @@ public class ClientHandler extends Listener {
         this.callbacks = callbacks;
     }
 
+    public NetworkPackageCallbacks getCallbacks() {
+        return callbacks;
+    }
+
     public void clientStart(String hostIp, int tcpPort, int udpPort){
         client = new Client();
         client.start();

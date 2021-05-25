@@ -22,6 +22,7 @@ import sy.core.GameplayClient;
 import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
+import sy.core.RemoveTicket;
 import sy.core.TicketType;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
@@ -53,6 +54,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private TicketType ticketType;
     private Gameplay gameplay;
     private List<PawnObject> pawnPlayerObjects;
+    private NetworkPackageCallbacks callbacks;
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -76,7 +78,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
         gameplay.initialize(nodeGraphObject);
 
-        new NetworkPackageCallbacks().registerCallback(MovePlayerObject.class, packageObj -> {
+        callbacks.registerCallback(MovePlayerObject.class, packageObj -> {
             MovePlayerObject playerMoved = (MovePlayerObject)packageObj;
             for(PawnObject player : pawnPlayerObjects){
                 if(player.getNetId() == playerMoved.playerObjectNetId){
@@ -87,16 +89,23 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
             }
         });
 
+        callbacks.registerCallback(RemoveTicket.class, packageObj -> {
+            RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
+            pawnObject.removeTicket(ticketToRemove.getTicket());
+        });
+
     }
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks) {
         //Get player from lobby
         this.gameplay = new GameplayServer(null, handler);
+        this.callbacks = callbacks;
     }
 
     public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks) {
         //Get player from lobby
         this.gameplay = new GameplayClient(null, handler);
+        this.callbacks = callbacks;
     }
 
 
