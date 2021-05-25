@@ -23,12 +23,12 @@ public class ServerHandler extends Listener{
     }
 
 
-    public void serverStart(int tcpPort, int udpPort) {
+    public void serverStart(String tcpPort, int udpPort) {
 
         try {
             server = new Server();
             server.start();
-            server.bind(tcpPort,udpPort);
+            server.bind(Integer.parseInt(tcpPort),udpPort);
             server.addListener(this);
         } catch (IOException e) {
             e.printStackTrace();

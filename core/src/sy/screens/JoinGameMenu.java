@@ -15,6 +15,7 @@ import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
+import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -96,6 +97,18 @@ public class JoinGameMenu extends AbstractScreen {
         addActorsToStage(leave);
 
 
+
+        host.addListener(new AliveButton.AliveButtonListener() {
+            @Override
+            public void onClick() {
+                ServerHandler server = new ServerHandler(networkPackageCallbacks);
+                server.serverStart(userIP.getText(), Integer.parseInt(tcpPort.getText(), Integer.parseInt(udpPort.getText())));
+                sound.play();
+                screenManager.showScreen(GameScreen.class);
+                screenManager.getScreen(GameScreen.class).initialize(server, networkPackageCallbacks); 
+
+            }
+        });
 
         join.addListener(new AliveButton.AliveButtonListener() {
             @Override
