@@ -59,17 +59,17 @@ public class LobbyMenu extends AbstractScreen {
 
         P1 = new TextField("", textfieldSkin);
         P1.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        P1.setPosition(screenWidth/2 - P1.getWidth()/2, screenHeight-P1.getHeight()-20);
+        P1.setPosition(screenWidth/2 - P1.getWidth()/2, screenHeight-P1.getHeight()-80);
         addActorsToStage(P1);
 
        P2 = new TextField("", textfieldSkin);
        P2.setSize(screenWidth*0.6f, screenHeight*0.1f);
-       P2.setPosition(screenWidth/2 - P2.getWidth()/2, screenHeight-P2.getHeight()-80);
+       P2.setPosition(screenWidth/2 - P2.getWidth()/2, screenHeight-P2.getHeight()-200);
        addActorsToStage(P2);
 
        P3 = new TextField("", textfieldSkin);
        P3.setSize(screenWidth*0.6f, screenHeight*0.1f);
-       P3.setPosition(screenWidth/2 - P3.getWidth()/2, screenHeight-P3.getHeight()-140);
+       P3.setPosition(screenWidth/2 - P3.getWidth()/2, screenHeight-P3.getHeight()-320);
        addActorsToStage(P3);
 
        P4 = new TextField("", textfieldSkin);
@@ -77,12 +77,12 @@ public class LobbyMenu extends AbstractScreen {
        P4.setPosition(screenWidth/2 - P4.getWidth()/2, screenHeight/2-8);
        addActorsToStage(P4);
 
-       P5 = new TextField("5", textfieldSkin);
+       P5 = new TextField("", textfieldSkin);
        P5.setSize(screenWidth*0.6f, screenHeight*0.1f);
        P5.setPosition(screenWidth/2 - P5.getWidth()/2, screenHeight/2-P4.getHeight()-20);
        addActorsToStage(P5);
 
-       P6 = new TextField("6", textfieldSkin);
+       P6 = new TextField("", textfieldSkin);
        P6.setSize(screenWidth*0.6f, screenHeight*0.1f);
        P6.setPosition(screenWidth/2 - P6.getWidth()/2, screenHeight/2-(P4.getHeight()*2)-35);
        addActorsToStage(P6);
