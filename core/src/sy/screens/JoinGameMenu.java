@@ -55,23 +55,23 @@ public class JoinGameMenu extends AbstractScreen {
         userIP = new TextField("",textfieldSkin);
         userIP.setMessageText("Enter IP");
         userIP.setSize(screenWidth *0.6f, screenHeight*0.1f);
-        userIP.setPosition(screenWidth/2 - userIP.getWidth()/2, screenHeight/2 + (userIP.getHeight()*3.5f));
+        userIP.setPosition(screenWidth/2 - userIP.getWidth()/2, screenHeight/2 + (userIP.getHeight()*3f));
         addActorsToStage(userIP);
 
         userName = new TextField("",textfieldSkin);
         userName.setMessageText("Playername");
         userName.setSize(screenWidth *0.6f, screenHeight*0.1f); 
-        userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2 + (userName.getHeight()*2));
+        userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2 + (userName.getHeight()*1.5f));
         addActorsToStage(userName);
 
         tcpPort = new TextField("54555", textfieldSkin);
         tcpPort.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        tcpPort.setPosition(screenWidth/2 - tcpPort.getWidth()/2, screenHeight/2 +(tcpPort.getHeight())*0.5f);
+        tcpPort.setPosition(screenWidth/2 - tcpPort.getWidth()/2, screenHeight /2f);
         addActorsToStage(tcpPort);
 
         udpPort = new TextField("54777", textfieldSkin);
         udpPort.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        udpPort.setPosition(screenWidth/2 - udpPort.getWidth()/2, screenHeight/2.5f);
+        udpPort.setPosition(screenWidth/2 - udpPort.getWidth()/2, screenHeight/2.8f);
         addActorsToStage(udpPort);
 
 
@@ -79,14 +79,14 @@ public class JoinGameMenu extends AbstractScreen {
         host = new AliveButton(hostTexture);
         Vector2 btnHostSize = Scaling.fillX.apply(hostTexture.getWidth(), hostTexture.getHeight(), screenWidth*0.40f,0);
         host.setSize(btnHostSize.x, btnHostSize.y);
-        host.setPosition(screenWidth/2+(host.getWidth()/80), screenHeight/10);
+        host.setPosition(screenWidth/2+(host.getWidth()/80), screenHeight/20);
         addActorsToStage(host);
 
         Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_JOIN);
         join = new AliveButton(joinTexture);
         Vector2 btnJoinSize = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth*0.40f,0);
         join.setSize(btnJoinSize.x, btnJoinSize.y);
-        join.setPosition(screenWidth/2 - join.getWidth(), screenHeight/10);
+        join.setPosition(screenWidth/2 - join.getWidth(), screenHeight/20);
         addActorsToStage(join);
 
         Texture leaveTexture = SYAssetManager.getAsset(AssetDescriptors.LEAVE);
@@ -127,7 +127,8 @@ public class JoinGameMenu extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
-                //screenManager.showScreen(MainMenuScreen.class);
+                screenManager.getScreen(MainMenuScreen.class);
+                screenManager.showScreen(MainMenuScreen.class);
             }
         });
     }
