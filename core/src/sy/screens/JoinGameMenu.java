@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -42,16 +43,12 @@ public class JoinGameMenu extends AbstractScreen {
     public void buildStage() {
         TextField userName;
         TextField userIP;
+        TextField tcpPort;
+        TextField udpPort;
         AliveButton join;
         AliveButton host;
         AliveButton leave;
         NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
-        TextField tcpPort;
-        TextField udpPort;
-
-
-        float padding = screenHeight * 0.05f;
-
 
 
         userIP = new TextField("",textfieldSkin);
@@ -77,7 +74,6 @@ public class JoinGameMenu extends AbstractScreen {
         addActorsToStage(udpPort);
 
 
-
         Texture hostTexture = SYAssetManager.getAsset(AssetDescriptors.HOST_GAME);
         host = new AliveButton(hostTexture);
         Vector2 btnHostSize = Scaling.fillX.apply(hostTexture.getWidth(), hostTexture.getHeight(), screenWidth*0.40f,0);
@@ -91,6 +87,13 @@ public class JoinGameMenu extends AbstractScreen {
         join.setSize(btnJoinSize.x, btnJoinSize.y);
         join.setPosition(screenWidth/2 - join.getWidth(), screenHeight/10);
         addActorsToStage(join);
+
+        Texture leaveTexture = SYAssetManager.getAsset(AssetDescriptors.LEAVE);
+        leave = new AliveButton(leaveTexture);
+        Vector2 btnLeaveSize = Scaling.fillX.apply(leaveTexture.getWidth(), leaveTexture.getHeight(), screenWidth*0.10f, 0);
+        leave.setSize(btnLeaveSize.x, btnLeaveSize.y);
+        leave.setPosition(screenWidth-(leave.getWidth()/1.5f), screenHeight - leave.getHeight());
+        addActorsToStage(leave);
 
 
 
@@ -106,14 +109,6 @@ public class JoinGameMenu extends AbstractScreen {
             }
         });
 
-        addActorsToStage(join);
-
-
-        Texture leaveTexture = SYAssetManager.getAsset(AssetDescriptors.LEAVE);
-        leave = new AliveButton(leaveTexture);
-        Vector2 btnLeaveSize = Scaling.fillX.apply(leaveTexture.getWidth(), leaveTexture.getHeight(), screenWidth*0.10f, 0);
-        leave.setSize(btnLeaveSize.x, btnLeaveSize.y);
-        leave.setPosition(screenWidth-(leave.getWidth()/1.5f), screenHeight - leave.getHeight());
 
         leave.addListener(new AliveButton.AliveButtonListener() {
             @Override
@@ -122,11 +117,6 @@ public class JoinGameMenu extends AbstractScreen {
                 //screenManager.showScreen(MainMenuScreen.class);
             }
         });
-
-        addActorsToStage(leave);
-
-
-
     }
 
     @Override
