@@ -33,30 +33,14 @@ public class MainMenuScreen extends AbstractScreen {
     @Override
     public void buildStage() {
         AliveButton btnStartGame;
-        AliveButton btnExitGame;
-        AliveButton btnJoinGame;
         float padding = screenHeight * 0.05f;
 
         Texture startGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DEVIL);
-        Texture exitGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_EXIT);
-        Texture joinGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_JOIN);
-
         btnStartGame = new AliveButton(startGameTexture);
-        btnExitGame  = new AliveButton(exitGameTexture);
-        btnJoinGame  = new AliveButton(joinGameTexture);
-
-        Vector2 btnStartGameSize = Scaling.fillX.apply(startGameTexture.getWidth(), startGameTexture.getHeight(), screenWidth * 0.30f, 0);
-        Vector2 btnJoinGameSize = Scaling.fillX.apply(joinGameTexture.getWidth(), joinGameTexture.getHeight(), screenWidth * 0.30f, 0);
-        Vector2 btnExitSize      = Scaling.fillX.apply(exitGameTexture.getWidth(), exitGameTexture.getHeight(), screenWidth * 0.30f, 0);
-
-
+        Vector2 btnStartGameSize = Scaling.fillX.apply(startGameTexture.getWidth(), startGameTexture.getHeight(), screenWidth * 0.50f, 0);
         btnStartGame.setSize(btnStartGameSize.x, btnStartGameSize.y);
-        btnJoinGame.setSize (btnJoinGameSize.x, btnJoinGameSize.y);
-        btnExitGame.setSize(btnExitSize.x, btnExitSize.y);
+        btnStartGame.setPosition( screenWidth/2 - btnStartGame.getWidth()/2, screenHeight*0.5f-btnStartGame.getHeight()*0.5f);
 
-        btnStartGame.setPosition( screenWidth/2 - btnStartGame.getWidth()/2, screenHeight - padding - btnStartGame.getHeight());
-        btnJoinGame.setPosition( screenWidth/2 - btnJoinGame.getWidth()/2, screenHeight  * 0.5f - btnJoinGame.getHeight() * 0.5f);
-        btnExitGame.setPosition(screenWidth/2 - btnExitGame.getWidth()/2, padding);
 
         btnStartGame.addListener(new AliveButton.AliveButtonListener() {
             @Override
@@ -65,25 +49,8 @@ public class MainMenuScreen extends AbstractScreen {
                 screenManager.showScreen(JoinGameMenu.class);
             }
         });
+        addActorsToStage(btnStartGame);
 
-        btnJoinGame.addListener(new AliveButton.AliveButtonListener(){
-            @Override
-                    public void onClick(){
-                sound.play();
-                screenManager.showScreen(LobbyMenu.class);
-            }
-
-        });
-
-        addActorsToStage(btnStartGame, btnJoinGame, btnExitGame);
-
-        btnExitGame.addListener(new AliveButton.AliveButtonListener(){
-            @Override
-            public void onClick(){
-                sound.play();
-                Gdx.app.exit();
-            }
-        });
     }
 
     @Override

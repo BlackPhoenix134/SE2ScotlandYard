@@ -1,7 +1,6 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,7 +13,6 @@ import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
-import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -86,9 +84,6 @@ public class LobbyMenu extends AbstractScreen {
        P6.setSize(screenWidth*0.6f, screenHeight*0.1f);
        P6.setPosition(screenWidth/2 - P6.getWidth()/2, screenHeight/2-(P4.getHeight()*2)-35);
        addActorsToStage(P6);
-
-
-
 
     }
 

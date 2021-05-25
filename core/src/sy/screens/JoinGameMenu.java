@@ -114,8 +114,8 @@ public class JoinGameMenu extends AbstractScreen {
                 ClientHandler client = new ClientHandler(networkPackageCallbacks);
                 client.clientStart(userIP.getText(),Integer.parseInt(tcpPort.getText()),Integer.parseInt(udpPort.getText()));
                 sound.play();
-                screenManager.showScreen(GameScreen.class);
-                screenManager.getScreen(GameScreen.class).initialize(client, networkPackageCallbacks);
+                //screenManager.showScreen(GameScreen.class);
+                //screenManager.getScreen(GameScreen.class).initialize(client, networkPackageCallbacks);
             }
         });
 
