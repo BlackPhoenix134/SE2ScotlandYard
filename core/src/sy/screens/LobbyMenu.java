@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,6 +14,7 @@ import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
+import sy.connection.ServerHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -24,6 +26,7 @@ public class LobbyMenu extends AbstractScreen {
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+    float padding = screenHeight * 0.05f;
 
 
     public LobbyMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
@@ -39,63 +42,25 @@ public class LobbyMenu extends AbstractScreen {
         Gdx.input.setInputProcessor(this);
     }
 
-    @Override
+   @Override
     public void buildStage() {
-        AliveButton btnJoin;
-        TextField playerName;
         TextField hostIP;
-        AliveButton leave;
-
+        TextField P1, P2, P3, P4, P5;
+        AliveButton start;
         NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
         ClientHandler client = new ClientHandler(networkPackageCallbacks);
 
-        hostIP = new TextField("",textfieldSkin);
-        hostIP.setMessageText("Server IP");
-        hostIP.setSize(screenWidth *0.6f, screenHeight*0.1f);
-        hostIP.setPosition(screenWidth/2 - hostIP.getWidth()/2, screenHeight/2 + (hostIP.getHeight()*2));
-        addActorsToStage(hostIP);
+        Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_READY);
+        start = new AliveButton(joinTexture);
+        Vector2 btnJoinSize = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth*0.40f,0);
+        start.setSize(btnJoinSize.x, btnJoinSize.y);
+        start.setPosition(screenWidth/2 - start.getWidth()/2, padding);
+        addActorsToStage(start);
 
-        playerName = new TextField("",textfieldSkin);
-        playerName.setMessageText("Playername");
-        playerName.setSize(screenWidth *0.6f, screenHeight*0.1f);
-        playerName.setPosition(screenWidth/2 - playerName.getWidth()/2, screenHeight/2);
-        addActorsToStage(playerName);
-
-
-
-        float padding = screenHeight * 0.05f;
-
-        Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_GAMEJOIN);
-        btnJoin = new AliveButton(joinTexture);
-        Vector2 btnJoinSize = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth*0.30f,0);
-        btnJoin.setSize(btnJoinSize.x, btnJoinSize.y);
-        btnJoin.setPosition(screenWidth/2 - btnJoin.getWidth()/2, padding);
-
-        btnJoin.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                sound.play();
-                screenManager.getScreen(GameScreen.class).initialize(client, networkPackageCallbacks);
-            }
-        });
-
-        addActorsToStage(btnJoin);
-
-        Texture leaveTexture = SYAssetManager.getAsset(AssetDescriptors.LEAVE);
-        leave = new AliveButton(leaveTexture);
-        Vector2 btnLeaveSize = Scaling.fillX.apply(leaveTexture.getWidth(), leaveTexture.getHeight(), screenWidth*0.20f, 0);
-        leave.setSize(btnLeaveSize.x, btnLeaveSize.y);
-        leave.setPosition(screenWidth-(leave.getWidth()/1.5f), screenHeight - leave.getHeight());
-
-        leave.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                sound.play();
-                //screenManager.showScreen(MainMenuScreen.class);
-            }
-        });
-
-        addActorsToStage(leave);
+        P1 = new TextField("", textfieldSkin);
+        P1.setSize(screenWidth*0.6f, screenHeight*0.1f);
+        P1.setPosition(screenWidth/2 - P1.getWidth()/2, screenHeight /2f);
+        addActorsToStage(P1);
 
 
 

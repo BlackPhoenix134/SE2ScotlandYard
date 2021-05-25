@@ -104,9 +104,7 @@ public class JoinGameMenu extends AbstractScreen {
                 ServerHandler server = new ServerHandler(networkPackageCallbacks);
                 server.serverStart(userIP.getText(), Integer.parseInt(tcpPort.getText(), Integer.parseInt(udpPort.getText())));
                 sound.play();
-                screenManager.showScreen(GameScreen.class);
-                screenManager.getScreen(GameScreen.class).initialize(server, networkPackageCallbacks); 
-
+                screenManager.showScreen(LobbyMenu.class);
             }
         });
 
@@ -117,8 +115,7 @@ public class JoinGameMenu extends AbstractScreen {
                 client.clientStart(userIP.getText(),Integer.parseInt(tcpPort.getText()),Integer.parseInt(udpPort.getText()));
                 sound.play();
                 screenManager.showScreen(GameScreen.class);
-                screenManager.getScreen(GameScreen.class).initialize(client,networkPackageCallbacks);
-
+                screenManager.getScreen(GameScreen.class).initialize(client, networkPackageCallbacks);
             }
         });
 
@@ -127,8 +124,7 @@ public class JoinGameMenu extends AbstractScreen {
             @Override
             public void onClick() {
                 sound.play();
-                screenManager.getScreen(MainMenuScreen.class);
-                screenManager.showScreen(MainMenuScreen.class);
+                //screenManager.showScreen(MainMenuScreen.class);
             }
         });
     }
