@@ -100,7 +100,7 @@ public class JoinGameMenu extends AbstractScreen {
 
         host.addListener(() -> {
             ServerHandler server = new ServerHandler(networkPackageCallbacks);
-            server.serverStart(userIP.getText(), Integer.parseInt(tcpPort.getText(), Integer.parseInt(udpPort.getText())));
+            server.serverStart(Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
             sound.play();
             screenManager.showScreen(LobbyMenu.class);
             screenManager.getScreen(LobbyMenu.class).init(server);

@@ -1,7 +1,5 @@
 package sy.core;
 
-import sy.connection.ClientHandler;
-import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
 
 public class LobbyLogicServer extends LobbyLogic {

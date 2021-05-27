@@ -11,10 +11,13 @@ import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.SpawnObject;
 import sy.connection.packages.request.PlayerMovement;
+import sy.core.Consumer;
 
 public class ClientHandler extends Listener {
     private NetworkPackageCallbacks callbacks;
     private Client client;
+    private Consumer<Connection> onConnected;
+    private Consumer<Connection> onDisconnected;
 
     public ClientHandler(NetworkPackageCallbacks callbacks) {
         this.callbacks = callbacks;
@@ -57,6 +60,21 @@ public class ClientHandler extends Listener {
     public void received(Connection connection, Object object) {
         callbacks.invoke(object);
     }
+
+    @Override
+    public void connected(Connection connection) {
+        super.connected(connection);
+        if(onConnected != null)
+            onConnected.call(connection);
+    }
+
+    @Override
+    public void disconnected(Connection connection) {
+        super.disconnected(connection);
+        if(onDisconnected != null)
+            onDisconnected.call(connection);
+    }
+
 
     public void close(){
         client.close();

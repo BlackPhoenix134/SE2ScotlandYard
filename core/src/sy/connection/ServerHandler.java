@@ -13,22 +13,25 @@ import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.SpawnObject;
 import sy.connection.packages.request.PlayerMovement;
+import sy.core.Consumer;
 
 public class ServerHandler extends Listener{
     private NetworkPackageCallbacks callbacks;
     private Server server;
+    private Consumer<Connection> clientConnected;
+    private Consumer<Connection> clientDisconnected;
 
     public ServerHandler(NetworkPackageCallbacks callbacks) {
         this.callbacks = callbacks;
     }
 
 
-    public void serverStart(String tcpPort, int udpPort) {
+    public void serverStart(int tcpPort, int udpPort) {
 
         try {
             server = new Server();
             server.start();
-            server.bind(Integer.parseInt(tcpPort),udpPort);
+            server.bind(tcpPort, udpPort);
             server.addListener(this);
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,6 +42,14 @@ public class ServerHandler extends Listener{
         kryo.register(MovePlayerObject.class);
         kryo.register(SpawnObject.class);
 
+    }
+
+    public void setClientConnected(Consumer<Connection> clientConnected) {
+        this.clientConnected = clientConnected;
+    }
+
+    public void setClientDisconnected(Consumer<Connection> clientDisconnected) {
+        this.clientDisconnected = clientDisconnected;
     }
 
     public NetworkPackageCallbacks getCallbacks() {
@@ -79,11 +90,15 @@ public class ServerHandler extends Listener{
     @Override
     public void connected(Connection connection) {
         Gdx.app.log("SERVER", "ID: " + connection.getID() + " connected!");
+        if(clientConnected != null)
+            clientConnected.call(connection);
     }
 
     @Override
     public void disconnected(Connection connection) {
         Gdx.app.log("SERVER", "ID: " + connection.getID() + " disconnected!");
+        if(clientDisconnected != null)
+            clientDisconnected.call(connection);
     }
 
     @Override

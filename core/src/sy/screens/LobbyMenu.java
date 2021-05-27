@@ -98,13 +98,11 @@ public class LobbyMenu extends AbstractScreen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.render(delta);
-
     }
 
     @Override
     public void hide(){
         Gdx.input.setInputProcessor(null);
-
     }
 
     public void init(ClientHandler client) {
