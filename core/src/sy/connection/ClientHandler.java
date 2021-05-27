@@ -1,5 +1,6 @@
 package sy.connection;
 
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -20,6 +21,9 @@ public class ClientHandler extends Listener {
     private Consumer<Connection> onConnected;
     private Consumer<Connection> onDisconnected;
 
+    public ClientHandler() {
+    }
+
     public ClientHandler(NetworkPackageCallbacks callbacks) {
         this.callbacks = callbacks;
     }
@@ -34,19 +38,20 @@ public class ClientHandler extends Listener {
 
     public void clientStart(String hostIp, int tcpPort, int udpPort){
         kryonetClient = new Client();
-        kryonetClient.start();
-
         Kryo kryo = kryonetClient.getKryo();
         kryo.register(ClientMoveRequest.class);
         kryo.register(MovePlayerObject.class);
         kryo.register(SpawnObject.class);
         kryo.register(PlayerJoinLobbyRequest.class);
         kryo.register(CreatePlayer.class);
+        kryonetClient.addListener(this);
+
         try {
+            kryonetClient.start();
             kryonetClient.connect(5000, hostIp, tcpPort, udpPort);
-            kryonetClient.addListener(this);
         } catch (IOException e) {
             e.printStackTrace();
+            Gdx.app.exit();
         }
     }
 

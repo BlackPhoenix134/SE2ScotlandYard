@@ -5,12 +5,13 @@ import com.badlogic.gdx.Gdx;
 import sy.connection.ServerHandler;
 import sy.connection.packages.CreatePlayer;
 import sy.connection.packages.PlayerJoinLobbyRequest;
+import sy.screens.LobbyMenu;
 
 public class LobbyLogicServer extends LobbyLogic {
     private ServerHandler serverHandler;
 
-    public LobbyLogicServer(ServerHandler serverHandler) {
-        super(serverHandler.getCallbacks());
+    public LobbyLogicServer(ServerHandler serverHandler, LobbyMenu lobbyMenu) {
+        super(serverHandler.getCallbacks(), lobbyMenu);
         this.serverHandler = serverHandler;
 
         callbacks.registerCallback(PlayerJoinLobbyRequest.class, pckg -> {
@@ -20,5 +21,10 @@ public class LobbyLogicServer extends LobbyLogic {
             }
             serverHandler.sendAll(new CreatePlayer(playerJoinLobbyRequest.connectionId), true);
         });
+    }
+
+    public void createSelf() {
+        int id = 0;
+        serverHandler.sendAll(new CreatePlayer(id), true);
     }
 }

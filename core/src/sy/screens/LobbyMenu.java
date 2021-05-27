@@ -6,10 +6,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
 import com.esotericsoftware.minlog.Log;
+
+import java.util.Collection;
+
+import javax.xml.soap.Text;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
@@ -49,13 +54,15 @@ public class LobbyMenu extends AbstractScreen {
 
    @Override
     public void buildStage() {
-        createUi();
     }
 
-    private void createUi() {
-        TextField P1, P2, P3, P4, P5, P6;
-        AliveButton ready;
+    public void rebuildUi() {
+        for(Actor actor : getActors())
+        {
+            actor.remove();
+        }
 
+        AliveButton ready;
         Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_READY);
         ready = new AliveButton(joinTexture);
         Vector2 btnJoinSize = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth*0.40f,0);
@@ -71,35 +78,20 @@ public class LobbyMenu extends AbstractScreen {
             Gdx.app.log("PLAYERS", "\n" + str);
         });
 
-        P1 = new TextField("", textfieldSkin);
-        P1.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        P1.setPosition(screenWidth/2 - P1.getWidth()/2, screenHeight-P1.getHeight()-80);
-        addActorsToStage(P1);
+        int i = 0;
+        for(Player currPlayer : lobbyLogic.getCurrentPlayers().values()) {
+            float screenY = screenHeight - 100 - 150 * i;
+            TextField field = createTextField(screenY, "Player " + currPlayer.getConnectionId());
+            addActorsToStage(field);
+            i++;
+        }
+    }
 
-        P2 = new TextField("", textfieldSkin);
-        P2.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        P2.setPosition(screenWidth/2 - P2.getWidth()/2, screenHeight-P2.getHeight()-200);
-        addActorsToStage(P2);
-
-        P3 = new TextField("", textfieldSkin);
-        P3.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        P3.setPosition(screenWidth/2 - P3.getWidth()/2, screenHeight-P3.getHeight()-320);
-        addActorsToStage(P3);
-
-        P4 = new TextField("", textfieldSkin);
-        P4.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        P4.setPosition(screenWidth/2 - P4.getWidth()/2, screenHeight/2-8);
-        addActorsToStage(P4);
-
-        P5 = new TextField("", textfieldSkin);
-        P5.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        P5.setPosition(screenWidth/2 - P5.getWidth()/2, screenHeight/2-P4.getHeight()-20);
-        addActorsToStage(P5);
-
-        P6 = new TextField("", textfieldSkin);
-        P6.setSize(screenWidth*0.6f, screenHeight*0.1f);
-        P6.setPosition(screenWidth/2 - P6.getWidth()/2, screenHeight/2-(P4.getHeight()*2)-35);
-        addActorsToStage(P6);
+    private TextField createTextField(float screenY, String text) {
+        TextField field = new TextField(text, textfieldSkin);
+        field.setSize(screenWidth*0.6f, screenHeight*0.1f);
+        field.setPosition(screenWidth/2 - field.getWidth()/2, screenY - field.getHeight()/2);
+        return field;
     }
 
     @Override
@@ -116,12 +108,13 @@ public class LobbyMenu extends AbstractScreen {
 
 
     public void init(ServerHandler server) {
-        lobbyLogic = new LobbyLogicServer(server);
+        lobbyLogic = new LobbyLogicServer(server, this);
+        ((LobbyLogicServer)lobbyLogic).createSelf();
         Gdx.app.log("LOBBY", "Initialized Server");
     }
 
     public void init(ClientHandler client) {
-        lobbyLogic = new LobbyLogicClient(client);
+        lobbyLogic = new LobbyLogicClient(client, this);
         ((LobbyLogicClient)lobbyLogic).sendJoinRequest();
         Gdx.app.log("LOBBY", "Initialized Client");
     }

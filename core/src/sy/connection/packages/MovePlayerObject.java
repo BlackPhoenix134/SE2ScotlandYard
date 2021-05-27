@@ -9,6 +9,9 @@ public class MovePlayerObject {
     public int playerObjectNetId;
     public int newNodeId;
 
+    public MovePlayerObject() {
+    }
+
     public MovePlayerObject(PawnObject pawnObject, MapNode newNode) {
         this.playerObjectNetId = pawnObject.getNetId();
         this.newNodeId = newNode.getId();
