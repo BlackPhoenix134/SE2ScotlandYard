@@ -19,6 +19,7 @@ import sy.connection.ServerHandler;
 import sy.core.LobbyLogic;
 import sy.core.LobbyLogicClient;
 import sy.core.LobbyLogicServer;
+import sy.core.Player;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -53,14 +54,22 @@ public class LobbyMenu extends AbstractScreen {
 
     private void createUi() {
         TextField P1, P2, P3, P4, P5, P6;
-        AliveButton start;
+        AliveButton ready;
 
         Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_READY);
-        start = new AliveButton(joinTexture);
+        ready = new AliveButton(joinTexture);
         Vector2 btnJoinSize = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth*0.40f,0);
-        start.setSize(btnJoinSize.x, btnJoinSize.y);
-        start.setPosition(screenWidth/2 - start.getWidth()/2, padding);
-        addActorsToStage(start);
+        ready.setSize(btnJoinSize.x, btnJoinSize.y);
+        ready.setPosition(screenWidth/2 - ready.getWidth()/2, padding);
+        addActorsToStage(ready);
+
+        ready.addListener(() -> {
+            String str = "";
+            for(Player p : lobbyLogic.getCurrentPlayers().values()) {
+                str += "Player " + p.getConnectionId() + "\n";
+            }
+            Gdx.app.log("PLAYERS", "\n" + str);
+        });
 
         P1 = new TextField("", textfieldSkin);
         P1.setSize(screenWidth*0.6f, screenHeight*0.1f);
@@ -105,15 +114,18 @@ public class LobbyMenu extends AbstractScreen {
         Gdx.input.setInputProcessor(null);
     }
 
-    public void init(ClientHandler client) {
-        lobbyLogic = new LobbyLogicClient(client);
-        Gdx.app.log("LOBBY", "Initialized Client");
-    }
 
     public void init(ServerHandler server) {
         lobbyLogic = new LobbyLogicServer(server);
         Gdx.app.log("LOBBY", "Initialized Server");
     }
+
+    public void init(ClientHandler client) {
+        lobbyLogic = new LobbyLogicClient(client);
+        ((LobbyLogicClient)lobbyLogic).sendJoinRequest();
+        Gdx.app.log("LOBBY", "Initialized Client");
+    }
+
 }
 
 

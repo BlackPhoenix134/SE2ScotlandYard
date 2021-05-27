@@ -10,12 +10,11 @@ import java.io.IOException;
 import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.SpawnObject;
-import sy.connection.packages.request.PlayerMovement;
 import sy.core.Consumer;
 
 public class ClientHandler extends Listener {
     private NetworkPackageCallbacks callbacks;
-    private Client client;
+    private Client kryonetClient;
     private Consumer<Connection> onConnected;
     private Consumer<Connection> onDisconnected;
 
@@ -27,18 +26,22 @@ public class ClientHandler extends Listener {
         return callbacks;
     }
 
-    public void clientStart(String hostIp, int tcpPort, int udpPort){
-        client = new Client();
-        client.start();
+    public Client getKryonetClient() {
+        return kryonetClient;
+    }
 
-        Kryo kryo = client.getKryo();
+    public void clientStart(String hostIp, int tcpPort, int udpPort){
+        kryonetClient = new Client();
+        kryonetClient.start();
+
+        Kryo kryo = kryonetClient.getKryo();
         kryo.register(ClientMoveRequest.class);
         kryo.register(MovePlayerObject.class);
         kryo.register(SpawnObject.class);
 
         try {
-            client.connect(5000, hostIp, tcpPort, udpPort);
-            client.addListener(this);
+            kryonetClient.connect(5000, hostIp, tcpPort, udpPort);
+            kryonetClient.addListener(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,7 +55,7 @@ public class ClientHandler extends Listener {
     public void send(Object object, boolean invokeSelf){
         if(invokeSelf)
             callbacks.invoke(object);
-        client.sendTCP(object);
+        kryonetClient.sendTCP(object);
     }
 
 
@@ -77,6 +80,6 @@ public class ClientHandler extends Listener {
 
 
     public void close(){
-        client.close();
+        kryonetClient.close();
     }
 }

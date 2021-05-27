@@ -116,12 +116,9 @@ public class JoinGameMenu extends AbstractScreen {
         });
 
 
-        leave.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                sound.play();
-                //screenManager.showScreen(MainMenuScreen.class);
-            }
+        leave.addListener(() -> {
+            sound.play();
+            screenManager.showScreen(MainMenuScreen.class);
         });
     }
 
