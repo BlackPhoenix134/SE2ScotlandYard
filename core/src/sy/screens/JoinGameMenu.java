@@ -98,25 +98,21 @@ public class JoinGameMenu extends AbstractScreen {
 
 
 
-        host.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                ServerHandler server = new ServerHandler(networkPackageCallbacks);
-                server.serverStart(userIP.getText(), Integer.parseInt(tcpPort.getText(), Integer.parseInt(udpPort.getText())));
-                sound.play();
-                screenManager.showScreen(LobbyMenu.class);
-            }
+        host.addListener(() -> {
+            ServerHandler server = new ServerHandler(networkPackageCallbacks);
+            server.serverStart(userIP.getText(), Integer.parseInt(tcpPort.getText(), Integer.parseInt(udpPort.getText())));
+            sound.play();
+            screenManager.showScreen(LobbyMenu.class);
+            screenManager.getScreen(LobbyMenu.class).init(server);
         });
 
-        join.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                ClientHandler client = new ClientHandler(networkPackageCallbacks);
-                client.clientStart(userIP.getText(),Integer.parseInt(tcpPort.getText()),Integer.parseInt(udpPort.getText()));
-                sound.play();
-                //screenManager.showScreen(GameScreen.class);
-                //screenManager.getScreen(GameScreen.class).initialize(client, networkPackageCallbacks);
-            }
+        join.addListener(() -> {
+            //ToDo: check connection worked
+            ClientHandler client = new ClientHandler(networkPackageCallbacks);
+            client.clientStart(userIP.getText(),Integer.parseInt(tcpPort.getText()),Integer.parseInt(udpPort.getText()));
+            sound.play();
+            screenManager.showScreen(LobbyMenu.class);
+            screenManager.getScreen(LobbyMenu.class).init(client);
         });
 
 
