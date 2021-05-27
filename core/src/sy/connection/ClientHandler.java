@@ -8,7 +8,9 @@ import com.esotericsoftware.kryonet.Listener;
 import java.io.IOException;
 
 import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.CreatePlayer;
 import sy.connection.packages.MovePlayerObject;
+import sy.connection.packages.PlayerJoinLobbyRequest;
 import sy.connection.packages.SpawnObject;
 import sy.core.Consumer;
 
@@ -38,7 +40,8 @@ public class ClientHandler extends Listener {
         kryo.register(ClientMoveRequest.class);
         kryo.register(MovePlayerObject.class);
         kryo.register(SpawnObject.class);
-
+        kryo.register(PlayerJoinLobbyRequest.class);
+        kryo.register(CreatePlayer.class);
         try {
             kryonetClient.connect(5000, hostIp, tcpPort, udpPort);
             kryonetClient.addListener(this);

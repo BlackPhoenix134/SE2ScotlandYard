@@ -1,5 +1,7 @@
 package sy.core;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,6 +19,12 @@ public abstract class LobbyLogic {
         callbacks.registerCallback(CreatePlayer.class, packageObj -> {
             CreatePlayer createPlayer = (CreatePlayer)packageObj;
             currentPlayers.put(createPlayer.connectionId, new Player(createPlayer.connectionId));
+
+            String str = "";
+            for(Player p : getCurrentPlayers().values()) {
+                str += "Player " + p.getConnectionId() + "\n";
+            }
+            Gdx.app.log("PLAYERS", "\n" + str);
         });
     }
 

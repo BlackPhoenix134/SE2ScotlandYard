@@ -10,7 +10,9 @@ import com.esotericsoftware.kryonet.Server;
 import java.io.IOException;
 
 import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.CreatePlayer;
 import sy.connection.packages.MovePlayerObject;
+import sy.connection.packages.PlayerJoinLobbyRequest;
 import sy.connection.packages.SpawnObject;
 import sy.connection.packages.request.PlayerMovement;
 import sy.core.Consumer;
@@ -41,6 +43,8 @@ public class ServerHandler extends Listener{
         kryo.register(ClientMoveRequest.class);
         kryo.register(MovePlayerObject.class);
         kryo.register(SpawnObject.class);
+        kryo.register(PlayerJoinLobbyRequest.class);
+        kryo.register(CreatePlayer.class);
 
     }
 

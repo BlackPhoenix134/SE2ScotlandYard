@@ -1,5 +1,7 @@
 package sy.core;
 
+import com.badlogic.gdx.Gdx;
+
 import sy.connection.ServerHandler;
 import sy.connection.packages.CreatePlayer;
 import sy.connection.packages.PlayerJoinLobbyRequest;
