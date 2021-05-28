@@ -14,7 +14,6 @@ import com.esotericsoftware.minlog.Log;
 
 import java.util.Collection;
 
-import javax.xml.soap.Text;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;

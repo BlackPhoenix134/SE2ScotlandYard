@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Scaling;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.gameObjects.Vibrate;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -18,6 +19,7 @@ public class MainMenuScreen extends AbstractScreen {
     private float screenHeight;
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    Vibrate v = new Vibrate();
 
     public MainMenuScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;
@@ -47,6 +49,7 @@ public class MainMenuScreen extends AbstractScreen {
             public void onClick() {
                 sound.play();
                 screenManager.showScreen(JoinGameMenu.class);
+                v.shakeTillItHurts();
             }
         });
         addActorsToStage(btnStartGame);
