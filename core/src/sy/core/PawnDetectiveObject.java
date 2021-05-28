@@ -4,15 +4,19 @@ import sy.gameObjects.PawnObject;
 
 public class PawnDetectiveObject extends PawnObject {
 
-    private TicketDetective ticketDetective;
+    private DetectiveTickets tickets;
 
-    public PawnDetectiveObject(String uuid, TicketDetective ticketDetective) {
-        super(uuid);
-        setDetectiveTicket(ticketDetective);
+    public PawnDetectiveObject(String uuid, DetectiveTickets tickets) {
+        super(uuid, tickets);
+        setDetectiveTicket(tickets);
     }
 
-    public void setDetectiveTicket(TicketDetective ticketDetective) {
-        this.ticketDetective = ticketDetective;
+    public void setDetectiveTicket(DetectiveTickets ticketDetective) {
+        this.tickets = ticketDetective;
+    }
+
+    public DetectiveTickets getTickets() {
+        return tickets;
     }
 
     @Override
@@ -23,20 +27,20 @@ public class PawnDetectiveObject extends PawnObject {
 
         switch (type) {
             case HORSE:
-                if (ticketDetective.bikeTickets > 0) {
-                    ticketDetective.bikeTickets--;
+                if (tickets.bikeTickets > 0) {
+                    tickets.bikeTickets--;
                     return true;
                 }
                 break;
             case BIKE:
-                if (ticketDetective.dragonTickets > 0) {
-                    ticketDetective.dragonTickets--;
+                if (tickets.dragonTickets > 0) {
+                    tickets.dragonTickets--;
                     return true;
                 }
                 break;
             case DRAGON:
-                if (ticketDetective.horseTickets > 0) {
-                    ticketDetective.horseTickets--;
+                if (tickets.horseTickets > 0) {
+                    tickets.horseTickets--;
                     return true;
                 }
                 break;
@@ -54,17 +58,17 @@ public class PawnDetectiveObject extends PawnObject {
 
         switch (type) {
             case HORSE:
-                if (ticketDetective.bikeTickets > 0) {
+                if (tickets.bikeTickets > 0) {
                     return true;
                 }
                 break;
             case BIKE:
-                if (ticketDetective.dragonTickets > 0) {
+                if (tickets.dragonTickets > 0) {
                     return true;
                 }
                 break;
             case DRAGON:
-                if (ticketDetective.horseTickets > 0) {
+                if (tickets.horseTickets > 0) {
                     return true;
                 }
                 break;

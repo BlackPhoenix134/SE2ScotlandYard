@@ -23,6 +23,10 @@ public class GameplayServer extends Gameplay {
             ClientMoveRequest clientRequest = (ClientMoveRequest) packageObj;
             server.sendAll(new MovePlayerObject(clientRequest.playerObjNetId, clientRequest.newNodeId), true);
         });
+
+        callbacks.registerCallback(UpdateTickets.class, packageObj ->{
+            server.sendAll(packageObj, true);
+        });
     }
 
     public void changeTurn(){
@@ -44,5 +48,11 @@ public class GameplayServer extends Gameplay {
             server.sendAll(new MovePlayerObject(pawnObject, newNode), true);
             server.sendTo(getPlayerTurnId().getID(), new RemoveTicket(ticketType));
         }
+    }
+
+    @Override
+    public void removeTicket(PawnObject pawnObject, TicketType ticketToRemove) {
+        pawnObject.removeTicket(ticketToRemove);
+        server.sendAll(new UpdateTickets(pawnObject.getNetId(), pawnObject.getTickets()), true);
     }
 }

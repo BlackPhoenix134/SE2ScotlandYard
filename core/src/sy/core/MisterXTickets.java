@@ -1,11 +1,11 @@
 package sy.core;
 
-public class TicketMisterX {
+public class MisterXTickets extends Tickets {
 
     public int blackTickets;
     public int doubleTurnTickets;
 
-    public TicketMisterX(int blackTickets, int doubleTurnTickets) {
+    public MisterXTickets(int blackTickets, int doubleTurnTickets) {
         this.blackTickets = blackTickets;
         this.doubleTurnTickets = doubleTurnTickets;
     }

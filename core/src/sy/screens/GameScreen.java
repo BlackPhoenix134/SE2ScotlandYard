@@ -22,9 +22,11 @@ import sy.core.GameplayClient;
 import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
-import sy.core.PawnDetectiveObject;
 import sy.core.RemoveTicket;
+import sy.core.DetectiveTickets;
 import sy.core.TicketType;
+import sy.core.Tickets;
+import sy.core.UpdateTickets;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
@@ -92,9 +94,17 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
         callbacks.registerCallback(RemoveTicket.class, packageObj -> {
             RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
-            pawnObject.removeTicket(ticketToRemove.getTicket());
+            gameplay.removeTicket(pawnObject, ticketToRemove.getTicket());
         });
 
+        callbacks.registerCallback(UpdateTickets.class, packageObj ->{
+            UpdateTickets updatePlayer = (UpdateTickets) packageObj;
+            for(PawnObject player : pawnPlayerObjects){
+                if(player.getNetId() == updatePlayer.netId){
+                    player.setTickets(updatePlayer.tickets);
+                }
+            }
+        });
     }
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks) {

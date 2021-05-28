@@ -12,7 +12,6 @@ import java.io.IOException;
 import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.SpawnObject;
-import sy.connection.packages.request.PlayerMovement;
 
 public class ServerHandler extends Listener{
     private NetworkPackageCallbacks callbacks;

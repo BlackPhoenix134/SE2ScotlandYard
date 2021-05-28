@@ -1,7 +1,6 @@
 package sy.core;
 
 import sy.connection.ClientHandler;
-import sy.connection.NetworkPackageCallbacks;
 import sy.connection.packages.ClientMoveRequest;
 import sy.gameObjects.PawnObject;
 
@@ -20,5 +19,11 @@ public class GameplayClient extends Gameplay {
             pawnObject.setMapNode(newNode);
             client.send(new ClientMoveRequest(pawnObject, newNode));
         }
+    }
+
+    @Override
+    public void removeTicket(PawnObject pawnObject, TicketType ticketToRemove) {
+        pawnObject.removeTicket(ticketToRemove);
+        client.send(new UpdateTickets(pawnObject.getNetId(), pawnObject.getTickets()));
     }
 }

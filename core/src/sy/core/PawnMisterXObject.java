@@ -4,15 +4,19 @@ import sy.gameObjects.PawnObject;
 
 public class PawnMisterXObject extends PawnObject {
 
-    private TicketMisterX ticketMisterX;
+    private MisterXTickets tickets;
 
-    public PawnMisterXObject(String uuid, TicketMisterX ticketMisterX) {
-        super(uuid);
-        setTicketMisterX(ticketMisterX);
+    public PawnMisterXObject(String uuid, MisterXTickets tickets) {
+        super(uuid, tickets);
+        setTickets(tickets);
     }
 
-    public void setTicketMisterX(TicketMisterX ticketMisterX) {
-        this.ticketMisterX = ticketMisterX;
+    public void setTickets(MisterXTickets tickets) {
+        this.tickets = tickets;
+    }
+
+    public MisterXTickets getTickets() {
+        return tickets;
     }
 
     @Override
@@ -24,14 +28,14 @@ public class PawnMisterXObject extends PawnObject {
         switch (type) {
 
             case BLACK_TICKET:
-                if (ticketMisterX.blackTickets > 0) {
-                    ticketMisterX.blackTickets--;
+                if (tickets.blackTickets > 0) {
+                    tickets.blackTickets--;
                     return true;
                 }
                 break;
             case DOUBLETURN_TICKET:
-                if (ticketMisterX.doubleTurnTickets > 0) {
-                    ticketMisterX.doubleTurnTickets--;
+                if (tickets.doubleTurnTickets > 0) {
+                    tickets.doubleTurnTickets--;
                     return true;
                 }
                 break;
@@ -50,12 +54,12 @@ public class PawnMisterXObject extends PawnObject {
         switch (type) {
 
             case BLACK_TICKET:
-                if (ticketMisterX.blackTickets > 0) {
+                if (tickets.blackTickets > 0) {
                     return true;
                 }
                 break;
             case DOUBLETURN_TICKET:
-                if (ticketMisterX.doubleTurnTickets > 0) {
+                if (tickets.doubleTurnTickets > 0) {
                     return true;
                 }
                 break;

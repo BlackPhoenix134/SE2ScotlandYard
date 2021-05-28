@@ -8,13 +8,14 @@ import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.core.MapNode;
 import sy.core.TicketType;
+import sy.core.Tickets;
 import sy.rendering.RenderPipeline;
 
 public abstract class PawnObject extends GameObject implements NetworkIdentifiable {
     private int netId;
     private int playerID;
     private MapNode mapNode;
-
+    private Tickets tickets;
 
 
     /**
@@ -24,7 +25,7 @@ public abstract class PawnObject extends GameObject implements NetworkIdentifiab
     private Sprite sprite;
 
 
-    public PawnObject(String uuid) {
+    public PawnObject(String uuid, Tickets tickets) {
         super(uuid);
         mapNode = new MapNode();
         mapNode.setPosition(new Vector2(-2923, 2636));
@@ -66,8 +67,14 @@ public abstract class PawnObject extends GameObject implements NetworkIdentifiab
         this.sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
     }
 
-    public abstract boolean removeTicket(TicketType type);
+    public Tickets getTickets() {
+        return tickets;
+    }
+    public void setTickets(Tickets tickets){
+        this.tickets = tickets;
+    }
 
+    public abstract boolean removeTicket(TicketType type);
 
     @Override
     public int getNetId() {

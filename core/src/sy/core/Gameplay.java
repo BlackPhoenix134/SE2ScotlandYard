@@ -60,4 +60,6 @@ public abstract class Gameplay {
       return false;
     }
     public abstract void movePlayer(PawnObject pawnObject, MapNode toNode, TicketType ticketType);
+
+    public abstract void removeTicket(PawnObject pawnObject, TicketType ticketToRemove);
 }
