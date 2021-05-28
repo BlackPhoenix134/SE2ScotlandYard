@@ -1,4 +1,4 @@
-package sy.core;
+package sy.core.Tickets;
 
 public class MisterXTickets extends Tickets {
 

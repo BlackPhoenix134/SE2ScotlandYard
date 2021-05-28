@@ -7,8 +7,8 @@ import com.badlogic.gdx.math.Vector2;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.core.MapNode;
-import sy.core.TicketType;
-import sy.core.Tickets;
+import sy.core.Tickets.TicketType;
+import sy.core.Tickets.Tickets;
 import sy.rendering.RenderPipeline;
 
 public abstract class PawnObject extends GameObject implements NetworkIdentifiable {

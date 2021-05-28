@@ -1,6 +1,7 @@
-package sy.core;
+package sy.gameObjects;
 
-import sy.gameObjects.PawnObject;
+import sy.core.Tickets.DetectiveTickets;
+import sy.core.Tickets.TicketType;
 
 public class PawnDetectiveObject extends PawnObject {
 

@@ -4,11 +4,7 @@ package sy.connection;
 import java.util.HashMap;
 import java.util.Map;
 
-import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.MovePlayerObject;
-import sy.connection.packages.request.SomeRequest;
 import sy.core.Consumer;
-import sy.core.PlayerTurn;
 
 public class NetworkPackageCallbacks {
     private Map<Class, Consumer<Object>> packageHandler = new HashMap<>();

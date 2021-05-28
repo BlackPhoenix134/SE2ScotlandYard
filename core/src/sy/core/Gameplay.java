@@ -3,6 +3,8 @@ package sy.core;
 import com.esotericsoftware.kryonet.Connection;
 
 import sy.connection.NetworkPackageCallbacks;
+import sy.connection.packages.PlayerTurn;
+import sy.core.Tickets.TicketType;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnObject;
 
@@ -17,8 +19,8 @@ public abstract class Gameplay {
         this.player = player;
         this.callbacks = callbacks;
 
-        this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
-            PlayerTurn playerTurn = (PlayerTurn) packageObj;
+        this.callbacks.registerCallback(sy.connection.packages.PlayerTurn.class, packageObj -> {
+            sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
             setPlayerTurnId(playerTurn.getIndex());
         });
     }
@@ -39,7 +41,7 @@ public abstract class Gameplay {
         return playerTurnId == player.getIndex();
     }
 
-    public boolean canMove(PawnObject pawnObject, MapNode toNode, TicketType ticketType) {
+    public boolean canMove(PawnObject pawnObject, MapNode toNode, sy.core.Tickets.TicketType ticketType) {
 
         //do checks, used in client and server so implemented here
         //To do: check if pawn has enough tickets
@@ -48,18 +50,18 @@ public abstract class Gameplay {
             return false;
         }
 
-        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.HORSE) && (ticketType == TicketType.HORSE || ticketType == TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.HORSE) && (ticketType == sy.core.Tickets.TicketType.HORSE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
             return true;
         }
-        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.BIKE) && (ticketType == TicketType.BIKE || ticketType == TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.BIKE) && (ticketType == sy.core.Tickets.TicketType.BIKE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
             return true;
         }
-       if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.DRAGON) && (ticketType == TicketType.DRAGON || ticketType == TicketType.BLACK_TICKET)) {
+       if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.DRAGON) && (ticketType == sy.core.Tickets.TicketType.DRAGON || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
            return true;
         }
       return false;
     }
-    public abstract void movePlayer(PawnObject pawnObject, MapNode toNode, TicketType ticketType);
+    public abstract void movePlayer(PawnObject pawnObject, MapNode toNode, sy.core.Tickets.TicketType ticketType);
 
     public abstract void removeTicket(PawnObject pawnObject, TicketType ticketToRemove);
 }

@@ -2,16 +2,11 @@ package sy.connection;
 
 import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
-
-import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.MovePlayerObject;
-import sy.connection.packages.SpawnObject;
 
 public class ServerHandler extends Listener{
     private NetworkPackageCallbacks callbacks;
@@ -32,12 +27,7 @@ public class ServerHandler extends Listener{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        Kryo kryo = server.getKryo();
-        kryo.register(ClientMoveRequest.class);
-        kryo.register(MovePlayerObject.class);
-        kryo.register(SpawnObject.class);
-
+        Register.register(server.getKryo());
     }
 
     public NetworkPackageCallbacks getCallbacks() {

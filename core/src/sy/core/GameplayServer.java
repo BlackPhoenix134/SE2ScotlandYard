@@ -1,14 +1,16 @@
 package sy.core;
 
 
-import com.esotericsoftware.kryonet.Connection;
-
 import java.util.LinkedList;
 import java.util.Queue;
 
 import sy.connection.ServerHandler;
 import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.MovePlayerObject;
+import sy.connection.packages.PlayerTurn;
+import sy.connection.packages.RemoveTicket;
+import sy.connection.packages.UpdateTickets;
+import sy.core.Tickets.TicketType;
 import sy.gameObjects.PawnObject;
 
 public class GameplayServer extends Gameplay {
@@ -41,7 +43,7 @@ public class GameplayServer extends Gameplay {
     }
 
     @Override
-    public void movePlayer(PawnObject pawnObject, MapNode newNode, TicketType ticketType) {
+    public void movePlayer(PawnObject pawnObject, MapNode newNode, sy.core.Tickets.TicketType ticketType) {
       boolean move = canMove(pawnObject, newNode, ticketType);
         if(isLocalTurn() && move) {
             pawnObject.setMapNode(newNode);

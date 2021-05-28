@@ -2,6 +2,8 @@ package sy.core;
 
 import sy.connection.ClientHandler;
 import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.UpdateTickets;
+import sy.core.Tickets.TicketType;
 import sy.gameObjects.PawnObject;
 
 public class GameplayClient extends Gameplay {
@@ -13,7 +15,7 @@ public class GameplayClient extends Gameplay {
     }
 
     @Override
-    public void movePlayer(PawnObject pawnObject, MapNode newNode, TicketType ticketType) {
+    public void movePlayer(PawnObject pawnObject, MapNode newNode, sy.core.Tickets.TicketType ticketType) {
         boolean move = canMove(pawnObject, newNode, ticketType);
         if(isLocalTurn() && move) {
             pawnObject.setMapNode(newNode);

@@ -1,4 +1,4 @@
-package sy.core;
+package sy.core.Tickets;
 
 public class DetectiveTickets extends Tickets {
     public int bikeTickets;

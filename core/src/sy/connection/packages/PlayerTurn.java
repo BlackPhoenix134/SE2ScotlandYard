@@ -1,7 +1,10 @@
-package sy.core;
+package sy.connection.packages;
 
 import com.esotericsoftware.kryonet.Connection;
 
+import sy.core.Annotations.NetworkPackage;
+
+@NetworkPackage
 public class PlayerTurn {
     private Connection index;
 

@@ -7,10 +7,6 @@ import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
 
-import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.MovePlayerObject;
-import sy.connection.packages.SpawnObject;
-
 public class ClientHandler extends Listener {
     private NetworkPackageCallbacks callbacks;
     private Client client;
@@ -27,10 +23,7 @@ public class ClientHandler extends Listener {
         client = new Client();
         client.start();
 
-        Kryo kryo = client.getKryo();
-        kryo.register(ClientMoveRequest.class);
-        kryo.register(MovePlayerObject.class);
-        kryo.register(SpawnObject.class);
+        Register.register(client.getKryo());
 
         try {
             client.connect(5000, hostIp, tcpPort, udpPort);

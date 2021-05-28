@@ -1,5 +1,9 @@
-package sy.core;
+package sy.connection.packages;
 
+import sy.core.Annotations.NetworkPackage;
+import sy.core.Tickets.TicketType;
+
+@NetworkPackage
 public class RemoveTicket {
     private TicketType ticket;
 
