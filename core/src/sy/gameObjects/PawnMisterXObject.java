@@ -7,9 +7,8 @@ public class PawnMisterXObject extends PawnObject {
 
     private MisterXTickets tickets;
 
-    public PawnMisterXObject(String uuid, MisterXTickets tickets) {
-        super(uuid, tickets);
-        setTickets(tickets);
+    public PawnMisterXObject(String uuid) {
+        super(uuid);
     }
 
     public void setTickets(MisterXTickets tickets) {

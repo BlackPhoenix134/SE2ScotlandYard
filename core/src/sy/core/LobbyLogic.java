@@ -40,4 +40,12 @@ public abstract class LobbyLogic {
     public Map<Integer, LobbyPlayer> getCurrLobbyPlayers() {
         return currLobbyPlayers;
     }
+
+    public  boolean allReady() {
+        for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
+            if(!lobbyPlayer.isReady())
+                return false;
+        }
+        return true;
+    }
 }

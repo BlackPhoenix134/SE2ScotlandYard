@@ -17,6 +17,7 @@ import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
 import sy.connection.packages.MovePlayerObject;
+import sy.core.Extensions.Collections;
 import sy.core.Gameplay;
 import sy.core.GameplayClient;
 import sy.core.GameplayServer;
@@ -49,7 +50,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private float currentScale = 1;
     private float zoomValue = 1;
     private ScreenManager screenManager;
-    private PawnObject pawnObject;
+    private PawnObject localPlayerPawn;
     private GameBoardObject gameBoardObject;
     private CritterSpawnerManager critterSpawnerManager;
     private NodeGraphObject nodeGraphObject;
@@ -64,22 +65,37 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         this.renderPipeline = renderPipeline;
         this.camera = camera;
         this.screenManager = screenManager;
-    }
-
-    public void setGameplay(Gameplay gameplay) {
-        this.gameplay = gameplay;
-    }
-
-    @Override
-    public void buildStage() {
         nodeGraphObject = gameObjectManager.create(NodeGraphObject.class);
         gameBoardObject = gameObjectManager.create(GameBoardObject.class);
         Texture gameBoardTexture = SYAssetManager.getAsset(AssetDescriptors.GAME_BOARD);
         gameBoardObject.setTexture(gameBoardTexture);
-        pawnObject = gameObjectManager.create(PawnObject.class);
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
-        gameplay.initialize(nodeGraphObject);
 
+    }
+
+
+    @Override
+    public void buildStage() {
+
+    }
+
+    public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
+        this.gameplay = new GameplayServer(localPlayer, players, handler);
+        this.callbacks = callbacks;
+        registerCallbacks();
+        gameplay.initialize(nodeGraphObject);
+        spawnPlayerPawns(players);
+    }
+
+    public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
+        this.gameplay = new GameplayClient(localPlayer, players, handler);
+        this.callbacks = callbacks;
+        registerCallbacks();
+        gameplay.initialize(nodeGraphObject);
+        spawnPlayerPawns(players);
+    }
+
+    private void registerCallbacks() {
         callbacks.registerCallback(MovePlayerObject.class, packageObj -> {
             MovePlayerObject playerMoved = (MovePlayerObject)packageObj;
             for(PawnObject player : pawnPlayerObjects){
@@ -93,7 +109,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
         callbacks.registerCallback(RemoveTicket.class, packageObj -> {
             RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
-            gameplay.removeTicket(pawnObject, ticketToRemove.getTicket());
+            gameplay.removeTicket(localPlayerPawn, ticketToRemove.getTicket());
         });
 
         callbacks.registerCallback(UpdateTickets.class, packageObj ->{
@@ -106,17 +122,13 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         });
     }
 
-    public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
-        this.gameplay = new GameplayServer(localPlayer, players, handler);
-        this.callbacks = callbacks;
+    private void spawnPlayerPawns(List<Player> players) {
+        for(Player player : players) {
+           PawnObject playerPawn = gameObjectManager.create(PawnObject.class);
+            MapNode randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
+            playerPawn.setMapNode(randomNode);
+        }
     }
-
-    public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
-        this.gameplay = new GameplayClient(localPlayer, players, handler);
-        this.callbacks = callbacks;
-    }
-
-
 
     @Override
     public void render(float delta) {
@@ -216,7 +228,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
             Vector2 pos = node.getPosition();
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
                 //Gdx.app.log("Indizes:", "current index: " + currentindex + " clicked index: " + i);
-                gameplay.movePlayer(pawnObject, node, ticketType);
+                gameplay.movePlayer(localPlayerPawn, node, ticketType);
                 break;
             }
         }
@@ -238,5 +250,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         dragValue.x = deltaX;
         dragValue.y = deltaY;
     }
+
 
 }

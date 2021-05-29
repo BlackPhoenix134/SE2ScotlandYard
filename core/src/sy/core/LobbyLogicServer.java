@@ -39,6 +39,8 @@ public class LobbyLogicServer extends LobbyLogic {
 
 
         callbacks.registerCallback(LobbyToStartGame.class, pckg -> {
+            screenManager.showScreen(GameScreen.class);
+
             GameScreen gameScreen = screenManager.getScreen(GameScreen.class);
             List<Player> players = new ArrayList<>();
             Player localPlayer = null;
@@ -51,8 +53,11 @@ public class LobbyLogicServer extends LobbyLogic {
                 players.add(player);
             }
             gameScreen.initialize(serverHandler, callbacks, players, localPlayer);
-            screenManager.showScreen(GameScreen.class);
         });
+    }
+
+    public void startGame() {
+        serverHandler.sendAll(new LobbyToStartGame(),true);
     }
 
     public void createSelf() {

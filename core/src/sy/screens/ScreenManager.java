@@ -31,6 +31,10 @@ public class ScreenManager {
         newScreen.buildStage();
 
         if(currentScreen != null){
+            game.setScreen(newScreen);
+            newScreen.transitionIn();
+            currentScreen.dispose();
+            /*
             currentScreen.transitionOut(new Runnable(){
                 @Override
                 public void run() {
@@ -38,7 +42,7 @@ public class ScreenManager {
                     newScreen.transitionIn();
                     currentScreen.dispose();
                 }
-            });
+            });*/
         }
         else{
             game.setScreen(newScreen);

@@ -7,9 +7,8 @@ public class PawnDetectiveObject extends PawnObject {
 
     private DetectiveTickets tickets;
 
-    public PawnDetectiveObject(String uuid, DetectiveTickets tickets) {
-        super(uuid, tickets);
-        setDetectiveTicket(tickets);
+    public PawnDetectiveObject(String uuid) {
+        super(uuid);
     }
 
     public void setDetectiveTicket(DetectiveTickets ticketDetective) {

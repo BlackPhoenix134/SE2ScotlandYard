@@ -11,7 +11,7 @@ import sy.core.Tickets.TicketType;
 import sy.core.Tickets.Tickets;
 import sy.rendering.RenderPipeline;
 
-public abstract class PawnObject extends GameObject implements NetworkIdentifiable {
+public class PawnObject extends GameObject implements NetworkIdentifiable {
     private int netId;
     private int playerID;
     private MapNode mapNode;
@@ -25,14 +25,12 @@ public abstract class PawnObject extends GameObject implements NetworkIdentifiab
     private Sprite sprite;
 
 
-    public PawnObject(String uuid, Tickets tickets) {
+    PawnObject(String uuid) {
         super(uuid);
-        mapNode = new MapNode();
-        mapNode.setPosition(new Vector2(-2923, 2636));
-        index = 0;
         Texture texture = SYAssetManager.getAsset(AssetDescriptors.MONSTER1);
         sprite = new Sprite(texture);
         sprite.setScale(0.45f);
+        sprite.setPosition(0, 0);
     }
 
 
@@ -42,7 +40,9 @@ public abstract class PawnObject extends GameObject implements NetworkIdentifiab
 
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
-        sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
+        if(mapNode != null) {
+            sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
+        }
         pipeline.add(sprite, 55);
     }
 
@@ -74,7 +74,9 @@ public abstract class PawnObject extends GameObject implements NetworkIdentifiab
         this.tickets = tickets;
     }
 
-    public abstract boolean removeTicket(TicketType type);
+    public boolean removeTicket(TicketType type) {
+        return  false;
+    }
 
     @Override
     public int getNetId() {
@@ -84,5 +86,7 @@ public abstract class PawnObject extends GameObject implements NetworkIdentifiab
         this.netId = netId;
     }
 
-    public abstract boolean hasEnoughTickets (TicketType ticketType);
+    public boolean hasEnoughTickets (TicketType ticketType) {
+        return  false;
+    }
 }

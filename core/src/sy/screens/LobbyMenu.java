@@ -57,17 +57,28 @@ public class LobbyMenu extends AbstractScreen {
             actor.remove();
         }
 
-        AliveButton ready;
-        Texture joinTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_READY);
-        ready = new AliveButton(joinTexture);
-        Vector2 btnJoinSize = Scaling.fillX.apply(joinTexture.getWidth(), joinTexture.getHeight(), screenWidth*0.40f,0);
-        ready.setSize(btnJoinSize.x, btnJoinSize.y);
-        ready.setPosition(screenWidth/2 - ready.getWidth()/2, padding);
-        addActorsToStage(ready);
-
-        ready.addListener(() -> {
+        Texture readyTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_READY);
+        AliveButton btnReady = new AliveButton(readyTexture);
+        Vector2 btnSize = Scaling.fillX.apply(readyTexture.getWidth(), readyTexture.getHeight(), screenWidth*0.40f,0);
+        btnReady.setSize(btnSize.x, btnSize.y);
+        btnReady.setPosition(screenWidth/2 - btnReady.getWidth()/2, padding + 100);
+        addActorsToStage(btnReady);
+        btnReady.addListener(() -> {
             lobbyLogic.readyUp();
         });
+
+        if(lobbyLogic instanceof LobbyLogicServer && lobbyLogic.allReady()) {
+            AliveButton btnStartGame = new AliveButton(readyTexture);
+            Vector2 btnSize2 = Scaling.fillX.apply(readyTexture.getWidth(), readyTexture.getHeight(), screenWidth*0.40f,0);
+            btnStartGame.setSize(btnSize2.x, btnSize2.y);
+            btnStartGame.setPosition(screenWidth/2 - btnStartGame.getWidth()/2, padding - 100);
+            addActorsToStage(btnStartGame);
+            btnStartGame.addListener(() -> {
+                ((LobbyLogicServer)lobbyLogic).startGame();
+            });
+        }
+
+
 
         int i = 0;
         for(LobbyPlayer currPlayer : lobbyLogic.getCurrLobbyPlayers().values()) {
