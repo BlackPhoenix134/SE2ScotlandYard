@@ -2,6 +2,7 @@ package sy.connection;
 
 import com.esotericsoftware.kryo.Kryo;
 
+import sy.connection.packages.AddPawnObject;
 import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.CreateLobbyPlayer;
 import sy.connection.packages.LobbyPlayerReady;
@@ -29,6 +30,7 @@ public class PackageRegisterer {
         kryo.register(LobbyPlayerReady.class);
         kryo.register(LobbyPlayerReadySync.class);
         kryo.register(TransitionScene.class);
+        kryo.register(AddPawnObject.class);
         kryo.register(LobbyToStartGame.class);
     }
 }
