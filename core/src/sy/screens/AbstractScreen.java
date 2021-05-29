@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 
 import sy.assets.SYAssetManager;
+import sy.connection.ClientHandler;
 
 public abstract class AbstractScreen extends Stage implements Screen {
     private Image transitionImg;

@@ -9,6 +9,9 @@ public class ClientMoveRequest {
     public int playerObjNetId;
     public int newNodeId;
 
+    public ClientMoveRequest() {
+    }
+
     public ClientMoveRequest(PawnObject pawnObject, MapNode node) {
         this.playerObjNetId = pawnObject.getNetId();
         this.newNodeId = node.getId();

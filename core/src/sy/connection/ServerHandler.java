@@ -8,26 +8,57 @@ import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 
+import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.CreatePlayer;
+import sy.connection.packages.MovePlayerObject;
+import sy.connection.packages.PlayerJoinLobbyRequest;
+import sy.connection.packages.SpawnObject;
+import sy.core.Consumer;
+
 public class ServerHandler extends Listener{
     private NetworkPackageCallbacks callbacks;
-    private Server server;
+    private Server kryonetServer;
+    private Consumer<Connection> clientConnected;
+    private Consumer<Connection> clientDisconnected;
+
+    public ServerHandler() {
+    }
+
 
     public ServerHandler(NetworkPackageCallbacks callbacks) {
         this.callbacks = callbacks;
     }
 
 
-    public void serverStart(String tcpPort, int udpPort) {
+    public void serverStart(int tcpPort, int udpPort) {
+
+        kryonetServer = new Server();
+        Kryo kryo = kryonetServer.getKryo();
+        kryo.register(ClientMoveRequest.class);
+        kryo.register(MovePlayerObject.class);
+        kryo.register(SpawnObject.class);
+        kryo.register(PlayerJoinLobbyRequest.class);
+        kryo.register(CreatePlayer.class);
+        kryonetServer.addListener(this);
 
         try {
-            server = new Server();
-            server.start();
-            server.bind(Integer.parseInt(tcpPort),udpPort);
-            server.addListener(this);
+            kryonetServer.start();
+            kryonetServer.bind(tcpPort, udpPort);
         } catch (IOException e) {
             e.printStackTrace();
+            Gdx.app.exit();
         }
-        Register.register(server.getKryo());
+
+
+
+    }
+
+    public void setClientConnected(Consumer<Connection> clientConnected) {
+        this.clientConnected = clientConnected;
+    }
+
+    public void setClientDisconnected(Consumer<Connection> clientDisconnected) {
+        this.clientDisconnected = clientDisconnected;
     }
 
     public NetworkPackageCallbacks getCallbacks() {
@@ -41,7 +72,7 @@ public class ServerHandler extends Listener{
     public void sendAll(Object obj, boolean invokeSelf) {
         if(invokeSelf)
             callbacks.invoke(obj);
-        server.sendToAllTCP(obj);
+        kryonetServer.sendToAllTCP(obj);
     }
 
 
@@ -52,7 +83,7 @@ public class ServerHandler extends Listener{
     public void sendTo(int connectionId, Object obj, boolean invokeSelf) {
         if(invokeSelf)
             callbacks.invoke(obj);
-        server.sendToTCP(connectionId, obj);
+        kryonetServer.sendToTCP(connectionId, obj);
     }
 
     public void sendAllExcept(int connectionId, Object obj) {
@@ -62,17 +93,21 @@ public class ServerHandler extends Listener{
     public void sendAllExcept(int connectionId, Object obj, boolean invokeSelf) {
         if(invokeSelf)
             callbacks.invoke(obj);
-        server.sendToAllExceptTCP(connectionId, obj);
+        kryonetServer.sendToAllExceptTCP(connectionId, obj);
     }
 
     @Override
     public void connected(Connection connection) {
         Gdx.app.log("SERVER", "ID: " + connection.getID() + " connected!");
+        if(clientConnected != null)
+            clientConnected.call(connection);
     }
 
     @Override
     public void disconnected(Connection connection) {
         Gdx.app.log("SERVER", "ID: " + connection.getID() + " disconnected!");
+        if(clientDisconnected != null)
+            clientDisconnected.call(connection);
     }
 
     @Override
@@ -80,4 +115,7 @@ public class ServerHandler extends Listener{
         callbacks.invoke(object);
     }
 
+    public Server getKryonetServer() {
+        return this.kryonetServer;
+    }
 }

@@ -7,6 +7,9 @@ public class SpawnObject {
     public Class objClass;
     public int netId;
 
+    public SpawnObject() {
+    }
+
     public SpawnObject(Class objClass, int netId) {
         this.objClass = objClass;
         this.netId = netId;

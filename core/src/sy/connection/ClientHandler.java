@@ -1,5 +1,6 @@
 package sy.connection;
 
+import com.badlogic.gdx.Gdx;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -7,9 +8,21 @@ import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
 
+import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.CreatePlayer;
+import sy.connection.packages.MovePlayerObject;
+import sy.connection.packages.PlayerJoinLobbyRequest;
+import sy.connection.packages.SpawnObject;
+import sy.core.Consumer;
+
 public class ClientHandler extends Listener {
     private NetworkPackageCallbacks callbacks;
-    private Client client;
+    private Client kryonetClient;
+    private Consumer<Connection> onConnected;
+    private Consumer<Connection> onDisconnected;
+
+    public ClientHandler() {
+    }
 
     public ClientHandler(NetworkPackageCallbacks callbacks) {
         this.callbacks = callbacks;
@@ -19,17 +32,26 @@ public class ClientHandler extends Listener {
         return callbacks;
     }
 
-    public void clientStart(String hostIp, int tcpPort, int udpPort){
-        client = new Client();
-        client.start();
+    public Client getKryonetClient() {
+        return kryonetClient;
+    }
 
-        Register.register(client.getKryo());
+    public void clientStart(String hostIp, int tcpPort, int udpPort){
+        kryonetClient = new Client();
+        Kryo kryo = kryonetClient.getKryo();
+        kryo.register(ClientMoveRequest.class);
+        kryo.register(MovePlayerObject.class);
+        kryo.register(SpawnObject.class);
+        kryo.register(PlayerJoinLobbyRequest.class);
+        kryo.register(CreatePlayer.class);
+        kryonetClient.addListener(this);
 
         try {
-            client.connect(5000, hostIp, tcpPort, udpPort);
-            client.addListener(this);
+            kryonetClient.start();
+            kryonetClient.connect(5000, hostIp, tcpPort, udpPort);
         } catch (IOException e) {
             e.printStackTrace();
+            Gdx.app.exit();
         }
     }
 
@@ -41,7 +63,7 @@ public class ClientHandler extends Listener {
     public void send(Object object, boolean invokeSelf){
         if(invokeSelf)
             callbacks.invoke(object);
-        client.sendTCP(object);
+        kryonetClient.sendTCP(object);
     }
 
 
@@ -50,7 +72,22 @@ public class ClientHandler extends Listener {
         callbacks.invoke(object);
     }
 
+    @Override
+    public void connected(Connection connection) {
+        super.connected(connection);
+        if(onConnected != null)
+            onConnected.call(connection);
+    }
+
+    @Override
+    public void disconnected(Connection connection) {
+        super.disconnected(connection);
+        if(onDisconnected != null)
+            onDisconnected.call(connection);
+    }
+
+
     public void close(){
-        client.close();
+        kryonetClient.close();
     }
 }

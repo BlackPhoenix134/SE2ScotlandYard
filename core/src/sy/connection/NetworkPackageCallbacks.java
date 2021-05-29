@@ -1,6 +1,8 @@
 package sy.connection;
 
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +22,9 @@ public class NetworkPackageCallbacks {
     }
 
     public void invoke(Object packageObj) {
-        packageHandler.get(packageObj.getClass()).call(packageObj);
+        Consumer<Object> consumer = packageHandler.get(packageObj.getClass());
+        if(consumer != null)
+           consumer.call(packageObj);
     }
 
     public void registerCallback(Class c, Consumer<Object> consumer){

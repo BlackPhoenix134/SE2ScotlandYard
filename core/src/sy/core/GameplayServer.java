@@ -33,7 +33,7 @@ public class GameplayServer extends Gameplay {
 
     public void changeTurn(){
         Player nextPlayer = turnQueue.poll();
-        server.sendAll(new PlayerTurn(nextPlayer.getIndex()), true);
+        server.sendAll(new PlayerTurn(nextPlayer.getConnectionId()), true);
         turnQueue.add(nextPlayer);
 
     }
@@ -48,7 +48,7 @@ public class GameplayServer extends Gameplay {
         if(isLocalTurn() && move) {
             pawnObject.setMapNode(newNode);
             server.sendAll(new MovePlayerObject(pawnObject, newNode), true);
-            server.sendTo(getPlayerTurnId().getID(), new RemoveTicket(ticketType));
+            server.sendTo(getPlayerTurnId(), new RemoveTicket(ticketType));
         }
     }
 
