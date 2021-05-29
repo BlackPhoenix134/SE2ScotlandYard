@@ -1,5 +1,7 @@
 package sy.core;
 
+import java.util.List;
+
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.packages.PlayerTurn;
 import sy.core.Tickets.TicketType;
@@ -11,10 +13,12 @@ public abstract class Gameplay {
     private int playerTurnId;
     private NodeGraphObject nodeGraphObject;
     protected NetworkPackageCallbacks callbacks;
+    protected List<Player> players;
 
 
-    public Gameplay(Player player, NetworkPackageCallbacks callbacks) {
+    public Gameplay(Player player, List<Player> players, NetworkPackageCallbacks callbacks) {
         this.player = player;
+        this.players = players;
         this.callbacks = callbacks;
 
         this.callbacks.registerCallback(sy.connection.packages.PlayerTurn.class, packageObj -> {

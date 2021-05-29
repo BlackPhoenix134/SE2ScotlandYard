@@ -1,5 +1,7 @@
 package sy.core;
 
+import java.util.List;
+
 import sy.connection.ClientHandler;
 import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.UpdateTickets;
@@ -9,8 +11,8 @@ import sy.gameObjects.PawnObject;
 public class GameplayClient extends Gameplay {
     private ClientHandler client;
 
-    public GameplayClient(Player player, ClientHandler client) {
-        super(player, client.getCallbacks());
+    public GameplayClient(Player player, List<Player> players, ClientHandler client) {
+        super(player, players, client.getCallbacks());
         this.client = client;
     }
 

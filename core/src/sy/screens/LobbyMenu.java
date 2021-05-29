@@ -10,20 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
-import com.esotericsoftware.minlog.Log;
-
-import java.util.Collection;
 
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
-import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
 import sy.core.LobbyLogic;
 import sy.core.LobbyLogicClient;
 import sy.core.LobbyLogicServer;
-import sy.core.Player;
+import sy.core.LobbyPlayer;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -70,17 +66,16 @@ public class LobbyMenu extends AbstractScreen {
         addActorsToStage(ready);
 
         ready.addListener(() -> {
-            String str = "";
-            for(Player p : lobbyLogic.getCurrentPlayers().values()) {
-                str += "Player " + p.getConnectionId() + "\n";
-            }
-            Gdx.app.log("PLAYERS", "\n" + str);
+            lobbyLogic.readyUp();
         });
 
         int i = 0;
-        for(Player currPlayer : lobbyLogic.getCurrentPlayers().values()) {
+        for(LobbyPlayer currPlayer : lobbyLogic.getCurrLobbyPlayers().values()) {
             float screenY = screenHeight - 100 - 150 * i;
-            TextField field = createTextField(screenY, "Player " + currPlayer.getConnectionId());
+            String text = "Player " + currPlayer.getConnectionId();
+            if(currPlayer.isReady())
+                text += "-> Ready";
+            TextField field = createTextField(screenY, text);
             addActorsToStage(field);
             i++;
         }
@@ -107,13 +102,13 @@ public class LobbyMenu extends AbstractScreen {
 
 
     public void init(ServerHandler server) {
-        lobbyLogic = new LobbyLogicServer(server, this);
+        lobbyLogic = new LobbyLogicServer(server, this, screenManager);
         ((LobbyLogicServer)lobbyLogic).createSelf();
         Gdx.app.log("LOBBY", "Initialized Server");
     }
 
     public void init(ClientHandler client) {
-        lobbyLogic = new LobbyLogicClient(client, this);
+        lobbyLogic = new LobbyLogicClient(client, this, screenManager);
         ((LobbyLogicClient)lobbyLogic).sendJoinRequest();
         Gdx.app.log("LOBBY", "Initialized Client");
     }

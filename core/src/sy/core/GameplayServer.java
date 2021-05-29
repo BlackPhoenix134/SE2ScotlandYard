@@ -2,6 +2,7 @@ package sy.core;
 
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 import sy.connection.ServerHandler;
@@ -17,8 +18,8 @@ public class GameplayServer extends Gameplay {
     private ServerHandler server;
     private Queue<Player> turnQueue = new LinkedList<>();
 
-    public GameplayServer(Player player, ServerHandler server) {
-        super(player, server.getCallbacks());
+    public GameplayServer(Player player, List<Player> players, ServerHandler server) {
+        super(player, players, server.getCallbacks());
         this.server = server;
 
         callbacks.registerCallback(ClientMoveRequest.class, packageObj -> {

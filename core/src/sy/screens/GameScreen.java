@@ -23,6 +23,7 @@ import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
 import sy.connection.packages.RemoveTicket;
+import sy.core.Player;
 import sy.core.Tickets.TicketType;
 import sy.connection.packages.UpdateTickets;
 import sy.gameObjects.GameBoardObject;
@@ -105,15 +106,13 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         });
     }
 
-    public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks) {
-        //Get player from lobby
-        this.gameplay = new GameplayServer(null, handler);
+    public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
+        this.gameplay = new GameplayServer(localPlayer, players, handler);
         this.callbacks = callbacks;
     }
 
-    public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks) {
-        //Get player from lobby
-        this.gameplay = new GameplayClient(null, handler);
+    public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
+        this.gameplay = new GameplayClient(localPlayer, players, handler);
         this.callbacks = callbacks;
     }
 

@@ -8,11 +8,6 @@ import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
 
-import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.CreatePlayer;
-import sy.connection.packages.MovePlayerObject;
-import sy.connection.packages.PlayerJoinLobbyRequest;
-import sy.connection.packages.SpawnObject;
 import sy.core.Consumer;
 
 public class ClientHandler extends Listener {

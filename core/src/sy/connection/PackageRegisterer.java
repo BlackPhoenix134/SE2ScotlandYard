@@ -3,12 +3,16 @@ package sy.connection;
 import com.esotericsoftware.kryo.Kryo;
 
 import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.CreatePlayer;
+import sy.connection.packages.CreateLobbyPlayer;
+import sy.connection.packages.LobbyPlayerReady;
+import sy.connection.packages.LobbyPlayerReadySync;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.PlayerJoinLobbyRequest;
 import sy.connection.packages.SpawnObject;
 import sy.connection.packages.PlayerTurn;
 import sy.connection.packages.RemoveTicket;
+import sy.connection.packages.LobbyToStartGame;
+import sy.connection.packages.TransitionScene;
 import sy.connection.packages.UpdateTickets;
 
 public class PackageRegisterer {
@@ -20,6 +24,10 @@ public class PackageRegisterer {
         kryo.register(RemoveTicket.class);
         kryo.register(PlayerTurn.class);
         kryo.register(PlayerJoinLobbyRequest.class);
-        kryo.register(CreatePlayer.class);
+        kryo.register(CreateLobbyPlayer.class);
+        kryo.register(LobbyPlayerReady.class);
+        kryo.register(LobbyPlayerReadySync.class);
+        kryo.register(TransitionScene.class);
+        kryo.register(LobbyToStartGame.class);
     }
 }

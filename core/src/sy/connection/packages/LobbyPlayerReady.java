@@ -1,12 +1,13 @@
 package sy.connection.packages;
 
-public class CreatePlayer {
+public class LobbyPlayerReady {
     public int connectionId;
 
-    public CreatePlayer() {
+    public LobbyPlayerReady() {
+
     }
 
-    public CreatePlayer(int connectionId) {
+    public LobbyPlayerReady(int connectionId) {
         this.connectionId = connectionId;
     }
 }
