@@ -44,8 +44,10 @@ android:
 # - adb shell input keyevent 82 &
 
 script:
-  - chmod +x gradlew                        # make executable
+  - chmod +x gradlew
+  - ./gradlew test jacocoTestReport# make executable
   - ./gradlew sonarqube
+
 
 before_install:
   - jdk_switcher use openjdk8             # use java 8 which is the last that is supported by sdkmanager
