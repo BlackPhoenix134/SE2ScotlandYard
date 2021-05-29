@@ -7,6 +7,9 @@ import sy.core.Tickets.TicketType;
 public class RemoveTicket {
     private TicketType ticket;
 
+    public RemoveTicket(){
+
+    }
     public RemoveTicket(TicketType ticket) {
         this.ticket = ticket;
     }

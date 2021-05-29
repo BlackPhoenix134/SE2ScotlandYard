@@ -14,6 +14,7 @@ import sy.connection.packages.RemoveTicket;
 import sy.connection.packages.LobbyToStartGame;
 import sy.connection.packages.TransitionScene;
 import sy.connection.packages.UpdateTickets;
+import sy.core.Tickets.TicketType;
 
 public class PackageRegisterer {
     public static void register(Kryo kryo){
