@@ -68,7 +68,8 @@ public class LobbyMenu extends AbstractScreen {
         });
 
         if(lobbyLogic instanceof LobbyLogicServer && lobbyLogic.allReady()) {
-            AliveButton btnStartGame = new AliveButton(readyTexture);
+            Texture startTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_START);
+            AliveButton btnStartGame = new AliveButton(startTexture);
             Vector2 btnSize2 = Scaling.fillX.apply(readyTexture.getWidth(), readyTexture.getHeight(), screenWidth*0.40f,0);
             btnStartGame.setSize(btnSize2.x, btnSize2.y);
             btnStartGame.setPosition(screenWidth/2 - btnStartGame.getWidth()/2, padding - 100);

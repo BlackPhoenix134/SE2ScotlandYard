@@ -18,6 +18,8 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> HOST_GAME = new AssetDescriptor<>(UI + "/HostGame.png", Texture.class);
     public static final AssetDescriptor<Texture> LEAVE = new AssetDescriptor<Texture>(UI + "/exit.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_READY = new AssetDescriptor<Texture>(UI + "/ReadyButton.png", Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_START = new AssetDescriptor<>(UI + "/Start.png", Texture.class);
+
 
 
     public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>( WORLD + "/map.png", Texture.class);
