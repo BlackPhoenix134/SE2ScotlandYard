@@ -64,6 +64,7 @@ public class LobbyMenu extends AbstractScreen {
         btnReady.setPosition(screenWidth/2 - btnReady.getWidth()/2, padding + 100);
         addActorsToStage(btnReady);
         btnReady.addListener(() -> {
+            sound.play();
             lobbyLogic.readyUp();
         });
 
@@ -75,6 +76,7 @@ public class LobbyMenu extends AbstractScreen {
             btnStartGame.setPosition(screenWidth/2 - btnStartGame.getWidth()/2, padding - 100);
             addActorsToStage(btnStartGame);
             btnStartGame.addListener(() -> {
+                sound.play();
                 ((LobbyLogicServer)lobbyLogic).startGame();
             });
         }
