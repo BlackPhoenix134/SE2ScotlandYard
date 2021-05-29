@@ -15,7 +15,7 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
     private int netId;
     private int playerID;
     private MapNode mapNode;
-    private Tickets tickets;
+
 
 
     /**
@@ -65,13 +65,6 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
     public void setMapNode(MapNode mapNode){
         this.mapNode = mapNode;
         this.sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
-    }
-
-    public Tickets getTickets() {
-        return tickets;
-    }
-    public void setTickets(Tickets tickets){
-        this.tickets = tickets;
     }
 
     public boolean removeTicket(TicketType type) {
