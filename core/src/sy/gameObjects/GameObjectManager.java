@@ -41,7 +41,7 @@ public class GameObjectManager {
             GameObject obj = clazz.getDeclaredConstructor(String.class).newInstance(uniqueID);
             gameObjects.put(obj.getUuid(), obj);
             return (T) obj;
-        } catch (Exception _) {
+        } catch (Exception exception) {
             return null;
         }
     }

@@ -25,7 +25,7 @@ public final  class SYAssetManager {
                     Object fieldValue = field.get(null);
                     if(fieldValue.getClass().equals(AssetDescriptor.class))
                     assetManager.load((AssetDescriptor<Texture>)fieldValue);
-                } catch (IllegalAccessException _) { }
+                } catch (IllegalAccessException ignored) { }
             }
         }
         assetManager.finishLoading();
