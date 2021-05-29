@@ -6,14 +6,22 @@ import sy.connection.ClientHandler;
 import sy.connection.packages.ClientMoveRequest;
 import sy.connection.packages.UpdateTickets;
 import sy.core.Tickets.TicketType;
+import sy.gameObjects.GameObjectManager;
+import sy.gameObjects.NodeGraphObject;
+import sy.gameObjects.PawnDetectiveObject;
+import sy.gameObjects.PawnMisterXObject;
 import sy.gameObjects.PawnObject;
 
 public class GameplayClient extends Gameplay {
     private ClientHandler client;
 
-    public GameplayClient(Player player, List<Player> players, ClientHandler client) {
-        super(player, players, client.getCallbacks());
+    public GameplayClient(Player player, List<Player> players, ClientHandler client, GameObjectManager gameObjectManager) {
+        super(player, players, client.getCallbacks(), gameObjectManager);
         this.client = client;
+    }
+
+    @Override
+    public void initialize(NodeGraphObject nodeGraphObject) {
     }
 
     @Override
@@ -28,6 +36,13 @@ public class GameplayClient extends Gameplay {
     @Override
     public void removeTicket(PawnObject pawnObject, TicketType ticketToRemove) {
         pawnObject.removeTicket(ticketToRemove);
-        client.send(new UpdateTickets(pawnObject.getNetId(), pawnObject.getTickets()));
+        if (pawnObject instanceof PawnMisterXObject){
+            PawnMisterXObject misterXplayer = (PawnMisterXObject) pawnObject;
+            client.send(new UpdateTickets(pawnObject.getNetId(), misterXplayer.getTickets()));
+        }
+        if (pawnObject instanceof PawnDetectiveObject){
+            PawnDetectiveObject detectiveplayer = (PawnDetectiveObject) pawnObject;
+            client.send(new UpdateTickets(pawnObject.getNetId(), detectiveplayer.getTickets()));
+        }
     }
 }
