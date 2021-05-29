@@ -11,7 +11,7 @@ public class PawnDetectiveObject extends PawnObject {
         super(uuid);
     }
 
-    public void setDetectiveTicket(DetectiveTickets ticketDetective) {
+    public void setTickets(DetectiveTickets ticketDetective) {
         this.tickets = ticketDetective;
     }
 
