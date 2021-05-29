@@ -34,11 +34,7 @@ public class ServerHandler extends Listener{
 
         kryonetServer = new Server();
         Kryo kryo = kryonetServer.getKryo();
-        kryo.register(ClientMoveRequest.class);
-        kryo.register(MovePlayerObject.class);
-        kryo.register(SpawnObject.class);
-        kryo.register(PlayerJoinLobbyRequest.class);
-        kryo.register(CreatePlayer.class);
+        PackageRegisterer.register(kryo);
         kryonetServer.addListener(this);
 
         try {

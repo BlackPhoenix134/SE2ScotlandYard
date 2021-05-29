@@ -39,11 +39,7 @@ public class ClientHandler extends Listener {
     public void clientStart(String hostIp, int tcpPort, int udpPort){
         kryonetClient = new Client();
         Kryo kryo = kryonetClient.getKryo();
-        kryo.register(ClientMoveRequest.class);
-        kryo.register(MovePlayerObject.class);
-        kryo.register(SpawnObject.class);
-        kryo.register(PlayerJoinLobbyRequest.class);
-        kryo.register(CreatePlayer.class);
+        PackageRegisterer.register(kryo);
         kryonetClient.addListener(this);
 
         try {
