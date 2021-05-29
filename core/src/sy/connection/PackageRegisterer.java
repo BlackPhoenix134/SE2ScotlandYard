@@ -10,6 +10,7 @@ import sy.connection.packages.SpawnObject;
 import sy.connection.packages.PlayerTurn;
 import sy.connection.packages.RemoveTicket;
 import sy.connection.packages.UpdateTickets;
+import sy.core.Tickets.TicketType;
 
 public class PackageRegisterer {
     public static void register(Kryo kryo){
@@ -21,5 +22,6 @@ public class PackageRegisterer {
         kryo.register(PlayerTurn.class);
         kryo.register(PlayerJoinLobbyRequest.class);
         kryo.register(CreatePlayer.class);
+        kryo.register(TicketType.class);
     }
 }

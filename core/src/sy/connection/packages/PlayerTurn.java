@@ -6,17 +6,12 @@ import sy.core.Annotations.NetworkPackage;
 
 @NetworkPackage
 public class PlayerTurn {
-    private int index;
+    public int index;
 
+    public PlayerTurn(){
+
+    }
     public PlayerTurn(int index) {
-        this.index = index;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
         this.index = index;
     }
 }

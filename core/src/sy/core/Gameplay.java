@@ -19,7 +19,7 @@ public abstract class Gameplay {
 
         this.callbacks.registerCallback(sy.connection.packages.PlayerTurn.class, packageObj -> {
             sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
-            setPlayerTurnId(playerTurn.getIndex());
+            setPlayerTurnId(playerTurn.index);
         });
     }
 
