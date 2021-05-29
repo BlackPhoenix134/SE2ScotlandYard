@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Scaling;
 
 import java.util.List;
 
@@ -25,6 +27,7 @@ import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
 import sy.connection.packages.RemoveTicket;
 import sy.core.Player;
+import sy.core.Tickets.DetectiveTickets;
 import sy.core.Tickets.TicketType;
 import sy.connection.packages.UpdateTickets;
 import sy.gameObjects.GameBoardObject;
@@ -37,6 +40,7 @@ import sy.input.TouchDownListener;
 import sy.input.TouchUpListener;
 import sy.input.ZoomListener;
 import sy.rendering.RenderPipeline;
+import sy.ui.AliveButton;
 
 public class GameScreen extends AbstractScreen implements TouchDownListener, TouchUpListener, ZoomListener, PanListener {
     private final float TICKS = 1f / 60f;
@@ -58,6 +62,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private Gameplay gameplay;
     private List<PawnObject> pawnPlayerObjects;
     private NetworkPackageCallbacks callbacks;
+    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
 
     private World world = new World(new Vector2(0, 0), true);
 
@@ -77,58 +82,56 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     @Override
     public void buildStage() {
 
+        AliveButton btnMisterX;
+        AliveButton btnDetective;
+
+        Texture MisterXTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_MISTERX);
+        Texture DetectiveTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DETECTIVE);
+
+        btnMisterX = new AliveButton(MisterXTexture);
+        btnDetective = new AliveButton(DetectiveTexture);
+
+        Vector2 btnMisterXsize = Scaling.fillX.apply(MisterXTexture.getWidth(), MisterXTexture.getHeight(), getViewport().getScreenWidth() * 0.5f, 0);
+        Vector2 btnDetectivesize = Scaling.fillX.apply(DetectiveTexture.getWidth(), DetectiveTexture.getHeight(), getViewport().getScreenWidth() * 0.5f, 0);
+
+        btnMisterX.setSize(btnMisterXsize.x, btnMisterXsize.y);
+        btnDetective.setSize(btnDetectivesize.x, btnDetectivesize.y);
+
+        btnMisterX.setPosition(10, 10);
+        btnDetective.setPosition(30, 10);
+
+        btnMisterX.addListener(new AliveButton.AliveButtonListener() {
+            @Override
+            public void onClick() {
+                sound.play();
+
+            }
+        });
+        addActorsToStage(btnDetective);
+
+        btnDetective.addListener(new AliveButton.AliveButtonListener() {
+            @Override
+            public void onClick() {
+                sound.play();
+            }
+        });
+
+        addActorsToStage(btnMisterX);
+
     }
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
-        this.gameplay = new GameplayServer(localPlayer, players, handler);
+        this.gameplay = new GameplayServer(localPlayer, players, handler, gameObjectManager);
         this.callbacks = callbacks;
-        registerCallbacks();
         gameplay.initialize(nodeGraphObject);
-        spawnPlayerPawns(players);
     }
 
     public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
-        this.gameplay = new GameplayClient(localPlayer, players, handler);
+        this.gameplay = new GameplayClient(localPlayer, players, handler, gameObjectManager);
         this.callbacks = callbacks;
-        registerCallbacks();
         gameplay.initialize(nodeGraphObject);
-        spawnPlayerPawns(players);
     }
 
-    private void registerCallbacks() {
-        callbacks.registerCallback(MovePlayerObject.class, packageObj -> {
-            MovePlayerObject playerMoved = (MovePlayerObject)packageObj;
-            for(PawnObject player : pawnPlayerObjects){
-                if(player.getNetId() == playerMoved.playerObjectNetId){
-                    MapNode newMapNode = nodeGraphObject.getMapNodes().get(playerMoved.newNodeId);
-                    player.setMapNode(newMapNode);
-                    break;
-                }
-            }
-        });
-
-        callbacks.registerCallback(RemoveTicket.class, packageObj -> {
-            RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
-            gameplay.removeTicket(localPlayerPawn, ticketToRemove.getTicket());
-        });
-
-        callbacks.registerCallback(UpdateTickets.class, packageObj ->{
-            UpdateTickets updatePlayer = (UpdateTickets) packageObj;
-            for(PawnObject player : pawnPlayerObjects){
-                if(player.getNetId() == updatePlayer.netId){
-                    player.setTickets(updatePlayer.tickets);
-                }
-            }
-        });
-    }
-
-    private void spawnPlayerPawns(List<Player> players) {
-        for(Player player : players) {
-           PawnObject playerPawn = gameObjectManager.create(PawnObject.class);
-            MapNode randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
-            playerPawn.setMapNode(randomNode);
-        }
-    }
 
     @Override
     public void render(float delta) {

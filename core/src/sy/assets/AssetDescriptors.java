@@ -16,8 +16,8 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>(UI + "/JoinButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_GAMEJOIN = new AssetDescriptor<>(UI + "/JoinGame.png", Texture.class);
     public static final AssetDescriptor<Texture> HOST_GAME = new AssetDescriptor<>(UI + "/HostGame.png", Texture.class);
-    public static final AssetDescriptor<Texture> LEAVE = new AssetDescriptor<Texture>(UI + "/exit.png", Texture.class);
-    public static final AssetDescriptor<Texture> BUTTON_READY = new AssetDescriptor<Texture>(UI + "/ReadyButton.png", Texture.class);
+    public static final AssetDescriptor<Texture> LEAVE = new AssetDescriptor<>(UI + "/exit.png", Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_READY = new AssetDescriptor<>(UI + "/ReadyButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_START = new AssetDescriptor<>(UI + "/Start.png", Texture.class);
 
 
@@ -35,4 +35,7 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> DOUBLE_TICKET = new AssetDescriptor<> (TICKETS + "/doubleticket.png", Texture.class);
     public static final AssetDescriptor<Texture> DRAGON = new AssetDescriptor<> (TICKETS + "/dragon.png", Texture.class);
     public static final AssetDescriptor<Texture> HORSE = new AssetDescriptor<> (TICKETS + "/horse.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> BUTTON_MISTERX = new AssetDescriptor<>(UI + "/btnMisterX.png", Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_DETECTIVE = new AssetDescriptor<>(UI + "/btnDetective.png", Texture.class);
 }
