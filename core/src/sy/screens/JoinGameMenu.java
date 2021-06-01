@@ -108,6 +108,7 @@ public class JoinGameMenu extends AbstractScreen {
             sound.play();
             screenManager.showScreen(LobbyMenu.class);
             screenManager.getScreen(LobbyMenu.class).init(server);
+            pause();
         });
 
         join.addListener(() -> {
@@ -123,6 +124,7 @@ public class JoinGameMenu extends AbstractScreen {
                 sound.play();
                 screenManager.showScreen(LobbyMenu.class);
                 screenManager.getScreen(LobbyMenu.class).init(client);
+                pause();
             }
         });
 
