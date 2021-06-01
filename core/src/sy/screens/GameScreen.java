@@ -126,7 +126,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
         ShaderDebugObject obj = gameObjectManager.create(ShaderDebugObject.class);
         obj.setSprite(new Sprite(SYAssetManager.getAsset(AssetDescriptors.BIKE)));
-        obj.setShader(shaderManager.loadShader(Gdx.files.internal("passthrough.vert.glsl").path(), Gdx.files.internal("passthrough.frag.glsl").path()));
+        obj.setShader(shaderManager.loadShader(Gdx.files.internal("passthrough.vert.glsl").path(), Gdx.files.internal("flowmap.frag.glsl").path()));
     }
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
