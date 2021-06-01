@@ -6,13 +6,16 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.assets.ShaderManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
@@ -25,6 +28,7 @@ public class JoinGameMenu extends AbstractScreen {
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+
 
 
     public JoinGameMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
@@ -109,15 +113,23 @@ public class JoinGameMenu extends AbstractScreen {
         join.addListener(() -> {
             //ToDo: check connection worked
             ClientHandler client = new ClientHandler(networkPackageCallbacks);
-            client.clientStart(userIP.getText(),Integer.parseInt(tcpPort.getText()),Integer.parseInt(udpPort.getText()));
-            sound.play();
-            screenManager.showScreen(LobbyMenu.class);
-            screenManager.getScreen(LobbyMenu.class).init(client);
+            if (userIP.getText().equals("") || userName.getText().equals("")){
+                throw new Exception("Beide Felder ausfüllen");
+            }
+            else {
+
+
+                client.clientStart(userIP.getText(), Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
+                sound.play();
+                screenManager.showScreen(LobbyMenu.class);
+                screenManager.getScreen(LobbyMenu.class).init(client);
+            }
         });
 
 
         leave.addListener(() -> {
             sound.play();
+            hide();
             screenManager.showScreen(MainMenuScreen.class);
         });
     }
@@ -135,6 +147,16 @@ public class JoinGameMenu extends AbstractScreen {
         Gdx.input.setInputProcessor(null);
 
     }
+    @Override
+    public void pause(){
+
+    }
+
+    @Override
+    public void dispose(){
+
+    }
+
 }
 
 

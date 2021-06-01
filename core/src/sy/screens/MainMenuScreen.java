@@ -14,6 +14,8 @@ import sy.gameObjects.SpecialGameFeatures;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
+import static com.badlogic.gdx.graphics.g3d.particles.ParticleShader.AlignMode.Screen;
+
 public class MainMenuScreen extends AbstractScreen {
     private float screenWidth;
     private float screenHeight;
@@ -27,7 +29,7 @@ public class MainMenuScreen extends AbstractScreen {
         screenHeight = Gdx.graphics.getHeight();
     }
 
-   @Override
+    @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
     }
@@ -49,7 +51,7 @@ public class MainMenuScreen extends AbstractScreen {
             public void onClick() {
                 sound.play();
                 screenManager.showScreen(JoinGameMenu.class);
-
+                pause();
             }
         });
         addActorsToStage(btnStartGame);
@@ -67,4 +69,5 @@ public class MainMenuScreen extends AbstractScreen {
     public void hide(){
         Gdx.input.setInputProcessor(null);
     }
+
 }

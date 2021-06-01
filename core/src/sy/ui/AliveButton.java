@@ -35,8 +35,13 @@ public class AliveButton extends Button {
                         Actions.run(new Runnable() {
                             @Override
                             public void run() {
-                                for(AliveButtonListener listener: listeners)
-                                    listener.onClick();
+                                for(AliveButtonListener listener: listeners) {
+                                    try {
+                                        listener.onClick();
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                }
                             }
                         })
                 ));
@@ -60,6 +65,6 @@ public class AliveButton extends Button {
     }
 
     public interface AliveButtonListener {
-        void onClick();
+        void onClick() throws Exception;
     }
 }
