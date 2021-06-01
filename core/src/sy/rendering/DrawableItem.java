@@ -27,6 +27,13 @@ public class DrawableItem {
         this.drawLayer = drawLayer;
     }
 
+    public DrawableItem(Sprite sprite, int drawLayer , ShaderProgram shader) {
+        this(sprite, drawLayer);
+        this.shader = shader;
+    }
+
+
+
     public Texture getTexture() {
         return texture;
     }

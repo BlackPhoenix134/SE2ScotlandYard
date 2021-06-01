@@ -13,6 +13,10 @@ public class ShaderManager {
     private Map<Integer, ShaderCacheEntry> cache = new HashMap<>();
     public final static ShaderProgram defaultShader = null; //Passing null to batch makes batch use default shader
 
+    public ShaderManager() {
+        ShaderProgram.pedantic = false;
+    }
+
     public ShaderProgram loadShader(String vertexShaderPath, String fragmentShaderPath) {
         String fullVertexPath = resolvePath(vertexShaderPath);
         String fullFragPath  = resolvePath(fragmentShaderPath);

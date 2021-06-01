@@ -61,6 +61,10 @@ public class RenderPipeline implements Disposable {
         drawables.add(new DrawableItem(sprite,  drawLayer));
     }
 
+    public void add(Sprite sprite, int drawLayer, ShaderProgram shader) {
+        drawables.add(new DrawableItem(sprite,  drawLayer, shader));
+    }
+
     private void renderDrawables() {
         Collections.sort(drawables, drawableItemComparator);
         ShaderProgram lastShader = ShaderManager.defaultShader;
