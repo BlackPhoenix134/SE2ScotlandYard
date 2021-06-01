@@ -22,9 +22,10 @@ public class DrawableItem {
         this.drawLayer = drawLayer;
     }
 
-    public DrawableItem(Sprite sprite, int drawLayer) {
+    public DrawableItem(Sprite sprite, int drawLayer , ShaderProgram shader) {
         this.sprite = sprite;
         this.drawLayer = drawLayer;
+        this.shader = shader;
     }
 
     public Texture getTexture() {

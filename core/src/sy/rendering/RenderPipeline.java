@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.Shader;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Disposable;
@@ -58,19 +57,23 @@ public class RenderPipeline implements Disposable {
     }
 
     public void add(Sprite sprite, int drawLayer) {
-        drawables.add(new DrawableItem(sprite,  drawLayer));
+        drawables.add(new DrawableItem(sprite,  drawLayer, ShaderManager.defaultShader));
+    }
+
+    public void add(Sprite sprite, int drawLayer, ShaderProgram shader) {
+        drawables.add(new DrawableItem(sprite,  drawLayer, shader));
     }
 
     private void renderDrawables() {
         Collections.sort(drawables, drawableItemComparator);
         ShaderProgram lastShader = ShaderManager.defaultShader;
+        defaultRenderer.setShader(ShaderManager.defaultShader);
         defaultRenderer.begin();
+
         for(DrawableItem drawable : drawables) {
-            if(drawable.getShader() != lastShader) {
-                defaultRenderer.end();
-                batch.setShader(drawable.getShader());
+            if(isNewShader(drawable.getShader(), lastShader)) {
+                defaultRenderer.setShader(drawable.getShader());
                 lastShader = drawable.getShader();
-                batch.begin();
             }
 
             if(drawable.getSprite() != null)
@@ -79,6 +82,10 @@ public class RenderPipeline implements Disposable {
                 defaultRenderer.add(drawable.getTexture(), drawable.getPosition());
         }
         defaultRenderer.end();
+    }
+
+    private boolean isNewShader(ShaderProgram shader1, ShaderProgram shader2) {
+        return shader1 != shader2;
     }
 
     public void drawCircle(Vector2 position, int radius, Color color, boolean isFilled, int drawLayer) {

@@ -1,10 +1,12 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
+import sy.assets.ShaderManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
@@ -34,6 +37,7 @@ import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnObject;
+import sy.gameObjects.ShaderDebugObject;
 import sy.input.InputHandler;
 import sy.input.PanListener;
 import sy.input.TouchDownListener;
@@ -58,6 +62,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private GameBoardObject gameBoardObject;
     private CritterSpawnerManager critterSpawnerManager;
     private NodeGraphObject nodeGraphObject;
+    private ShaderManager shaderManager;
     private TicketType ticketType;
     private Gameplay gameplay;
     private List<PawnObject> pawnPlayerObjects;
@@ -66,16 +71,16 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     private World world = new World(new Vector2(0, 0), true);
 
-    public GameScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
+    public GameScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager, ShaderManager shaderManager) {
         this.renderPipeline = renderPipeline;
         this.camera = camera;
         this.screenManager = screenManager;
+        this.shaderManager = shaderManager;
         nodeGraphObject = gameObjectManager.create(NodeGraphObject.class);
         gameBoardObject = gameObjectManager.create(GameBoardObject.class);
         Texture gameBoardTexture = SYAssetManager.getAsset(AssetDescriptors.GAME_BOARD);
         gameBoardObject.setTexture(gameBoardTexture);
         critterSpawnerManager = new CritterSpawnerManager(gameObjectManager);
-
     }
 
 
@@ -118,6 +123,10 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
         addActorsToStage(btnMisterX);
 
+
+        ShaderDebugObject obj = gameObjectManager.create(ShaderDebugObject.class);
+        obj.setSprite(new Sprite(SYAssetManager.getAsset(AssetDescriptors.BIKE)));
+        obj.setShader(shaderManager.loadShader(Gdx.files.internal("passthrough.vert.glsl").path(), Gdx.files.internal("flowmap.frag.glsl").path()));
     }
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
