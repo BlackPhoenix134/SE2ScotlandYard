@@ -112,10 +112,15 @@ public class LobbyMenu extends AbstractScreen {
         for (LobbyPlayer currPlayer : lobbyLogic.getCurrLobbyPlayers().values()) {
             float screenY = screenHeight - 100 - 150 * i;
             String text = "Player " + currPlayer.getConnectionId();
-            if (currPlayer.isReady())
-                text += "-> Ready";
             TextField field = createTextField(screenY, text);
+            AliveButton visualReadyButton = createVisualReady(screenY);
             addActorsToStage(field);
+            visualReadyButton.remove();
+
+            if (currPlayer.isReady()) {
+                text += "-> Ready";
+                addActorsToStage(visualReadyButton);
+            }
             i++;
         }
     }
@@ -127,6 +132,16 @@ public class LobbyMenu extends AbstractScreen {
             field.setSize(screenWidth * 0.6f, screenHeight * 0.1f);
             field.setPosition(screenWidth / 2 - field.getWidth() / 2, screenY - field.getHeight() / 2);
             return field;
+        }
+
+        private AliveButton createVisualReady(float screenY){
+        Texture visualReady = SYAssetManager.getAsset(AssetDescriptors.VISUAL_READY);
+        Vector2 visualSize = Scaling.fillX.apply(visualReady.getWidth(), visualReady.getHeight(), screenWidth * 0.10f, 0);
+        AliveButton visualReadyButton = new AliveButton(visualReady);
+        visualReadyButton.setSize(visualSize.x, visualSize.y);
+        visualReadyButton.setPosition(screenWidth - visualReadyButton.getWidth()*2, screenY - visualReadyButton.getHeight() / 2);
+
+        return visualReadyButton;
         }
 
 
