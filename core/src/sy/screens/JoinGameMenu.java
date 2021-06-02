@@ -30,7 +30,6 @@ public class JoinGameMenu extends AbstractScreen {
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
 
-
     public JoinGameMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
@@ -41,8 +40,7 @@ public class JoinGameMenu extends AbstractScreen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(this);
-    }
+        Gdx.input.setInputProcessor(this); }
 
     @Override
     public void buildStage() {
@@ -124,7 +122,7 @@ public class JoinGameMenu extends AbstractScreen {
                 sound.play();
                 screenManager.showScreen(LobbyMenu.class);
                 screenManager.getScreen(LobbyMenu.class).init(client);
-                pause();
+               pause();
             }
         });
 

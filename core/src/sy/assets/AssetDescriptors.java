@@ -19,6 +19,7 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> LEAVE = new AssetDescriptor<>(UI + "/exit.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_READY = new AssetDescriptor<>(UI + "/ReadyButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_START = new AssetDescriptor<>(UI + "/Start.png", Texture.class);
+    public static final AssetDescriptor<Texture> BUTTON_PHOTO = new AssetDescriptor<Texture>(UI + "/TakePhoto.png", Texture.class);
 
 
 
