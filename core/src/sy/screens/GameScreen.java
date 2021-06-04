@@ -58,14 +58,12 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private float currentScale = 1;
     private float zoomValue = 1;
     private ScreenManager screenManager;
-    private PawnObject localPlayerPawn;
     private GameBoardObject gameBoardObject;
     private CritterSpawnerManager critterSpawnerManager;
     private NodeGraphObject nodeGraphObject;
     private ShaderManager shaderManager;
     private TicketType ticketType;
     private Gameplay gameplay;
-    private List<PawnObject> pawnPlayerObjects;
     private NetworkPackageCallbacks callbacks;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
 
@@ -242,7 +240,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
             Vector2 pos = node.getPosition();
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
                 //Gdx.app.log("Indizes:", "current index: " + currentindex + " clicked index: " + i);
-                gameplay.movePlayer(localPlayerPawn, node, ticketType);
+                gameplay.movePlayer(node, ticketType);
                 break;
             }
         }

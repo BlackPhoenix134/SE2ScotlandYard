@@ -21,12 +21,13 @@ import sy.gameObjects.PawnObject;
 public abstract class Gameplay {
     private Player player;
     private int playerTurnId;
-    private NodeGraphObject nodeGraphObject;
+    protected NodeGraphObject nodeGraphObject;
     protected NetworkPackageCallbacks callbacks;
     protected List<Player> players;
     protected GameObjectManager gameObjectManager;
     protected PawnMisterXObject pawnMisterXObject;
     protected List<PawnDetectiveObject> pawnDetectiveObjectList = new ArrayList<>();
+    protected PawnObject playerPawnObject;
 
 
     public Gameplay(Player player, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
@@ -83,15 +84,23 @@ public abstract class Gameplay {
             if (addPawnObject.isMisterX) {
                 PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
+                playerPawn.setTickets(new MisterXTickets(5, 2));
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnMisterXObject = playerPawn;
+                if(playerPawn.getNetId() == player.getConnectionId()){
+                    playerPawnObject = playerPawn;
+                }
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
+                playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnDetectiveObjectList.add(playerPawn);
+                if(playerPawn.getNetId() == player.getConnectionId()){
+                    playerPawnObject = playerPawn;
+                }
             }
         });
 
@@ -120,26 +129,25 @@ public abstract class Gameplay {
         return playerTurnId == player.getConnectionId();
     }
 
-    public boolean canMove(PawnObject pawnObject, MapNode toNode, sy.core.Tickets.TicketType ticketType) {
+    public boolean canMove(MapNode toNode, sy.core.Tickets.TicketType ticketType) {
 
-
-        if (!pawnObject.hasEnoughTickets(ticketType)) {
+        if (!playerPawnObject.hasEnoughTickets(ticketType)) {
             return false;
         }
 
-        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.HORSE) && (ticketType == sy.core.Tickets.TicketType.HORSE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(playerPawnObject.getIndex(), toNode.getId(), MoveType.HORSE) && (ticketType == sy.core.Tickets.TicketType.HORSE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
             return true;
         }
-        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.BIKE) && (ticketType == sy.core.Tickets.TicketType.BIKE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(playerPawnObject.getIndex(), toNode.getId(), MoveType.BIKE) && (ticketType == sy.core.Tickets.TicketType.BIKE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
             return true;
         }
-        if (nodeGraphObject.hasEdge(pawnObject.getIndex(), toNode.getId(), MoveType.DRAGON) && (ticketType == sy.core.Tickets.TicketType.DRAGON || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(playerPawnObject.getIndex(), toNode.getId(), MoveType.DRAGON) && (ticketType == sy.core.Tickets.TicketType.DRAGON || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
             return true;
         }
         return false;
     }
 
-    public abstract void movePlayer(PawnObject pawnObject, MapNode toNode, sy.core.Tickets.TicketType ticketType);
+    public abstract void movePlayer(MapNode toNode, sy.core.Tickets.TicketType ticketType);
 
     public abstract void removeTicket(PawnObject pawnObject, TicketType ticketToRemove);
 }

@@ -22,14 +22,15 @@ public class GameplayClient extends Gameplay {
 
     @Override
     public void initialize(NodeGraphObject nodeGraphObject) {
+        super.nodeGraphObject = nodeGraphObject;
     }
 
     @Override
-    public void movePlayer(PawnObject pawnObject, MapNode newNode, sy.core.Tickets.TicketType ticketType) {
-        boolean move = canMove(pawnObject, newNode, ticketType);
+    public void movePlayer(MapNode newNode, TicketType ticketType) {
+        boolean move = canMove(newNode, ticketType);
         if(isLocalTurn() && move) {
-            pawnObject.setMapNode(newNode);
-            client.send(new ClientMoveRequest(pawnObject, newNode));
+            playerPawnObject.setMapNode(newNode);
+            client.send(new ClientMoveRequest(playerPawnObject, newNode));
         }
     }
 

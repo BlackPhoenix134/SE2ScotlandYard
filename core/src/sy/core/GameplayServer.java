@@ -13,6 +13,8 @@ import sy.connection.packages.PlayerTurn;
 import sy.connection.packages.RemoveTicket;
 import sy.connection.packages.UpdateTickets;
 import sy.core.Extensions.Collections;
+import sy.core.Tickets.DetectiveTickets;
+import sy.core.Tickets.MisterXTickets;
 import sy.core.Tickets.TicketType;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
@@ -52,31 +54,28 @@ public class GameplayServer extends Gameplay {
 
     @Override
     public void initialize(NodeGraphObject nodeGraphObject) {
+        super.nodeGraphObject = nodeGraphObject;
         spawnPlayerPawns(nodeGraphObject);
     }
 
     private void spawnPlayerPawns(NodeGraphObject nodeGraphObject) {
-        PawnMisterXObject pawnMisterXObject = gameObjectManager.create(PawnMisterXObject.class);
         MapNode randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
-        pawnMisterXObject.setMapNode(randomNode);
-        pawnMisterXObject.setNetId(players.get(0).getConnectionId());
-        server.sendAll(new AddPawnObject(pawnMisterXObject.getNetId(),randomNode.getId(),true), false);
+        int id = players.get(0).getConnectionId();
+        server.sendAll(new AddPawnObject(id,randomNode.getId(),true), true);
 
         for (int i = 1; i < players.size(); i++){
-            PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
             randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
-            playerPawn.setMapNode(randomNode);
-            playerPawn.setNetId(players.get(i).getConnectionId());
-            server.sendAll(new AddPawnObject(playerPawn.getNetId(),randomNode.getId(),false), false);
+            id = players.get(i).getConnectionId();
+            server.sendAll(new AddPawnObject(id,randomNode.getId(),false), true);
         }
     }
 
     @Override
-    public void movePlayer(PawnObject pawnObject, MapNode newNode, sy.core.Tickets.TicketType ticketType) {
-      boolean move = canMove(pawnObject, newNode, ticketType);
+    public void movePlayer(MapNode newNode, TicketType ticketType) {
+      boolean move = canMove(newNode, ticketType);
         if(isLocalTurn() && move) {
-            pawnObject.setMapNode(newNode);
-            server.sendAll(new MovePlayerObject(pawnObject, newNode), true);
+            playerPawnObject.setMapNode(newNode);
+            server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
             server.sendTo(getPlayerTurnId(), new RemoveTicket(ticketType));
         }
     }
