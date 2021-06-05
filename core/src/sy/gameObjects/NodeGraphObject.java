@@ -310,6 +310,7 @@ public class NodeGraphObject extends GameObject {
         graph.addEdge(9, 20, MoveType.BIKE);
         graph.addEdge(9, 33, MoveType.BIKE);
         graph.addEdge(9, 17, MoveType.BIKE);
+        graph.addEdge(9,10, MoveType.BIKE);
 
         //Edges from node 11
         graph.addEdge(10, 21, MoveType.BIKE);
