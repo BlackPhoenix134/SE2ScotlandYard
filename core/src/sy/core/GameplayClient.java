@@ -1,16 +1,15 @@
 package sy.core;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.List;
 
 import sy.connection.ClientHandler;
 import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.UpdateTickets;
+import sy.connection.packages.GameplayReady;
 import sy.core.Tickets.TicketType;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
-import sy.gameObjects.PawnDetectiveObject;
-import sy.gameObjects.PawnMisterXObject;
-import sy.gameObjects.PawnObject;
 
 public class GameplayClient extends Gameplay {
     private ClientHandler client;
@@ -23,6 +22,7 @@ public class GameplayClient extends Gameplay {
     @Override
     public void initialize(NodeGraphObject nodeGraphObject) {
         super.nodeGraphObject = nodeGraphObject;
+        client.send(new GameplayReady(player.getConnectionId()));
     }
 
     @Override
@@ -30,20 +30,7 @@ public class GameplayClient extends Gameplay {
         boolean move = canMove(newNode, ticketType);
         if(isLocalTurn() && move) {
             playerPawnObject.setMapNode(newNode);
-            client.send(new ClientMoveRequest(playerPawnObject, newNode));
-        }
-    }
-
-    @Override
-    public void removeTicket(PawnObject pawnObject, TicketType ticketToRemove) {
-        pawnObject.removeTicket(ticketToRemove);
-        if (pawnObject instanceof PawnMisterXObject){
-            PawnMisterXObject misterXplayer = (PawnMisterXObject) pawnObject;
-            client.send(new UpdateTickets(pawnObject.getNetId(), misterXplayer.getTickets()));
-        }
-        if (pawnObject instanceof PawnDetectiveObject){
-            PawnDetectiveObject detectiveplayer = (PawnDetectiveObject) pawnObject;
-            client.send(new UpdateTickets(pawnObject.getNetId(), detectiveplayer.getTickets()));
+            client.send(new ClientMoveRequest(playerPawnObject, newNode, ticketType));
         }
     }
 }

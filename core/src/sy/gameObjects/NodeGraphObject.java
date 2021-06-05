@@ -310,6 +310,7 @@ public class NodeGraphObject extends GameObject {
         graph.addEdge(9, 20, MoveType.BIKE);
         graph.addEdge(9, 33, MoveType.BIKE);
         graph.addEdge(9, 17, MoveType.BIKE);
+        graph.addEdge(9,10, MoveType.BIKE);
 
         //Edges from node 11
         graph.addEdge(10, 21, MoveType.BIKE);
@@ -1115,7 +1116,7 @@ public class NodeGraphObject extends GameObject {
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
         for (MapNode node : graph.getNodes()) {
-            pipeline.drawCircle(node.getPosition(), 45, Color.BLACK, true, 50);
+            pipeline.drawCircle(node.getPosition(), 45, Color.BLACK, false, 50);
         }
     }
 

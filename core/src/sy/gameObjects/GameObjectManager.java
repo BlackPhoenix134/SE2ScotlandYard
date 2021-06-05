@@ -30,7 +30,8 @@ public class GameObjectManager {
     }
 
     public void draw(float delta, RenderPipeline pipeline) {
-        for(GameObject obj : gameObjects.values())
+        Map<String, GameObject> currObjects = new HashMap<>(gameObjects); //Iterate through copy to avoid ConcurrentModificationException when gameObjects change
+        for(GameObject obj : currObjects.values())
             obj.draw(delta, pipeline);
     }
 

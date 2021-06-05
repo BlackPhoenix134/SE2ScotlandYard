@@ -5,16 +5,15 @@ import sy.core.Tickets.TicketType;
 
 @NetworkPackage
 public class RemoveTicket {
-    private TicketType ticket;
+    public TicketType ticket;
+    public int netID;
 
     public RemoveTicket(){
 
     }
-    public RemoveTicket(TicketType ticket) {
+    public RemoveTicket(int netID, TicketType ticket) {
         this.ticket = ticket;
+        this.netID = netID;
     }
 
-    public TicketType getTicket() {
-        return ticket;
-    }
 }
