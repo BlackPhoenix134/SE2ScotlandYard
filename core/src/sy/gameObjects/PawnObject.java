@@ -55,7 +55,7 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
     }
 
     public boolean removeTicket(TicketType type) {
-        return  false;
+        return false;
     }
 
     @Override

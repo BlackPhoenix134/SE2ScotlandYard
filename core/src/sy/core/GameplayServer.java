@@ -12,16 +12,9 @@ import sy.connection.packages.GameplayReady;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.PlayerTurn;
 import sy.connection.packages.RemoveTicket;
-import sy.connection.packages.UpdateTickets;
-import sy.core.Extensions.Collections;
-import sy.core.Tickets.DetectiveTickets;
-import sy.core.Tickets.MisterXTickets;
 import sy.core.Tickets.TicketType;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
-import sy.gameObjects.PawnDetectiveObject;
-import sy.gameObjects.PawnMisterXObject;
-import sy.gameObjects.PawnObject;
 
 public class GameplayServer extends Gameplay {
     private ServerHandler server;
@@ -35,10 +28,7 @@ public class GameplayServer extends Gameplay {
         callbacks.registerCallback(ClientMoveRequest.class, packageObj -> {
             ClientMoveRequest clientRequest = (ClientMoveRequest) packageObj;
             server.sendAll(new MovePlayerObject(clientRequest.playerObjNetId, clientRequest.newNodeId), true);
-        });
-
-        callbacks.registerCallback(UpdateTickets.class, packageObj ->{
-            server.sendAll(packageObj, true);
+            server.sendAll(new RemoveTicket(clientRequest.playerObjNetId, clientRequest.ticketType), true);
         });
 
         callbacks.registerCallback(GameplayReady.class, packageObj -> {
@@ -88,20 +78,7 @@ public class GameplayServer extends Gameplay {
         if(isLocalTurn() && move) {
             playerPawnObject.setMapNode(newNode);
             server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
-            server.sendTo(getPlayerTurnId(), new RemoveTicket(ticketType));
-        }
-    }
-
-    @Override
-    public void removeTicket(PawnObject pawnObject, TicketType ticketToRemove) {
-        pawnObject.removeTicket(ticketToRemove);
-        if (pawnObject instanceof PawnMisterXObject){
-            PawnMisterXObject misterXplayer = (PawnMisterXObject) pawnObject;
-            server.sendAll(new UpdateTickets(pawnObject.getNetId(), misterXplayer.getTickets()), true);
-        }
-        if (pawnObject instanceof PawnDetectiveObject){
-            PawnDetectiveObject detectiveplayer = (PawnDetectiveObject) pawnObject;
-            server.sendAll(new UpdateTickets(pawnObject.getNetId(), detectiveplayer.getTickets()), true);
+            server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
         }
     }
 }

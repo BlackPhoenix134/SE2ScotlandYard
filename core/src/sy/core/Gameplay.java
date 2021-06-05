@@ -10,10 +10,8 @@ import sy.connection.packages.AddPawnObject;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.PlayerTurn;
 import sy.connection.packages.RemoveTicket;
-import sy.connection.packages.UpdateTickets;
 import sy.core.Tickets.DetectiveTickets;
 import sy.core.Tickets.MisterXTickets;
-import sy.core.Tickets.TicketType;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnDetectiveObject;
@@ -61,22 +59,8 @@ public abstract class Gameplay {
             RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
             for (PawnObject pawnObject : pawnObjectList) {
                 if (pawnObject.getNetId() == player.getConnectionId()) {
-                    removeTicket(pawnObject, ticketToRemove.getTicket());
+                    pawnObject.removeTicket(ticketToRemove.ticket);
                 }
-            }
-        });
-
-        callbacks.registerCallback(UpdateTickets.class, packageObj -> {
-            UpdateTickets updatePlayer = (UpdateTickets) packageObj;
-            if (updatePlayer.tickets instanceof DetectiveTickets){
-                for (PawnDetectiveObject pawnDetectiveObject: pawnDetectiveObjectList){
-                    if (pawnDetectiveObject.getNetId() == updatePlayer.netId){
-                        pawnDetectiveObject.setTickets((DetectiveTickets) updatePlayer.tickets);
-                    }
-                }
-            }else if (updatePlayer.tickets instanceof MisterXTickets){
-
-                pawnMisterXObject.setTickets((MisterXTickets)updatePlayer.tickets);
             }
         });
 
@@ -152,5 +136,4 @@ public abstract class Gameplay {
 
     public abstract void movePlayer(MapNode toNode, sy.core.Tickets.TicketType ticketType);
 
-    public abstract void removeTicket(PawnObject pawnObject, TicketType ticketToRemove);
 }
