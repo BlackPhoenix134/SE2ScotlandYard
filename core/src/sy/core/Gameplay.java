@@ -3,6 +3,8 @@ package sy.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import sy.assets.AssetDescriptors;
+import sy.assets.SYAssetManager;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.packages.AddPawnObject;
 import sy.connection.packages.MovePlayerObject;
@@ -84,6 +86,7 @@ public abstract class Gameplay {
                 PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new MisterXTickets(5, 2));
+                playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1)); //Temporary, change to cam pic
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnMisterXObject = playerPawn;
@@ -94,6 +97,7 @@ public abstract class Gameplay {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
+                playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3)); //Temporary, change to cam pic
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnDetectiveObjectList.add(playerPawn);

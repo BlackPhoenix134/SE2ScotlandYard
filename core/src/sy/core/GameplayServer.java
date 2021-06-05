@@ -69,12 +69,14 @@ public class GameplayServer extends Gameplay {
     }
 
     private void spawnPlayerPawns(NodeGraphObject nodeGraphObject) {
-        MapNode randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
+        //MapNode randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
+        MapNode randomNode = nodeGraphObject.getMapNodes().get(0);
         int id = players.get(0).getConnectionId();
         server.sendAll(new AddPawnObject(id,randomNode.getId(),true), true);
 
         for (int i = 1; i < players.size(); i++){
-            randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
+            //randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
+            randomNode = nodeGraphObject.getMapNodes().get(i);
             id = players.get(i).getConnectionId();
             server.sendAll(new AddPawnObject(id,randomNode.getId(),false), true);
         }

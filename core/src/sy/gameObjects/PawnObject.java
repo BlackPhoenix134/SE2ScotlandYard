@@ -33,6 +33,9 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
         sprite.setPosition(0, 0);
     }
 
+    public void setTexture(Texture texture){
+        sprite = new Sprite(texture);
+    }
 
     @Override
     public void update(float delta) {

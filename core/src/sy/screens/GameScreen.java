@@ -235,7 +235,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         Vector3 vector3 = camera.unproject(new Vector3(screenX, screenY, 0));
         Gdx.app.log("Koordinaten:", "new Vector2(" + vector3.x + "f," + vector3.y + "f);");
         int range = 40;
-
+        ticketType = TicketType.BIKE;
         for (MapNode node : nodeGraphObject.getMapNodes()) {     //soon handled by click handler
             Vector2 pos = node.getPosition();
             if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
