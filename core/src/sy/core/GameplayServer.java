@@ -1,6 +1,8 @@
 package sy.core;
 
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -18,39 +20,37 @@ import sy.gameObjects.NodeGraphObject;
 
 public class GameplayServer extends Gameplay {
     private ServerHandler server;
-    private Queue<Player> turnQueue = new LinkedList<>();
+    private Queue<Integer> turnIDs = new LinkedList<>();
     private int gameplaysReady = 1;
 
     public GameplayServer(Player player, List<Player> players, ServerHandler server, GameObjectManager gameObjectManager) {
         super(player, players, server.getCallbacks(), gameObjectManager);
         this.server = server;
+        turnIDs.add(player.getConnectionId());
 
         callbacks.registerCallback(ClientMoveRequest.class, packageObj -> {
             ClientMoveRequest clientRequest = (ClientMoveRequest) packageObj;
             server.sendAll(new MovePlayerObject(clientRequest.playerObjNetId, clientRequest.newNodeId), true);
             server.sendAll(new RemoveTicket(clientRequest.playerObjNetId, clientRequest.ticketType), true);
+            changeTurn();
         });
 
         callbacks.registerCallback(GameplayReady.class, packageObj -> {
             GameplayReady gameplayReady = (GameplayReady) packageObj;
+            turnIDs.add(gameplayReady.playerNetID);
             gameplaysReady++;
             if(gameplaysReady == players.size()){
                 spawnPlayerPawns(nodeGraphObject);
+                changeTurn();
             }
         });
-
-
     }
 
     public void changeTurn(){
-        Player nextPlayer = turnQueue.poll();
-        server.sendAll(new PlayerTurn(nextPlayer.getConnectionId()), true);
-        turnQueue.add(nextPlayer);
+        Integer nextPlayerID = turnIDs.poll();
+        server.sendAll(new PlayerTurn(nextPlayerID), true);
+        turnIDs.add(nextPlayerID);
 
-    }
-
-    public void playerConnected(Player player){
-        turnQueue.add(player);
     }
 
     @Override
@@ -79,6 +79,7 @@ public class GameplayServer extends Gameplay {
             playerPawnObject.setMapNode(newNode);
             server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
             server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
+            changeTurn();
         }
     }
 }

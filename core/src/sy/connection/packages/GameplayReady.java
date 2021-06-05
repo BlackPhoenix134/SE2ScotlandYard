@@ -4,9 +4,9 @@ import sy.core.Annotations.NetworkPackage;
 
 @NetworkPackage
 public class GameplayReady {
-    public int id;
+    public int playerNetID;
     public GameplayReady(){}
-    public GameplayReady(int id){
-        this.id = id;
+    public GameplayReady(int playerNetID){
+        this.playerNetID = playerNetID;
     }
 }

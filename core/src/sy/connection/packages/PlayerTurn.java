@@ -1,17 +1,15 @@
 package sy.connection.packages;
 
-import com.esotericsoftware.kryonet.Connection;
-
 import sy.core.Annotations.NetworkPackage;
 
 @NetworkPackage
 public class PlayerTurn {
-    public int index;
+    public int id;
 
     public PlayerTurn(){
 
     }
-    public PlayerTurn(int index) {
-        this.index = index;
+    public PlayerTurn(int id) {
+        this.id = id;
     }
 }

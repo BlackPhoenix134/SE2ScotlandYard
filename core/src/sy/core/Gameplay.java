@@ -19,7 +19,7 @@ import sy.gameObjects.PawnMisterXObject;
 import sy.gameObjects.PawnObject;
 
 public abstract class Gameplay {
-    private Player player;
+    protected Player player;
     private int playerTurnId;
     protected NodeGraphObject nodeGraphObject;
     protected NetworkPackageCallbacks callbacks;
@@ -58,8 +58,9 @@ public abstract class Gameplay {
             List<PawnObject> pawnObjectList = getPawnObjects();
             RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
             for (PawnObject pawnObject : pawnObjectList) {
-                if (pawnObject.getNetId() == player.getConnectionId()) {
+                if (pawnObject.getNetId() == ticketToRemove.netID) {
                     pawnObject.removeTicket(ticketToRemove.ticket);
+                    break;
                 }
             }
         });
@@ -91,9 +92,9 @@ public abstract class Gameplay {
             }
         });
 
-        this.callbacks.registerCallback(sy.connection.packages.PlayerTurn.class, packageObj -> {
+        this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
             sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
-            setPlayerTurnId(playerTurn.index);
+            setPlayerTurnId(playerTurn.id);
         });
     }
 

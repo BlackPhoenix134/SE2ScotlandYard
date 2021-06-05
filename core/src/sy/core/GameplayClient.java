@@ -1,5 +1,7 @@
 package sy.core;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.List;
 
 import sy.connection.ClientHandler;
@@ -20,7 +22,7 @@ public class GameplayClient extends Gameplay {
     @Override
     public void initialize(NodeGraphObject nodeGraphObject) {
         super.nodeGraphObject = nodeGraphObject;
-        client.send(new GameplayReady(client.getKryonetClient().getID()));
+        client.send(new GameplayReady(player.getConnectionId()));
     }
 
     @Override
