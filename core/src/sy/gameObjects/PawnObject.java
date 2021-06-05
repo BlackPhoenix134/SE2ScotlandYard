@@ -13,15 +13,11 @@ import sy.rendering.RenderPipeline;
 
 public class PawnObject extends GameObject implements NetworkIdentifiable {
     private int netId;
-    private int playerID;
     private MapNode mapNode;
-
-
 
     /**
      * Index vom NodeGraphObject (nodepositions)
      */
-    private int index;
     private Sprite sprite;
 
 
@@ -49,25 +45,13 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
         pipeline.add(sprite, 55);
     }
 
-    public int getPlayerID() {
-        return playerID;
-    }
-
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
-    }
-
-    public int getIndex() {
-        return index;
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-
     public void setMapNode(MapNode mapNode){
         this.mapNode = mapNode;
         this.sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
+    }
+
+    public MapNode getMapNode(){
+        return this.mapNode;
     }
 
     public boolean removeTicket(TicketType type) {
@@ -76,7 +60,7 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
 
     @Override
     public int getNetId() {
-        return 0;
+        return this.netId;
     }
     public void setNetId(int netId) {
         this.netId = netId;

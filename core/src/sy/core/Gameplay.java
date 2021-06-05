@@ -90,7 +90,7 @@ public abstract class Gameplay {
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnMisterXObject = playerPawn;
-                if(playerPawn.getNetId() == player.getConnectionId()){
+                if(playerPawn.getNetId()== player.getConnectionId()){
                     playerPawnObject = playerPawn;
                 }
             } else {
@@ -138,13 +138,13 @@ public abstract class Gameplay {
             return false;
         }
 
-        if (nodeGraphObject.hasEdge(playerPawnObject.getIndex(), toNode.getId(), MoveType.HORSE) && (ticketType == sy.core.Tickets.TicketType.HORSE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(playerPawnObject.getMapNode().getId(), toNode.getId(), MoveType.HORSE) && (ticketType == sy.core.Tickets.TicketType.HORSE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
             return true;
         }
-        if (nodeGraphObject.hasEdge(playerPawnObject.getIndex(), toNode.getId(), MoveType.BIKE) && (ticketType == sy.core.Tickets.TicketType.BIKE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(playerPawnObject.getMapNode().getId(), toNode.getId(), MoveType.BIKE) && (ticketType == sy.core.Tickets.TicketType.BIKE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
             return true;
         }
-        if (nodeGraphObject.hasEdge(playerPawnObject.getIndex(), toNode.getId(), MoveType.DRAGON) && (ticketType == sy.core.Tickets.TicketType.DRAGON || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
+        if (nodeGraphObject.hasEdge(playerPawnObject.getMapNode().getId(), toNode.getId(), MoveType.DRAGON) && (ticketType == sy.core.Tickets.TicketType.DRAGON || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
             return true;
         }
         return false;

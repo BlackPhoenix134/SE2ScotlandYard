@@ -1115,7 +1115,7 @@ public class NodeGraphObject extends GameObject {
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
         for (MapNode node : graph.getNodes()) {
-            pipeline.drawCircle(node.getPosition(), 45, Color.BLACK, true, 50);
+            pipeline.drawCircle(node.getPosition(), 45, Color.BLACK, false, 50);
         }
     }
 
