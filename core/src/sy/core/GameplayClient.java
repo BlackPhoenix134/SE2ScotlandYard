@@ -4,6 +4,7 @@ import java.util.List;
 
 import sy.connection.ClientHandler;
 import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.GameplayReady;
 import sy.connection.packages.UpdateTickets;
 import sy.core.Tickets.TicketType;
 import sy.gameObjects.GameObjectManager;
@@ -23,6 +24,7 @@ public class GameplayClient extends Gameplay {
     @Override
     public void initialize(NodeGraphObject nodeGraphObject) {
         super.nodeGraphObject = nodeGraphObject;
+        client.send(new GameplayReady(client.getKryonetClient().getID()));
     }
 
     @Override

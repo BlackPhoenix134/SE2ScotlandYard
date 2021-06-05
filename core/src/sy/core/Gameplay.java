@@ -65,7 +65,6 @@ public abstract class Gameplay {
         });
 
         callbacks.registerCallback(UpdateTickets.class, packageObj -> {
-            List<PawnObject> pawnObjectList = getPawnObjects();
             UpdateTickets updatePlayer = (UpdateTickets) packageObj;
             if (updatePlayer.tickets instanceof DetectiveTickets){
                 for (PawnDetectiveObject pawnDetectiveObject: pawnDetectiveObjectList){

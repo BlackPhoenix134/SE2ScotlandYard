@@ -8,6 +8,7 @@ import java.util.Queue;
 import sy.connection.ServerHandler;
 import sy.connection.packages.AddPawnObject;
 import sy.connection.packages.ClientMoveRequest;
+import sy.connection.packages.GameplayReady;
 import sy.connection.packages.MovePlayerObject;
 import sy.connection.packages.PlayerTurn;
 import sy.connection.packages.RemoveTicket;
@@ -25,7 +26,7 @@ import sy.gameObjects.PawnObject;
 public class GameplayServer extends Gameplay {
     private ServerHandler server;
     private Queue<Player> turnQueue = new LinkedList<>();
-
+    private int gameplaysReady = 1;
 
     public GameplayServer(Player player, List<Player> players, ServerHandler server, GameObjectManager gameObjectManager) {
         super(player, players, server.getCallbacks(), gameObjectManager);
@@ -39,6 +40,16 @@ public class GameplayServer extends Gameplay {
         callbacks.registerCallback(UpdateTickets.class, packageObj ->{
             server.sendAll(packageObj, true);
         });
+
+        callbacks.registerCallback(GameplayReady.class, packageObj -> {
+            GameplayReady gameplayReady = (GameplayReady) packageObj;
+            gameplaysReady++;
+            if(gameplaysReady == players.size()){
+                spawnPlayerPawns(nodeGraphObject);
+            }
+        });
+
+
     }
 
     public void changeTurn(){
@@ -55,7 +66,6 @@ public class GameplayServer extends Gameplay {
     @Override
     public void initialize(NodeGraphObject nodeGraphObject) {
         super.nodeGraphObject = nodeGraphObject;
-        spawnPlayerPawns(nodeGraphObject);
     }
 
     private void spawnPlayerPawns(NodeGraphObject nodeGraphObject) {
