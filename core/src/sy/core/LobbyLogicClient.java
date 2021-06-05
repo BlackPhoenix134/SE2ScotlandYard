@@ -27,7 +27,7 @@ public class LobbyLogicClient extends LobbyLogic {
             Player localPlayer = null;
             for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
                 Player player = new Player(lobbyPlayer.getConnectionId());
-                if(lobbyPlayer.getConnectionId() == 0) {
+                if(lobbyPlayer.getConnectionId() == clientHandler.getKryonetClient().getID()) {
                     player.setLocalPlayer(true);
                     localPlayer = player;
                 }
