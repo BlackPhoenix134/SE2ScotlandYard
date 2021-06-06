@@ -61,6 +61,9 @@ public class GameplayServer extends Gameplay {
                     if (!hasTickets(pawnObject)){
                         server.sendAll(new DetectiveDies(pawnObject.getNetId()), true);
                         turnIDs.remove(turnIDs.size()-1);
+                        if (turnIDs.size() == 1){
+                            server.sendAll(new MisterXwon(pawnMisterXObject.getNetId()), true);
+                        }
                     }
                     break;
                 }
@@ -83,7 +86,7 @@ public class GameplayServer extends Gameplay {
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
+                playerPawn.setTickets(new DetectiveTickets(2, 0, 0));
                 playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3)); //Temporary, change to cam pic
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);

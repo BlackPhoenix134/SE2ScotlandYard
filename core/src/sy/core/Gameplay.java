@@ -69,7 +69,15 @@ public abstract class Gameplay {
             Gdx.app.log("Winner: ", "The detectives won");
             //TODO: Show new screen
         });
+
+        callbacks.registerCallback(MisterXwon.class, packageObj ->{
+            MisterXwon misterXwon = (MisterXwon) packageObj;
+            //TODO: Show new screen
+            Gdx.app.log("Winner: ", "MisterX won");
+        });
     }
+
+
 
     public List<PawnObject> getPawnObjects() {
         List<PawnObject> pawnObjectList = new ArrayList<>();
