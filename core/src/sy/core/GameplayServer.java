@@ -1,28 +1,18 @@
 package sy.core;
 
 
-import com.badlogic.gdx.Gdx;
+import sy.assets.AssetDescriptors;
+import sy.assets.SYAssetManager;
+import sy.connection.ServerHandler;
+import sy.connection.packages.*;
+import sy.core.Tickets.DetectiveTickets;
+import sy.core.Tickets.MisterXTickets;
+import sy.core.Tickets.TicketType;
+import sy.gameObjects.*;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-
-import sy.assets.AssetDescriptors;
-import sy.assets.SYAssetManager;
-import sy.connection.ServerHandler;
-import sy.connection.packages.AddPawnObject;
-import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.GameplayReady;
-import sy.connection.packages.MovePlayerObject;
-import sy.connection.packages.PlayerTurn;
-import sy.connection.packages.RemoveTicket;
-import sy.core.Tickets.DetectiveTickets;
-import sy.core.Tickets.MisterXTickets;
-import sy.core.Tickets.TicketType;
-import sy.gameObjects.GameObjectManager;
-import sy.gameObjects.NodeGraphObject;
-import sy.gameObjects.PawnDetectiveObject;
-import sy.gameObjects.PawnMisterXObject;
 
 public class GameplayServer extends Gameplay {
     private ServerHandler server;
@@ -51,6 +41,32 @@ public class GameplayServer extends Gameplay {
             }
         });
 
+        this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
+            sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
+            setPlayerTurnId(playerTurn.id);
+
+        });
+
+        callbacks.registerCallback(DetectivesWonRequest.class, packageObj -> {
+            DetectivesWonRequest detectivesWonRequest = (DetectivesWonRequest) packageObj;
+            server.sendAll(new DetectivesWon(detectivesWonRequest.netID), true);
+        });
+
+        callbacks.registerCallback(RemoveTicket.class, packageObj -> {
+            List<PawnObject> pawnObjectList = getPawnObjects();
+            RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
+            for (PawnObject pawnObject : pawnObjectList) {
+                if (pawnObject.getNetId() == ticketToRemove.netID) {
+                    pawnObject.removeTicket(ticketToRemove.ticket);
+                    if (!hasTickets(pawnObject)){
+                        server.sendAll(new DetectiveDies(pawnObject.getNetId()), true);
+                        turnIDs.remove(turnIDs.size()-1);
+                    }
+                    break;
+                }
+            }
+        });
+
         callbacks.registerCallback(AddPawnObject.class, packageObj -> {
             AddPawnObject addPawnObject = (AddPawnObject) packageObj;
             if (addPawnObject.isMisterX) {
@@ -61,18 +77,19 @@ public class GameplayServer extends Gameplay {
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnMisterXObject = playerPawn;
-                if(playerPawn.getNetId()== player.getConnectionId()){
+                if (playerPawn.getNetId() == player.getConnectionId()) {
                     playerPawnObject = playerPawn;
                 }
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
+                //playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
+                playerPawn.setTickets(new DetectiveTickets(2, 0, 0));
                 playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3)); //Temporary, change to cam pic
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnDetectiveObjectList.add(playerPawn);
-                if(playerPawn.getNetId() == player.getConnectionId()){
+                if (playerPawn.getNetId() == player.getConnectionId()) {
                     playerPawnObject = playerPawn;
                 }
             }
@@ -84,6 +101,18 @@ public class GameplayServer extends Gameplay {
         server.sendAll(new PlayerTurn(nextPlayerID), true);
         turnIDs.add(nextPlayerID);
 
+    }
+
+    public boolean hasTickets(PawnObject pawnObject){
+        if (pawnObject instanceof PawnMisterXObject){
+            return true;
+        }else if(pawnObject instanceof  PawnDetectiveObject){
+            if (!pawnObject.hasEnoughTickets(TicketType.BIKE) && !pawnObject.hasEnoughTickets(TicketType.HORSE) && !pawnObject.hasEnoughTickets(TicketType.DRAGON)) {
+                return false;
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -124,6 +153,12 @@ public class GameplayServer extends Gameplay {
                     playerPawnObject.setMapNode(newNode);
                     server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
                     server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
+
+                    for (PawnDetectiveObject pawnDetectiveObject : pawnDetectiveObjectList) {
+                        if (newNode.getId() == pawnDetectiveObject.getMapNode().getId()) {
+                            server.sendAll(new DetectivesWon(pawnMisterXObject.getNetId()));
+                        }
+                    }
                     if (pawnMisterXObject.turnSeries == 0) {
                         changeTurn();
                     }

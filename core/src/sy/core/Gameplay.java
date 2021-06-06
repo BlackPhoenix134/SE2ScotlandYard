@@ -3,13 +3,11 @@ package sy.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.NetworkPackageCallbacks;
-import sy.connection.packages.AddPawnObject;
-import sy.connection.packages.MovePlayerObject;
-import sy.connection.packages.PlayerTurn;
-import sy.connection.packages.RemoveTicket;
+import sy.connection.packages.*;
 import sy.core.Tickets.DetectiveTickets;
 import sy.core.Tickets.MisterXTickets;
 import sy.gameObjects.GameObjectManager;
@@ -28,6 +26,7 @@ public abstract class Gameplay {
     protected PawnMisterXObject pawnMisterXObject;
     protected List<PawnDetectiveObject> pawnDetectiveObjectList = new ArrayList<>();
     protected PawnObject playerPawnObject;
+    protected int gameround = 0;
 
 
     public Gameplay(Player player, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
@@ -54,20 +53,20 @@ public abstract class Gameplay {
             }
         });
 
-        callbacks.registerCallback(RemoveTicket.class, packageObj -> {
-            List<PawnObject> pawnObjectList = getPawnObjects();
-            RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
-            for (PawnObject pawnObject : pawnObjectList) {
-                if (pawnObject.getNetId() == ticketToRemove.netID) {
-                    pawnObject.removeTicket(ticketToRemove.ticket);
-                    break;
+        callbacks.registerCallback(DetectiveDies.class, packageObj ->{
+            DetectiveDies detectiveDies = (DetectiveDies) packageObj;
+            for (PawnDetectiveObject pawnDetectiveObject: pawnDetectiveObjectList){
+                if (pawnDetectiveObject.getNetId() == detectiveDies.netID){
+                    pawnDetectiveObject.setAlive(false);
+                    pawnDetectiveObjectList.remove(pawnDetectiveObject);
                 }
             }
         });
 
-        this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
-            sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
-            setPlayerTurnId(playerTurn.id);
+        callbacks.registerCallback(DetectivesWon.class, packageObj -> {
+            DetectivesWon detectivesWon = (DetectivesWon) packageObj;
+            Gdx.app.log("Winner: ", "The detectives won");
+            //TODO: Show new screen
         });
     }
 
