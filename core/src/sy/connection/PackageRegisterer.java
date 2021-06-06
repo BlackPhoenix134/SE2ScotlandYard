@@ -23,5 +23,6 @@ public class PackageRegisterer {
         kryo.register(DetectivesWonRequest.class);
         kryo.register(DetectivesWon.class);
         kryo.register(DetectiveDies.class);
+        kryo.register(MisterXwon.class);
     }
 }
