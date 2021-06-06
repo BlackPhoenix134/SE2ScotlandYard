@@ -72,14 +72,33 @@ public class GameplayServer extends Gameplay {
         }
     }
 
+    int test = 0;
     @Override
     public void movePlayer(MapNode newNode, TicketType ticketType) {
-      boolean move = canMove(newNode, ticketType);
-        if(isLocalTurn() && move) {
-            playerPawnObject.setMapNode(newNode);
-            server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
-            server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
-            changeTurn();
+
+        if(test == 0)
+        {
+            ticketType = TicketType.DOUBLETURN_TICKET;
+        }
+        else
+            ticketType = TicketType.BLACK_TICKET;
+
+        test++;
+
+        if(isLocalTurn()){
+            if(ticketType != TicketType.DOUBLETURN_TICKET){ //Make a move
+                boolean move = canMove(newNode, ticketType);
+                if(move){
+                    playerPawnObject.setMapNode(newNode);
+                    server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
+                    server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
+                    if(pawnMisterXObject.turnSeries == 0){
+                        changeTurn();
+                    }
+                }
+            } else{
+                server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
+            }
         }
     }
 }
