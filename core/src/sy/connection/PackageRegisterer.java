@@ -1,24 +1,11 @@
 package sy.connection;
 
 import com.esotericsoftware.kryo.Kryo;
-
-import sy.connection.packages.AddPawnObject;
-import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.CreateLobbyPlayer;
-import sy.connection.packages.GameplayReady;
-import sy.connection.packages.LobbyPlayerReady;
-import sy.connection.packages.LobbyPlayerReadySync;
-import sy.connection.packages.MovePlayerObject;
-import sy.connection.packages.PlayerJoinLobbyRequest;
-import sy.connection.packages.SpawnObject;
-import sy.connection.packages.PlayerTurn;
-import sy.connection.packages.RemoveTicket;
-import sy.connection.packages.LobbyToStartGame;
-import sy.connection.packages.TransitionScene;
+import sy.connection.packages.*;
 import sy.core.Tickets.TicketType;
 
 public class PackageRegisterer {
-    public static void register(Kryo kryo){
+    public static void register(Kryo kryo) {
         kryo.register(ClientMoveRequest.class);
         kryo.register(MovePlayerObject.class);
         kryo.register(SpawnObject.class);
@@ -33,5 +20,8 @@ public class PackageRegisterer {
         kryo.register(LobbyToStartGame.class);
         kryo.register(GameplayReady.class);
         kryo.register(TicketType.class);
+        kryo.register(DetectivesWonRequest.class);
+        kryo.register(DetectivesWon.class);
+        kryo.register(DetectiveDies.class);
     }
 }
