@@ -65,33 +65,6 @@ public abstract class Gameplay {
             }
         });
 
-        callbacks.registerCallback(AddPawnObject.class, packageObj -> {
-            AddPawnObject addPawnObject = (AddPawnObject) packageObj;
-            if (addPawnObject.isMisterX) {
-                PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
-                playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new MisterXTickets(5, 2));
-                playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1)); //Temporary, change to cam pic
-                MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
-                playerPawn.setMapNode(newMapNode);
-                pawnMisterXObject = playerPawn;
-                if(playerPawn.getNetId()== player.getConnectionId()){
-                    playerPawnObject = playerPawn;
-                }
-            } else {
-                PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
-                playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
-                playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3)); //Temporary, change to cam pic
-                MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
-                playerPawn.setMapNode(newMapNode);
-                pawnDetectiveObjectList.add(playerPawn);
-                if(playerPawn.getNetId() == player.getConnectionId()){
-                    playerPawnObject = playerPawn;
-                }
-            }
-        });
-
         this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
             sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
             setPlayerTurnId(playerTurn.id);
@@ -117,23 +90,7 @@ public abstract class Gameplay {
         return playerTurnId == player.getConnectionId();
     }
 
-    public boolean canMove(MapNode toNode, sy.core.Tickets.TicketType ticketType) {
-
-        if (!playerPawnObject.hasEnoughTickets(ticketType)) {
-            return false;
-        }
-
-        if (nodeGraphObject.hasEdge(playerPawnObject.getMapNode().getId(), toNode.getId(), MoveType.HORSE) && (ticketType == sy.core.Tickets.TicketType.HORSE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
-            return true;
-        }
-        if (nodeGraphObject.hasEdge(playerPawnObject.getMapNode().getId(), toNode.getId(), MoveType.BIKE) && (ticketType == sy.core.Tickets.TicketType.BIKE || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
-            return true;
-        }
-        if (nodeGraphObject.hasEdge(playerPawnObject.getMapNode().getId(), toNode.getId(), MoveType.DRAGON) && (ticketType == sy.core.Tickets.TicketType.DRAGON || ticketType == sy.core.Tickets.TicketType.BLACK_TICKET)) {
-            return true;
-        }
-        return false;
-    }
+    public abstract boolean canMove(MapNode toNode, sy.core.Tickets.TicketType ticketType);
 
     public abstract void movePlayer(MapNode toNode, sy.core.Tickets.TicketType ticketType);
 

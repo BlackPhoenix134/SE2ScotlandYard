@@ -6,6 +6,19 @@ import sy.rendering.RenderPipeline;
 public abstract class GameObject {
     private String uuid;
     private boolean isAlive = true;
+    private boolean shouldDraw = true;
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public boolean getShouldDraw() {
+        return shouldDraw;
+    }
+
+    public void setShouldDraw(boolean shouldDraw) {
+        this.shouldDraw = shouldDraw;
+    }
 
     public boolean isAlive() {
         return isAlive;
