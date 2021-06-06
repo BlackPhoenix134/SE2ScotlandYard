@@ -136,7 +136,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     @Override
     public void render(float delta) {
         delta = Gdx.graphics.getDeltaTime();
-        Gdx.gl.glClearColor(1, 0, 0, 1);
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         tickAccumulation += Math.min(delta, 0.25f);
         if (tickAccumulation >= TICKS) {
