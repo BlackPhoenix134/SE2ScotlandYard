@@ -83,8 +83,7 @@ public class GameplayServer extends Gameplay {
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                //playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
-                playerPawn.setTickets(new DetectiveTickets(2, 0, 0));
+                playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
                 playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3)); //Temporary, change to cam pic
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);

@@ -59,6 +59,7 @@ public abstract class Gameplay {
                 if (pawnDetectiveObject.getNetId() == detectiveDies.netID){
                     pawnDetectiveObject.setAlive(false);
                     pawnDetectiveObjectList.remove(pawnDetectiveObject);
+                    break;
                 }
             }
         });
