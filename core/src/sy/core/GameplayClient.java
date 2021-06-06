@@ -7,16 +7,11 @@ import java.util.List;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
-import sy.connection.packages.AddPawnObject;
-import sy.connection.packages.ClientMoveRequest;
-import sy.connection.packages.GameplayReady;
+import sy.connection.packages.*;
 import sy.core.Tickets.DetectiveTickets;
 import sy.core.Tickets.MisterXTickets;
 import sy.core.Tickets.TicketType;
-import sy.gameObjects.GameObjectManager;
-import sy.gameObjects.NodeGraphObject;
-import sy.gameObjects.PawnDetectiveObject;
-import sy.gameObjects.PawnMisterXObject;
+import sy.gameObjects.*;
 
 public class GameplayClient extends Gameplay {
     private ClientHandler client;
@@ -25,6 +20,30 @@ public class GameplayClient extends Gameplay {
         super(player, players, client.getCallbacks(), gameObjectManager);
         this.client = client;
 
+
+        this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
+            sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
+            setPlayerTurnId(playerTurn.id);
+            if (playerTurn.id == pawnMisterXObject.getNetId()){
+                gameround++;
+                if (gameround == 3 || gameround == 8 || gameround == 13 || gameround == 18 || gameround == 24){
+                    pawnMisterXObject.setShouldDraw(true);
+                }else {
+                    pawnMisterXObject.setShouldDraw(false);
+                }
+            }
+        });
+
+        callbacks.registerCallback(RemoveTicket.class, packageObj -> {
+            List<PawnObject> pawnObjectList = getPawnObjects();
+            RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
+            for (PawnObject pawnObject : pawnObjectList) {
+                if (pawnObject.getNetId() == ticketToRemove.netID) {
+                    pawnObject.removeTicket(ticketToRemove.ticket);
+                    break;
+                }
+            }
+        });
         callbacks.registerCallback(AddPawnObject.class, packageObj -> {
             AddPawnObject addPawnObject = (AddPawnObject) packageObj;
             if (addPawnObject.isMisterX) {
@@ -42,7 +61,8 @@ public class GameplayClient extends Gameplay {
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
+               // playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
+                playerPawn.setTickets(new DetectiveTickets(2, 0, 0));
                 playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3)); //Temporary, change to cam pic
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
@@ -67,6 +87,9 @@ public class GameplayClient extends Gameplay {
         if(isLocalTurn() && move) {
             playerPawnObject.setMapNode(newNode);
             client.send(new ClientMoveRequest(playerPawnObject, newNode, ticketType));
+            if (newNode.getId() == pawnMisterXObject.getMapNode().getId()){
+                client.send(new DetectivesWonRequest(playerPawnObject.getNetId()));
+            }
         }
     }
 
