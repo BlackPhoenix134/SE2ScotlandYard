@@ -101,23 +101,33 @@ public class JoinGameMenu extends AbstractScreen {
 
 
         host.addListener(() -> {
-            ServerHandler server = new ServerHandler(networkPackageCallbacks);
-            server.serverStart(Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
-            sound.play();
-            screenManager.showScreen(LobbyMenu.class);
-            screenManager.getScreen(LobbyMenu.class).init(server);
-            pause();
+            if (!userIP.getText().equals(userIP.getText().isEmpty())){
+                throw new Exception("IP muss nicht ausgefüllt werden");
+            }
+            else if (!userIP.getText().equals(userIP.getText().isEmpty()) && userName.getText().isEmpty()){
+                throw new Exception("IP löschen oder Spielernamen eintragen");
+            }
+            else if(userIP.getText().equals(userIP.getText().isEmpty()) && userName.getText().isEmpty()){
+                throw new Exception("Spielernamen eintragen");
+            }
+            else {
+                ServerHandler server = new ServerHandler(networkPackageCallbacks);
+                server.serverStart(Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
+                sound.play();
+                screenManager.showScreen(LobbyMenu.class);
+                screenManager.getScreen(LobbyMenu.class).init(server);
+                pause();
+            }
         });
+
 
         join.addListener(() -> {
             //ToDo: check connection worked
             ClientHandler client = new ClientHandler(networkPackageCallbacks);
-            if (userIP.getText().equals("") || userName.getText().equals("")){
+            if (userIP.getText().isEmpty() || userName.getText().isEmpty()){
                 throw new Exception("Beide Felder ausfüllen");
             }
             else {
-
-
                 client.clientStart(userIP.getText(), Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
                 sound.play();
                 screenManager.showScreen(LobbyMenu.class);
