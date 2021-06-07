@@ -16,7 +16,7 @@ public class NodeGraphObject extends GameObject {
     private NodeGraph graph;
     ArrayList<Vector2> nodeposition;
 
-    public List<MapNode> getMapNodes(){
+    public List<MapNode> getMapNodes() {
         return graph.getNodes();
     }
 
@@ -310,7 +310,7 @@ public class NodeGraphObject extends GameObject {
         graph.addEdge(9, 20, MoveType.BIKE);
         graph.addEdge(9, 33, MoveType.BIKE);
         graph.addEdge(9, 17, MoveType.BIKE);
-        graph.addEdge(9,10, MoveType.BIKE);
+        graph.addEdge(9, 10, MoveType.BIKE);
 
         //Edges from node 11
         graph.addEdge(10, 21, MoveType.BIKE);
@@ -1121,6 +1121,6 @@ public class NodeGraphObject extends GameObject {
     }
 
     public boolean hasEdge(int from, int to, MoveType moveType) {
-        return graph.edgeExists(from,to, moveType);
+        return graph.edgeExists(from, to, moveType);
     }
 }
