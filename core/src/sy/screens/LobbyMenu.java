@@ -13,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
 
 
+import java.util.Arrays;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
@@ -21,6 +23,7 @@ import sy.core.LobbyLogic;
 import sy.core.LobbyLogicClient;
 import sy.core.LobbyLogicServer;
 import sy.core.LobbyPlayer;
+import sy.platforms.CameraPeripheral;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
@@ -34,10 +37,12 @@ public class LobbyMenu extends AbstractScreen {
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
     float padding = screenHeight * 0.05f;
     private LobbyLogic lobbyLogic;
+    private CameraPeripheral cameraPeripheral;
 
 
-    public LobbyMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
+    public LobbyMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager, CameraPeripheral cameraPeripheral) {
         this.screenManager = screenManager;
+        this.cameraPeripheral = cameraPeripheral;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
         textfieldSkin.getFont("default-font").getData().setScale(2.75f);
@@ -46,6 +51,10 @@ public class LobbyMenu extends AbstractScreen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
+
+        cameraPeripheral.setOnCameraResult((imageData) -> {
+            Gdx.app.log("nega", Arrays.toString(imageData));
+        });
     }
 
    @Override
@@ -101,9 +110,10 @@ public class LobbyMenu extends AbstractScreen {
             btnStartGame.setPosition(screenWidth / 2 - btnStartGame.getWidth() / 2, padding - 100);
             addActorsToStage(btnStartGame);
             btnStartGame.addListener(() -> {
-                sound.play();
+                cameraPeripheral.startCamera();
+              /*  sound.play();
                 ((LobbyLogicServer) lobbyLogic).startGame();
-                pause();
+                pause();*/
             });
         }
 

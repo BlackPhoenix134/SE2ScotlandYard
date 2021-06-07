@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import sy.assets.SYAssetManager;
 import sy.assets.ShaderManager;
+import sy.platforms.CameraPeripheral;
 import sy.rendering.RenderPipeline;
 import sy.screens.GameScreen;
 import sy.screens.JoinGameMenu;
@@ -19,6 +20,12 @@ public class Game extends com.badlogic.gdx.Game {
     private ExtendViewport viewport;
     private RenderPipeline renderPipeline;
     private ShaderManager shaderManager = new ShaderManager();
+    private CameraPeripheral cameraPeripheral;
+
+    public Game(CameraPeripheral cameraPeripheral) {
+        super();
+        this.cameraPeripheral = cameraPeripheral;
+    }
 
     @Override
     public void create() {
@@ -29,7 +36,7 @@ public class Game extends com.badlogic.gdx.Game {
         ScreenManager screenManager = new ScreenManager(this);
         screenManager.addScreen(new MainMenuScreen(renderPipeline, camera, screenManager));
         screenManager.addScreen(new GameScreen(renderPipeline, camera, screenManager, shaderManager));
-        screenManager.addScreen(new LobbyMenu(renderPipeline, camera, screenManager));
+        screenManager.addScreen(new LobbyMenu(renderPipeline, camera, screenManager, cameraPeripheral));
         screenManager.addScreen(new JoinGameMenu(renderPipeline, camera, screenManager));
         screenManager.showScreen(MainMenuScreen.class);
     }
