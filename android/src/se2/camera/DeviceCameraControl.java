@@ -1,4 +1,4 @@
-package sy.camera;
+package se2.camera;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 

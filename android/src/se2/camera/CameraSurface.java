@@ -1,4 +1,4 @@
-package sy.camera;
+package se2.camera;
 
 import android.content.Context;
 import android.hardware.Camera;

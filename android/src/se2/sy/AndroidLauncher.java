@@ -8,9 +8,9 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 import sy.Game;
-import sy.camera.AndroidDeviceCameraController;
-import sy.camera.DeviceCameraControl;
-import sy.camera.MyGdxGame;
+import se2.camera.AndroidDeviceCameraController;
+import se2.camera.DeviceCameraControl;
+import se2.camera.MyGdxGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	private int origWidth;
@@ -67,5 +67,4 @@ public class AndroidLauncher extends AndroidApplication {
 		}
 	}
 }
-	}
-}
+
