@@ -1,12 +1,12 @@
 package sy;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g3d.Shader;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import sy.assets.SYAssetManager;
 import sy.assets.ShaderManager;
 import sy.rendering.RenderPipeline;
+import sy.screens.GameEnd;
 import sy.screens.GameScreen;
 import sy.screens.JoinGameMenu;
 import sy.screens.LobbyMenu;
@@ -31,6 +31,7 @@ public class Game extends com.badlogic.gdx.Game {
         screenManager.addScreen(new GameScreen(renderPipeline, camera, screenManager, shaderManager));
         screenManager.addScreen(new LobbyMenu(renderPipeline, camera, screenManager));
         screenManager.addScreen(new JoinGameMenu(renderPipeline, camera, screenManager));
+        screenManager.addScreen(new GameEnd(renderPipeline, camera, screenManager));
         screenManager.showScreen(MainMenuScreen.class);
     }
 
