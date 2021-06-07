@@ -15,7 +15,7 @@ import sy.screens.ScreenManager;
 
 
 
-public class Game extends com.badlogic.gdx.Game {
+public class GameStart extends com.badlogic.gdx.Game {
     private ExtendViewport viewport;
     private RenderPipeline renderPipeline;
     private ShaderManager shaderManager = new ShaderManager();

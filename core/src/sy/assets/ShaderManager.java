@@ -1,13 +1,9 @@
 package sy.assets;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g3d.shaders.DefaultShader;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.FileHandler;
 
 public class ShaderManager {
     private Map<Integer, ShaderCacheEntry> cache = new HashMap<>();
