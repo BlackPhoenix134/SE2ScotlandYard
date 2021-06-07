@@ -28,7 +28,7 @@ public class AndroidLauncher extends AndroidApplication {
 		if (requestCode == 1 && resultCode == RESULT_OK) {
 			Bundle extras = data.getExtras();
 			Bitmap imageBitmap = (Bitmap) extras.get("data");
-			cameraPeripheralController.callOnCameraResult(imageBitmap);
+			new Thread(() -> cameraPeripheralController.callOnCameraResult(imageBitmap)).start();
 		}
 	}
 }

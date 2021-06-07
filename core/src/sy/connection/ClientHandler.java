@@ -32,7 +32,7 @@ public class ClientHandler extends Listener {
     }
 
     public void clientStart(String hostIp, int tcpPort, int udpPort){
-        kryonetClient = new Client(30000, 30000);
+        kryonetClient = new Client(60000, 60000);
         Kryo kryo = kryonetClient.getKryo();
         PackageRegisterer.register(kryo);
         kryonetClient.addListener(this);

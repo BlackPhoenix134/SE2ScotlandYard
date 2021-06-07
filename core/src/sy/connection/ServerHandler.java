@@ -27,7 +27,7 @@ public class ServerHandler extends Listener{
 
     public void serverStart(int tcpPort, int udpPort) {
 
-        kryonetServer = new Server(30000, 30000);
+        kryonetServer = new Server(60000, 60000);
         Kryo kryo = kryonetServer.getKryo();
         PackageRegisterer.register(kryo);
         kryonetServer.addListener(this);
