@@ -40,7 +40,6 @@ public class LobbyLogicClient extends LobbyLogic {
 
     public void sendJoinRequest() {
         int id =  clientHandler.getKryonetClient().getID();
-        Gdx.app.log("FICKN", "FICKN");
         clientHandler.send(new PlayerJoinLobbyRequest(id));
     }
 
