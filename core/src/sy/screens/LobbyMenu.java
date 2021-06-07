@@ -59,7 +59,7 @@ public class LobbyMenu extends AbstractScreen {
 
    @Override
     public void buildStage() {
-    }
+   }
 
     public void rebuildUi() {
         AliveButton leave;
@@ -93,6 +93,8 @@ public class LobbyMenu extends AbstractScreen {
             pause();
         });
 
+
+
         Texture photoTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_PHOTO);
         AliveButton photo = new AliveButton(photoTexture);
         Vector2 photoSize = Scaling.fillX.apply(photoTexture.getWidth(), photoTexture.getHeight(), screenWidth * 0.15f, 0);
@@ -100,6 +102,11 @@ public class LobbyMenu extends AbstractScreen {
         photo.setPosition(screenWidth - photo.getWidth()*6.8f, screenHeight - photo.getHeight()-20);
         addActorsToStage(photo);
 
+        photo.addListener(() -> {
+            sound.play();
+            cameraPeripheral.startCamera();
+            pause();
+        });
 
 
         if (lobbyLogic instanceof LobbyLogicServer && lobbyLogic.allReady()) {
@@ -110,10 +117,9 @@ public class LobbyMenu extends AbstractScreen {
             btnStartGame.setPosition(screenWidth / 2 - btnStartGame.getWidth() / 2, padding - 100);
             addActorsToStage(btnStartGame);
             btnStartGame.addListener(() -> {
-                cameraPeripheral.startCamera();
-              /*  sound.play();
+                sound.play();
                 ((LobbyLogicServer) lobbyLogic).startGame();
-                pause();*/
+                pause();
             });
         }
 
