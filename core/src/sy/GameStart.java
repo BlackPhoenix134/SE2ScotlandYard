@@ -22,7 +22,7 @@ public class GameStart extends com.badlogic.gdx.Game {
     private ShaderManager shaderManager = new ShaderManager();
     private CameraPeripheral cameraPeripheral;
 
-    public Game(CameraPeripheral cameraPeripheral) {
+    public GameStart(CameraPeripheral cameraPeripheral) {
         super();
         this.cameraPeripheral = cameraPeripheral;
     }

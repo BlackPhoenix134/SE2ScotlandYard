@@ -8,6 +8,6 @@ import sy.GameStart;
 public class DesktopLauncher {
     public static void main(String[] arg) {
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-        new LwjglApplication(new Game(null), config);
+        new LwjglApplication(new GameStart(null), config);
     }
 }

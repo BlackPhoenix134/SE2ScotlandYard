@@ -8,7 +8,8 @@ import android.provider.MediaStore;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import sy.Game;
+
+import sy.GameStart;
 import sy.platforms.CameraPeripheral;
 
 public class AndroidLauncher extends AndroidApplication {
@@ -19,7 +20,7 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		cameraPeripheralController = new CameraPeripheralController(this);
-		initialize(new Game(cameraPeripheralController), config);
+		initialize(new GameStart(cameraPeripheralController), config);
 	}
 
 	@Override
