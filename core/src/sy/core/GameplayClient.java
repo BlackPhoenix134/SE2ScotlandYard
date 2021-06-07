@@ -24,7 +24,7 @@ public class GameplayClient extends Gameplay {
 
 
         this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
-            sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
+            PlayerTurn playerTurn = (PlayerTurn) packageObj;
             setPlayerTurnId(playerTurn.id);
             if (playerTurn.id == pawnMisterXObject.getNetId()){
                 gameround++;

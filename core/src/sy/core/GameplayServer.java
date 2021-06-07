@@ -27,12 +27,11 @@ public class GameplayServer extends Gameplay {
     public GameplayServer(Player player, List<Player> players, ServerHandler server, GameObjectManager gameObjectManager) {
         super(player, players, server.getCallbacks(), gameObjectManager);
         connectedIDs.add(player.getConnectionId());
-
+        this.server = server;
         callbacks.registerCallback(ClientMoveRequest.class, packageObj -> {
             ClientMoveRequest clientRequest = (ClientMoveRequest) packageObj;
             server.sendAll(new MovePlayerObject(clientRequest.playerObjNetId, clientRequest.newNodeId), true);
             server.sendAll(new RemoveTicket(clientRequest.playerObjNetId, clientRequest.ticketType), true);
-            changeTurn();
         });
 
         callbacks.registerCallback(GameplayReady.class, packageObj -> {
@@ -63,19 +62,20 @@ public class GameplayServer extends Gameplay {
             for (PawnObject pawnObject : pawnObjectList) {
                 if (pawnObject.getNetId() == ticketToRemove.netID) {
                     pawnObject.removeTicket(ticketToRemove.ticket);
-                    /*
                     if (!hasTickets(pawnObject)){
                         server.sendAll(new DetectiveDies(pawnObject.getNetId()), true);
-                        turnIDs.remove(turnIDs.size()-1);
-                        if (turnIDs.size() == 1){
+                        turnIDQueue.remove(pawnObject.getNetId());
+                        if (turnIDQueue.size() == 1){
                             server.sendAll(new MisterXwon(pawnMisterXObject.getNetId()), true);
                         }
                     }
-
-                     */
                     break;
                 }
             }
+            if(ticketToRemove.ticket != TicketType.DOUBLETURN_TICKET){
+                changeTurn();
+            }
+
         });
 
         callbacks.registerCallback(AddPawnObject.class, packageObj -> {
@@ -177,7 +177,7 @@ public class GameplayServer extends Gameplay {
                         }
                     }
                     if (pawnMisterXObject.turnSeries == 0) {
-                        changeTurn();
+                        //changeTurn();
                     }
                 }
             } else {
