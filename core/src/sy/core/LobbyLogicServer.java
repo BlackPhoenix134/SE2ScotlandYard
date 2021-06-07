@@ -1,10 +1,14 @@
 package sy.core;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import sy.connection.ServerHandler;
 import sy.connection.packages.CreateLobbyPlayer;
+import sy.connection.packages.LobbyPlayerCustomTextureChanged;
+import sy.connection.packages.LobbyPlayerCustomTextureChangedRequest;
 import sy.connection.packages.LobbyPlayerReady;
 import sy.connection.packages.LobbyPlayerReadySync;
 import sy.connection.packages.LobbyToStartGame;
@@ -22,19 +26,25 @@ public class LobbyLogicServer extends LobbyLogic {
 
         callbacks.registerCallback(PlayerJoinLobbyRequest.class, pckg -> {
             PlayerJoinLobbyRequest playerJoinLobbyRequest = (PlayerJoinLobbyRequest)pckg;
-            for(LobbyPlayer player : currLobbyPlayers.values()) {
-                serverHandler.sendTo(playerJoinLobbyRequest.connectionId, new CreateLobbyPlayer(player.getConnectionId()));
+            for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
+                serverHandler.sendTo(playerJoinLobbyRequest.connectionId, new CreateLobbyPlayer(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture()));
             }
-            for(LobbyPlayer player : currLobbyPlayers.values()) {
-                serverHandler.sendTo(playerJoinLobbyRequest.connectionId, new LobbyPlayerReadySync(player.getConnectionId(), player.isReady()));
+            for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
+                serverHandler.sendTo(playerJoinLobbyRequest.connectionId, new LobbyPlayerReadySync(lobbyPlayer.getConnectionId(), lobbyPlayer.isReady()));
             }
-            serverHandler.sendAll(new CreateLobbyPlayer(playerJoinLobbyRequest.connectionId), true);
+            serverHandler.sendAll(new CreateLobbyPlayer(playerJoinLobbyRequest.connectionId, null), true);
         });
 
         callbacks.registerCallback(LobbyPlayerReady.class, pckg -> {
             LobbyPlayerReady lobbyPlayerReady = (LobbyPlayerReady)pckg;
             LobbyPlayer lobbyPlayer = currLobbyPlayers.get(lobbyPlayerReady.connectionId);
             serverHandler.sendAll(new LobbyPlayerReadySync(lobbyPlayer.getConnectionId(), !lobbyPlayer.isReady()), true);
+        });
+
+        callbacks.registerCallback(LobbyPlayerCustomTextureChangedRequest.class, pckg -> {
+            LobbyPlayerCustomTextureChangedRequest customTexturePackage = (LobbyPlayerCustomTextureChangedRequest)pckg;
+            Gdx.app.log("networking", "LobbyPlayerCustomTextureChangedRequest" + customTexturePackage.connectionId + " " + customTexturePackage.customTexture);
+            serverHandler.sendAll(new LobbyPlayerCustomTextureChanged(customTexturePackage.connectionId, customTexturePackage.customTexture), true);
         });
 
 
@@ -45,7 +55,7 @@ public class LobbyLogicServer extends LobbyLogic {
             List<Player> players = new ArrayList<>();
             Player localPlayer = null;
             for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
-                Player player = new Player(lobbyPlayer.getConnectionId());
+                Player player = new Player(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture());
                 if(lobbyPlayer.getConnectionId() == 0) {
                     player.setLocalPlayer(true);
                     localPlayer = player;
@@ -62,7 +72,12 @@ public class LobbyLogicServer extends LobbyLogic {
 
     public void createSelf() {
         int id = 0;
-        serverHandler.sendAll(new CreateLobbyPlayer(id), true);
+        serverHandler.sendAll(new CreateLobbyPlayer(id, null), true);
+    }
+
+    @Override
+    public void setCustomTexture(byte[] customTexture) {
+        serverHandler.sendAll(new LobbyPlayerCustomTextureChanged(0, customTexture), true);
     }
 
     @Override

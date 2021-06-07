@@ -1,6 +1,9 @@
 package sy.core;
 
 
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ServerHandler;
@@ -76,7 +79,11 @@ public class GameplayServer extends Gameplay {
                 PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new MisterXTickets(5, 2));
-                playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1)); //Temporary, change to cam pic
+                if(localPlayer.getCustomTexture() == null)
+                    playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1));
+                else
+                    playerPawn.setTexture(new Texture(new Pixmap(localPlayer.getCustomTexture(), 0, localPlayer.getCustomTexture().length)));
+
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnMisterXObject = playerPawn;
@@ -87,7 +94,10 @@ public class GameplayServer extends Gameplay {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new DetectiveTickets(2, 0, 0));
-                playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3)); //Temporary, change to cam pic
+                if(localPlayer.getCustomTexture() == null)
+                    playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3));
+                else
+                    playerPawn.setTexture(new Texture(new Pixmap(localPlayer.getCustomTexture(), 0, localPlayer.getCustomTexture().length)));
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnDetectiveObjectList.add(playerPawn);

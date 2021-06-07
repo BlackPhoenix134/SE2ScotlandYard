@@ -24,5 +24,10 @@ public class PackageRegisterer {
         kryo.register(DetectivesWon.class);
         kryo.register(DetectiveDies.class);
         kryo.register(MisterXwon.class);
+        kryo.register(LobbyPlayerCustomTextureChanged.class);
+        kryo.register(LobbyPlayerCustomTextureChangedRequest.class);
+        kryo.register(byte[].class);
+
+
     }
 }

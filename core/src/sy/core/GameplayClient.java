@@ -1,6 +1,9 @@
 package sy.core;
 
 
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+
 import java.util.List;
 
 import sy.assets.AssetDescriptors;
@@ -51,7 +54,12 @@ public class GameplayClient extends Gameplay {
                 playerPawn.setShouldDraw(false);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new MisterXTickets(5, 2));
-                playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1)); //Temporary, change to cam pic
+
+                if(localPlayer.getCustomTexture() == null)
+                    playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1));
+                else
+                    playerPawn.setTexture(new Texture(new Pixmap(localPlayer.getCustomTexture(), 0, localPlayer.getCustomTexture().length)));
+
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnMisterXObject = playerPawn;
@@ -62,7 +70,12 @@ public class GameplayClient extends Gameplay {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new DetectiveTickets(2, 0, 0));
-                playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3)); //Temporary, change to cam pic
+
+                if(localPlayer.getCustomTexture() == null)
+                    playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3));
+                else
+                    playerPawn.setTexture(new Texture(new Pixmap(localPlayer.getCustomTexture(), 0, localPlayer.getCustomTexture().length)));
+                
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
                 pawnDetectiveObjectList.add(playerPawn);
@@ -77,7 +90,7 @@ public class GameplayClient extends Gameplay {
     @Override
     public void initialize(NodeGraphObject nodeGraphObject) {
         super.nodeGraphObject = nodeGraphObject;
-        client.send(new GameplayReady(player.getConnectionId()));
+        client.send(new GameplayReady(localPlayer.getConnectionId()));
     }
 
     @Override

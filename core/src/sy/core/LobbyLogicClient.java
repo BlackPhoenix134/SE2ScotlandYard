@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sy.connection.ClientHandler;
+import sy.connection.packages.LobbyPlayerCustomTextureChanged;
+import sy.connection.packages.LobbyPlayerCustomTextureChangedRequest;
 import sy.connection.packages.LobbyPlayerReady;
 import sy.connection.packages.LobbyToStartGame;
 import sy.connection.packages.PlayerJoinLobbyRequest;
@@ -26,7 +28,7 @@ public class LobbyLogicClient extends LobbyLogic {
             List<Player> players = new ArrayList<>();
             Player localPlayer = null;
             for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
-                Player player = new Player(lobbyPlayer.getConnectionId());
+                Player player = new Player(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture());
                 if(lobbyPlayer.getConnectionId() == clientHandler.getKryonetClient().getID()) {
                     player.setLocalPlayer(true);
                     localPlayer = player;
@@ -41,6 +43,11 @@ public class LobbyLogicClient extends LobbyLogic {
     public void sendJoinRequest() {
         int id =  clientHandler.getKryonetClient().getID();
         clientHandler.send(new PlayerJoinLobbyRequest(id));
+    }
+
+    @Override
+    public void setCustomTexture(byte[] customTexture) {
+        clientHandler.send(new LobbyPlayerCustomTextureChangedRequest(clientHandler.getKryonetClient().getID(), customTexture));
     }
 
     @Override

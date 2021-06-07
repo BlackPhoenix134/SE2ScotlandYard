@@ -1,10 +1,10 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -53,9 +53,10 @@ public class LobbyMenu extends AbstractScreen {
         Gdx.input.setInputProcessor(this);
 
         cameraPeripheral.setOnCameraResult((imageData) -> {
-            Gdx.app.log("nega", Arrays.toString(imageData));
+            lobbyLogic.setCustomTexture(imageData);
         });
     }
+
 
    @Override
     public void buildStage() {
@@ -92,8 +93,6 @@ public class LobbyMenu extends AbstractScreen {
             lobbyLogic.readyUp();
             pause();
         });
-
-
 
         Texture photoTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_PHOTO);
         AliveButton photo = new AliveButton(photoTexture);

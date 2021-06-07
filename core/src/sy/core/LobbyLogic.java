@@ -1,10 +1,13 @@
 package sy.core;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.packages.CreateLobbyPlayer;
+import sy.connection.packages.LobbyPlayerCustomTextureChanged;
 import sy.connection.packages.LobbyPlayerReadySync;
 import sy.screens.LobbyMenu;
 import sy.screens.ScreenManager;
@@ -33,7 +36,15 @@ public abstract class LobbyLogic {
             lobbyMenu.rebuildUi();
         });
 
+        callbacks.registerCallback(LobbyPlayerCustomTextureChanged.class, pckg -> {
+            LobbyPlayerCustomTextureChanged customTexturePackage = (LobbyPlayerCustomTextureChanged)pckg;
+            Gdx.app.log("networking", "LobbyPlayerCustomTextureChanged" + customTexturePackage.connectionId + " " + customTexturePackage.customTexture);
+            LobbyPlayer lobbyPlayer = currLobbyPlayers.get(customTexturePackage.connectionId);
+            lobbyPlayer.setCustomTexture(customTexturePackage.customTexture);
+        });
     }
+
+    public abstract void setCustomTexture(byte[] customTexture);
 
     public abstract void readyUp();
 

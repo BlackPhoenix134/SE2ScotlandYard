@@ -23,7 +23,6 @@ public abstract class Gameplay {
     protected List<PawnDetectiveObject> pawnDetectiveObjectList = new ArrayList<>();
     protected PawnObject playerPawnObject;
     protected int gameround = 0;
-    protected  byte[] customPlayerTexture;
 
 
     protected Gameplay(Player localPlayer, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
@@ -32,10 +31,6 @@ public abstract class Gameplay {
         this.callbacks = callbacks;
         this.gameObjectManager = gameObjectManager;
         registerCallbacks();
-    }
-
-    public byte[] getCustomPlayerTexture() {
-        return customPlayerTexture;
     }
 
     public abstract void initialize(NodeGraphObject nodeGraphObject);

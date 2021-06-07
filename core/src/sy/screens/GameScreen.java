@@ -75,7 +75,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     @Override
     public void buildStage() {
-
         AliveButton btnMisterX;
         AliveButton btnDetective;
 
@@ -98,7 +97,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
             @Override
             public void onClick() {
                 sound.play();
-
             }
         });
         addActorsToStage(btnDetective);
@@ -122,16 +120,18 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
         this.gameplay = new GameplayServer(localPlayer, players, handler, gameObjectManager);
-        this.callbacks = callbacks;
-        gameplay.initialize(nodeGraphObject);
+        initialize(gameplay, callbacks);
     }
 
     public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
         this.gameplay = new GameplayClient(localPlayer, players, handler, gameObjectManager);
+        initialize(gameplay, callbacks);
+    }
+
+    private void initialize(Gameplay gameplay, NetworkPackageCallbacks callbacks) {
         this.callbacks = callbacks;
         gameplay.initialize(nodeGraphObject);
     }
-
 
     @Override
     public void render(float delta) {
