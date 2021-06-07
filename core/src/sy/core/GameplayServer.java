@@ -13,19 +13,22 @@ import sy.core.Tickets.MisterXTickets;
 import sy.core.Tickets.TicketType;
 import sy.gameObjects.*;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class GameplayServer extends Gameplay {
     private ServerHandler server;
-    private Queue<Integer> turnIDs = new LinkedList<>();
-    private int gameplaysReady = 1;
+    private Queue<Integer> turnIDQueue = new LinkedList<>();
+    private List<Integer> connectedIDs = new ArrayList<>();
 
     public GameplayServer(Player player, List<Player> players, ServerHandler server, GameObjectManager gameObjectManager) {
         super(player, players, server.getCallbacks(), gameObjectManager);
         this.server = server;
-        turnIDs.add(player.getConnectionId());
+        connectedIDs.add(player.getConnectionId());
 
         callbacks.registerCallback(ClientMoveRequest.class, packageObj -> {
             ClientMoveRequest clientRequest = (ClientMoveRequest) packageObj;
@@ -36,16 +39,17 @@ public class GameplayServer extends Gameplay {
 
         callbacks.registerCallback(GameplayReady.class, packageObj -> {
             GameplayReady gameplayReady = (GameplayReady) packageObj;
-            turnIDs.add(gameplayReady.playerNetID);
-            gameplaysReady++;
-            if (gameplaysReady == players.size()) {
+            connectedIDs.add(gameplayReady.playerNetID);
+            if (connectedIDs.size() == players.size()) { //Start as soon as all players connected to the gameplay
+                Collections.sort(connectedIDs);
+                turnIDQueue.addAll(connectedIDs);
                 spawnPlayerPawns(nodeGraphObject);
                 changeTurn();
             }
         });
 
         this.callbacks.registerCallback(PlayerTurn.class, packageObj -> {
-            sy.connection.packages.PlayerTurn playerTurn = (PlayerTurn) packageObj;
+            PlayerTurn playerTurn = (PlayerTurn) packageObj;
             setPlayerTurnId(playerTurn.id);
 
         });
@@ -61,6 +65,7 @@ public class GameplayServer extends Gameplay {
             for (PawnObject pawnObject : pawnObjectList) {
                 if (pawnObject.getNetId() == ticketToRemove.netID) {
                     pawnObject.removeTicket(ticketToRemove.ticket);
+                    /*
                     if (!hasTickets(pawnObject)){
                         server.sendAll(new DetectiveDies(pawnObject.getNetId()), true);
                         turnIDs.remove(turnIDs.size()-1);
@@ -68,6 +73,8 @@ public class GameplayServer extends Gameplay {
                             server.sendAll(new MisterXwon(pawnMisterXObject.getNetId()), true);
                         }
                     }
+
+                     */
                     break;
                 }
             }
@@ -78,7 +85,7 @@ public class GameplayServer extends Gameplay {
             if (addPawnObject.isMisterX) {
                 PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new MisterXTickets(5, 2));
+                playerPawn.setTickets(new MisterXTickets(20, 2));
                 if(localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1));
                 else
@@ -109,9 +116,9 @@ public class GameplayServer extends Gameplay {
     }
 
     public void changeTurn() {
-        Integer nextPlayerID = turnIDs.poll();
+        Integer nextPlayerID = turnIDQueue.poll();
         server.sendAll(new PlayerTurn(nextPlayerID), true);
-        turnIDs.add(nextPlayerID);
+        turnIDQueue.add(nextPlayerID);
 
     }
 
@@ -146,7 +153,7 @@ public class GameplayServer extends Gameplay {
         }
     }
 
-    int test = 0;
+    int test = 5;
 
     @Override
     public void movePlayer(MapNode newNode, TicketType ticketType) {

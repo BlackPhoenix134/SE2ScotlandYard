@@ -1,6 +1,5 @@
 package sy.assets;
 
-import com.badlogic.gdx.graphics.g3d.Shader;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 public class ShaderCacheEntry {

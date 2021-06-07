@@ -1,4 +1,5 @@
-package sy.components;
+/*package sy.components;
 
 public class Component {
 }
+*/
