@@ -54,13 +54,13 @@ public class JoinGameMenu extends AbstractScreen {
         NetworkPackageCallbacks networkPackageCallbacks = new NetworkPackageCallbacks();
 
 
-        userIP = new TextField("192.168.0.178",textfieldSkin);
+        userIP = new TextField("",textfieldSkin);
         userIP.setMessageText("Enter IP");
         userIP.setSize(screenWidth *0.6f, screenHeight*0.1f);
         userIP.setPosition(screenWidth/2 - userIP.getWidth()/2, screenHeight/2 + (userIP.getHeight()*3f));
         addActorsToStage(userIP);
 
-        userName = new TextField("player",textfieldSkin);
+        userName = new TextField("",textfieldSkin);
         userName.setMessageText("Playername");
         userName.setSize(screenWidth *0.6f, screenHeight*0.1f); 
         userName.setPosition(screenWidth/2 - userName.getWidth()/2, screenHeight/2 + (userName.getHeight()*1.5f));
@@ -101,16 +101,18 @@ public class JoinGameMenu extends AbstractScreen {
 
 
         host.addListener(() -> {
-            if (!userIP.getText().equals(userIP.getText().isEmpty())){
+            if (!userIP.getText().trim().isEmpty()){
                 throw new Exception("IP muss nicht ausgefüllt werden");
+
             }
-            else if (!userIP.getText().equals(userIP.getText().isEmpty()) && userName.getText().isEmpty()){
+            else if (!userIP.getText().trim().isEmpty() && userName.getText().trim().isEmpty()){
                 throw new Exception("IP löschen oder Spielernamen eintragen");
             }
             else if(userIP.getText().equals(userIP.getText().isEmpty()) && userName.getText().isEmpty()){
                 throw new Exception("Spielernamen eintragen");
             }
             else {
+                userName.setText(userName.getText());
                 ServerHandler server = new ServerHandler(networkPackageCallbacks);
                 server.serverStart(Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
                 sound.play();
@@ -128,6 +130,8 @@ public class JoinGameMenu extends AbstractScreen {
                 throw new Exception("Beide Felder ausfüllen");
             }
             else {
+                userName.setText(userName.getText());
+                userIP.setText(userIP.getText());
                 client.clientStart(userIP.getText(), Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
                 sound.play();
                 screenManager.showScreen(LobbyMenu.class);
