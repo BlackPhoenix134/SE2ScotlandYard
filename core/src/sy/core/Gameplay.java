@@ -13,7 +13,7 @@ import sy.gameObjects.PawnMisterXObject;
 import sy.gameObjects.PawnObject;
 
 public abstract class Gameplay {
-    protected Player player;
+    protected Player localPlayer;
     private int playerTurnId;
     protected NodeGraphObject nodeGraphObject;
     protected NetworkPackageCallbacks callbacks;
@@ -23,14 +23,19 @@ public abstract class Gameplay {
     protected List<PawnDetectiveObject> pawnDetectiveObjectList = new ArrayList<>();
     protected PawnObject playerPawnObject;
     protected int gameround = 0;
+    protected  byte[] customPlayerTexture;
 
 
-    protected Gameplay(Player player, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
-        this.player = player;
+    protected Gameplay(Player localPlayer, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
+        this.localPlayer = localPlayer;
         this.players = players;
         this.callbacks = callbacks;
         this.gameObjectManager = gameObjectManager;
         registerCallbacks();
+    }
+
+    public byte[] getCustomPlayerTexture() {
+        return customPlayerTexture;
     }
 
     public abstract void initialize(NodeGraphObject nodeGraphObject);
@@ -91,7 +96,7 @@ public abstract class Gameplay {
     }
 
     public boolean isLocalTurn() {
-        return playerTurnId == player.getConnectionId();
+        return playerTurnId == localPlayer.getConnectionId();
     }
 
     public abstract boolean canMove(MapNode toNode, sy.core.Tickets.TicketType ticketType);
