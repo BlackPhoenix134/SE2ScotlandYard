@@ -4,12 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import sy.assets.AssetDescriptors;
-import sy.assets.SYAssetManager;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.packages.*;
-import sy.core.Tickets.DetectiveTickets;
-import sy.core.Tickets.MisterXTickets;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnDetectiveObject;
@@ -29,7 +25,7 @@ public abstract class Gameplay {
     protected int gameround = 0;
 
 
-    public Gameplay(Player player, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
+    protected Gameplay(Player player, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
         this.player = player;
         this.players = players;
         this.callbacks = callbacks;
@@ -44,10 +40,10 @@ public abstract class Gameplay {
         callbacks.registerCallback(MovePlayerObject.class, packageObj -> {
             List<PawnObject> pawnObjectList = getPawnObjects();
             MovePlayerObject playerMoved = (MovePlayerObject) packageObj;
-            for (PawnObject player : pawnObjectList) {
-                if (player.getNetId() == playerMoved.playerObjectNetId) {
+            for (PawnObject pawnObject : pawnObjectList) {
+                if (pawnObject.getNetId() == playerMoved.playerObjectNetId) {
                     MapNode newMapNode = nodeGraphObject.getMapNodes().get(playerMoved.newNodeId);
-                    player.setMapNode(newMapNode);
+                    pawnObject.setMapNode(newMapNode);
                     break;
                 }
             }

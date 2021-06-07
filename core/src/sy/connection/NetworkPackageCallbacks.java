@@ -1,7 +1,6 @@
 package sy.connection;
 
 
-import com.badlogic.gdx.Gdx;
 
 import java.util.HashMap;
 import java.util.Map;
