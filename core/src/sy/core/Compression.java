@@ -11,27 +11,16 @@ import java.util.zip.Inflater;
 
 public abstract class Compression {
     public static byte[] compress(byte[] data) {
-        ByteArrayOutputStream baos = null;
-        Deflater dfl = new Deflater();
-        dfl.setLevel(Deflater.BEST_COMPRESSION);
-        dfl.setInput(data);
-        dfl.finish();
-        baos = new ByteArrayOutputStream();
-        byte[] tmp = new byte[4*1024];
-        try{
-            while(!dfl.finished()){
-                int size = dfl.deflate(tmp);
-                baos.write(tmp, 0, size);
-            }
-        } catch (Exception ex){
-
-        } finally {
-            try{
-                if(baos != null) baos.close();
-            } catch(Exception ex){}
+        Deflater deflater = new Deflater();
+        deflater.setInput(data);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        deflater.finish();
+        byte[] buffer = new byte[1024];
+        while (!deflater.finished()) {
+            int count = deflater.deflate(buffer);
+            outputStream.write(buffer, 0, count);
         }
-
-        return baos.toByteArray();
+        return outputStream.toByteArray();
     }
 
     public static byte[] decompress(byte[] data) {
