@@ -14,7 +14,6 @@ import sy.core.Tickets.TicketType;
 import sy.gameObjects.*;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,7 +26,6 @@ public class GameplayServer extends Gameplay {
 
     public GameplayServer(Player player, List<Player> players, ServerHandler server, GameObjectManager gameObjectManager) {
         super(player, players, server.getCallbacks(), gameObjectManager);
-        this.server = server;
         connectedIDs.add(player.getConnectionId());
 
         callbacks.registerCallback(ClientMoveRequest.class, packageObj -> {

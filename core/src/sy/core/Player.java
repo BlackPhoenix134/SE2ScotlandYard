@@ -15,6 +15,7 @@ public class Player {
 
     public Player(int connectionId, byte[] customTexture){
         this.connectionId = connectionId;
+        this.customTexture = customTexture;
     }
 
     public int getConnectionId() {
