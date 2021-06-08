@@ -23,11 +23,11 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> BUTTON_START = new AssetDescriptor<>(UI + "/Start.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_PHOTO = new AssetDescriptor<>(UI + "/TakePhoto.png", Texture.class);
     public static final AssetDescriptor<Texture> VISUAL_READY = new AssetDescriptor<>(UI + "/PlayReady.png", Texture.class);
-    public static final AssetDescriptor<Texture> MrX = new AssetDescriptor<>(UI + "/Mrx.png", Texture.class);
+    /*public static final AssetDescriptor<Texture> MrX = new AssetDescriptor<>(UI + "/Mrx.png", Texture.class);
     public static final AssetDescriptor<Texture> MWon = new AssetDescriptor<>(UI+"/Won.png", Texture.class);
     public static final AssetDescriptor<Texture> Detectives = new AssetDescriptor<>(UI+"/Detectives.png", Texture.class);
     public static final AssetDescriptor<Texture> DWon = new AssetDescriptor<>(UI + "/DWon.png", Texture.class);
-    public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(UI+"/LeaveGame.png", Texture.class); 
+    public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(UI+"/LeaveGame.png", Texture.class);*/
 
     public static final AssetDescriptor<Texture> BACK = new AssetDescriptor<Texture>(BACKGORUND + "/337.jpg", Texture.class);
 

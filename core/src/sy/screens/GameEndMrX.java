@@ -16,6 +16,15 @@ public class GameEndMrX extends AbstractScreen {
 
     SpriteBatch batch;
     Texture img1, img2;
+
+    /*Texture leaveGame = SYAssetManager.getAsset(AssetDescriptors.LEAVE_GAME);
+    Texture dWon = SYAssetManager.getAsset(AssetDescriptors.DWon);
+    Texture det = SYAssetManager.getAsset(AssetDescriptors.Detectives);
+    Texture xWon = SYAssetManager.getAsset(AssetDescriptors.MWon);
+    Texture mrX = SYAssetManager.getAsset(AssetDescriptors.MrX);*/
+
+
+
     
 
     public GameEndMrX(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
