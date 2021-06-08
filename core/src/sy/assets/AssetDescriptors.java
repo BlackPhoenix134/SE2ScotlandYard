@@ -11,7 +11,8 @@ public final class AssetDescriptors {
     private static final String WORLD = "world";
     private static final String CHARACTERS = WORLD + "/characters";
     private static final String TICKETS = WORLD + "/tickets";
-    private static final String BACKGORUND = "background";
+    private static final String BACK = "background";
+    private static final String END = "EndScreen";
 
     public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(UI + "/StartDevil.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_EXIT = new AssetDescriptor<>(UI + "/ExitDevilButton.png", Texture.class);
@@ -23,13 +24,15 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> BUTTON_START = new AssetDescriptor<>(UI + "/Start.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_PHOTO = new AssetDescriptor<>(UI + "/TakePhoto.png", Texture.class);
     public static final AssetDescriptor<Texture> VISUAL_READY = new AssetDescriptor<>(UI + "/PlayReady.png", Texture.class);
-    /*public static final AssetDescriptor<Texture> MrX = new AssetDescriptor<>(UI + "/Mrx.png", Texture.class);
-    public static final AssetDescriptor<Texture> MWon = new AssetDescriptor<>(UI+"/Won.png", Texture.class);
-    public static final AssetDescriptor<Texture> Detectives = new AssetDescriptor<>(UI+"/Detectives.png", Texture.class);
-    public static final AssetDescriptor<Texture> DWon = new AssetDescriptor<>(UI + "/DWon.png", Texture.class);
-    public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(UI+"/LeaveGame.png", Texture.class);*/
+    public static final AssetDescriptor<Texture> MrX = new AssetDescriptor<>(END+ "/MrX.png", Texture.class);
+    public static final AssetDescriptor<Texture> MWon = new AssetDescriptor<>(END+"/Won.png", Texture.class);
+    public static final AssetDescriptor<Texture> Detectives = new AssetDescriptor<>(END+"/Detectives.png", Texture.class);
+    public static final AssetDescriptor<Texture> DWon = new AssetDescriptor<>(END + "/DWon.png", Texture.class);
+    public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(END+"/LeaveGame.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> BACK = new AssetDescriptor<Texture>(BACKGORUND + "/337.jpg", Texture.class);
+    public static final AssetDescriptor<Texture> BACK_G = new AssetDescriptor<Texture>(BACK + "/337.jpg", Texture.class);
+
+
 
 
     public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>(WORLD + "/map.png", Texture.class);
