@@ -11,6 +11,7 @@ public final class AssetDescriptors {
     private static final String WORLD = "world";
     private static final String CHARACTERS = WORLD + "/characters";
     private static final String TICKETS = WORLD + "/tickets";
+    private static final String BACKGORUND = "background";
 
     public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(UI + "/StartDevil.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_EXIT = new AssetDescriptor<>(UI + "/ExitDevilButton.png", Texture.class);
@@ -22,6 +23,8 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> BUTTON_START = new AssetDescriptor<>(UI + "/Start.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_PHOTO = new AssetDescriptor<>(UI + "/TakePhoto.png", Texture.class);
     public static final AssetDescriptor<Texture> VISUAL_READY = new AssetDescriptor<>(UI + "/PlayReady.png", Texture.class);
+
+    public static final AssetDescriptor<Texture> BACK = new AssetDescriptor<Texture>(BACKGORUND + "/337.jpg", Texture.class);
 
 
     public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>(WORLD + "/map.png", Texture.class);
