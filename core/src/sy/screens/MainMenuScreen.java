@@ -41,7 +41,7 @@ public class MainMenuScreen extends AbstractScreen{
 
     @Override
     public void buildStage() {
-        background.setVolume(0.05f);
+        background.setVolume(0.01f);
         background.setLooping(true);
         background.play();
         AliveButton btnStartGame;
