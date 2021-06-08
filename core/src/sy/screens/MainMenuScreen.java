@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -14,11 +15,13 @@ import sy.assets.SYAssetManager;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
-public class MainMenuScreen extends AbstractScreen {
+public class MainMenuScreen extends AbstractScreen{
     private float screenWidth;
     private float screenHeight;
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    Music background = Gdx.audio.newMusic(Gdx.files.internal("sounds/startMusic.mp3"));
+
     SpriteBatch batch;
     Texture img;
 
@@ -38,6 +41,9 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        background.setVolume(0.05f);
+        background.setLooping(true);
+        background.play();
         AliveButton btnStartGame;
         float padding = screenHeight * 0.05f;
 
@@ -58,6 +64,7 @@ public class MainMenuScreen extends AbstractScreen {
             public void onClick() {
                 sound.play();
                 screenManager.showScreen(JoinGameMenu.class);
+                background.stop();
                 pause();
             }
         });
@@ -76,9 +83,5 @@ public class MainMenuScreen extends AbstractScreen {
         batch.end();
     }
 
-    @Override
-    public void hide(){
-        Gdx.input.setInputProcessor(null);
-    }
 
 }
