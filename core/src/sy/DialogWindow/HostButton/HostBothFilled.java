@@ -17,7 +17,7 @@ public class HostBothFilled extends Dialog {
         Add logic here. No matter what constructer will be called code in this brackets will always be entered.
         Add Tickets here and add new PopUp Window for each Ticket with information
          */
-        text("Lösche IP");
+        text("Entferne IP!");
         button("Ok");
         setScale(3);
 
