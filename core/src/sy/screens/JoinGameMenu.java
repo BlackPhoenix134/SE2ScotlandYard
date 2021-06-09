@@ -10,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
 
+import sy.DialogWindow.HostButton.HostBothEmpty;
+import sy.DialogWindow.HostButton.HostBothFilled;
+import sy.DialogWindow.HostButton.HostNameEmpty;
 import sy.DialogWindow.JoinButton.JoinBothEmpty;
 import sy.DialogWindow.JoinButton.JoinIpEmpty;
 import sy.DialogWindow.JoinButton.JoinNameEmpty;
@@ -99,15 +102,23 @@ public class JoinGameMenu extends AbstractScreen {
         addActorsToStage(leave);
 
         host.addListener(() -> {
-            if (!userIP.getText().trim().isEmpty()){
-               throw new Exception("IP muss nicht ausgefüllt werden");
-
-            }
-            else if (!userIP.getText().trim().isEmpty() && userName.getText().trim().isEmpty()){
-                throw new Exception("IP löschen oder Spielernamen eintragen");
+            if (!userIP.getText().trim().isEmpty() && !userName.getText().trim().isEmpty()){
+                HostBothFilled hostBothFilled = new HostBothFilled("ERROR", Dialogskin);
+                addActorsToStage(hostBothFilled);
+                hostBothFilled.setPosition(screenWidth/2f - hostBothFilled.getWidth() / 2f, screenHeight / 2f - hostBothFilled.getHeight() / 2f);
+                hostBothFilled.setSize(200,200);
             }
             else if(userIP.getText().trim().isEmpty() && userName.getText().trim().isEmpty()){
-                throw new Exception("Spielernamen eintragen");
+                HostBothEmpty hostBothEmpty = new HostBothEmpty("ERROR", Dialogskin);
+                addActorsToStage(hostBothEmpty);
+                hostBothEmpty.setPosition(screenWidth/2f - hostBothEmpty.getWidth() / 2f, screenHeight / 2f - hostBothEmpty.getHeight() / 2f);
+                hostBothEmpty.setSize(200,200);
+            }
+            else if (!userIP.getText().trim().isEmpty() && userName.getText().trim().isEmpty()){
+                HostNameEmpty hostNameEmpty = new HostNameEmpty("ERROR", Dialogskin);
+                addActorsToStage(hostNameEmpty);
+                hostNameEmpty.setPosition(screenWidth/2f - hostNameEmpty.getWidth() / 2f, screenHeight / 2f - hostNameEmpty.getHeight() / 2f);
+                hostNameEmpty.setSize(200,200);
             }
             else {
                 userName.setText(userName.getText());
@@ -135,7 +146,6 @@ public class JoinGameMenu extends AbstractScreen {
                 addActorsToStage(joinIpEmpty);
                 joinIpEmpty.setPosition(screenWidth/2f - joinIpEmpty.getWidth() / 2f, screenHeight / 2f - joinIpEmpty.getHeight() / 2f);
                 joinIpEmpty.setSize(200,200);
-
             }
             else if(!userIP.getText().trim().isEmpty() && userName.getText().trim().isEmpty()){
                 JoinNameEmpty joinNameEmpty = new JoinNameEmpty("ERROR", Dialogskin);
