@@ -10,6 +10,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Scaling;
 
+import sy.DialogWindow.JoinButton.JoinBothEmpty;
+import sy.DialogWindow.JoinButton.JoinIpEmpty;
+import sy.DialogWindow.JoinButton.JoinNameEmpty;
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.connection.ClientHandler;
@@ -24,6 +27,7 @@ public class JoinGameMenu extends AbstractScreen {
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+    Skin Dialogskin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 
 
     public JoinGameMenu(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
@@ -94,11 +98,9 @@ public class JoinGameMenu extends AbstractScreen {
         leave.setPosition(screenWidth-(leave.getWidth()/1.5f), screenHeight - leave.getHeight());
         addActorsToStage(leave);
 
-
-
         host.addListener(() -> {
             if (!userIP.getText().trim().isEmpty()){
-                throw new Exception("IP muss nicht ausgefüllt werden");
+               throw new Exception("IP muss nicht ausgefüllt werden");
 
             }
             else if (!userIP.getText().trim().isEmpty() && userName.getText().trim().isEmpty()){
@@ -122,8 +124,25 @@ public class JoinGameMenu extends AbstractScreen {
         join.addListener(() -> {
             //ToDo: check connection worked
             ClientHandler client = new ClientHandler(networkPackageCallbacks);
-            if (userIP.getText().isEmpty() || userName.getText().isEmpty()){
-                throw new Exception("Beide Felder ausfüllen");
+            if (userIP.getText().trim().isEmpty() && userName.getText().isEmpty()){
+                JoinBothEmpty joinBothEmpty = new JoinBothEmpty("ERROR", Dialogskin);
+                addActorsToStage(joinBothEmpty);
+                joinBothEmpty.setPosition(screenWidth/2f - joinBothEmpty.getWidth() / 2f, screenHeight / 2f - joinBothEmpty.getHeight() / 2f);
+                joinBothEmpty.setSize(200,200);
+            }
+            else if(userIP.getText().trim().isEmpty() && !userName.getText().trim().isEmpty()){
+                JoinIpEmpty joinIpEmpty = new JoinIpEmpty("ERROR", Dialogskin);
+                addActorsToStage(joinIpEmpty);
+                joinIpEmpty.setPosition(screenWidth/2f - joinIpEmpty.getWidth() / 2f, screenHeight / 2f - joinIpEmpty.getHeight() / 2f);
+                joinIpEmpty.setSize(200,200);
+
+            }
+            else if(!userIP.getText().trim().isEmpty() && userName.getText().trim().isEmpty()){
+                JoinNameEmpty joinNameEmpty = new JoinNameEmpty("ERROR", Dialogskin);
+                addActorsToStage(joinNameEmpty);
+                joinNameEmpty.setPosition(screenWidth/2f - joinNameEmpty.getWidth() / 2f, screenHeight / 2f - joinNameEmpty.getHeight() / 2f);
+                joinNameEmpty.setSize(200,200);
+
             }
             else {
                 userName.setText(userName.getText());
