@@ -48,16 +48,12 @@ public class MainMenuScreen extends AbstractScreen{
         img = new Image(SYAssetManager.getAsset(AssetDescriptors.BACK_G));
         img.setSize(2028,1080);
 
-
         Texture startGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DEVIL);
         btnStartGame = new AliveButton(startGameTexture);
         Vector2 btnStartGameSize = Scaling.fillX.apply(startGameTexture.getWidth(), startGameTexture.getHeight(), screenWidth * 0.50f, 0);
         btnStartGame.setSize(btnStartGameSize.x, btnStartGameSize.y);
-        btnStartGame.setPosition( screenWidth/2 - btnStartGame.getWidth()/2, screenHeight*0.5f-btnStartGame.getHeight()*0.5f);
-
-
-
-
+        btnStartGame.setPosition( screenWidth/2 - btnStartGame.getWidth()/2, screenHeight/2-btnStartGame.getHeight()/2);
+        
         btnStartGame.addListener(new AliveButton.AliveButtonListener() {
             @Override
             public void onClick() {
@@ -77,7 +73,6 @@ public class MainMenuScreen extends AbstractScreen{
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         super.render(delta); //this render the stage, which is responsible for the screen transitions
-        //batch.draw(img, 0,0,2028,1080);
     }
 
 

@@ -15,9 +15,7 @@ public final class AssetDescriptors {
     private static final String END = "EndScreen";
 
     public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(UI + "/StartDevil.png", Texture.class);
-    public static final AssetDescriptor<Texture> BUTTON_EXIT = new AssetDescriptor<>(UI + "/ExitDevilButton.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>(UI + "/JoinButton.png", Texture.class);
-    public static final AssetDescriptor<Texture> BUTTON_GAMEJOIN = new AssetDescriptor<>(UI + "/JoinGame.png", Texture.class);
     public static final AssetDescriptor<Texture> HOST_GAME = new AssetDescriptor<>(UI + "/HostGame.png", Texture.class);
     public static final AssetDescriptor<Texture> LEAVE = new AssetDescriptor<>(UI + "/exit.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_READY = new AssetDescriptor<>(UI + "/ReadyButton.png", Texture.class);
@@ -31,6 +29,7 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(END+"/LeaveGame.png", Texture.class);
 
     public static final AssetDescriptor<Texture> BACK_G = new AssetDescriptor<Texture>(BACK + "/337.png", Texture.class);
+
 
 
 
