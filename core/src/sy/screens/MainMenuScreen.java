@@ -6,8 +6,8 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Scaling;
 
 import sy.assets.AssetDescriptors;
@@ -21,9 +21,8 @@ public class MainMenuScreen extends AbstractScreen{
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
     Music background = Gdx.audio.newMusic(Gdx.files.internal("sounds/startMusic.mp3"));
+    Image img;
 
-    SpriteBatch batch;
-    Texture img;
 
 
 
@@ -46,6 +45,8 @@ public class MainMenuScreen extends AbstractScreen{
         background.play();
         AliveButton btnStartGame;
         float padding = screenHeight * 0.05f;
+        img = new Image(SYAssetManager.getAsset(AssetDescriptors.BACK_G));
+        img.setSize(2028,1080);
 
 
         Texture startGameTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DEVIL);
@@ -54,8 +55,6 @@ public class MainMenuScreen extends AbstractScreen{
         btnStartGame.setSize(btnStartGameSize.x, btnStartGameSize.y);
         btnStartGame.setPosition( screenWidth/2 - btnStartGame.getWidth()/2, screenHeight*0.5f-btnStartGame.getHeight()*0.5f);
 
-        batch = new SpriteBatch();
-        img = new Texture("background/337.jpg");
 
 
 
@@ -68,6 +67,7 @@ public class MainMenuScreen extends AbstractScreen{
                 pause();
             }
         });
+        addActorsToStage(img);
         addActorsToStage(btnStartGame);
 
     }
@@ -76,11 +76,8 @@ public class MainMenuScreen extends AbstractScreen{
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
         super.render(delta); //this render the stage, which is responsible for the screen transitions
         //batch.draw(img, 0,0,2028,1080);
-
-        batch.end();
     }
 
 

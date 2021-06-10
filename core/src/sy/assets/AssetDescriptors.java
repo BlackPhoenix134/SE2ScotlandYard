@@ -30,7 +30,7 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> DWon = new AssetDescriptor<>(END + "/DWon.png", Texture.class);
     public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(END+"/LeaveGame.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> BACK_G = new AssetDescriptor<Texture>(BACK + "/337.jpg", Texture.class);
+    public static final AssetDescriptor<Texture> BACK_G = new AssetDescriptor<Texture>(BACK + "/337.png", Texture.class);
 
 
 
