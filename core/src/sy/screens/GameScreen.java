@@ -258,5 +258,8 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     @Override
     public void onPlayerTurnChanged(PawnObject pawnObject) {
         Gdx.app.log("Changed Playerturn", pawnObject.getNetId()+ "");
+        camera.position.x = pawnObject.getMapNode().getPosition().x;
+        camera.position.y = pawnObject.getMapNode().getPosition().y;
+
     }
 }

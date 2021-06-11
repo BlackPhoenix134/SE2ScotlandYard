@@ -154,7 +154,7 @@ public class GameplayServer extends Gameplay {
 
         for (int i = 1; i < players.size(); i++) {
             //randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
-            randomNode = nodeGraphObject.getMapNodes().get(i);
+            randomNode = nodeGraphObject.getMapNodes().get(100);
             id = players.get(i).getConnectionId();
             server.sendAll(new AddPawnObject(id, randomNode.getId(), false), true);
         }
