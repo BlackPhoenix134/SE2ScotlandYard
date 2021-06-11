@@ -36,11 +36,14 @@ public class GameplayClient extends Gameplay {
             }
 
             if (playerTurnIF != null ){
-                PawnObject pawnObject = getCurrentPlayer();
-                if (pawnObject != pawnMisterXObject || gameround == 3 || gameround == 8 || gameround == 13 || gameround == 18 || gameround == 24){
-                    playerTurnIF.onPlayerTurnChanged(pawnObject);
+                if(gameround == 1){ //Start on own player pawn
+                    playerTurnIF.onPlayerTurnChanged(playerPawnObject);
+                }else{
+                    PawnObject pawnObject = getCurrentPlayer();
+                    if (pawnObject != pawnMisterXObject || gameround == 3 || gameround == 8 || gameround == 13 || gameround == 18 || gameround == 24){
+                        playerTurnIF.onPlayerTurnChanged(pawnObject);
+                    }
                 }
-
             }
         });
 
