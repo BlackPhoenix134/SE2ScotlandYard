@@ -32,6 +32,9 @@ public abstract class Gameplay {
     protected PawnObject playerPawnObject;
     protected int gameround = 0;
 
+    ScreenManager screenManager = new ScreenManager(GameStart.Instance);
+
+
 
 
     protected PlayerTurnIF playerTurnIF;
@@ -72,21 +75,21 @@ public abstract class Gameplay {
             }
         });
 
-        ScreenManager screenManager = new ScreenManager(GameStart.Instance);
-        screenManager.addScreen(new GameEndMrX(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
-        screenManager.addScreen(new GameEndDetectives(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
 
         callbacks.registerCallback(DetectivesWon.class, packageObj -> {
             DetectivesWon detectivesWon = (DetectivesWon) packageObj;
             Gdx.app.log("Winner: ", "The detectives won");
 
             //TODO: Show new screen
+
+            screenManager.addScreen(new GameEndDetectives(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
             screenManager.showScreen(GameEndDetectives.class);
         });
 
         callbacks.registerCallback(MisterXwon.class, packageObj -> {
             MisterXwon misterXwon = (MisterXwon) packageObj;
             //TODO: Show new screen
+            screenManager.addScreen(new GameEndMrX(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
             screenManager.showScreen(GameEndMrX.class);
             Gdx.app.log("Winner: ", "MisterX won");
         });

@@ -23,7 +23,6 @@ public class GameStart extends com.badlogic.gdx.Game {
     public ShaderManager shaderManager = new ShaderManager();
     public CameraPeripheral cameraPeripheral;
     public  OrthographicCamera camera;
-
     public static GameStart Instance = null;
 
 
