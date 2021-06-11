@@ -8,22 +8,23 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Scaling;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
-public class GameEndMrX extends AbstractScreen {
+public class GameEndDetectives extends AbstractScreen {
     private float screenWidth;
     private float screenHeight;
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
-    Image mrX = new Image(SYAssetManager.getAsset(AssetDescriptors.MrX));
-    Image xWon = new Image(SYAssetManager.getAsset(AssetDescriptors.MWon));
+    Image detec = new Image(SYAssetManager.getAsset(AssetDescriptors.Detectives));
+    Image dWon = new Image(SYAssetManager.getAsset(AssetDescriptors.DWon));
     Image backg = new Image (SYAssetManager.getAsset(AssetDescriptors.BACK_G));
-    Sound xWonSound = Gdx.audio.newSound(Gdx.files.internal("EndScreen/evilLaugh.wav"));
+    Sound dWonSound = Gdx.audio.newSound(Gdx.files.internal("EndScreen/DetectivesWin.wav"));
 
-    public GameEndMrX(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
+    public GameEndDetectives(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
@@ -52,13 +53,14 @@ public class GameEndMrX extends AbstractScreen {
             public void onClick() throws Exception {
                 sound.play();
                 screenManager.showScreen(MainMenuScreen.class);
+                pause();
             }
         });
-        xWonSound.play();
+        dWonSound.play();
         backg.setSize(2028,1080);
         addActorsToStage(backg);
-        addActorsToStage(mrX);
-        addActorsToStage(xWon);
+        addActorsToStage(detec);
+        addActorsToStage(dWon);
         addActorsToStage(leaveGame);
 
     }
