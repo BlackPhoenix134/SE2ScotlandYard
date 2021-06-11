@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import java.util.ArrayList;
 import java.util.List;
 
+import sy.GameStart;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.packages.DetectiveDies;
 import sy.connection.packages.DetectivesWon;
@@ -15,6 +16,9 @@ import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnDetectiveObject;
 import sy.gameObjects.PawnMisterXObject;
 import sy.gameObjects.PawnObject;
+import sy.screens.GameEndDetectives;
+import sy.screens.GameEndMrX;
+import sy.screens.ScreenManager;
 
 public abstract class Gameplay {
     protected Player localPlayer;
@@ -68,15 +72,22 @@ public abstract class Gameplay {
             }
         });
 
+        ScreenManager screenManager = new ScreenManager(GameStart.Instance);
+        screenManager.addScreen(new GameEndMrX(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
+        screenManager.addScreen(new GameEndDetectives(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
+
         callbacks.registerCallback(DetectivesWon.class, packageObj -> {
             DetectivesWon detectivesWon = (DetectivesWon) packageObj;
             Gdx.app.log("Winner: ", "The detectives won");
+
             //TODO: Show new screen
+            screenManager.showScreen(GameEndDetectives.class);
         });
 
         callbacks.registerCallback(MisterXwon.class, packageObj -> {
             MisterXwon misterXwon = (MisterXwon) packageObj;
             //TODO: Show new screen
+            screenManager.showScreen(GameEndMrX.class);
             Gdx.app.log("Winner: ", "MisterX won");
         });
     }
