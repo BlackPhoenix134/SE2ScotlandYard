@@ -60,6 +60,7 @@ public class MainMenuScreen extends AbstractScreen{
                 sound.play();
                 screenManager.showScreen(JoinGameMenu.class);
                 background.stop();
+                background.dispose();
                 pause();
             }
         });

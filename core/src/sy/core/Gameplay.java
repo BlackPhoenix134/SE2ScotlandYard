@@ -1,11 +1,16 @@
 package sy.core;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import sy.connection.NetworkPackageCallbacks;
-import sy.connection.packages.*;
+import sy.connection.packages.DetectiveDies;
+import sy.connection.packages.DetectivesWon;
+import sy.connection.packages.MisterXwon;
+import sy.connection.packages.MovePlayerObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnDetectiveObject;
@@ -23,6 +28,8 @@ public abstract class Gameplay {
     protected List<PawnDetectiveObject> pawnDetectiveObjectList = new ArrayList<>();
     protected PawnObject playerPawnObject;
     protected int gameround = 0;
+    Sound xWon = Gdx.audio.newSound(Gdx.files.internal("EndScreen/evilLaugh.wav"));
+    Sound dWon = Gdx.audio.newSound(Gdx.files.internal("EndScreen/DetectivesWin.wav"));
 
 
     protected Gameplay(Player localPlayer, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
@@ -63,6 +70,7 @@ public abstract class Gameplay {
         callbacks.registerCallback(DetectivesWon.class, packageObj -> {
             DetectivesWon detectivesWon = (DetectivesWon) packageObj;
             Gdx.app.log("Winner: ", "The detectives won");
+            dWon.play();
             //TODO: Show new screen
         });
 
@@ -70,6 +78,7 @@ public abstract class Gameplay {
             MisterXwon misterXwon = (MisterXwon) packageObj;
             //TODO: Show new screen
             Gdx.app.log("Winner: ", "MisterX won");
+            xWon.play();
         });
     }
 
