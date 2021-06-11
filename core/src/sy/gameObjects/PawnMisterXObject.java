@@ -21,8 +21,6 @@ public class PawnMisterXObject extends PawnObject {
 
     @Override
     public boolean removeTicket(TicketType type) {
-        if (turnSeries > 0)
-                turnSeries--;
 
         if (type == TicketType.BIKE || type == TicketType.HORSE || type == TicketType.DRAGON) {
             return true;
@@ -38,7 +36,6 @@ public class PawnMisterXObject extends PawnObject {
             case DOUBLETURN_TICKET:
                 if (tickets.doubleTurnTickets > 0) {
                     tickets.doubleTurnTickets--;
-                    turnSeries = 2;
                     return true;
                 }
                 break;

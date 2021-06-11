@@ -74,8 +74,11 @@ public class GameplayServer extends Gameplay {
                     break;
                 }
             }
-            if(ticketToRemove.ticket != TicketType.DOUBLETURN_TICKET){
+            if(ticketToRemove.ticket != TicketType.DOUBLETURN_TICKET && pawnMisterXObject.turnSeries == 0){
                 changeTurn();
+            }
+            if(pawnMisterXObject.turnSeries > 0){
+                pawnMisterXObject.turnSeries--;
             }
 
         });
@@ -153,7 +156,7 @@ public class GameplayServer extends Gameplay {
         }
     }
 
-    int test = 5;
+    int test = 0;
 
     @Override
     public void movePlayer(MapNode newNode, TicketType ticketType) {
@@ -183,6 +186,7 @@ public class GameplayServer extends Gameplay {
                     }
                 }
             } else {
+                pawnMisterXObject.turnSeries = 2;
                 server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
             }
         }
