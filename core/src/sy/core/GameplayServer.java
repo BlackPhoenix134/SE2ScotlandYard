@@ -62,11 +62,11 @@ public class GameplayServer extends Gameplay {
             for (PawnObject pawnObject : pawnObjectList) {
                 if (pawnObject.getNetId() == ticketToRemove.netID) {
                     pawnObject.removeTicket(ticketToRemove.ticket);
-                    if (!hasTickets(pawnObject)){
+                    if (!hasTickets(pawnObject)) {
                         server.sendAll(new DetectiveDies(pawnObject.getNetId()), true);
                         turnIDQueue.remove(pawnObject.getNetId());
-                        if (turnIDQueue.size() == 1){
-                            if(pawnObject.getMapNode().getId() != pawnMisterXObject.getMapNode().getId()){
+                        if (turnIDQueue.size() == 1) {
+                            if (pawnObject.getMapNode().getId() != pawnMisterXObject.getMapNode().getId()) {
                                 server.sendAll(new MisterXwon(pawnMisterXObject.getNetId()), true);
                             }
                         }
@@ -74,10 +74,10 @@ public class GameplayServer extends Gameplay {
                     break;
                 }
             }
-            if(ticketToRemove.ticket != TicketType.DOUBLETURN_TICKET && pawnMisterXObject.turnSeries == 0){
+            if (ticketToRemove.ticket != TicketType.DOUBLETURN_TICKET && pawnMisterXObject.turnSeries == 0) {
                 changeTurn();
             }
-            if(pawnMisterXObject.turnSeries > 0){
+            if (pawnMisterXObject.turnSeries > 0) {
                 pawnMisterXObject.turnSeries--;
             }
 
@@ -89,7 +89,7 @@ public class GameplayServer extends Gameplay {
                 PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new MisterXTickets(10, 2));
-                if(localPlayer.getCustomTexture() == null)
+                if (localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1));
                 else
                     playerPawn.setTexture(new Texture(new Pixmap(localPlayer.getCustomTexture(), 0, localPlayer.getCustomTexture().length)));
@@ -104,7 +104,7 @@ public class GameplayServer extends Gameplay {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new DetectiveTickets(4, 0, 0));
-                if(localPlayer.getCustomTexture() == null)
+                if (localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3));
                 else
                     playerPawn.setTexture(new Texture(new Pixmap(localPlayer.getCustomTexture(), 0, localPlayer.getCustomTexture().length)));
@@ -125,10 +125,10 @@ public class GameplayServer extends Gameplay {
 
     }
 
-    public boolean hasTickets(PawnObject pawnObject){
-        if (pawnObject instanceof PawnMisterXObject){
+    public boolean hasTickets(PawnObject pawnObject) {
+        if (pawnObject instanceof PawnMisterXObject) {
             return true;
-        }else if(pawnObject instanceof  PawnDetectiveObject){
+        } else if (pawnObject instanceof PawnDetectiveObject) {
             if (!pawnObject.hasEnoughTickets(TicketType.BIKE) && !pawnObject.hasEnoughTickets(TicketType.HORSE) && !pawnObject.hasEnoughTickets(TicketType.DRAGON)) {
                 return false;
             }
@@ -180,9 +180,6 @@ public class GameplayServer extends Gameplay {
                         if (newNode.getId() == pawnDetectiveObject.getMapNode().getId()) {
                             server.sendAll(new DetectivesWon(pawnMisterXObject.getNetId()));
                         }
-                    }
-                    if (pawnMisterXObject.turnSeries == 0) {
-                        //changeTurn();
                     }
                 }
             } else {
