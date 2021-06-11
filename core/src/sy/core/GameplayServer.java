@@ -49,6 +49,10 @@ public class GameplayServer extends Gameplay {
             PlayerTurn playerTurn = (PlayerTurn) packageObj;
             setPlayerTurnId(playerTurn.id);
 
+            if (playerTurnIF != null) {
+                playerTurnIF.onPlayerTurnChanged(getCurrentPlayer());
+            }
+
         });
 
         callbacks.registerCallback(DetectivesWonRequest.class, packageObj -> {

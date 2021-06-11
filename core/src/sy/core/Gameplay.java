@@ -31,6 +31,8 @@ public abstract class Gameplay {
     Sound xWon = Gdx.audio.newSound(Gdx.files.internal("EndScreen/evilLaugh.wav"));
     Sound dWon = Gdx.audio.newSound(Gdx.files.internal("EndScreen/DetectivesWin.wav"));
 
+    protected PlayerTurnIF playerTurnIF;
+
 
     protected Gameplay(Player localPlayer, List<Player> players, NetworkPackageCallbacks callbacks, GameObjectManager gameObjectManager) {
         this.localPlayer = localPlayer;
@@ -56,10 +58,10 @@ public abstract class Gameplay {
             }
         });
 
-        callbacks.registerCallback(DetectiveDies.class, packageObj ->{
+        callbacks.registerCallback(DetectiveDies.class, packageObj -> {
             DetectiveDies detectiveDies = (DetectiveDies) packageObj;
-            for (PawnDetectiveObject pawnDetectiveObject: pawnDetectiveObjectList){
-                if (pawnDetectiveObject.getNetId() == detectiveDies.netID){
+            for (PawnDetectiveObject pawnDetectiveObject : pawnDetectiveObjectList) {
+                if (pawnDetectiveObject.getNetId() == detectiveDies.netID) {
                     pawnDetectiveObject.setAlive(false);
                     pawnDetectiveObjectList.remove(pawnDetectiveObject);
                     break;
@@ -74,14 +76,13 @@ public abstract class Gameplay {
             //TODO: Show new screen
         });
 
-        callbacks.registerCallback(MisterXwon.class, packageObj ->{
+        callbacks.registerCallback(MisterXwon.class, packageObj -> {
             MisterXwon misterXwon = (MisterXwon) packageObj;
             //TODO: Show new screen
             Gdx.app.log("Winner: ", "MisterX won");
             xWon.play();
         });
     }
-
 
 
     public List<PawnObject> getPawnObjects() {
@@ -107,4 +108,17 @@ public abstract class Gameplay {
 
     public abstract void movePlayer(MapNode toNode, sy.core.Tickets.TicketType ticketType);
 
+    public void setPlayerTurnIF(PlayerTurnIF playerTurnIF) {
+        this.playerTurnIF = playerTurnIF;
+    }
+
+    public PawnObject getCurrentPlayer() {
+        List<PawnObject> list = getPawnObjects();
+        for (PawnObject pawnObject : list) {
+            if (pawnObject.getNetId() == playerTurnId) {
+                return pawnObject;
+            }
+        }
+        return null;
+    }
 }

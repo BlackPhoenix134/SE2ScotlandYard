@@ -19,16 +19,13 @@ import sy.assets.ShaderManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
-import sy.core.Gameplay;
-import sy.core.GameplayClient;
-import sy.core.GameplayServer;
+import sy.core.*;
 import sy.core.LivingBoard.CritterSpawnerManager;
-import sy.core.MapNode;
-import sy.core.Player;
 import sy.core.Tickets.TicketType;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
+import sy.gameObjects.PawnObject;
 import sy.input.InputHandler;
 import sy.input.PanListener;
 import sy.input.TouchDownListener;
@@ -37,7 +34,7 @@ import sy.input.ZoomListener;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
-public class GameScreen extends AbstractScreen implements TouchDownListener, TouchUpListener, ZoomListener, PanListener {
+public class GameScreen extends AbstractScreen implements TouchDownListener, TouchUpListener, ZoomListener, PanListener, PlayerTurnIF {
     private final float TICKS = 1f / 60f;
     private float tickAccumulation = 0;
     private GameObjectManager gameObjectManager = new GameObjectManager();
@@ -120,16 +117,19 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
         this.gameplay = new GameplayServer(localPlayer, players, handler, gameObjectManager);
+        this.gameplay.setPlayerTurnIF(this);
         initialize(gameplay, callbacks);
     }
 
     public void initialize(ClientHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
         this.gameplay = new GameplayClient(localPlayer, players, handler, gameObjectManager);
+        this.gameplay.setPlayerTurnIF(this);
         initialize(gameplay, callbacks);
     }
 
     private void initialize(Gameplay gameplay, NetworkPackageCallbacks callbacks) {
         this.callbacks = callbacks;
+        this.gameplay.setPlayerTurnIF(this);
         gameplay.initialize(nodeGraphObject);
     }
 
@@ -255,4 +255,8 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     }
 
 
+    @Override
+    public void onPlayerTurnChanged(PawnObject pawnObject) {
+        Gdx.app.log("Changed Playerturn", pawnObject.getNetId()+ "");
+    }
 }

@@ -34,6 +34,10 @@ public class GameplayClient extends Gameplay {
                     pawnMisterXObject.setShouldDraw(false);
                 }
             }
+
+            if (playerTurnIF != null){
+                playerTurnIF.onPlayerTurnChanged(getCurrentPlayer());
+            }
         });
 
         callbacks.registerCallback(RemoveTicket.class, packageObj -> {
