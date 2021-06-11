@@ -43,6 +43,8 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     private InputHandler inputHandler;
     private Vector2 dragValue = new Vector2();
     private Vector2 oldDragValue = new Vector2();
+    private boolean moveCamToPawnObject = false;
+    private Vector2 camDestinationPosition = new Vector2();
     private float currentScale = 1;
     private float zoomValue = 1;
     private ScreenManager screenManager;
@@ -199,9 +201,42 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
             camera.position.set(clampCam(camera.position, gameBoardObject.getBoundingBox()));
         }
+        if(moveCamToPawnObject)
+            moveCamToPosition();
+
         camera.update();
     }
 
+    private void moveCamToPosition(){
+        float tolerance = 25 / this.zoomValue;
+        float camSpeedFactor = 25 / this.zoomValue;
+        if(camera.position.x + tolerance >= camDestinationPosition.x && camera.position.x - tolerance <= camDestinationPosition.x
+            && camera.position.y + tolerance >= camDestinationPosition.y && camera.position.y - tolerance <= camDestinationPosition.y) {
+            moveCamToPawnObject = false;
+            return;
+        }
+
+        float lengthX = Math.abs(camera.position.x - camDestinationPosition.x);
+        float lengthY = Math.abs(camera.position.y - camDestinationPosition.y);
+        float camSpeedX = 1;
+        float camSpeedY = 1;
+        if(lengthX > lengthY){
+            camSpeedY = lengthY / lengthX;
+        } else if(lengthX < lengthY){
+            camSpeedX = lengthX / lengthY;
+        }
+
+        if(camera.position.x + tolerance < camDestinationPosition.x){
+            camera.position.x += camSpeedFactor * camSpeedX;
+        } else if(camera.position.x - tolerance > camDestinationPosition.x){
+            camera.position.x -= camSpeedFactor * camSpeedX;
+        }
+        if(camera.position.y + tolerance < camDestinationPosition.y){
+            camera.position.y += camSpeedFactor * camSpeedY;
+        } else if(camera.position.y - tolerance > camDestinationPosition.y){
+            camera.position.y -= camSpeedFactor * camSpeedY;
+        }
+    }
 
     private Vector3 clampCam(Vector3 position, Rectangle boundingBox) {
         return new Vector3(clamp(position.x, boundingBox.x, boundingBox.width), clamp(position.y, boundingBox.y, boundingBox.height), position.z);
@@ -257,9 +292,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     @Override
     public void onPlayerTurnChanged(PawnObject pawnObject) {
-        Gdx.app.log("Changed Playerturn", pawnObject.getNetId()+ "");
-        camera.position.x = pawnObject.getMapNode().getPosition().x;
-        camera.position.y = pawnObject.getMapNode().getPosition().y;
-
+        moveCamToPawnObject = true;
+        camDestinationPosition = pawnObject.getMapNode().getPosition();
     }
 }
