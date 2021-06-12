@@ -1,6 +1,9 @@
 package sy.core;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +19,6 @@ import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnDetectiveObject;
 import sy.gameObjects.PawnMisterXObject;
 import sy.gameObjects.PawnObject;
-import sy.screens.GameEndDetectives;
-import sy.screens.GameEndMrX;
 import sy.screens.ScreenManager;
 
 public abstract class Gameplay {
@@ -31,8 +32,10 @@ public abstract class Gameplay {
     protected List<PawnDetectiveObject> pawnDetectiveObjectList = new ArrayList<>();
     protected PawnObject playerPawnObject;
     protected int gameround = 0;
-
+    private Array<GamePlayListener> listeners = new Array<>();
     ScreenManager screenManager = new ScreenManager(GameStart.Instance);
+    Music decWon = Gdx.audio.newMusic(Gdx.files.internal("EndScreen/DetectivesWin.wav"));
+    Sound mrXWon = Gdx.audio.newSound(Gdx.files.internal("EndScreen/evilLaugh.wav"));
 
 
 
@@ -77,21 +80,29 @@ public abstract class Gameplay {
 
 
         callbacks.registerCallback(DetectivesWon.class, packageObj -> {
+            //this isnt being used, but you can add a parameter to onDetectiveWin and use it if need it
             DetectivesWon detectivesWon = (DetectivesWon) packageObj;
-            Gdx.app.log("Winner: ", "The detectives won");
-
+            decWon.play();
             //TODO: Show new screen
-
-            screenManager.addScreen(new GameEndDetectives(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
-            screenManager.showScreen(GameEndDetectives.class);
+            for(GamePlayListener listener: listeners){
+                listener.onDetectiveWin();
+            }
+            //screenManager.addScreen(new GameEndDetectives(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
+            //screenManager.showScreen(GameEndDetectives.class);
+            //Gdx.app.log("Winner: ", "The detectives won");
         });
 
         callbacks.registerCallback(MisterXwon.class, packageObj -> {
+            //this isnt being used, but you can add a parameter to onDetectiveWin and use it if need it
             MisterXwon misterXwon = (MisterXwon) packageObj;
             //TODO: Show new screen
-            screenManager.addScreen(new GameEndMrX(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
-            screenManager.showScreen(GameEndMrX.class);
-            Gdx.app.log("Winner: ", "MisterX won");
+            mrXWon.play();
+            for(GamePlayListener listener: listeners){
+                listener.onMisterXWin();
+            }
+            //screenManager.addScreen(new GameEndMrX(GameStart.Instance.renderPipeline, GameStart.Instance.camera, screenManager));
+            //screenManager.showScreen(GameEndMrX.class);
+            //Gdx.app.log("Winner: ", "MisterX won");
         });
     }
 
@@ -131,5 +142,18 @@ public abstract class Gameplay {
             }
         }
         return null;
+    }
+
+    public void addListener(GamePlayListener listener){
+        listeners.add(listener);
+    }
+
+    public void removeListener(GamePlayListener listener){
+        listeners.removeValue(listener,false);
+    }
+
+    public interface GamePlayListener{
+        void onDetectiveWin();
+        void onMisterXWin();
     }
 }

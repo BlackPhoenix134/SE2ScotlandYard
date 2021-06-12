@@ -12,9 +12,13 @@ import com.badlogic.gdx.utils.Array;
 
 public class AliveButton extends Button {
 
-    Array<AliveButtonListener> listeners = new Array<>();
+    private final int originalHeight;
+    private final int originalWidth;
+    private Array<AliveButtonListener> listeners = new Array<>();
 
     public AliveButton(Texture texture) {
+        originalWidth = texture.getWidth();
+        originalHeight = texture.getHeight();
         Drawable drawable = new TextureRegionDrawable(texture);
         setStyle(new ButtonStyle(drawable, drawable, drawable));
         setSize(getPrefWidth(), getPrefHeight());
@@ -62,6 +66,16 @@ public class AliveButton extends Button {
 
     public void removeListener(AliveButtonListener listener){
         listeners.removeValue(listener, false);
+    }
+
+    public void fillX(float width){
+        float per = width/originalWidth;
+        setSize(originalWidth * per, originalHeight * per);
+    }
+
+    public void fillY(float height){
+        float per = height/originalHeight;
+        setSize(originalWidth * per, originalHeight * per);
     }
 
     public interface AliveButtonListener {
