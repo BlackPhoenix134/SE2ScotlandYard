@@ -5,11 +5,12 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import java.util.List;
 
@@ -19,8 +20,13 @@ import sy.assets.ShaderManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
-import sy.core.*;
+import sy.core.Gameplay;
+import sy.core.GameplayClient;
+import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
+import sy.core.MapNode;
+import sy.core.Player;
+import sy.core.PlayerTurnIF;
 import sy.core.Tickets.TicketType;
 import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
@@ -33,6 +39,7 @@ import sy.input.TouchUpListener;
 import sy.input.ZoomListener;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
+import sy.ui.FillableImage;
 
 public class GameScreen extends AbstractScreen implements TouchDownListener, TouchUpListener, ZoomListener, PanListener, PlayerTurnIF {
     private final float TICKS = 1f / 60f;
@@ -58,6 +65,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
 
     private World world = new World(new Vector2(0, 0), true);
+    private FillableImage dWonTop, dWonBottom, mrxWonTop, mrxWonBottom;
 
     public GameScreen(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager, ShaderManager shaderManager) {
         this.renderPipeline = renderPipeline;
@@ -74,47 +82,71 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
 
     @Override
     public void buildStage() {
-        AliveButton btnMisterX;
-        AliveButton btnDetective;
+        //I commented this, because it was being created but never was being displayed
+        //it was because you needed to add super.render(delta) at the render method of this class
+        //if you uncomment the code below it will show the buttons..
+        /**
+         AliveButton btnMisterX;
+         AliveButton btnDetective;
 
-        Texture MisterXTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_MISTERX);
-        Texture DetectiveTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DETECTIVE);
+         Texture MisterXTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_MISTERX);
+         Texture DetectiveTexture = SYAssetManager.getAsset(AssetDescriptors.BUTTON_DETECTIVE);
 
-        btnMisterX = new AliveButton(MisterXTexture);
-        btnDetective = new AliveButton(DetectiveTexture);
+         btnMisterX = new AliveButton(MisterXTexture);
+         btnDetective = new AliveButton(DetectiveTexture);
 
-        Vector2 btnMisterXsize = Scaling.fillX.apply(MisterXTexture.getWidth(), MisterXTexture.getHeight(), getViewport().getScreenWidth() * 0.5f, 0);
-        Vector2 btnDetectivesize = Scaling.fillX.apply(DetectiveTexture.getWidth(), DetectiveTexture.getHeight(), getViewport().getScreenWidth() * 0.5f, 0);
+         Vector2 btnMisterXsize = Scaling.fillX.apply(MisterXTexture.getWidth(), MisterXTexture.getHeight(), getViewport().getScreenWidth() * 0.5f, 0);
+         Vector2 btnDetectivesize = Scaling.fillX.apply(DetectiveTexture.getWidth(), DetectiveTexture.getHeight(), getViewport().getScreenWidth() * 0.5f, 0);
 
-        btnMisterX.setSize(btnMisterXsize.x, btnMisterXsize.y);
-        btnDetective.setSize(btnDetectivesize.x, btnDetectivesize.y);
+         btnMisterX.setSize(btnMisterXsize.x, btnMisterXsize.y);
+         btnDetective.setSize(btnDetectivesize.x, btnDetectivesize.y);
 
-        btnMisterX.setPosition(10, 10);
-        btnDetective.setPosition(30, 10);
+         btnMisterX.setPosition(10, 10);
+         btnDetective.setPosition(30, 10);
 
-        btnMisterX.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                sound.play();
-            }
-        });
-        addActorsToStage(btnDetective);
+         btnMisterX.addListener(() -> sound.play());
 
-        btnDetective.addListener(new AliveButton.AliveButtonListener() {
-            @Override
-            public void onClick() {
-                sound.play();
-            }
-        });
+         btnDetective.addListener(() -> sound.play());
 
-        addActorsToStage(btnMisterX);
-
-
+         addActorsToStage(btnDetective, btnMisterX);
+         **/
         /*
         ShaderDebugObject obj = gameObjectManager.create(ShaderDebugObject.class);
         obj.setSprite(new Sprite(SYAssetManager.getAsset(AssetDescriptors.BIKE)));
         obj.setShader(shaderManager.loadShader(Gdx.files.internal("passthrough.vert.glsl").path(), Gdx.files.internal("flowmap.frag.glsl").path()));
         */
+    }
+
+    private void animateEndImages(Texture topTexture, Texture bottomTexture) {
+        Gdx.input.setInputProcessor(this);
+        FillableImage top  = new FillableImage(topTexture);
+        FillableImage bottom  = new FillableImage(bottomTexture);
+        AliveButton  leaveButton = new AliveButton(SYAssetManager.getAsset(AssetDescriptors.LEAVE_GAME));
+
+        top.fillX(Gdx.graphics.getWidth()/2);
+        bottom.fillX(Gdx.graphics.getWidth()/2);
+        leaveButton.fillX(top.getWidth() * 0.65f);
+
+        leaveButton.setPosition(-leaveButton.getWidth()*2f, Gdx.graphics.getHeight()/2 - leaveButton.getHeight()/2);
+        top.setPosition(Gdx.graphics.getWidth()/2 - top.getWidth()/2, Gdx.graphics.getHeight());
+        bottom.setPosition(Gdx.graphics.getWidth()/2 - bottom.getWidth()/2, -bottom.getHeight());
+
+        leaveButton.addAction(Actions.sequence(
+                Actions.moveTo(Gdx.graphics.getWidth()/2 - leaveButton.getWidth()/2,leaveButton.getY(), 0.5f, Interpolation.circleOut)
+        ));
+
+        top.addAction(Actions.sequence(
+                Actions.moveTo(top.getX(), Gdx.graphics.getHeight()/2 - top.getHeight()/2, 0.5f, Interpolation.circleOut)
+        ));
+        bottom.addAction(Actions.sequence(
+                Actions.moveTo(bottom.getX(), Gdx.graphics.getHeight()/2 - bottom.getHeight()/2, 0.5f, Interpolation.circleOut)
+        ));
+
+        leaveButton.addListener(() -> {
+            //TODO change the screen here
+            //screenManager.showScreen();
+        });
+        addActorsToStage(top, bottom, leaveButton);
     }
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
@@ -133,6 +165,19 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         this.callbacks = callbacks;
         this.gameplay.setPlayerTurnIF(this);
         gameplay.initialize(nodeGraphObject);
+
+        gameplay.addListener(new Gameplay.GamePlayListener() {
+
+            @Override
+            public void onDetectiveWin() {
+                animateEndImages(SYAssetManager.getAsset(AssetDescriptors.Detectives), SYAssetManager.getAsset(AssetDescriptors.DWon));
+            }
+
+            @Override
+            public void onMisterXWin() {
+                animateEndImages(SYAssetManager.getAsset(AssetDescriptors.MrX), SYAssetManager.getAsset(AssetDescriptors.MWon));
+            }
+        });
     }
 
     @Override
@@ -146,6 +191,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
             stepTick(delta);
         }
         stepFastUpdate(delta);
+        super.render(delta);
     }
 
     private void stepTick(float delta) {
@@ -211,7 +257,7 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         float tolerance = 25 / this.zoomValue;
         float camSpeedFactor = 25 / this.zoomValue;
         if(camera.position.x + tolerance >= camDestinationPosition.x && camera.position.x - tolerance <= camDestinationPosition.x
-            && camera.position.y + tolerance >= camDestinationPosition.y && camera.position.y - tolerance <= camDestinationPosition.y) {
+                && camera.position.y + tolerance >= camDestinationPosition.y && camera.position.y - tolerance <= camDestinationPosition.y) {
             moveCamToPawnObject = false;
             return;
         }
