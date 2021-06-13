@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainMenuScreenTest {
+class JoinGameMenuTest {
 
     //cannot test this class :/
     @BeforeEach
