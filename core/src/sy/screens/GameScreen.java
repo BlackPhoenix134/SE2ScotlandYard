@@ -266,7 +266,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
 
     private void onMapNodeClicked(MapNode mapNode) {
         //ToDo: get correct ticket type options here
-        TicketSelectDialog ticketSelectDialog = new TicketSelectDialog("bong", uiSkin, new ArrayList<TicketType>() {{
+        /*TicketSelectDialog ticketSelectDialog = new TicketSelectDialog("bong", uiSkin, new ArrayList<TicketType>() {{
             add(TicketType.BIKE);
             add(TicketType.HORSE);
         }}) {
@@ -279,7 +279,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
                 }
             }
         };
-        addActorsToStage(ticketSelectDialog);
+        addActorsToStage(ticketSelectDialog);*/
         gameplay.movePlayer(mapNode, TicketType.BIKE);
     }
 
