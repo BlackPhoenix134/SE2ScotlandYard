@@ -10,9 +10,7 @@ public final class AssetDescriptors {
     private static final String UI = "ui";
     private static final String WORLD = "world";
     private static final String CHARACTERS = WORLD + "/characters";
-    private static final String TICKETS = WORLD + "/tickets";
     private static final String BACK = "background";
-    private static final String END = "EndScreen";
 
     public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(UI + "/StartDevil.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>(UI + "/JoinButton.png", Texture.class);
@@ -22,11 +20,11 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> BUTTON_START = new AssetDescriptor<>(UI + "/Start.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_PHOTO = new AssetDescriptor<>(UI + "/TakePhoto.png", Texture.class);
     public static final AssetDescriptor<Texture> VISUAL_READY = new AssetDescriptor<>(UI + "/PlayReady.png", Texture.class);
-    public static final AssetDescriptor<Texture> MrX = new AssetDescriptor<>(END+ "/MrX.png", Texture.class);
-    public static final AssetDescriptor<Texture> MWon = new AssetDescriptor<>(END+"/Won.png", Texture.class);
-    public static final AssetDescriptor<Texture> Detectives = new AssetDescriptor<>(END+"/Detectives.png", Texture.class);
-    public static final AssetDescriptor<Texture> DWon = new AssetDescriptor<>(END + "/DWon.png", Texture.class);
-    public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(END+"/LeaveGame.png", Texture.class);
+    public static final AssetDescriptor<Texture> MrX = new AssetDescriptor<>(UI+ "/MrX.png", Texture.class);
+    public static final AssetDescriptor<Texture> MWon = new AssetDescriptor<>(UI+"/Won.png", Texture.class);
+    public static final AssetDescriptor<Texture> Detectives = new AssetDescriptor<>(UI+"/Detectives.png", Texture.class);
+    public static final AssetDescriptor<Texture> DWon = new AssetDescriptor<>(UI + "/DWon.png", Texture.class);
+    public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(UI+"/LeaveGame.png", Texture.class);
 
     public static final AssetDescriptor<Texture> BACK_G = new AssetDescriptor<Texture>(BACK + "/337.png", Texture.class);
 
@@ -42,11 +40,11 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> GHOST_WALKING = new AssetDescriptor<>(CHARACTERS + "/ghostWalking.png", Texture.class);
     public static final AssetDescriptor<Texture> SPIDER_WALKING = new AssetDescriptor<>(CHARACTERS + "/spiderWalking.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> BIKE = new AssetDescriptor<>(TICKETS + "/bike.png", Texture.class);
-    public static final AssetDescriptor<Texture> BLACK_TICKET = new AssetDescriptor<>(TICKETS + "/blackticket.png", Texture.class);
-    public static final AssetDescriptor<Texture> DOUBLE_TICKET = new AssetDescriptor<>(TICKETS + "/doubleticket.png", Texture.class);
-    public static final AssetDescriptor<Texture> DRAGON = new AssetDescriptor<>(TICKETS + "/dragon.png", Texture.class);
-    public static final AssetDescriptor<Texture> HORSE = new AssetDescriptor<>(TICKETS + "/horse.png", Texture.class);
+    public static final AssetDescriptor<Texture> BIKE = new AssetDescriptor<>(UI + "/bike.png", Texture.class);
+    public static final AssetDescriptor<Texture> BLACK_TICKET = new AssetDescriptor<>(UI + "/blackticket.png", Texture.class);
+    public static final AssetDescriptor<Texture> DOUBLE_TICKET = new AssetDescriptor<>(UI + "/doubleticket.png", Texture.class);
+    public static final AssetDescriptor<Texture> DRAGON = new AssetDescriptor<>(UI + "/dragon.png", Texture.class);
+    public static final AssetDescriptor<Texture> HORSE = new AssetDescriptor<>(UI + "/horse.png", Texture.class);
 
     public static final AssetDescriptor<Texture> BUTTON_MISTERX = new AssetDescriptor<>(UI + "/btnMisterX.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_DETECTIVE = new AssetDescriptor<>(UI + "/btnDetective.png", Texture.class);
