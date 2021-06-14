@@ -56,6 +56,5 @@ public class DefaultRenderer implements Disposable {
         } else {
             batch.setShader(shader);
         }
-
     }
 }

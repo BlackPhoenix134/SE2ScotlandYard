@@ -6,12 +6,13 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sy.assets.AssetDescriptors;
@@ -20,11 +21,16 @@ import sy.assets.ShaderManager;
 import sy.connection.ClientHandler;
 import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
+import sy.core.CameraData;
+import sy.core.Clickable;
 import sy.core.Gameplay;
 import sy.core.GameplayClient;
 import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
+import sy.core.ObjectClickHandler;
+import sy.core.Physics.Area2D;
+import sy.core.Physics.Rectangle;
 import sy.core.Player;
 import sy.core.PlayerTurnIF;
 import sy.core.Tickets.TicketType;
@@ -32,37 +38,34 @@ import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnObject;
-import sy.input.InputHandler;
-import sy.input.PanListener;
-import sy.input.TouchDownListener;
-import sy.input.TouchUpListener;
-import sy.input.ZoomListener;
+import sy.input.prio.InputEvent;
+import sy.input.prio.InputEventType;
+import sy.input.prio.InputHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 import sy.ui.FillableImage;
+import sy.ui.TicketSelectDialog;
 
-public class GameScreen extends AbstractScreen implements TouchDownListener, TouchUpListener, ZoomListener, PanListener, PlayerTurnIF {
+public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     private final float TICKS = 1f / 60f;
     private float tickAccumulation = 0;
     private GameObjectManager gameObjectManager = new GameObjectManager();
     private RenderPipeline renderPipeline;
     private OrthographicCamera camera;
     private InputHandler inputHandler;
-    private Vector2 dragValue = new Vector2();
-    private Vector2 oldDragValue = new Vector2();
     private boolean moveCamToPawnObject = false;
     private Vector2 camDestinationPosition = new Vector2();
-    private float currentScale = 1;
-    private float zoomValue = 1;
     private ScreenManager screenManager;
     private GameBoardObject gameBoardObject;
     private CritterSpawnerManager critterSpawnerManager;
     private NodeGraphObject nodeGraphObject;
     private ShaderManager shaderManager;
-    private TicketType ticketType;
     private Gameplay gameplay;
     private NetworkPackageCallbacks callbacks;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    private Skin uiSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+    private CameraData cameraData;
+    private ObjectClickHandler objectClickHandler;
 
     private World world = new World(new Vector2(0, 0), true);
     private FillableImage dWonTop, dWonBottom, mrxWonTop, mrxWonBottom;
@@ -72,6 +75,9 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         this.camera = camera;
         this.screenManager = screenManager;
         this.shaderManager = shaderManager;
+        this.cameraData = new CameraData(camera);
+        inputHandler = new InputHandler();
+        objectClickHandler = new ObjectClickHandler(cameraData, inputHandler);
         nodeGraphObject = gameObjectManager.create(NodeGraphObject.class);
         gameBoardObject = gameObjectManager.create(GameBoardObject.class);
         Texture gameBoardTexture = SYAssetManager.getAsset(AssetDescriptors.GAME_BOARD);
@@ -204,23 +210,80 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         renderPipeline.begin();
         gameObjectManager.draw(delta, renderPipeline);
         renderPipeline.end();
-        updateCam();
+        cameraData.update();
         renderPipeline.updateBatchMatrix();
     }
 
 
     @Override
     public void show() {
-        setUpInputHandler();
+        setupInputhandler();
+        setupInputEvents();
+        setupGameObjectEvents();
     }
 
-    private void setUpInputHandler() {
-        this.inputHandler = new InputHandler();
-        this.inputHandler.setTouchUpListener(this);
-        this.inputHandler.setTouchDownListener(this);
-        this.inputHandler.setZoomListener(this);
-        this.inputHandler.setPanListener(this);
+    private void setupInputhandler() {
+        Gdx.input.setInputProcessor(inputHandler.getInputMultiplexer());
+        inputHandler.unsubscribeAll();
     }
+
+    private void setupInputEvents() {
+        this.inputHandler.addListener(InputEventType.TOUCH_DOWN, 100, inputEvent -> {
+            Vector3 worldPos = cameraData.getOrthographicCamera().unproject(new Vector3(inputEvent.getX1(), inputEvent.getX2(), 0f));
+        });
+        this.inputHandler.addListener(InputEventType.TOUCH_DOWN, 100,
+                inputEvent -> cameraData.setCurrentScale(cameraData.getZoomValue()));
+        this.inputHandler.addListener(InputEventType.ZOOM, 100, inputEvent -> {
+            float ratio = inputEvent.getX1() / inputEvent.getX2();
+            cameraData.setZoomValue(cameraData.getCurrentScale() * ratio);
+        });
+        this.inputHandler.addListener( InputEventType.PAN, 100, inputEvent -> cameraData.getDragValue().set(inputEvent.getX3(), inputEvent.getX4()));
+    }
+    private void setupGameObjectEvents() {
+        objectClickHandler.subscribeEvents();
+
+        for(MapNode mapNode : nodeGraphObject.getMapNodes()) {
+            objectClickHandler.addTouchDownClickable(new Clickable() {
+                @Override
+                public void onClicked(InputEvent inputEvent) {
+                    inputEvent.setConsumed(true);
+                    onMapNodeClicked(mapNode);
+                }
+
+                @Override
+                public Vector2 getPosition() {
+                    return mapNode.getPosition();
+                }
+
+                @Override
+                public Area2D getArea2D() {
+                    Vector2 pos = getPosition();
+                    return new Rectangle(pos.x - 20, pos.y - 20, 40, 40);
+                }
+            }, 10, false);
+        }
+    }
+
+    private void onMapNodeClicked(MapNode mapNode) {
+        //ToDo: get correct ticket type options here
+        TicketSelectDialog ticketSelectDialog = new TicketSelectDialog("bong", uiSkin, new ArrayList<TicketType>() {{
+            add(TicketType.BIKE);
+            add(TicketType.HORSE);
+        }}) {
+            @Override
+            protected void result(Object object) {
+                if (object != null) {
+                    TicketType ticketType = (TicketType) object;
+                    Gdx.app.log("PEWPEW", ticketType.toString());
+                    //gameplay.movePlayer(mapNode, ticketType);
+                }
+            }
+        };
+        addActorsToStage(ticketSelectDialog);
+        gameplay.movePlayer(mapNode, TicketType.BIKE);
+    }
+
+
 
     @Override
     public void pause() {
@@ -236,16 +299,16 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     public void hide() {
         //waiting for usage
     }
-
+/*
     private void updateCam() {
-        camera.zoom = this.zoomValue;
-        float scale = this.zoomValue * 2.0f;
+        camera.zoom = this.cameraData.getZoomValue();
+        float scale = this.cameraData.getZoomValue() * 2.0f;
         if (oldDragValue.x != dragValue.x || oldDragValue.y != dragValue.y) {
             camera.position.add(-dragValue.x * scale, dragValue.y * scale, 0);
             oldDragValue.x = dragValue.x;
             oldDragValue.y = dragValue.y;
 
-            camera.position.set(clampCam(camera.position, gameBoardObject.getBoundingBox()));
+            //camera.position.set(clampCam(camera.position, new Rectangle(-500, -500, 500, 500)));
         }
         if(moveCamToPawnObject)
             moveCamToPosition();
@@ -254,8 +317,8 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
     }
 
     private void moveCamToPosition(){
-        float tolerance = 25 / this.zoomValue;
-        float camSpeedFactor = 25 / this.zoomValue;
+        float tolerance = 25 / this.cameraData.getZoomValue();
+        float camSpeedFactor = 25 / this.cameraData.getZoomValue();
         if(camera.position.x + tolerance >= camDestinationPosition.x && camera.position.x - tolerance <= camDestinationPosition.x
                 && camera.position.y + tolerance >= camDestinationPosition.y && camera.position.y - tolerance <= camDestinationPosition.y) {
             moveCamToPawnObject = false;
@@ -282,10 +345,10 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         } else if(camera.position.y - tolerance > camDestinationPosition.y){
             camera.position.y -= camSpeedFactor * camSpeedY;
         }
-    }
+    }*/
 
     private Vector3 clampCam(Vector3 position, Rectangle boundingBox) {
-        return new Vector3(clamp(position.x, boundingBox.x, boundingBox.width), clamp(position.y, boundingBox.y, boundingBox.height), position.z);
+        return new Vector3(clamp(position.x, boundingBox.getX(), boundingBox.getWidth()), clamp(position.y, boundingBox.getY(), boundingBox.getHeight()), position.z);
     }
 
     private float clamp(float value, float min, float max) {
@@ -300,41 +363,6 @@ public class GameScreen extends AbstractScreen implements TouchDownListener, Tou
         world.dispose();
 
     }
-
-    @Override
-    public void onTouchUp(int screenX, int screenY, int pointer, int button) {
-        Gdx.app.log("Game", "TOUCH ON " + screenX + ", " + screenY);
-        Vector3 vector3 = camera.unproject(new Vector3(screenX, screenY, 0));
-        Gdx.app.log("Koordinaten:", "new Vector2(" + vector3.x + "f," + vector3.y + "f);");
-        int range = 40;
-        ticketType = TicketType.BIKE;
-        for (MapNode node : nodeGraphObject.getMapNodes()) {     //soon handled by click handler
-            Vector2 pos = node.getPosition();
-            if (vector3.x >= pos.x - range && vector3.x <= pos.x + range && vector3.y >= pos.y - range && vector3.y <= pos.y + range) {
-                //Gdx.app.log("Indizes:", "current index: " + currentindex + " clicked index: " + i);
-                gameplay.movePlayer(node, ticketType);
-                break;
-            }
-        }
-    }
-
-    @Override
-    public void onTouchDown(int screenX, int screenY, int pointer, int button) {
-        currentScale = zoomValue;
-    }
-
-    @Override
-    public void onZoom(float initialDistance, float distance) {
-        float ratio = initialDistance / distance;
-        this.zoomValue = this.currentScale * ratio;
-    }
-
-    @Override
-    public void onPan(float x, float y, float deltaX, float deltaY) {
-        dragValue.x = deltaX;
-        dragValue.y = deltaY;
-    }
-
 
     @Override
     public void onPlayerTurnChanged(PawnObject pawnObject) {
