@@ -99,7 +99,7 @@ public class DefaultRenderer implements Disposable {
     private class DrawableItemComparator implements Comparator<DrawableItem> {
         @Override
         public int compare(DrawableItem d1, DrawableItem d2) {
-            return d1.getDrawLayer() - d2.getDrawLayer();
+            return Integer.compare(d1.getDrawLayer(), d2.getDrawLayer());
         }
     }
 }
