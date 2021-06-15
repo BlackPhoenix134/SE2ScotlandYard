@@ -51,6 +51,10 @@ public abstract class Gameplay {
         registerCallbacks();
     }
 
+    public PawnObject getPlayerPawnObject() {
+        return playerPawnObject;
+    }
+
     public abstract void initialize(NodeGraphObject nodeGraphObject);
 
     private void registerCallbacks() {
