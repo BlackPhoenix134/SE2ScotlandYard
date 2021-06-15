@@ -1,10 +1,12 @@
-package sy.core;
+package sy.core.clickHandling;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import sy.core.CameraData;
+import sy.core.Clickable;
 import sy.input.prio.InputEvent;
 import sy.input.prio.InputEventType;
 import sy.input.prio.InputHandler;
@@ -18,6 +20,7 @@ public class ObjectClickHandler {
     private InputHandler inputHandler;
     private CameraData cameraData;
     private ObjectClickInformationComparator objectClickInformationComparator = new ObjectClickInformationComparator();
+    private int subscribeIdCounter = 0;
 
     public ObjectClickHandler(CameraData cameraData, InputHandler inputHandler) {
         this.cameraData = cameraData;
@@ -31,14 +34,25 @@ public class ObjectClickHandler {
                 inputEvent -> invokeClicked(touchUpClickables, inputEvent));
     }
 
-    public void addTouchDownClickable(Clickable clickable, int priority, boolean isUiSpace) {
-        touchDownClickables.add(new ObjectClickInformation(clickable, priority, isUiSpace));
-        Collections.sort(touchDownClickables, objectClickInformationComparator);
+    public ObjectClickBinding addTouchDownClickable(Clickable clickable, int priority, boolean isUiSpace) {
+        int subId = getNextSubscribeId();
+        return addClickable(new ObjectClickInformation(subId, clickable, priority, isUiSpace), touchDownClickables);
     }
 
-    public void addTouchUpClickable(Clickable clickable, int priority, boolean isUiSpace) {
-        touchUpClickables.add(new ObjectClickInformation(clickable, priority, isUiSpace));
-        Collections.sort(touchUpClickables, objectClickInformationComparator);
+    public ObjectClickBinding addTouchUpClickable(Clickable clickable, int priority, boolean isUiSpace) {
+        int subId = getNextSubscribeId();
+        return addClickable(new ObjectClickInformation(subId, clickable, priority, isUiSpace), touchUpClickables);
+    }
+
+    private int getNextSubscribeId() {
+        subscribeIdCounter++;
+        return subscribeIdCounter;
+    }
+
+    public ObjectClickBinding addClickable(ObjectClickInformation information, List<ObjectClickInformation> collection) {
+        collection.add(information);
+        Collections.sort(collection, objectClickInformationComparator);
+        return new ObjectClickBinding(information, this);
     }
 
     private void invokeClicked(List<ObjectClickInformation> objectClickInfos, InputEvent inputEvent) {
@@ -51,10 +65,15 @@ public class ObjectClickHandler {
         }
     }
 
+    public void unsubscribe(ObjectClickBinding objectClickBinding) {
+        touchDownClickables.remove(objectClickBinding.getObjectClickInformation());
+        touchUpClickables.remove(objectClickBinding.getObjectClickInformation());
+    }
+
     private static class ObjectClickInformationComparator implements Comparator<ObjectClickInformation> {
         @Override
         public int compare(ObjectClickInformation t1, ObjectClickInformation t2) {
-            return Integer.compare(t1.getPriority(), t2.getPriority());
+            return Integer.compare(t2.getPriority(), t1.getPriority());
         }
     }
 }

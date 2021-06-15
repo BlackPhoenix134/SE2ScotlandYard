@@ -1,8 +1,10 @@
-package sy.core;
+package sy.core.clickHandling;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+
+import sy.core.Clickable;
 
 public class ObjectClickInformation {
     private Clickable clickable;
@@ -17,7 +19,7 @@ public class ObjectClickInformation {
         this.isUiSpace = isUiSpace;
     }
 
-    public Clickable getClickable() {
+    Clickable getClickable() {
         return clickable;
     }
 
