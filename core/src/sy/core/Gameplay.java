@@ -34,8 +34,8 @@ public abstract class Gameplay {
     protected int gameround = 0;
     private Array<GamePlayListener> listeners = new Array<>();
     ScreenManager screenManager = new ScreenManager(GameStart.Instance);
-    Music decWon = Gdx.audio.newMusic(Gdx.files.internal("EndScreen/DetectivesWin.wav"));
-    Sound mrXWon = Gdx.audio.newSound(Gdx.files.internal("EndScreen/evilLaugh.wav"));
+    Music decWon = Gdx.audio.newMusic(Gdx.files.internal("sounds/DetectivesWin.wav"));
+    Sound mrXWon = Gdx.audio.newSound(Gdx.files.internal("sounds/evilLaugh.wav"));
 
 
 

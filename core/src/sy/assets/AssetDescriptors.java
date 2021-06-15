@@ -10,7 +10,6 @@ public final class AssetDescriptors {
     private static final String UI = "ui";
     private static final String WORLD = "world";
     private static final String CHARACTERS = WORLD + "/characters";
-    private static final String BACK = "background";
 
     public static final AssetDescriptor<Texture> BUTTON_DEVIL = new AssetDescriptor<>(UI + "/StartDevil.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_JOIN = new AssetDescriptor<>(UI + "/JoinButton.png", Texture.class);
@@ -24,13 +23,10 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> MWon = new AssetDescriptor<>(UI+"/Won.png", Texture.class);
     public static final AssetDescriptor<Texture> Detectives = new AssetDescriptor<>(UI+"/Detectives.png", Texture.class);
     public static final AssetDescriptor<Texture> DWon = new AssetDescriptor<>(UI + "/DWon.png", Texture.class);
-    public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(UI+"/LeaveGame.png", Texture.class);
+    public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(UI + "/LeaveGame.png", Texture.class);
 
-    public static final AssetDescriptor<Texture> BACK_G = new AssetDescriptor<Texture>(BACK + "/337.png", Texture.class);
-
-
-
-
+    public static final AssetDescriptor<Texture> BACK_G = new AssetDescriptor<>(UI + "/337.png", Texture.class);
+    public static final AssetDescriptor<Texture> WHITE_SQUARE = new AssetDescriptor<>(UI + "/whiteSquare100x100.png", Texture.class);
 
     public static final AssetDescriptor<Texture> GAME_BOARD = new AssetDescriptor<>(WORLD + "/map.png", Texture.class);
 

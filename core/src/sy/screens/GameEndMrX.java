@@ -21,7 +21,7 @@ public class GameEndMrX extends AbstractScreen {
     Image mrX = new Image(SYAssetManager.getAsset(AssetDescriptors.MrX));
     Image xWon = new Image(SYAssetManager.getAsset(AssetDescriptors.MWon));
     Image backg = new Image (SYAssetManager.getAsset(AssetDescriptors.BACK_G));
-    Sound xWonSound = Gdx.audio.newSound(Gdx.files.internal("EndScreen/evilLaugh.wav"));
+    Sound xWonSound = Gdx.audio.newSound(Gdx.files.internal("sounds/evilLaugh.wav"));
 
     public GameEndMrX(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;

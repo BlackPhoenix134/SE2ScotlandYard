@@ -1,5 +1,6 @@
 package sy.assets;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
@@ -25,7 +26,9 @@ public final  class SYAssetManager {
                     Object fieldValue = field.get(null);
                     if(fieldValue.getClass().equals(AssetDescriptor.class))
                     assetManager.load((AssetDescriptor<Texture>)fieldValue);
-                } catch (IllegalAccessException ignored) { }
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
         assetManager.finishLoading();
