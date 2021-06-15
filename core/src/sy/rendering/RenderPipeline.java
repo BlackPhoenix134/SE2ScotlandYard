@@ -1,6 +1,5 @@
 package sy.rendering;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -20,72 +19,58 @@ import java.util.List;
 import sy.assets.ShaderManager;
 
 public class RenderPipeline implements Disposable {
-    private DefaultRenderer defaultRenderer;
+    private DefaultRenderer worldRenderer;
+    private DefaultRenderer uiRenderer;
     private PrimitiveRenderer primitiveRenderer;
-    private SpriteBatch batch;
     private ShaderManager shaderManager;
 
     private OrthographicCamera camera;
     private Viewport viewport;
-    private DrawableItemComparator drawableItemComparator = new DrawableItemComparator();
-    private List<DrawableItem> drawables = new ArrayList<DrawableItem>();
 
-    public RenderPipeline(SpriteBatch batch, ShaderManager shaderManager, OrthographicCamera camera, ExtendViewport viewport) {
-        this.batch = batch;
+    public RenderPipeline(ShaderManager shaderManager, OrthographicCamera camera, ExtendViewport viewport) {
         this.shaderManager = shaderManager;
         this.camera = camera;
         this.viewport = viewport;
-        this.defaultRenderer = new DefaultRenderer(batch);
-        this.primitiveRenderer = new PrimitiveRenderer(defaultRenderer);
+        this.worldRenderer = new DefaultRenderer(new SpriteBatch());
+        this.uiRenderer = new DefaultRenderer(new SpriteBatch());
+        this.primitiveRenderer = new PrimitiveRenderer(worldRenderer);
     }
 
     public void begin() {
-        drawables.clear();
+        worldRenderer.init();
+        uiRenderer.init();
     }
 
     public void end() {
-        renderDrawables();
+        worldRenderer.render();
+        uiRenderer.render();
     }
 
-    public DefaultRenderer getDefaultRenderer() {
-        return defaultRenderer;
-    }
 
     public void add(Texture img, Vector2 position, int drawLayer) {
         Vector2 centeredPos = new Vector2(position.x - img.getWidth() / 2f, position.y - img.getHeight() / 2f);
-        drawables.add(new DrawableItem(img, centeredPos, drawLayer));
+        worldRenderer.add(new DrawableItem(img, centeredPos, drawLayer));
     }
 
     public void add(Sprite sprite, int drawLayer) {
-        drawables.add(new DrawableItem(sprite,  drawLayer, ShaderManager.defaultShader));
+        worldRenderer.add(new DrawableItem(sprite,  drawLayer, ShaderManager.defaultShader));
     }
 
     public void add(Sprite sprite, int drawLayer, ShaderProgram shader) {
-        drawables.add(new DrawableItem(sprite,  drawLayer, shader));
+        worldRenderer.add(new DrawableItem(sprite,  drawLayer, shader));
     }
 
-    private void renderDrawables() {
-        Collections.sort(drawables, drawableItemComparator);
-        ShaderProgram lastShader = ShaderManager.defaultShader;
-        defaultRenderer.setShader(ShaderManager.defaultShader);
-        defaultRenderer.begin();
-
-        for(DrawableItem drawable : drawables) {
-            if(isNewShader(drawable.getShader(), lastShader)) {
-                defaultRenderer.setShader(drawable.getShader());
-                lastShader = drawable.getShader();
-            }
-
-            if(drawable.getSprite() != null)
-                defaultRenderer.add(drawable.getSprite());
-            else
-                defaultRenderer.add(drawable.getTexture(), drawable.getPosition());
-        }
-        defaultRenderer.end();
+    public void addUi(Texture img, Vector2 position, int drawLayer) {
+        Vector2 centeredPos = new Vector2(position.x - img.getWidth() / 2f, position.y - img.getHeight() / 2f);
+        uiRenderer.add(new DrawableItem(img, centeredPos, drawLayer));
     }
 
-    private boolean isNewShader(ShaderProgram shader1, ShaderProgram shader2) {
-        return shader1 != shader2;
+    public void addUi(Sprite sprite, int drawLayer) {
+        uiRenderer.add(new DrawableItem(sprite,  drawLayer, ShaderManager.defaultShader));
+    }
+
+    public void addUi(Sprite sprite, int drawLayer, ShaderProgram shader) {
+        uiRenderer.add(new DrawableItem(sprite,  drawLayer, shader));
     }
 
     public void drawCircle(Vector2 position, int radius, Color color, boolean isFilled, int drawLayer) {
@@ -99,30 +84,14 @@ public class RenderPipeline implements Disposable {
        add(primitive.getTexture(), position, drawLayer);
     }
 
-
-    public PrimitiveRenderer getPrimitiveRenderer() {
-        return primitiveRenderer;
-    }
-
-
-
-
     public void updateBatchMatrix() {
-        defaultRenderer.updateBatchMatrix(camera);
+        worldRenderer.updateBatchMatrix(camera);
         primitiveRenderer.updateBatchMatrix(camera);
     }
 
     @Override
     public void dispose(){
-        defaultRenderer.dispose();
+        worldRenderer.dispose();
         primitiveRenderer.dispose();
-    }
-
-    private class DrawableItemComparator implements Comparator<DrawableItem> {
-
-        @Override
-        public int compare(DrawableItem d1, DrawableItem d2) {
-            return d1.getDrawLayer() - d2.getDrawLayer();
-        }
     }
 }
