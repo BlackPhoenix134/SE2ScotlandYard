@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import sy.core.Consumer;
 import sy.rendering.RenderPipeline;
 
 public class GameObjectManager {
@@ -25,6 +26,9 @@ public class GameObjectManager {
         for(GameObject obj : deadObjects) {
             gameObjects.remove(obj.getUuid());
             obj.onObjectDestroyed();
+            for (Consumer<GameObject> callback: obj.getOnDestroyedSubscribers()) {
+                callback.call(obj);
+            }
         }
         deadObjects.clear();
     }

@@ -8,8 +8,10 @@ public class ObjectClickInformation {
     private Clickable clickable;
     private int priority;
     private boolean isUiSpace;
+    private int id;
 
-    public ObjectClickInformation(Clickable clickable, int priority, boolean isUiSpace) {
+    public ObjectClickInformation(int id, Clickable clickable, int priority, boolean isUiSpace) {
+        this.id = id;
         this.clickable = clickable;
         this.priority = priority;
         this.isUiSpace = isUiSpace;
@@ -19,6 +21,9 @@ public class ObjectClickInformation {
         return clickable;
     }
 
+    public int getId() {
+        return id;
+    }
 
     public int getPriority() {
         return priority;
@@ -39,5 +44,23 @@ public class ObjectClickInformation {
 
     public boolean contains(Vector2 position, OrthographicCamera camera) {
         return contains(position.x, position.y, camera);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null)
+            return false;
+        if (o == this)
+            return true;
+        if (o instanceof ObjectClickInformation) {
+            ObjectClickInformation other = (ObjectClickInformation) o;
+            return this.hashCode() == other.hashCode();
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }
