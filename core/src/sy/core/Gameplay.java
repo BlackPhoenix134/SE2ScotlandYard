@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.utils.Array;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import sy.GameStart;
@@ -14,6 +15,7 @@ import sy.connection.packages.DetectiveDies;
 import sy.connection.packages.DetectivesWon;
 import sy.connection.packages.MisterXwon;
 import sy.connection.packages.MovePlayerObject;
+import sy.core.Tickets.TicketType;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnDetectiveObject;
@@ -154,6 +156,17 @@ public abstract class Gameplay {
 
     public void removeListener(GamePlayListener listener){
         listeners.removeValue(listener,false);
+    }
+
+    public PawnMisterXObject getMrXPawn() {
+        PawnMisterXObject ret = null;
+        Iterator<PawnObject> iterator = getPawnObjects().iterator();
+        while(ret == null && iterator.hasNext()) {
+            PawnObject pawnObject = iterator.next();
+            if(pawnObject instanceof PawnMisterXObject)
+                ret = (PawnMisterXObject)pawnObject;
+        }
+        return ret;
     }
 
     public interface GamePlayListener{
