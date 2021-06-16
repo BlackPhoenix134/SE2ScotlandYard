@@ -4,9 +4,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Random;
+
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
 import sy.core.MapNode;
+import sy.core.Math.GoodMath;
+import sy.core.Math.Randum;
 import sy.core.Tickets.TicketType;
 import sy.core.Tickets.Tickets;
 import sy.rendering.RenderPipeline;
@@ -14,6 +18,7 @@ import sy.rendering.RenderPipeline;
 public class PawnObject extends GameObject implements NetworkIdentifiable {
     private int netId;
     private MapNode mapNode;
+    private String name = "Ape " + Randum.get().nextInt(100);
 
     /**
      * Index vom NodeGraphObject (nodepositions)
@@ -43,6 +48,7 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
             sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
         }
         pipeline.add(sprite, 55);
+        pipeline.add(name, new Vector2(sprite.getX(), sprite.getY()), 2, 100);
     }
 
     public void setMapNode(MapNode mapNode){
