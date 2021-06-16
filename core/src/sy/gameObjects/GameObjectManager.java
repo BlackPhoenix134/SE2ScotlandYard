@@ -20,9 +20,10 @@ public class GameObjectManager {
             else
                 deadObjects.add(obj);
         }
+        postUpdate();
     }
 
-    public void postUpdate() {
+    private void postUpdate() {
         for(GameObject obj : deadObjects) {
             gameObjects.remove(obj.getUuid());
             obj.onObjectDestroyed();

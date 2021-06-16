@@ -208,7 +208,6 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     private void stepTick(float delta) {
         critterSpawnerManager.tick(delta);
         gameObjectManager.update(delta);
-        gameObjectManager.postUpdate();
     }
 
     private void stepFastUpdate(float delta) {
