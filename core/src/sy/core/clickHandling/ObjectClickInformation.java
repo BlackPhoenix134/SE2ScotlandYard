@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 import sy.core.Clickable;
+import sy.input.prio.InputEvent;
 
 public class ObjectClickInformation {
     private Clickable clickable;
@@ -35,11 +36,22 @@ public class ObjectClickInformation {
         return isUiSpace;
     }
 
+    public boolean contains(InputEvent inputEvent, OrthographicCamera camera) {
+        if(isUiSpace) {
+            Vector2 clickedPos = new Vector2(inputEvent.getX1(), inputEvent.getFlippedX2());
+            return clickable.getArea2D().intersects(new Vector2(clickedPos.x, clickedPos.y));
+        } else {
+            Vector3 unprojectedPos = camera.unproject(new Vector3(inputEvent.getX1(), inputEvent.getX2(), 0));
+            Vector2 clickedPos = new Vector2(unprojectedPos.x, unprojectedPos.y);
+            return clickable.getArea2D().intersects(new Vector2(clickedPos.x, clickedPos.y));
+        }
+    }
+
     public boolean contains(float x, float y, OrthographicCamera camera) {
         Vector2 clickedPos = new Vector2(x, y);
         if(!isUiSpace) {
             Vector3 unprojectedPos = camera.unproject(new Vector3(x, y, 0));
-            clickedPos.set(unprojectedPos.x, unprojectedPos.y);
+            clickedPos = new Vector2(unprojectedPos.x, unprojectedPos.y);
         }
         return clickable.getArea2D().intersects(new Vector2(clickedPos.x, clickedPos.y));
     }

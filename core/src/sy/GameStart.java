@@ -25,7 +25,6 @@ public class GameStart extends com.badlogic.gdx.Game {
     public  OrthographicCamera camera;
     public static GameStart Instance = null;
 
-
     public GameStart(CameraPeripheral cameraPeripheral) {
         super();
         Instance =  this;
@@ -37,7 +36,7 @@ public class GameStart extends com.badlogic.gdx.Game {
         SYAssetManager.loadAssets();
         camera = new OrthographicCamera();
         viewport = new ExtendViewport(5000, 3000, camera);
-        renderPipeline = new RenderPipeline(new SpriteBatch(), new ShaderManager(), camera, viewport);
+        renderPipeline = new RenderPipeline(new ShaderManager(), camera, viewport);
         ScreenManager screenManager = new ScreenManager(this);
         screenManager.addScreen(new MainMenuScreen(renderPipeline, camera, screenManager));
         screenManager.addScreen(new GameScreen(renderPipeline, camera, screenManager, shaderManager));

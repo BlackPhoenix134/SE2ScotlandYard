@@ -28,7 +28,7 @@ import sy.core.GameplayClient;
 import sy.core.GameplayServer;
 import sy.core.LivingBoard.CritterSpawnerManager;
 import sy.core.MapNode;
-import sy.core.ObjectClickHandler;
+import sy.core.clickHandling.ObjectClickHandler;
 import sy.core.Physics.Area2D;
 import sy.core.Physics.Rectangle;
 import sy.core.Player;
@@ -44,6 +44,7 @@ import sy.input.prio.InputHandler;
 import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 import sy.ui.FillableImage;
+import sy.gameObjects.InGameUI;
 import sy.ui.TicketSelectDialog;
 
 public class GameScreen extends AbstractScreen implements PlayerTurnIF {
@@ -66,6 +67,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     private Skin uiSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
     private CameraData cameraData;
     private ObjectClickHandler objectClickHandler;
+    private InGameUI ingameUI;
 
     private World world = new World(new Vector2(0, 0), true);
     private FillableImage dWonTop, dWonBottom, mrxWonTop, mrxWonBottom;
@@ -166,11 +168,13 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
         this.gameplay.setPlayerTurnIF(this);
         initialize(gameplay, callbacks);
     }
-
+    //                          that's a beauty
     private void initialize(Gameplay gameplay, NetworkPackageCallbacks callbacks) {
         this.callbacks = callbacks;
-        this.gameplay.setPlayerTurnIF(this);
+        this.gameplay.setPlayerTurnIF(this); //that's a beauty
         gameplay.initialize(nodeGraphObject);
+        ingameUI = gameObjectManager.create(InGameUI.class);
+        ingameUI.initialize(gameplay, objectClickHandler);
 
         gameplay.addListener(new Gameplay.GamePlayListener() {
 
@@ -214,7 +218,6 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
         renderPipeline.updateBatchMatrix();
     }
 
-
     @Override
     public void show() {
         setupInputhandler();
@@ -243,7 +246,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
         objectClickHandler.subscribeEvents();
 
         for(MapNode mapNode : nodeGraphObject.getMapNodes()) {
-            objectClickHandler.addTouchDownClickable(new Clickable() {
+            objectClickHandler.addTouchUpClickable(new Clickable() {
                 @Override
                 public void onClicked(InputEvent inputEvent) {
                     inputEvent.setConsumed(true);
@@ -266,21 +269,20 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
 
     private void onMapNodeClicked(MapNode mapNode) {
         //ToDo: get correct ticket type options here
-        /*TicketSelectDialog ticketSelectDialog = new TicketSelectDialog("bong", uiSkin, new ArrayList<TicketType>() {{
+
+        List<TicketType> options = new ArrayList<TicketType>() {{
+            add(TicketType.DRAGON);
+            add(TicketType.DOUBLETURN_TICKET);
             add(TicketType.BIKE);
+            add(TicketType.BLACK_TICKET);
             add(TicketType.HORSE);
-        }}) {
-            @Override
-            protected void result(Object object) {
-                if (object != null) {
-                    TicketType ticketType = (TicketType) object;
-                    Gdx.app.log("PEWPEW", ticketType.toString());
-                    //gameplay.movePlayer(mapNode, ticketType);
-                }
-            }
-        };
-        addActorsToStage(ticketSelectDialog);*/
-        gameplay.movePlayer(mapNode, TicketType.BIKE);
+        }};
+        TicketSelectDialog ticketSelectDialog = new TicketSelectDialog(gameObjectManager, objectClickHandler, options, ticketType -> {
+            if(ticketType != null)
+                Gdx.app.log("clicked", ticketType.toString());
+        });
+
+        //gameplay.movePlayer(mapNode, TicketType.BIKE);
     }
 
 

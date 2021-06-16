@@ -52,4 +52,8 @@ public abstract class GoodMath {
         return new Vector2(from.x + toVectorX / dist * maxDistanceDelta,
                 from.y + toVectorY / dist * maxDistanceDelta);
     }
+
+    public static float ratio(float a, float b) {
+        return b/a;
+    }
 }

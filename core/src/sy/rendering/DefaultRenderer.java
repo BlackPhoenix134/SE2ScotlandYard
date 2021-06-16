@@ -18,7 +18,7 @@ import sy.assets.ShaderManager;
 public class DefaultRenderer implements Disposable {
     private SpriteBatch batch;
     private DrawableItemComparator drawableItemComparator = new DrawableItemComparator();
-    private List<DrawableItem> drawables = new ArrayList<DrawableItem>();
+    private List<DrawableItem> drawables = new ArrayList<>();
 
     DefaultRenderer(SpriteBatch batch) {
         this.batch = batch;

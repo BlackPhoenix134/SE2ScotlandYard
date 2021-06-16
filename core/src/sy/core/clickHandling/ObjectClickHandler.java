@@ -1,5 +1,7 @@
 package sy.core.clickHandling;
 
+import com.badlogic.gdx.Gdx;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -49,7 +51,7 @@ public class ObjectClickHandler {
         return subscribeIdCounter;
     }
 
-    public ObjectClickBinding addClickable(ObjectClickInformation information, List<ObjectClickInformation> collection) {
+    private ObjectClickBinding addClickable(ObjectClickInformation information, List<ObjectClickInformation> collection) {
         collection.add(information);
         Collections.sort(collection, objectClickInformationComparator);
         return new ObjectClickBinding(information, this);
@@ -57,9 +59,10 @@ public class ObjectClickHandler {
 
     private void invokeClicked(List<ObjectClickInformation> objectClickInfos, InputEvent inputEvent) {
         int idx = 0;
+        Gdx.app.log("SEXY", "clicked at " + inputEvent.getX1() + " " + inputEvent.getX2());
         while(idx < objectClickInfos.size() && !inputEvent.isConsumed()) {
             ObjectClickInformation currInfo = objectClickInfos.get(idx);
-            if(currInfo.contains(inputEvent.getX1(), inputEvent.getX2(), cameraData.getOrthographicCamera()))
+            if(currInfo.contains(inputEvent, cameraData.getOrthographicCamera()))
                  currInfo.getClickable().onClicked(inputEvent);
             idx++;
         }
