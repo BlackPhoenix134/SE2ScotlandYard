@@ -49,28 +49,28 @@ public class RenderPipeline implements Disposable {
 
     public void add(Texture img, Vector2 position, int drawLayer) {
         Vector2 centeredPos = new Vector2(position.x - img.getWidth() / 2f, position.y - img.getHeight() / 2f);
-        worldRenderer.add(new DrawableItem(img, centeredPos, drawLayer));
+        worldRenderer.add(new DrawableItemTexture(img, centeredPos, drawLayer, ShaderManager.defaultShader));
     }
 
     public void add(Sprite sprite, int drawLayer) {
-        worldRenderer.add(new DrawableItem(sprite,  drawLayer, ShaderManager.defaultShader));
+        worldRenderer.add(new DrawableItemSprite(sprite,  drawLayer, ShaderManager.defaultShader));
     }
 
     public void add(Sprite sprite, int drawLayer, ShaderProgram shader) {
-        worldRenderer.add(new DrawableItem(sprite,  drawLayer, shader));
+        worldRenderer.add(new DrawableItemSprite(sprite,  drawLayer, shader));
     }
 
     public void addUi(Texture img, Vector2 position, int drawLayer) {
         Vector2 centeredPos = new Vector2(position.x - img.getWidth() / 2f, position.y - img.getHeight() / 2f);
-        uiRenderer.add(new DrawableItem(img, centeredPos, drawLayer));
+        uiRenderer.add(new DrawableItemTexture(img, centeredPos, drawLayer, ShaderManager.defaultShader));
     }
 
     public void addUi(Sprite sprite, int drawLayer) {
-        uiRenderer.add(new DrawableItem(sprite,  drawLayer, ShaderManager.defaultShader));
+        uiRenderer.add(new DrawableItemSprite(sprite,  drawLayer, ShaderManager.defaultShader));
     }
 
     public void addUi(Sprite sprite, int drawLayer, ShaderProgram shader) {
-        uiRenderer.add(new DrawableItem(sprite,  drawLayer, shader));
+        uiRenderer.add(new DrawableItemSprite(sprite,  drawLayer, shader));
     }
 
     public void drawCircle(Vector2 position, int radius, Color color, boolean isFilled, int drawLayer) {

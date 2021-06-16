@@ -42,18 +42,6 @@ public class DefaultRenderer implements Disposable {
         drawables.add(drawableItem);
     }
 
-
-    //ToDo: drawing has to take rotation/scale into account
-    private void render(Texture img, Vector2 position) {
-        batch.draw(img, position.x, position.y);
-    }
-
-    private void render(Sprite sprite) {
-        sprite.setPosition(sprite.getX() - sprite.getWidth()/2f, sprite.getY() - sprite.getHeight()/2f);
-        sprite.draw(batch);
-        sprite.setPosition(sprite.getX() + sprite.getWidth()/2f, sprite.getY() + sprite.getHeight()/2f);
-    }
-
     void end() {
         batch.end();
     }
@@ -84,10 +72,7 @@ public class DefaultRenderer implements Disposable {
                 lastShader = drawable.getShader();
             }
 
-            if(drawable.getSprite() != null)
-                render(drawable.getSprite());
-            else
-                render(drawable.getTexture(), drawable.getPosition());
+            drawable.render(batch);
         }
         end();
     }
