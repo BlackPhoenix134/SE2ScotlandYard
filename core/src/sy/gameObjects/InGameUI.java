@@ -16,8 +16,6 @@ import sy.core.Math.GoodMath;
 import sy.core.Physics.Area2D;
 import sy.core.Physics.BoundingBox;
 import sy.core.clickHandling.ObjectClickHandler;
-import sy.gameObjects.GameObject;
-import sy.gameObjects.SpriteDrawableObject;
 import sy.input.prio.InputEvent;
 import sy.rendering.RenderPipeline;
 
@@ -64,7 +62,6 @@ public class InGameUI extends GameObject{
             public Area2D getArea2D() {
                 float scaledWidth = sprite.getWidth() * sprite.getScaleX();
                 float scaledHeight = sprite.getHeight() * sprite.getScaleY();
-                Gdx.app.log("SEXY", "Area2D center " + getPosition().x + " " + getPosition().y);
                 return new BoundingBox(getPosition().x, getPosition().y, scaledWidth, scaledHeight);
             }
         }, 500, true);
@@ -78,5 +75,6 @@ public class InGameUI extends GameObject{
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
         gameObjectManager.draw(delta, pipeline);
+        pipeline.add("This is the world center\nEnjoy\nKind Regards\nYour ingame UI", new Vector2(0, 0), 10, 1000);
     }
 }

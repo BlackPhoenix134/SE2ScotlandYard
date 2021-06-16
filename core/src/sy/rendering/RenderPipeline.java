@@ -53,11 +53,19 @@ public class RenderPipeline implements Disposable {
     }
 
     public void add(Sprite sprite, int drawLayer) {
-        worldRenderer.add(new DrawableItemSprite(sprite,  drawLayer, ShaderManager.defaultShader));
+        add(sprite,  drawLayer, ShaderManager.defaultShader);
     }
 
     public void add(Sprite sprite, int drawLayer, ShaderProgram shader) {
         worldRenderer.add(new DrawableItemSprite(sprite,  drawLayer, shader));
+    }
+
+    public void add(String text, Vector2 position, int drawLayer) {
+        add(text, position, 1, drawLayer);
+    }
+
+    public void add(String text, Vector2 position, float scale, int drawLayer) {
+        worldRenderer.add(new DrawableItemText(text, position, scale, drawLayer, ShaderManager.defaultShader));
     }
 
     public void addUi(Texture img, Vector2 position, int drawLayer) {
@@ -66,11 +74,19 @@ public class RenderPipeline implements Disposable {
     }
 
     public void addUi(Sprite sprite, int drawLayer) {
-        uiRenderer.add(new DrawableItemSprite(sprite,  drawLayer, ShaderManager.defaultShader));
+        addUi(sprite,  drawLayer, ShaderManager.defaultShader);
     }
 
     public void addUi(Sprite sprite, int drawLayer, ShaderProgram shader) {
         uiRenderer.add(new DrawableItemSprite(sprite,  drawLayer, shader));
+    }
+
+    public void addUi(String text, Vector2 position, int drawLayer) {
+        addUi(text, position, 1, drawLayer);
+    }
+
+    public void addUi(String text, Vector2 position, float scale, int drawLayer) {
+        uiRenderer.add(new DrawableItemText(text, position, scale, drawLayer, ShaderManager.defaultShader));
     }
 
     public void drawCircle(Vector2 position, int radius, Color color, boolean isFilled, int drawLayer) {
