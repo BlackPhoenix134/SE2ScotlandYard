@@ -3,10 +3,8 @@ package sy.gameObjects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import sy.assets.AssetDescriptors;
 import sy.assets.SYAssetManager;
@@ -15,11 +13,12 @@ import sy.core.Gameplay;
 import sy.core.Math.GoodMath;
 import sy.core.Physics.Area2D;
 import sy.core.Physics.BoundingBox;
+import sy.core.Tickets.TicketType;
 import sy.core.clickHandling.ObjectClickHandler;
 import sy.input.prio.InputEvent;
 import sy.rendering.RenderPipeline;
 
-public class InGameUI extends GameObject{
+public class InGameUI extends GameObject {
     private Gameplay gameplay;
     private GameObjectManager gameObjectManager = new GameObjectManager();
     private ObjectClickHandler objectClickHandler;
@@ -38,12 +37,11 @@ public class InGameUI extends GameObject{
 
     public void createMrXCardsUsedButton() {
         SpriteDrawableObject obj = gameObjectManager.create(SpriteDrawableObject.class);
-        Sprite sprite = new Sprite(SYAssetManager.getAsset(AssetDescriptors.BIKE));
+        Sprite sprite = new Sprite(SYAssetManager.getAsset(AssetDescriptors.WHITE_SQUARE));
         sprite.setScale(GoodMath.ratio(sprite.getHeight() , Gdx.graphics.getHeight() / 5f));
         sprite.setPosition(
-                //0 + (sprite.getWidth() * sprite.getScaleX()) / 2,
-                //Gdx.graphics.getHeight() - (sprite.getHeight() * sprite.getScaleY()) / 2f);
-               0, 0);
+                0 + (sprite.getWidth() * sprite.getScaleX()) / 2,
+                Gdx.graphics.getHeight() - (sprite.getHeight() * sprite.getScaleY()) / 2f);
         obj.setSprite(sprite);
         obj.setDrawOrder(100);
         obj.setUiObject(true);
@@ -51,6 +49,58 @@ public class InGameUI extends GameObject{
             @Override
             public void onClicked(InputEvent inputEvent) {
                 inputEvent.setConsumed(true);
+                MrXTicketsDialog dialog = gameObjectManager.create(MrXTicketsDialog.class);
+                dialog.initialize(objectClickHandler,  new ArrayList<TicketType>() {{
+                    add(TicketType.DRAGON);
+                    add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);
+                    add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);  add(TicketType.BIKE);
+                    add(TicketType.DRAGON);
+                    add(TicketType.DOUBLETURN_TICKET);
+                    add(TicketType.BLACK_TICKET);
+                    add(TicketType.BIKE);
+                }});
             }
 
             @Override
