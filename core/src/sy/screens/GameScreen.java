@@ -23,6 +23,7 @@ import sy.connection.NetworkPackageCallbacks;
 import sy.connection.ServerHandler;
 import sy.core.CameraData;
 import sy.core.Clickable;
+import sy.core.Consumer;
 import sy.core.Gameplay;
 import sy.core.GameplayClient;
 import sy.core.GameplayServer;
@@ -244,7 +245,6 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     }
     private void setupGameObjectEvents() {
         objectClickHandler.subscribeEvents();
-
         for(MapNode mapNode : nodeGraphObject.getMapNodes()) {
             objectClickHandler.addTouchUpClickable(new Clickable() {
                 @Override
@@ -270,6 +270,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     private void onMapNodeClicked(MapNode mapNode) {
         //ToDo: get correct ticket type options here
 
+
         List<TicketType> options = new ArrayList<TicketType>() {{
             add(TicketType.DRAGON);
             add(TicketType.DOUBLETURN_TICKET);
@@ -277,15 +278,21 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
             add(TicketType.BLACK_TICKET);
             add(TicketType.HORSE);
         }};
-        TicketSelectDialog ticketSelectDialog = new TicketSelectDialog(gameObjectManager, objectClickHandler, options, ticketType -> {
-            if(ticketType != null)
-                Gdx.app.log("clicked", ticketType.toString());
-        });
-
-        //gameplay.movePlayer(mapNode, TicketType.BIKE);
+        //List<TicketType> options = gameplay.getAllowedMoves(gameplay.getLocalPlayerPawn(), mapNode);
+        openMoveTicketDialog(mapNode, options);
     }
 
-
+    private void openMoveTicketDialog(MapNode mapNode, List<TicketType> options) {
+        new TicketSelectDialog(gameObjectManager, objectClickHandler, options, ticketType -> {
+            if (ticketType == TicketType.DOUBLETURN_TICKET) {
+                //gameplay.allowSecondTurn();
+                options.remove(TicketType.DOUBLETURN_TICKET);
+                openMoveTicketDialog(mapNode, options);
+            } else if(ticketType != null) {
+               // gameplay.movePlayer(mapNode, ticketType);
+            }
+        });
+    }
 
     @Override
     public void pause() {
