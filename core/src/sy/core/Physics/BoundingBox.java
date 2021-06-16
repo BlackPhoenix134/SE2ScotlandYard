@@ -76,6 +76,24 @@ public class BoundingBox implements Area2D {
         this.right = right;
     }
 
+    public float getWidth() {
+        return this.left + this.right;
+    }
+
+    public float getHeight() {
+        return this.up + this.down;
+    }
+
+    public void setWidth(float width) {
+        this.left = width/2;
+        this.right = this.left;
+    }
+
+    public void setHeight(float height) {
+        this.up = height/2;
+        this.down = this.up;
+    }
+
     @Override
     public boolean intersects(Vector2 position) {
         return position.x > centerX - left && position.x < centerX + right && position.y > centerY - up && position.y < centerY + down;
