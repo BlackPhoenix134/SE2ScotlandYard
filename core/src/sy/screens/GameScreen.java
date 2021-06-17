@@ -270,17 +270,14 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
 
     private void onMapNodeClicked(MapNode mapNode) {
         //ToDo: get correct ticket type options here
-
-
-        List<TicketType> options = new ArrayList<TicketType>() {{
-            add(TicketType.DRAGON);
-            add(TicketType.DOUBLETURN_TICKET);
-            add(TicketType.BIKE);
-            add(TicketType.BLACK_TICKET);
-            add(TicketType.HORSE);
-        }};
-        //List<TicketType> options = gameplay.getAllowedMoves(gameplay.getLocalPlayerPawn(), mapNode);
-        openMoveTicketDialog(mapNode, options);
+        if(!gameplay.isLocalTurn()){
+            return;
+        }
+        List<TicketType> options = gameplay.getTicketPossibilities(gameplay.getPlayerPawnObject(), mapNode);
+        if(options.size() > 0)
+        {
+            openMoveTicketDialog(mapNode, options);
+        }
     }
 
     private void openMoveTicketDialog(MapNode mapNode, List<TicketType> options) {
@@ -290,7 +287,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
                 options.remove(TicketType.DOUBLETURN_TICKET);
                 openMoveTicketDialog(mapNode, options);
             } else if(ticketType != null) {
-               // gameplay.movePlayer(mapNode, ticketType);
+                gameplay.movePlayer(mapNode, ticketType);
             }
         });
     }
