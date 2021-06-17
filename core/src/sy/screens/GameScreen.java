@@ -283,7 +283,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     private void openMoveTicketDialog(MapNode mapNode, List<TicketType> options) {
         new TicketSelectDialog(gameObjectManager, objectClickHandler, options, ticketType -> {
             if (ticketType == TicketType.DOUBLETURN_TICKET) {
-                //gameplay.allowSecondTurn();
+                ((GameplayServer) gameplay).choseDoubleTurn();
                 options.remove(TicketType.DOUBLETURN_TICKET);
                 openMoveTicketDialog(mapNode, options);
             } else if(ticketType != null) {

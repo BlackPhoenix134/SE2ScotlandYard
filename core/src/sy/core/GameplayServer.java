@@ -163,24 +163,24 @@ public class GameplayServer extends Gameplay {
     @Override
     public void movePlayer(MapNode newNode, TicketType ticketType) {
         if (isLocalTurn()) {
-            if (ticketType != TicketType.DOUBLETURN_TICKET) { //Make a move
-                boolean move = canMove(newNode, ticketType);
-                if (move) {
-                    playerPawnObject.setMapNode(newNode);
-                    server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
-                    server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
+            boolean move = canMove(newNode, ticketType);
+            if (move) {
+                playerPawnObject.setMapNode(newNode);
+                server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
+                server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
 
-                    for (PawnDetectiveObject pawnDetectiveObject : pawnDetectiveObjectList) {
-                        if (newNode.getId() == pawnDetectiveObject.getMapNode().getId()) {
-                            server.sendAll(new DetectivesWon(pawnMisterXObject.getNetId()));
-                        }
+                for (PawnDetectiveObject pawnDetectiveObject : pawnDetectiveObjectList) {
+                    if (newNode.getId() == pawnDetectiveObject.getMapNode().getId()) {
+                        server.sendAll(new DetectivesWon(pawnMisterXObject.getNetId()));
                     }
                 }
-            } else {
-                pawnMisterXObject.turnSeries = 2;
-                server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
             }
         }
+    }
+
+    public void choseDoubleTurn() {
+        pawnMisterXObject.turnSeries = 2;
+        server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), TicketType.DOUBLETURN_TICKET), true);
     }
 
     @Override
