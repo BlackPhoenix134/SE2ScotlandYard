@@ -154,43 +154,33 @@ public class GameplayServer extends Gameplay {
 
         for (int i = 1; i < players.size(); i++) {
             //randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
-            randomNode = nodeGraphObject.getMapNodes().get(100);
+            randomNode = nodeGraphObject.getMapNodes().get(i);
             id = players.get(i).getConnectionId();
             server.sendAll(new AddPawnObject(id, randomNode.getId(), false), true);
         }
     }
 
-    int test = 0;
-
     @Override
     public void movePlayer(MapNode newNode, TicketType ticketType) {
-
-        if (test == 0) {
-            ticketType = TicketType.DOUBLETURN_TICKET;
-        } else
-            ticketType = TicketType.BLACK_TICKET;
-
-        test++;
-
         if (isLocalTurn()) {
-            if (ticketType != TicketType.DOUBLETURN_TICKET) { //Make a move
-                boolean move = canMove(newNode, ticketType);
-                if (move) {
-                    playerPawnObject.setMapNode(newNode);
-                    server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
-                    server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
+            boolean move = canMove(newNode, ticketType);
+            if (move) {
+                playerPawnObject.setMapNode(newNode);
+                server.sendAll(new MovePlayerObject(playerPawnObject, newNode), true);
+                server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
 
-                    for (PawnDetectiveObject pawnDetectiveObject : pawnDetectiveObjectList) {
-                        if (newNode.getId() == pawnDetectiveObject.getMapNode().getId()) {
-                            server.sendAll(new DetectivesWon(pawnMisterXObject.getNetId()));
-                        }
+                for (PawnDetectiveObject pawnDetectiveObject : pawnDetectiveObjectList) {
+                    if (newNode.getId() == pawnDetectiveObject.getMapNode().getId()) {
+                        server.sendAll(new DetectivesWon(pawnMisterXObject.getNetId()));
                     }
                 }
-            } else {
-                pawnMisterXObject.turnSeries = 2;
-                server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), ticketType), true);
             }
         }
+    }
+
+    public void choseDoubleTurn() {
+        pawnMisterXObject.turnSeries = 2;
+        server.sendAll(new RemoveTicket(playerPawnObject.getNetId(), TicketType.DOUBLETURN_TICKET), true);
     }
 
     @Override

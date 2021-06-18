@@ -1123,4 +1123,8 @@ public class NodeGraphObject extends GameObject {
     public boolean hasEdge(int from, int to, MoveType moveType) {
         return graph.edgeExists(from, to, moveType);
     }
+
+    public boolean hasEdge(int from, int to) {
+        return graph.edgeExists(from, to);
+    }
 }

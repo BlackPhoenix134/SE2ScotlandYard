@@ -42,4 +42,15 @@ public class NodeGraph {
         return false;
 
     }
+    public boolean edgeExists(int nodeIdx1, int nodeIdx2) {
+        MapNode mapNode = nodes.get(nodeIdx2);
+        for (Edge edge : nodes.get(nodeIdx1).getEdges()) {
+            if ((edge.getNode2().equals(mapNode) || edge.getNode1().equals(mapNode))) {
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 }
