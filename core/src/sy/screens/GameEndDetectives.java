@@ -15,7 +15,7 @@ import sy.rendering.RenderPipeline;
 import sy.ui.AliveButton;
 
 public class GameEndDetectives extends AbstractScreen {
-    private float screenWidth;
+    private float screenWidth; 
     private float screenHeight;
     private ScreenManager screenManager;
     Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
