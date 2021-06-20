@@ -28,7 +28,7 @@ public class JoinGameMenu extends AbstractScreen {
     private float screenWidth;
     private float screenHeight;
     private ScreenManager screenManager;
-    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    Sound sound = SYAssetManager.getAsset(AssetDescriptors.buttonSound);
     private Skin textfieldSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
     Skin Dialogskin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 

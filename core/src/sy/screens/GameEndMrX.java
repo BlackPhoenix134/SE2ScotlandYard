@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,11 +18,11 @@ public class GameEndMrX extends AbstractScreen {
     private float screenWidth;
     private float screenHeight;
     private ScreenManager screenManager;
-    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    Sound sound = SYAssetManager.getAsset(AssetDescriptors.buttonSound);
     Image mrX = new Image(SYAssetManager.getAsset(AssetDescriptors.MrX));
     Image xWon = new Image(SYAssetManager.getAsset(AssetDescriptors.MWon));
     Image backg = new Image (SYAssetManager.getAsset(AssetDescriptors.BACK_G));
-    Sound xWonSound = Gdx.audio.newSound(Gdx.files.internal("sounds/evilLaugh.mp3"));
+    Sound xWonSound = SYAssetManager.getAsset(AssetDescriptors.SOUND_MrXWins);
 
     public GameEndMrX(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;

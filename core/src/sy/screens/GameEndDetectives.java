@@ -1,6 +1,8 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -18,11 +20,11 @@ public class GameEndDetectives extends AbstractScreen {
     private float screenWidth; 
     private float screenHeight;
     private ScreenManager screenManager;
-    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    Sound sound = SYAssetManager.getAsset(AssetDescriptors.buttonSound);
     Image detec = new Image(SYAssetManager.getAsset(AssetDescriptors.Detectives));
     Image dWon = new Image(SYAssetManager.getAsset(AssetDescriptors.DWon));
     Image backg = new Image (SYAssetManager.getAsset(AssetDescriptors.BACK_G));
-    Sound dWonSound = Gdx.audio.newSound(Gdx.files.internal("sounds/DetectivesWin.mp3"));
+    Music dWonSound = SYAssetManager.getAsset(AssetDescriptors.SOUND_DETECTIVE_WIN);
 
     public GameEndDetectives(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;

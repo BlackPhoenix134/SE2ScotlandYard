@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -19,8 +20,8 @@ public class MainMenuScreen extends AbstractScreen{
     private float screenWidth;
     private float screenHeight;
     private ScreenManager screenManager;
-    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
-    Music background = Gdx.audio.newMusic(Gdx.files.internal("sounds/startMusic.mp3"));
+    Sound sound = SYAssetManager.getAsset(AssetDescriptors.buttonSound);
+    Music background = SYAssetManager.getAsset(AssetDescriptors.startMusic); 
     Image img;
 
 
