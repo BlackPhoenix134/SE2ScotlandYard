@@ -150,6 +150,34 @@ public abstract class Gameplay {
         return null;
     }
 
+    public List<TicketType> getTicketPossibilities(PawnObject pawnObject, MapNode mapNode){
+
+        List<TicketType> ticketPossibilities = new ArrayList<>();
+        if(!nodeGraphObject.hasEdge(pawnObject.getMapNode().getId(), mapNode.getId())){
+            return ticketPossibilities;
+        }
+        if(pawnObject instanceof PawnMisterXObject){
+            if(pawnObject.hasEnoughTickets(TicketType.DOUBLETURN_TICKET)){
+                ticketPossibilities.add(TicketType.DOUBLETURN_TICKET);
+            }
+            if(pawnObject.hasEnoughTickets(TicketType.BLACK_TICKET)){
+                ticketPossibilities.add(TicketType.BLACK_TICKET);
+            }
+        }
+
+        if(nodeGraphObject.hasEdge(pawnObject.getMapNode().getId(), mapNode.getId(), MoveType.BIKE) && pawnObject.hasEnoughTickets(TicketType.BIKE)){
+            ticketPossibilities.add(TicketType.BIKE);
+        }
+        if(nodeGraphObject.hasEdge(pawnObject.getMapNode().getId(), mapNode.getId(), MoveType.HORSE) && pawnObject.hasEnoughTickets(TicketType.HORSE)){
+            ticketPossibilities.add(TicketType.HORSE);
+        }
+        if(nodeGraphObject.hasEdge(pawnObject.getMapNode().getId(), mapNode.getId(), MoveType.DRAGON) && pawnObject.hasEnoughTickets(TicketType.DRAGON)){
+            ticketPossibilities.add(TicketType.DRAGON);
+        }
+        return ticketPossibilities;
+    }
+
+
     public void addListener(GamePlayListener listener){
         listeners.add(listener);
     }
@@ -159,7 +187,9 @@ public abstract class Gameplay {
     }
 
     public PawnMisterXObject getMrXPawn() {
-        PawnMisterXObject ret = null;
+        //PawnMisterXObject ret = null;
+        return pawnMisterXObject;
+        /*
         Iterator<PawnObject> iterator = getPawnObjects().iterator();
         while(ret == null && iterator.hasNext()) {
             PawnObject pawnObject = iterator.next();
@@ -167,6 +197,8 @@ public abstract class Gameplay {
                 ret = (PawnMisterXObject)pawnObject;
         }
         return ret;
+
+         */
     }
 
     public interface GamePlayListener{

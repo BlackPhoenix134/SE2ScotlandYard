@@ -215,6 +215,8 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
         gameObjectManager.draw(delta, renderPipeline);
         renderPipeline.end();
         cameraData.update();
+        if(moveCamToPawnObject)
+            moveCamToPosition();
         renderPipeline.updateBatchMatrix();
     }
 
@@ -268,27 +270,24 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
 
     private void onMapNodeClicked(MapNode mapNode) {
         //ToDo: get correct ticket type options here
-
-
-        List<TicketType> options = new ArrayList<TicketType>() {{
-            add(TicketType.DRAGON);
-            add(TicketType.DOUBLETURN_TICKET);
-            add(TicketType.BIKE);
-            add(TicketType.BLACK_TICKET);
-            add(TicketType.HORSE);
-        }};
-        //List<TicketType> options = gameplay.getAllowedMoves(gameplay.getLocalPlayerPawn(), mapNode);
-        openMoveTicketDialog(mapNode, options);
+        if(!gameplay.isLocalTurn()){
+            return;
+        }
+        List<TicketType> options = gameplay.getTicketPossibilities(gameplay.getPlayerPawnObject(), mapNode);
+        if(options.size() > 0)
+        {
+            openMoveTicketDialog(mapNode, options);
+        }
     }
 
     private void openMoveTicketDialog(MapNode mapNode, List<TicketType> options) {
         new TicketSelectDialog(gameObjectManager, objectClickHandler, options, ticketType -> {
             if (ticketType == TicketType.DOUBLETURN_TICKET) {
-                //gameplay.allowSecondTurn();
+                ((GameplayServer) gameplay).choseDoubleTurn();
                 options.remove(TicketType.DOUBLETURN_TICKET);
                 openMoveTicketDialog(mapNode, options);
             } else if(ticketType != null) {
-               // gameplay.movePlayer(mapNode, ticketType);
+                gameplay.movePlayer(mapNode, ticketType);
             }
         });
     }
@@ -307,7 +306,8 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     public void hide() {
         //waiting for usage
     }
-/*
+
+    /*
     private void updateCam() {
         camera.zoom = this.cameraData.getZoomValue();
         float scale = this.cameraData.getZoomValue() * 2.0f;
@@ -323,6 +323,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
 
         camera.update();
     }
+     */
 
     private void moveCamToPosition(){
         float tolerance = 25 / this.cameraData.getZoomValue();
@@ -353,7 +354,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
         } else if(camera.position.y - tolerance > camDestinationPosition.y){
             camera.position.y -= camSpeedFactor * camSpeedY;
         }
-    }*/
+    }
 
     private Vector3 clampCam(Vector3 position, Rectangle boundingBox) {
         return new Vector3(clamp(position.x, boundingBox.getX(), boundingBox.getWidth()), clamp(position.y, boundingBox.getY(), boundingBox.getHeight()), position.z);
