@@ -1,6 +1,8 @@
 package sy.assets;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.audio.Music;
+
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 
@@ -47,6 +49,7 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> BUTTON_MISTERX = new AssetDescriptor<>(UI + "/btnMisterX.png", Texture.class);
     public static final AssetDescriptor<Texture> BUTTON_DETECTIVE = new AssetDescriptor<>(UI + "/btnDetective.png", Texture.class);
 
-    public static final AssetDescriptor<Sound> SOUND_DETECTIVE_WIN = new AssetDescriptor<>(SOUNDS + "/DetectivesWin.wav", Sound.class);
+    public static final AssetDescriptor<Music> SOUND_DETECTIVE_WIN = new AssetDescriptor<>(SOUNDS + "/DetectivesWin.mp3", Music.class);
+    public static final AssetDescriptor<Sound> SOUND_MrXWins = new AssetDescriptor<Sound>(SOUNDS + "/MrXWins.mp3",  Sound.class);
 
 }

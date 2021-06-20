@@ -22,7 +22,7 @@ public class GameEndDetectives extends AbstractScreen {
     Image detec = new Image(SYAssetManager.getAsset(AssetDescriptors.Detectives));
     Image dWon = new Image(SYAssetManager.getAsset(AssetDescriptors.DWon));
     Image backg = new Image (SYAssetManager.getAsset(AssetDescriptors.BACK_G));
-    Sound dWonSound = Gdx.audio.newSound(Gdx.files.internal("sounds/DetectivesWin.wav"));
+    Sound dWonSound = Gdx.audio.newSound(Gdx.files.internal("sounds/DetectivesWin.mp3"));
 
     public GameEndDetectives(RenderPipeline renderPipeline, OrthographicCamera camera, ScreenManager screenManager) {
         this.screenManager = screenManager;

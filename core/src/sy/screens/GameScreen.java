@@ -39,6 +39,7 @@ import sy.gameObjects.GameBoardObject;
 import sy.gameObjects.GameObjectManager;
 import sy.gameObjects.NodeGraphObject;
 import sy.gameObjects.PawnObject;
+import sy.gameObjects.SpecialGameFeatures;
 import sy.input.prio.InputEvent;
 import sy.input.prio.InputEventType;
 import sy.input.prio.InputHandler;
@@ -156,6 +157,8 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
             //screenManager.showScreen();
         });
         addActorsToStage(top, bottom, leaveButton);
+        SpecialGameFeatures callVibrate = new SpecialGameFeatures();
+        callVibrate.shakeTillItHurts();
     }
 
     public void initialize(ServerHandler handler, NetworkPackageCallbacks callbacks, List<Player> players, Player localPlayer) {
