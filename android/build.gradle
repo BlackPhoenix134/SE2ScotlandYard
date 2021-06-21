@@ -1,5 +1,10 @@
 android {
-    buildToolsVersion "30.0.0"
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildToolsVersion "30.0.3"
     compileSdkVersion 30
     sourceSets {
         main {
@@ -90,3 +95,7 @@ task run(type: Exec) {
 }
 
 eclipse.project.name = appName + "-android"
+
+sonarqube {
+    skipProject = true
+}

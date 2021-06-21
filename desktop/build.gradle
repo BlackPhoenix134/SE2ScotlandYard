@@ -1,4 +1,4 @@
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.main.resources.srcDirs = ["../android/assets"]
 
@@ -37,3 +37,7 @@ task dist(type: Jar) {
 dist.dependsOn classes
 
 eclipse.project.name = appName + "-desktop"
+
+sonarqube {
+    skipProject = true
+}
