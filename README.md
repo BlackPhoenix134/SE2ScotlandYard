@@ -58,15 +58,101 @@ Die Cheat-Funktion des Mrx ist es, sich überall auf der Map teleportieren zu k�
 
 # Das Team 
 Kristina
+ 
 
 Fabian
 
+
+
 Johannes
+    
+
 
 Samuel 
 
 
+
 # Arbeitsteilung 
+# Kristina
+    Basic GameBoard
+    Asset Manager
+    Simple Movement
+    Gameplay
+    Tickets
+
+# Fabian
+    Complete Project Setup 
+    Render Pipeline
+    Controls 
+    All Background Working Stuff
+    Lobby Connection 
+    Camera implementation 
+    Deadline Work 
+
+# Johannes
+    Basic Touch Controls 
+    Network Syncing 
+    Gameplay
+
+# Samuel 
+    Screen Manager 
+    Scene Management
+    UI - Design 
+      Transitions
+      Sounds
+      Buttons
+    Screens
+    Basic Lobby Connection / Networking
+    Basic Camera implementation 
+    Deadline-Work 
+    
+    
+# TrelloBoard
+
+# Namensabkürzungen
+
+JL = Johannes Ladurner 
+
+FF aka BP = Fabian Fruhmann / BlackPhoenix 
+
+SM = Samuel Miklau 
+
+KL = Kristina Liebhart 
+
+
+# Week 1
+
+![image](https://user-images.githubusercontent.com/63232105/122783981-58c13200-d2b2-11eb-8ade-a84b744bc278.png)
+
+# Week 2&3
+
+![image](https://user-images.githubusercontent.com/63232105/122784100-72fb1000-d2b2-11eb-9b9f-28a650ef02a2.png)
+
+# Week 4
+
+![image](https://user-images.githubusercontent.com/63232105/122784175-84dcb300-d2b2-11eb-802a-ac7398b06b1b.png)
+
+# Week 5
+
+![image](https://user-images.githubusercontent.com/63232105/122784221-91610b80-d2b2-11eb-9fbd-1e8fd6eb0aa1.png)
+
+# Week 6
+
+![image](https://user-images.githubusercontent.com/63232105/122784265-9d4ccd80-d2b2-11eb-8948-65997d2e79ac.png)
+
+# Week 7 
+
+![image](https://user-images.githubusercontent.com/63232105/122784324-a9388f80-d2b2-11eb-8a64-38287f9b497d.png)
+
+# Week 8 
+![image](https://user-images.githubusercontent.com/63232105/122784388-b9506f00-d2b2-11eb-859d-c112bfec82b8.png)
+
+# Day before Deadline 
+
+![image](https://user-images.githubusercontent.com/63232105/122784460-c66d5e00-d2b2-11eb-866f-664bf9d47437.png)
+
+
+
 
 
 
