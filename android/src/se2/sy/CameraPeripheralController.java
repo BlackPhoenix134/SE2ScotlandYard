@@ -36,7 +36,7 @@ public class CameraPeripheralController implements CameraPeripheral {
 
     public void callOnCameraResult(Bitmap bitmap) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
         bitmap.recycle();
         onCameraResult.call(byteArray);
