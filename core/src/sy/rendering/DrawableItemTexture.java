@@ -9,6 +9,11 @@ public class DrawableItemTexture extends DrawableItem {
     private Texture texture;
     private Vector2 position;
 
+    public DrawableItemTexture() {
+
+    }
+
+
     public DrawableItemTexture(Texture texture, Vector2 position, int drawLayer, ShaderProgram shader) {
         super(drawLayer, shader);
         this.texture = texture;

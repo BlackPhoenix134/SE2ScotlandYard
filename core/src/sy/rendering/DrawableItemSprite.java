@@ -7,7 +7,11 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 public  class DrawableItemSprite extends DrawableItem {
     private Sprite sprite;
 
-    public DrawableItemSprite( Sprite sprite, int drawLayer, ShaderProgram shader) {
+    public DrawableItemSprite() {
+
+    }
+
+    public DrawableItemSprite(Sprite sprite, int drawLayer, ShaderProgram shader) {
         super(drawLayer, shader);
         this.sprite = sprite;
     }

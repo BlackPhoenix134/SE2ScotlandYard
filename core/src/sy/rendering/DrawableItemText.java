@@ -11,6 +11,11 @@ public class DrawableItemText extends DrawableItem {
     private Vector2 position;
     private float scale;
 
+    public DrawableItemText() {
+
+    }
+
+
     public DrawableItemText(String text, Vector2 position, float scale, int drawLayer, ShaderProgram shader, BitmapFont bitmapFont) {
         super(drawLayer, shader);
         this.text = text;
