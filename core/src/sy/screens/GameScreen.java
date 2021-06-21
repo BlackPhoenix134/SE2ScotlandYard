@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -65,7 +66,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     private ShaderManager shaderManager;
     private Gameplay gameplay;
     private NetworkPackageCallbacks callbacks;
-    Sound sound = Gdx.audio.newSound(Gdx.files.internal("sounds/buttonSound.mp3"));
+    Sound sound = SYAssetManager.getAsset(AssetDescriptors.buttonSound); 
     private Skin uiSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
     private CameraData cameraData;
     private ObjectClickHandler objectClickHandler;
