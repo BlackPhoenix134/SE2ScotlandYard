@@ -154,7 +154,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
 
         leaveButton.addListener(() -> {
             //TODO change the screen here
-            //screenManager.showScreen();
+            Gdx.app.exit();
         });
         addActorsToStage(top, bottom, leaveButton);
         SpecialGameFeatures callVibrate = new SpecialGameFeatures();
