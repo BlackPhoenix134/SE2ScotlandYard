@@ -40,6 +40,12 @@ public abstract class Gameplay {
     Sound mrXWon = Gdx.audio.newSound(Gdx.files.internal("sounds/evilLaugh.mp3"));
 
 
+    public Player getPlayerById(int id) {
+        for(Player player : players)
+            if(player.getConnectionId() == id)
+                return player;
+            return null;
+    }
 
 
     protected PlayerTurnIF playerTurnIF;
