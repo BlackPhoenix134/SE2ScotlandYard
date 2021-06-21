@@ -17,6 +17,7 @@ import sy.core.Tickets.TicketType;
 import sy.core.clickHandling.ObjectClickHandler;
 import sy.input.prio.InputEvent;
 import sy.rendering.RenderPipeline;
+import sy.ui.AliveButton;
 
 public class InGameUI extends GameObject {
     private Gameplay gameplay;
@@ -37,8 +38,8 @@ public class InGameUI extends GameObject {
 
     public void createMrXCardsUsedButton() {
         SpriteDrawableObject obj = gameObjectManager.create(SpriteDrawableObject.class);
-        Sprite sprite = new Sprite(SYAssetManager.getAsset(AssetDescriptors.WHITE_SQUARE));
-        sprite.setScale(GoodMath.ratio(sprite.getHeight() , Gdx.graphics.getHeight() / 5f));
+        Sprite sprite = new Sprite(SYAssetManager.getAsset(AssetDescriptors.Used));
+        sprite.setScale(GoodMath.ratio(sprite.getHeight() , Gdx.graphics.getHeight() / 10f));
         sprite.setPosition(
                 0 + (sprite.getWidth() * sprite.getScaleX()) / 2,
                 Gdx.graphics.getHeight() - (sprite.getHeight() * sprite.getScaleY()) / 2f);

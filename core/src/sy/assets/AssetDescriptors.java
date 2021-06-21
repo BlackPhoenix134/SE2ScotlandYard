@@ -29,6 +29,7 @@ public final class AssetDescriptors {
     public static final AssetDescriptor<Texture> Detectives = new AssetDescriptor<>(UI+"/Detectives.png", Texture.class);
     public static final AssetDescriptor<Texture> DWon = new AssetDescriptor<>(UI + "/DWon.png", Texture.class);
     public static final AssetDescriptor<Texture> LEAVE_GAME = new AssetDescriptor<>(UI + "/LeaveGame.png", Texture.class);
+    public static final AssetDescriptor<Texture> Used = new AssetDescriptor<>(UI + "/used.png", Texture.class);
 
     public static final AssetDescriptor<Texture> BACK_G = new AssetDescriptor<>(UI + "/337.png", Texture.class);
     public static final AssetDescriptor<Texture> WHITE_SQUARE = new AssetDescriptor<>(UI + "/whiteSquare100x100.png", Texture.class);

@@ -66,7 +66,7 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     private ShaderManager shaderManager;
     private Gameplay gameplay;
     private NetworkPackageCallbacks callbacks;
-    Sound sound = SYAssetManager.getAsset(AssetDescriptors.buttonSound); 
+    Sound sound = SYAssetManager.getAsset(AssetDescriptors.buttonSound);
     private Skin uiSkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
     private CameraData cameraData;
     private ObjectClickHandler objectClickHandler;
