@@ -60,18 +60,16 @@ public class GameplayClient extends Gameplay {
 
         callbacks.registerCallback(AddPawnObject.class, packageObj -> {
             AddPawnObject addPawnObject = (AddPawnObject) packageObj;
-            Player playerForPawn = getPlayerById(addPawnObject.netID);
-
             if (addPawnObject.isMisterX) {
                 PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
                 playerPawn.setShouldDraw(false);
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new MisterXTickets(10, 2));
 
-                if(playerForPawn.getCustomTexture() == null)
+                if(localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1));
                 else
-                    playerPawn.setTexture(new Texture(new Pixmap(playerForPawn.getCustomTexture(), 0, playerForPawn.getCustomTexture().length)));
+                    playerPawn.setTexture(new Texture(new Pixmap(localPlayer.getCustomTexture(), 0, localPlayer.getCustomTexture().length)));
 
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
@@ -84,10 +82,10 @@ public class GameplayClient extends Gameplay {
                 playerPawn.setNetId(addPawnObject.netID);
                 playerPawn.setTickets(new DetectiveTickets(4, 0, 0));
 
-                if(playerForPawn.getCustomTexture() == null)
+                if(localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3));
                 else
-                    playerPawn.setTexture(new Texture(new Pixmap(playerForPawn.getCustomTexture(), 0, playerForPawn.getCustomTexture().length)));
+                    playerPawn.setTexture(new Texture(new Pixmap(localPlayer.getCustomTexture(), 0, localPlayer.getCustomTexture().length)));
                 
                 MapNode newMapNode = nodeGraphObject.getMapNodes().get(addPawnObject.nodeID);
                 playerPawn.setMapNode(newMapNode);
