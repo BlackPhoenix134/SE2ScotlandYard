@@ -15,6 +15,13 @@ public class DrawableItemText extends DrawableItem {
 
     }
 
+    public void set(String text, Vector2 position, float scale, int drawLayer, BitmapFont bitmapFont, ShaderProgram shader) {
+        super.set(drawLayer, shader);
+        this.text = text;
+        this.position = position;
+        this.scale = scale;
+        this.font = bitmapFont;
+    }
 
     public DrawableItemText(String text, Vector2 position, float scale, int drawLayer, ShaderProgram shader, BitmapFont bitmapFont) {
         super(drawLayer, shader);

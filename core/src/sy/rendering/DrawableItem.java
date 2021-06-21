@@ -24,6 +24,11 @@ public abstract class DrawableItem {
         this.shader = shader;
     }
 
+    protected void set(int drawLayer, ShaderProgram shader) {
+        this.drawLayer = drawLayer;
+        this.shader = shader;
+    }
+
     public int getDrawLayer() {
         return drawLayer;
     }

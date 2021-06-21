@@ -16,6 +16,11 @@ public  class DrawableItemSprite extends DrawableItem {
         this.sprite = sprite;
     }
 
+    public void set(Sprite sprite, int drawLayer, ShaderProgram shader) {
+        super.set(drawLayer, shader);
+        this.sprite = sprite;
+    }
+
     @Override
     public void render(SpriteBatch batch) {
         sprite.setPosition(sprite.getX() - sprite.getWidth()/2f, sprite.getY() - sprite.getHeight()/2f);
