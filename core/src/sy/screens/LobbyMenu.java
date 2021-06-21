@@ -52,10 +52,10 @@ public class LobbyMenu extends AbstractScreen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-
-        cameraPeripheral.setOnCameraResult((imageData) -> {
-            lobbyLogic.setCustomTexture(imageData);
-        });
+        if(cameraPeripheral != null)
+            cameraPeripheral.setOnCameraResult((imageData) -> {
+                lobbyLogic.setCustomTexture(imageData);
+            });
     }
 
 

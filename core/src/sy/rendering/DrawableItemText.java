@@ -6,16 +6,17 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.Vector2;
 
 public class DrawableItemText extends DrawableItem {
-    private BitmapFont font = new BitmapFont(); //ToDo: monitor for garbage here
+    private BitmapFont font;
     private String text;
     private Vector2 position;
     private float scale;
 
-    public DrawableItemText(String text, Vector2 position, float scale, int drawLayer, ShaderProgram shader) {
+    public DrawableItemText(String text, Vector2 position, float scale, int drawLayer, ShaderProgram shader, BitmapFont bitmapFont) {
         super(drawLayer, shader);
         this.text = text;
         this.position = position;
         this.scale = scale;
+        this.font = bitmapFont;
     }
 
     @Override

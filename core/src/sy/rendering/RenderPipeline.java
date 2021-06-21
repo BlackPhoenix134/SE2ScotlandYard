@@ -3,6 +3,7 @@ package sy.rendering;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
@@ -23,6 +24,7 @@ public class RenderPipeline implements Disposable {
     private DefaultRenderer uiRenderer;
     private PrimitiveRenderer primitiveRenderer;
     private ShaderManager shaderManager;
+    private BitmapFont bitmapFont = new BitmapFont();
 
     private OrthographicCamera camera;
     private Viewport viewport;
@@ -65,7 +67,7 @@ public class RenderPipeline implements Disposable {
     }
 
     public void add(String text, Vector2 position, float scale, int drawLayer) {
-        worldRenderer.add(new DrawableItemText(text, position, scale, drawLayer, ShaderManager.defaultShader));
+        worldRenderer.add(new DrawableItemText(text, position, scale, drawLayer, ShaderManager.defaultShader, bitmapFont));
     }
 
     public void addUi(Texture img, Vector2 position, int drawLayer) {
@@ -86,7 +88,7 @@ public class RenderPipeline implements Disposable {
     }
 
     public void addUi(String text, Vector2 position, float scale, int drawLayer) {
-        uiRenderer.add(new DrawableItemText(text, position, scale, drawLayer, ShaderManager.defaultShader));
+        uiRenderer.add(new DrawableItemText(text, position, scale, drawLayer, ShaderManager.defaultShader, bitmapFont));
     }
 
     public void drawCircle(Vector2 position, int radius, Color color, boolean isFilled, int drawLayer) {
