@@ -55,7 +55,10 @@ Die Kamera, das geforderte Spielfeature, kann ebenfalls über die Lobby geöffne
 
 
 # Cheat Function 
-Die Cheat-Funktion des Mrx ist es, sich überall auf der Map teleportieren zu können. Um das Spiel ausgeglichener zu gestalten, wird dieser jedoch alle 3 Runden für eine Runde für alle Spieler sichtbar. 
+Die Cheat-Funktion der Detectives ist es, dass sie über ihren Lauter-Button MrX sichtbar machen können. Das bedeutet, dass MrX für den Spieler, der die Lautertaste betätigt,
+sichtbar wird. Um dies aufzudecken müssen sich alle Spieler im selben Raum befinden. Hat MrX einen verdacht, dass ein Spieler cheated so muss dieser diesen Laut aussprechen und
+darf das Handy des Detectives ansehen. Ist seine Vermutung korrekt, so scheidet dieser Detective aus dem Spiel aus und muss das Spiel verlassen. War seine Vermutung falsch, so
+gewinnen automatisch die Detectives und MrX muss das Spiel verlassen. 
 
 # Das Team 
 Kristina
