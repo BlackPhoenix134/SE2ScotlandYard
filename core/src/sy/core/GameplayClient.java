@@ -28,7 +28,7 @@ public class GameplayClient extends Gameplay {
             setPlayerTurnId(playerTurn.id);
             if (playerTurn.id == pawnMisterXObject.getNetId()){
                 gameround++;
-                if (gameround == 3 || gameround == 8 || gameround == 13 || gameround == 18 || gameround == 24){
+                if ((gameround == 3 || gameround == 8 || gameround == 13 || gameround == 18 || gameround == 24) || cheatMode){
                     pawnMisterXObject.setShouldDraw(true);
                 }else {
                     pawnMisterXObject.setShouldDraw(false);

@@ -1,6 +1,7 @@
 package sy.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -197,6 +198,9 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
 
     @Override
     public void render(float delta) {
+        if(Gdx.input.isKeyPressed(Input.Keys.VOLUME_UP)){
+            gameplay.toggleCheatMode();
+        }
         delta = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -382,4 +386,6 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
         moveCamToPawnObject = true;
         camDestinationPosition = pawnObject.getMapNode().getPosition();
     }
+
+
 }

@@ -35,6 +35,7 @@ public abstract class Gameplay {
     protected PawnObject playerPawnObject;
     protected int gameround = 0;
     private Array<GamePlayListener> listeners = new Array<>();
+    protected boolean cheatMode = false;
     ScreenManager screenManager = new ScreenManager(GameStart.Instance);
     Music decWon = Gdx.audio.newMusic(Gdx.files.internal("sounds/DetectivesWin.mp3"));
     Sound mrXWon = Gdx.audio.newSound(Gdx.files.internal("sounds/evilLaugh.mp3"));
@@ -210,5 +211,9 @@ public abstract class Gameplay {
     public interface GamePlayListener{
         void onDetectiveWin();
         void onMisterXWin();
+    }
+
+    public void toggleCheatMode(){
+        cheatMode = true;
     }
 }
