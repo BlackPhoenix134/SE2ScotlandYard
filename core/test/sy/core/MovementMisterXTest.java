@@ -117,4 +117,34 @@ class MovementMisterXTest {
         tickets.add(TicketType.HORSE);
         assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
     }
+    @Test
+    void ticketPossibilitiesMissingTicket(){
+        pawn.setMapNode(nodeGraphObject.getMapNodes().get(184));
+        pawn.setTickets(new MisterXTickets(0, 1));
+        List<TicketType> tickets = new ArrayList<>();
+        tickets.add(TicketType.DOUBLETURN_TICKET);
+        tickets.add(TicketType.BIKE);
+        tickets.add(TicketType.HORSE);
+        assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
+    }
+
+    @Test
+    void ticketPossibilitiesMissingTicket2(){
+        pawn.setMapNode(nodeGraphObject.getMapNodes().get(184));
+        pawn.setTickets(new MisterXTickets(1, 0));
+        List<TicketType> tickets = new ArrayList<>();
+        tickets.add(TicketType.BLACK_TICKET);
+        tickets.add(TicketType.BIKE);
+        tickets.add(TicketType.HORSE);
+        assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
+    }
+    @Test
+    void ticketPossibilitiesMissingTicket3(){
+        pawn.setMapNode(nodeGraphObject.getMapNodes().get(184));
+        pawn.setTickets(new MisterXTickets(0, 0));
+        List<TicketType> tickets = new ArrayList<>();
+        tickets.add(TicketType.BIKE);
+        tickets.add(TicketType.HORSE);
+        assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
+    }
 }

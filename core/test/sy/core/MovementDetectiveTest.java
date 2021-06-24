@@ -132,4 +132,19 @@ class MovementDetectiveTest {
         tickets.add(TicketType.HORSE);
         assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
     }
+    @Test
+    void ticketPossibilitiesMissingTicket(){
+        pawn.setMapNode(nodeGraphObject.getMapNodes().get(184));
+        pawn.setTickets(new DetectiveTickets(1, 0, 0));
+        List<TicketType> tickets = new ArrayList<>();
+        tickets.add(TicketType.BIKE);
+        assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
+    }
+    @Test
+    void ticketPossibilitiesMissingTicket2(){
+        pawn.setMapNode(nodeGraphObject.getMapNodes().get(184));
+        pawn.setTickets(new DetectiveTickets(0, 0, 0));
+        List<TicketType> tickets = new ArrayList<>();
+        assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
+    }
 }
