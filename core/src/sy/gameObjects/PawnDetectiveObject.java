@@ -10,6 +10,9 @@ public class PawnDetectiveObject extends PawnObject {
     public PawnDetectiveObject(String uuid) {
         super(uuid);
     }
+    public PawnDetectiveObject(){
+
+    }
 
     public void setTickets(DetectiveTickets ticketDetective) {
         this.tickets = ticketDetective;

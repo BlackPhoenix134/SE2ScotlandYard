@@ -15,6 +15,10 @@ public class PawnMisterXObject extends PawnObject {
         super(uuid);
     }
 
+    public PawnMisterXObject(){
+
+    }
+
     public void setTickets(MisterXTickets tickets) {
         this.tickets = tickets;
     }

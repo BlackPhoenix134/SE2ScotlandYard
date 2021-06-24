@@ -37,8 +37,8 @@ public abstract class Gameplay {
     private Array<GamePlayListener> listeners = new Array<>();
     protected boolean cheatMode = false;
     ScreenManager screenManager = new ScreenManager(GameStart.Instance);
-    Music decWon = Gdx.audio.newMusic(Gdx.files.internal("sounds/DetectivesWin.mp3"));
-    Sound mrXWon = Gdx.audio.newSound(Gdx.files.internal("sounds/evilLaugh.mp3"));
+    Music decWon;
+    Sound mrXWon;
 
 
     public Player getPlayerById(int id) {
@@ -62,6 +62,15 @@ public abstract class Gameplay {
 
     public PawnObject getPlayerPawnObject() {
         return playerPawnObject;
+    }
+    public void setPlayerPawnObject(PawnObject pawn){playerPawnObject = pawn;}
+
+    public void setPawnDetectives(List<PawnDetectiveObject> pawnDetectiveObjectList) {
+        this.pawnDetectiveObjectList = pawnDetectiveObjectList;
+    }
+
+    public void setPawnMisterXObject(PawnMisterXObject pawnMisterXObject) {
+        this.pawnMisterXObject = pawnMisterXObject;
     }
 
     public abstract void initialize(NodeGraphObject nodeGraphObject);
@@ -95,6 +104,7 @@ public abstract class Gameplay {
         callbacks.registerCallback(DetectivesWon.class, packageObj -> {
             //this isnt being used, but you can add a parameter to onDetectiveWin and use it if need it
             DetectivesWon detectivesWon = (DetectivesWon) packageObj;
+            decWon = Gdx.audio.newMusic(Gdx.files.internal("sounds/DetectivesWin.mp3"));
             decWon.play();
             //TODO: Show new screen
             for(GamePlayListener listener: listeners){
@@ -109,6 +119,7 @@ public abstract class Gameplay {
             //this isnt being used, but you can add a parameter to onDetectiveWin and use it if need it
             MisterXwon misterXwon = (MisterXwon) packageObj;
             //TODO: Show new screen
+            mrXWon = Gdx.audio.newSound(Gdx.files.internal("sounds/evilLaugh.mp3"));
             mrXWon.play();
             for(GamePlayListener listener: listeners){
                 listener.onMisterXWin();
@@ -139,9 +150,13 @@ public abstract class Gameplay {
         return playerTurnId == localPlayer.getConnectionId();
     }
 
-    public abstract boolean canMove(MapNode toNode, sy.core.Tickets.TicketType ticketType);
+    public abstract boolean canMove(MapNode toNode, TicketType ticketType);
 
-    public abstract void movePlayer(MapNode toNode, sy.core.Tickets.TicketType ticketType);
+    public abstract void movePlayer(MapNode toNode, TicketType ticketType);
+
+    public void setNodeGraphObject(NodeGraphObject nodeGraphObject) {
+        this.nodeGraphObject = nodeGraphObject;
+    }
 
     public void setPlayerTurnIF(PlayerTurnIF playerTurnIF) {
         this.playerTurnIF = playerTurnIF;

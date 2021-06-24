@@ -20,7 +20,7 @@ public class NodeGraphObject extends GameObject {
         return graph.getNodes();
     }
 
-    NodeGraphObject(String uuid) {
+    public NodeGraphObject(String uuid) {
         super(uuid);
         nodeposition = new ArrayList<>();
 
