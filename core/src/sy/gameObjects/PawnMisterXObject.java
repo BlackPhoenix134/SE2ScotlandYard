@@ -23,35 +23,6 @@ public class PawnMisterXObject extends PawnObject {
         return tickets;
     }
 
-    public List<TicketType> getUsedTickets() {
-        return new ArrayList<TicketType>() {{
-            add(TicketType.DRAGON);
-            add(TicketType.BIKE);
-            add(TicketType.DRAGON);
-            add(TicketType.BIKE);
-            add(TicketType.DRAGON);
-            add(TicketType.DOUBLETURN_TICKET);
-            add(TicketType.BLACK_TICKET);
-            add(TicketType.BIKE);
-            add(TicketType.BIKE);
-            add(TicketType.BLACK_TICKET);
-            add(TicketType.BIKE);
-            add(TicketType.BLACK_TICKET);
-            add(TicketType.HORSE);
-            add(TicketType.BIKE);
-            add(TicketType.HORSE);
-            add(TicketType.BIKE);
-            add(TicketType.BIKE);
-            add(TicketType.BLACK_TICKET);
-            add(TicketType.HORSE);
-            add(TicketType.DRAGON);
-            add(TicketType.BLACK_TICKET);
-            add(TicketType.HORSE);
-            add(TicketType.BLACK_TICKET);
-            add(TicketType.HORSE);
-        }};
-    }
-
     @Override
     public boolean removeTicket(TicketType type) {
 
