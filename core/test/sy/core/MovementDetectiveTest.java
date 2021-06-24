@@ -18,7 +18,7 @@ import sy.gameObjects.PawnMisterXObject;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameplayDetectiveTest {
+class MovementDetectiveTest {
 
     private GameplayClient gameplay;
     private PawnDetectiveObject pawn;
@@ -132,5 +132,4 @@ class GameplayDetectiveTest {
         tickets.add(TicketType.HORSE);
         assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
     }
-
 }
