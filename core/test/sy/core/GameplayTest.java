@@ -59,69 +59,6 @@ class GameplayTest {
         misterXTickets = null;
         nodeGraphObject = null;
     }
-    @Test
-    void detectiveHasEnoughBikeTickets(){
-        pawnDetectiveObject.setTickets(new DetectiveTickets(1, 0, 0));
-        assertTrue(pawnDetectiveObject.hasEnoughTickets(TicketType.BIKE));
-    }
-    @Test
-    void detectiveHasEnoughHorseTickets(){
-        pawnDetectiveObject.setTickets(new DetectiveTickets(0, 1, 0));
-        assertTrue(pawnDetectiveObject.hasEnoughTickets(TicketType.HORSE));
-    }
-    @Test
-    void detectiveHasEnoughDragonTickets(){
-        pawnDetectiveObject.setTickets(new DetectiveTickets(0, 0, 1));
-        assertTrue(pawnDetectiveObject.hasEnoughTickets(TicketType.DRAGON));
-    }
-    @Test
-    void detectiveHasNotEnoughBikeTickets(){
-        pawnDetectiveObject.setTickets(new DetectiveTickets(0, 1, 1));
-        assertFalse(pawnDetectiveObject.hasEnoughTickets(TicketType.BIKE));
-    }
-    @Test
-    void detectiveHasNotEnoughHorseTickets(){
-        pawnDetectiveObject.setTickets(new DetectiveTickets(1, 0, 1));
-        assertFalse(pawnDetectiveObject.hasEnoughTickets(TicketType.HORSE));
-    }
-    @Test
-    void detectiveHasNotEnoughDragonTickets(){
-        pawnDetectiveObject.setTickets(new DetectiveTickets(1, 1, 0));
-        assertFalse(pawnDetectiveObject.hasEnoughTickets(TicketType.DRAGON));
-    }
-    @Test
-    void detectiveHasEnoughTicketsWrongType(){
-        assertFalse(pawnDetectiveObject.hasEnoughTickets(TicketType.BLACK_TICKET));
-        assertFalse(pawnDetectiveObject.hasEnoughTickets(TicketType.DOUBLETURN_TICKET));
-    }
-    @Test
-    void mrXHasEnoughBlackTickets(){
-        pawnMisterXObject.setTickets(new MisterXTickets(1, 0));
-        assertTrue(pawnMisterXObject.hasEnoughTickets(TicketType.BLACK_TICKET));
-    }
-    @Test
-    void mrXHasNotEnoughBlackTickets(){
-        pawnMisterXObject.setTickets(new MisterXTickets(0, 1));
-        assertFalse(pawnMisterXObject.hasEnoughTickets(TicketType.BLACK_TICKET));
-    }
-    @Test
-    void mrXHasEnoughDoubleTurnTickets(){
-        pawnMisterXObject.setTickets(new MisterXTickets(0, 1));
-        assertTrue(pawnMisterXObject.hasEnoughTickets(TicketType.DOUBLETURN_TICKET));
-    }
-    @Test
-    void mrXHasNotEnoughDoubleTurnTickets(){
-        pawnMisterXObject.setTickets(new MisterXTickets(1, 0));
-        assertFalse(pawnMisterXObject.hasEnoughTickets(TicketType.DOUBLETURN_TICKET));
-    }
-    @Test
-    void mrXHasInfiniteDefaultTickets(){
-        pawnMisterXObject.setTickets(new MisterXTickets(0, 0));
-        assertTrue(pawnMisterXObject.hasEnoughTickets(TicketType.BIKE));
-        assertTrue(pawnMisterXObject.hasEnoughTickets(TicketType.HORSE));
-        assertTrue(pawnMisterXObject.hasEnoughTickets(TicketType.DRAGON));
-    }
-
 
     @Test
     void DetectiveHasBikeTicket() {
