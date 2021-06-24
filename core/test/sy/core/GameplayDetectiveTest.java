@@ -118,4 +118,19 @@ class GameplayDetectiveTest {
         assertFalse(gameplay.canMove(nodeGraphObject.getMapNodes().get(1), TicketType.BIKE));
     }
 
+    @Test
+    void ticketPossibilities1(){
+        List<TicketType> tickets = new ArrayList<>();
+        tickets.add(TicketType.BIKE);
+        assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(8)));
+    }
+    @Test
+    void ticketPossibilities2(){
+        pawn.setMapNode(nodeGraphObject.getMapNodes().get(184));
+        List<TicketType> tickets = new ArrayList<>();
+        tickets.add(TicketType.BIKE);
+        tickets.add(TicketType.HORSE);
+        assertEquals(tickets, gameplay.getTicketPossibilities(pawn, nodeGraphObject.getMapNodes().get(183)));
+    }
+
 }
