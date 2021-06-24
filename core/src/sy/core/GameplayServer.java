@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.Random;
 
 public class GameplayServer extends Gameplay {
     private ServerHandler server;
@@ -99,7 +100,7 @@ public class GameplayServer extends Gameplay {
             if (addPawnObject.isMisterX) {
                 PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new MisterXTickets(10, 2));
+                playerPawn.setTickets(new MisterXTickets(5, 2));
                 if (localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1));
                 else
@@ -114,7 +115,7 @@ public class GameplayServer extends Gameplay {
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new DetectiveTickets(6, 0, 0));
+                playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
                 if (localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3));
                 else
@@ -154,14 +155,13 @@ public class GameplayServer extends Gameplay {
     }
 
     private void spawnPlayerPawns(NodeGraphObject nodeGraphObject) {
-        //MapNode randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
-        MapNode randomNode = nodeGraphObject.getMapNodes().get(0);
+        Random r = new Random();
+        MapNode randomNode = nodeGraphObject.getMapNodes().get(r.nextInt(nodeGraphObject.getMapNodes().size()));
         int id = players.get(0).getConnectionId();
         server.sendAll(new AddPawnObject(id, randomNode.getId(), true), true);
 
         for (int i = 1; i < players.size(); i++) {
-            //randomNode = Collections.getRandomItem(nodeGraphObject.getMapNodes());
-            randomNode = nodeGraphObject.getMapNodes().get(i);
+            randomNode = nodeGraphObject.getMapNodes().get(r.nextInt(nodeGraphObject.getMapNodes().size()));
             id = players.get(i).getConnectionId();
             server.sendAll(new AddPawnObject(id, randomNode.getId(), false), true);
         }

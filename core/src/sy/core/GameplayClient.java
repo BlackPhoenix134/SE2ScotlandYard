@@ -70,7 +70,7 @@ public class GameplayClient extends Gameplay {
                 PawnMisterXObject playerPawn = gameObjectManager.create(PawnMisterXObject.class);
                 playerPawn.setShouldDraw(false);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new MisterXTickets(10, 2));
+                playerPawn.setTickets(new MisterXTickets(5, 2));
 
                 if(localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER1));
@@ -86,7 +86,7 @@ public class GameplayClient extends Gameplay {
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new DetectiveTickets(6, 0, 0));
+                playerPawn.setTickets(new DetectiveTickets(11, 8, 4));
 
                 if(localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3));
