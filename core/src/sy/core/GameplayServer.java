@@ -66,6 +66,13 @@ public class GameplayServer extends Gameplay {
             for (PawnObject pawnObject : pawnObjectList) {
                 if (pawnObject.getNetId() == ticketToRemove.netID) {
                     pawnObject.removeTicket(ticketToRemove.ticket);
+
+                    if(pawnObject.getNetId() == pawnMisterXObject.getNetId()){ //Pawn is Mr X
+                        if(ticketToRemove.ticket != TicketType.DOUBLETURN_TICKET){ //Track all tickets except double turn tickets
+                            pawnMisterXObject.usedTickets.add(ticketToRemove.ticket);
+                        }
+                    }
+
                     if (!hasTickets(pawnObject)) {
                         server.sendAll(new DetectiveDies(pawnObject.getNetId()), true);
                         turnIDQueue.remove(pawnObject.getNetId());
@@ -107,7 +114,7 @@ public class GameplayServer extends Gameplay {
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new DetectiveTickets(4, 0, 0));
+                playerPawn.setTickets(new DetectiveTickets(6, 0, 0));
                 if (localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3));
                 else

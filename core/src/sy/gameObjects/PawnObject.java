@@ -48,7 +48,7 @@ public class PawnObject extends GameObject implements NetworkIdentifiable {
             sprite.setPosition(mapNode.getPosition().x, mapNode.getPosition().y);
         }
         pipeline.add(sprite, 55);
-        pipeline.add(name, new Vector2(sprite.getX(), sprite.getY()), 2, 100);
+        //pipeline.add(name, new Vector2(sprite.getX(), sprite.getY()), 2, 100);
     }
 
     public void setMapNode(MapNode mapNode){

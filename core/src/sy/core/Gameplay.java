@@ -208,6 +208,10 @@ public abstract class Gameplay {
          */
     }
 
+    public List<TicketType> getUsedTicketsMrX(){
+        return pawnMisterXObject.usedTickets;
+    }
+
     public interface GamePlayListener{
         void onDetectiveWin();
         void onMisterXWin();

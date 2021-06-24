@@ -10,6 +10,7 @@ public class PawnMisterXObject extends PawnObject {
 
     private MisterXTickets tickets;
     public int turnSeries = 0;
+    public List<TicketType> usedTickets = new ArrayList<>();
     public PawnMisterXObject(String uuid) {
         super(uuid);
     }

@@ -52,55 +52,7 @@ public class InGameUI extends GameObject {
                 inputEvent.setConsumed(true);
                 MrXTicketsDialog dialog = gameObjectManager.create(MrXTicketsDialog.class);
                 dialog.initialize(objectClickHandler,  new ArrayList<TicketType>() {{
-                    add(TicketType.DRAGON);
-                    add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);
-                    add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);  add(TicketType.BIKE);
-                    add(TicketType.DRAGON);
-                    add(TicketType.DOUBLETURN_TICKET);
-                    add(TicketType.BLACK_TICKET);
-                    add(TicketType.BIKE);
+                addAll(gameplay.getUsedTicketsMrX());
                 }});
             }
 
@@ -126,6 +78,6 @@ public class InGameUI extends GameObject {
     @Override
     public void draw(float delta, RenderPipeline pipeline) {
         gameObjectManager.draw(delta, pipeline);
-        pipeline.add("This is the world center\nEnjoy\nKind Regards\nYour ingame UI", new Vector2(0, 0), 10, 1000);
+        //pipeline.add("This is the world center\nEnjoy\nKind Regards\nYour ingame UI", new Vector2(0, 0), 10, 1000);
     }
 }

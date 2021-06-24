@@ -40,7 +40,7 @@ public class GameplayClient extends Gameplay {
                     playerTurnIF.onPlayerTurnChanged(playerPawnObject);
                 } else {
                     PawnObject pawnObject = getCurrentPlayer();
-                    if (pawnObject != pawnMisterXObject || gameround == 3 || gameround == 8 || gameround == 13 || gameround == 18 || gameround == 24) {
+                    if ((pawnObject != pawnMisterXObject || gameround == 3 || gameround == 8 || gameround == 13 || gameround == 18 || gameround == 24) || cheatMode)  {
                         playerTurnIF.onPlayerTurnChanged(pawnObject);
                     }
                 }
@@ -52,7 +52,13 @@ public class GameplayClient extends Gameplay {
             RemoveTicket ticketToRemove = (RemoveTicket) packageObj;
             for (PawnObject pawnObject : pawnObjectList) {
                 if (pawnObject.getNetId() == ticketToRemove.netID) {
-                    pawnObject.removeTicket(ticketToRemove.ticket);
+                    pawnObject.removeTicket(ticketToRemove.ticket); //Remove ticket from pawn
+
+                    if(pawnObject.getNetId() == pawnMisterXObject.getNetId()){ //Pawn is Mr X
+                        if(ticketToRemove.ticket != TicketType.DOUBLETURN_TICKET){ //Track all tickets except double turn tickets
+                            pawnMisterXObject.usedTickets.add(ticketToRemove.ticket);
+                        }
+                    }
                     break;
                 }
             }
@@ -80,7 +86,7 @@ public class GameplayClient extends Gameplay {
             } else {
                 PawnDetectiveObject playerPawn = gameObjectManager.create(PawnDetectiveObject.class);
                 playerPawn.setNetId(addPawnObject.netID);
-                playerPawn.setTickets(new DetectiveTickets(4, 0, 0));
+                playerPawn.setTickets(new DetectiveTickets(6, 0, 0));
 
                 if(localPlayer.getCustomTexture() == null)
                     playerPawn.setTexture(SYAssetManager.getAsset(AssetDescriptors.MONSTER3));
