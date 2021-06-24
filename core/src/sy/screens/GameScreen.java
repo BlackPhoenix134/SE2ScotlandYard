@@ -199,8 +199,12 @@ public class GameScreen extends AbstractScreen implements PlayerTurnIF {
     @Override
     public void render(float delta) {
         if(Gdx.input.isKeyPressed(Input.Keys.VOLUME_UP)){
-            gameplay.toggleCheatMode();
+            gameplay.setCheatMode(true);
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.VOLUME_DOWN)){
+            gameplay.setCheatMode(false);
+        }
+
         delta = Gdx.graphics.getDeltaTime();
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

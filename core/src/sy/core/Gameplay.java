@@ -232,7 +232,7 @@ public abstract class Gameplay {
         void onMisterXWin();
     }
 
-    public void toggleCheatMode(){
-        cheatMode = true;
+    public void setCheatMode(boolean cheatOn){
+        cheatMode = cheatOn;
     }
 }
