@@ -55,7 +55,7 @@ public class GameObjectManager {
     }
 
     @SuppressWarnings("unchecked")
-    private <T extends GameObject> T get(String uuid) {
+    public <T extends GameObject> T get(String uuid) {
         return (T)gameObjects.get(uuid);
     }
 }
