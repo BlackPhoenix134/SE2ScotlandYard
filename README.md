@@ -85,13 +85,25 @@ Samuel
     Tickets
 
 # Fabian
-    Complete Project Setup 
-    Render Pipeline
+    Architectural Design
+    Complete (Initial) Project Setup 
+    Render Pipeline (Text, Sprites, UI, Shaders)
+    Better Input Handler (Priority and event handling)
+    Game Object and Lifecycle Management
+    Global Click Handler (UI and world space)
     Controls 
-    All Background Working Stuff
-    Lobby Connection 
-    Camera implementation 
-    Deadline Work 
+    Lobby Networking 
+    Camera Peripheral Implementation
+    Custom Texture Syncing
+    Deadline Work
+    Network Foundation / Package Handling
+    Living Gameboard Features
+    State Machine
+    Gameboard Drawing
+    Automatic Asset Description Loader
+    Animation Controller
+    Dialog Windows
+    Useful Extensions (Coding comfort)
 
 # Johannes
     Basic Touch Controls 
