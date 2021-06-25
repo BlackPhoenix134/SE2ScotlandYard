@@ -25,7 +25,7 @@ public abstract class LobbyLogic {
 
         callbacks.registerCallback(CreateLobbyPlayer.class, packageObj -> {
             CreateLobbyPlayer createLobbyPlayer = (CreateLobbyPlayer)packageObj;
-            currLobbyPlayers.put(createLobbyPlayer.connectionId, new LobbyPlayer(createLobbyPlayer.connectionId));
+            currLobbyPlayers.put(createLobbyPlayer.connectionId, new LobbyPlayer(createLobbyPlayer.connectionId, createLobbyPlayer.name));
             lobbyMenu.rebuildUi();
         });
 

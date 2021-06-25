@@ -174,15 +174,15 @@ public class LobbyMenu extends AbstractScreen {
     }
 
 
-    public void init(ServerHandler server) {
+    public void init(ServerHandler server, String name) {
         lobbyLogic = new LobbyLogicServer(server, this, screenManager);
-        ((LobbyLogicServer)lobbyLogic).createSelf();
+        ((LobbyLogicServer)lobbyLogic).createSelf(name);
         Gdx.app.log("LOBBY", "Initialized Server");
     }
 
-    public void init(ClientHandler client) {
+    public void init(ClientHandler client, String name) {
         lobbyLogic = new LobbyLogicClient(client, this, screenManager);
-        ((LobbyLogicClient)lobbyLogic).sendJoinRequest();
+        ((LobbyLogicClient)lobbyLogic).sendJoinRequest(name);
         Gdx.app.log("LOBBY", "Initialized Client");
     }
 

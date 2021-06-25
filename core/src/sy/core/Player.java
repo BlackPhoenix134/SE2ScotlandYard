@@ -4,17 +4,19 @@ public class Player {
     private int connectionId;
     private boolean isLocalPlayer;
     private byte[] customTexture;
+    private String name;
 
-    public Player(int connectionId){
+    public Player(int connectionId, String name){
         this.connectionId = connectionId;
+        this.name = name;
     }
 
     public byte[] getCustomTexture() {
         return customTexture;
     }
 
-    public Player(int connectionId, byte[] customTexture){
-        this.connectionId = connectionId;
+    public Player(int connectionId, byte[] customTexture, String name){
+       this(connectionId, name);
         this.customTexture = customTexture;
     }
 
@@ -28,5 +30,9 @@ public class Player {
 
     public void setLocalPlayer(boolean localPlayer) {
         isLocalPlayer = localPlayer;
+    }
+
+    public String getName() {
+        return name;
     }
 }
