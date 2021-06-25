@@ -127,7 +127,7 @@ public class LobbyMenu extends AbstractScreen {
         int i = 0;
         for (LobbyPlayer currPlayer : lobbyLogic.getCurrLobbyPlayers().values()) {
             float screenY = screenHeight - 100 - 150 * i;
-            String text = "Player " + currPlayer.getConnectionId();
+            String text = currPlayer.getName() + " " + currPlayer.getConnectionId();
             TextField field = createTextField(screenY, text);
             AliveButton visualReadyButton = createVisualReady(screenY);
             addActorsToStage(field);
@@ -174,15 +174,15 @@ public class LobbyMenu extends AbstractScreen {
     }
 
 
-    public void init(ServerHandler server) {
+    public void init(ServerHandler server, String name) {
         lobbyLogic = new LobbyLogicServer(server, this, screenManager);
-        ((LobbyLogicServer)lobbyLogic).createSelf();
+        ((LobbyLogicServer)lobbyLogic).createSelf(name);
         Gdx.app.log("LOBBY", "Initialized Server");
     }
 
-    public void init(ClientHandler client) {
+    public void init(ClientHandler client, String name) {
         lobbyLogic = new LobbyLogicClient(client, this, screenManager);
-        ((LobbyLogicClient)lobbyLogic).sendJoinRequest();
+        ((LobbyLogicClient)lobbyLogic).sendJoinRequest(name);
         Gdx.app.log("LOBBY", "Initialized Client");
     }
 

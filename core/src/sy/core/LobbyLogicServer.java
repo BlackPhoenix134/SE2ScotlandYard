@@ -27,12 +27,13 @@ public class LobbyLogicServer extends LobbyLogic {
         callbacks.registerCallback(PlayerJoinLobbyRequest.class, pckg -> {
             PlayerJoinLobbyRequest playerJoinLobbyRequest = (PlayerJoinLobbyRequest)pckg;
             for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
-                serverHandler.sendTo(playerJoinLobbyRequest.connectionId, new CreateLobbyPlayer(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture()));
+                serverHandler.sendTo(playerJoinLobbyRequest.connectionId,
+                        new CreateLobbyPlayer(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture(), playerJoinLobbyRequest.name));
             }
             for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
                 serverHandler.sendTo(playerJoinLobbyRequest.connectionId, new LobbyPlayerReadySync(lobbyPlayer.getConnectionId(), lobbyPlayer.isReady()));
             }
-            serverHandler.sendAll(new CreateLobbyPlayer(playerJoinLobbyRequest.connectionId, null), true);
+            serverHandler.sendAll(new CreateLobbyPlayer(playerJoinLobbyRequest.connectionId, null, playerJoinLobbyRequest.name), true);
         });
 
         callbacks.registerCallback(LobbyPlayerReady.class, pckg -> {
@@ -55,7 +56,7 @@ public class LobbyLogicServer extends LobbyLogic {
             List<Player> players = new ArrayList<>();
             Player localPlayer = null;
             for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
-                Player player = new Player(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture());
+                Player player = new Player(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture(), lobbyPlayer.getName());
                 if(lobbyPlayer.getConnectionId() == 0) {
                     player.setLocalPlayer(true);
                     localPlayer = player;
@@ -70,9 +71,9 @@ public class LobbyLogicServer extends LobbyLogic {
         serverHandler.sendAll(new LobbyToStartGame(),true);
     }
 
-    public void createSelf() {
+    public void createSelf(String name) {
         int id = 0;
-        serverHandler.sendAll(new CreateLobbyPlayer(id, null), true);
+        serverHandler.sendAll(new CreateLobbyPlayer(id, null, name), true);
     }
 
     @Override
