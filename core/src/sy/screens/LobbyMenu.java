@@ -127,7 +127,7 @@ public class LobbyMenu extends AbstractScreen {
         int i = 0;
         for (LobbyPlayer currPlayer : lobbyLogic.getCurrLobbyPlayers().values()) {
             float screenY = screenHeight - 100 - 150 * i;
-            String text = "Player " + currPlayer.getConnectionId();
+            String text = currPlayer.getName() + " " + currPlayer.getConnectionId();
             TextField field = createTextField(screenY, text);
             AliveButton visualReadyButton = createVisualReady(screenY);
             addActorsToStage(field);
