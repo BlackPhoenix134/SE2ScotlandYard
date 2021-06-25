@@ -1,21 +1,9 @@
-package sy.core;
+package sy.gameObjects;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import sy.connection.NetworkPackageCallbacks;
-import sy.connection.ServerHandler;
-import sy.core.Tickets.DetectiveTickets;
-import sy.core.Tickets.MisterXTickets;
-import sy.gameObjects.GameObject;
-import sy.gameObjects.GameObjectManager;
-import sy.gameObjects.NodeGraphObject;
-import sy.gameObjects.PawnDetectiveObject;
-import sy.gameObjects.PawnMisterXObject;
 import sy.gameObjects.TestGameObject;
 import sy.rendering.RenderPipeline;
 
