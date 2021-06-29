@@ -4,9 +4,11 @@ public class LobbyPlayer {
     private int connectionId;
     private boolean isReady;
     private byte[] customTexture;
+    private String name;
 
-    public LobbyPlayer(int connectionId){
+    public LobbyPlayer(int connectionId, String name){
         this.connectionId = connectionId;
+        this.name = name;
     }
 
     public int getConnectionId() {
@@ -31,5 +33,9 @@ public class LobbyPlayer {
 
     public void setCustomTexture(byte[] customTexture) {
         this.customTexture = customTexture;
+    }
+
+    public String getName() {
+        return name;
     }
 }

@@ -1,4 +1,4 @@
-package sy.connection;
+package sy.packages;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -6,6 +6,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+
+import sy.connection.ClientHandler;
+import sy.connection.NetworkPackageCallbacks;
+import sy.connection.ServerHandler;
 import sy.connection.packages.PlayerTurn;
 import sy.core.Consumer;
 

@@ -121,12 +121,11 @@ public class JoinGameMenu extends AbstractScreen {
                 hostNameEmpty.setSize(200,200);
             }
             else {
-                userName.setText(userName.getText());
                 ServerHandler server = new ServerHandler(networkPackageCallbacks);
                 server.serverStart(Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
                 sound.play();
                 screenManager.showScreen(LobbyMenu.class);
-                screenManager.getScreen(LobbyMenu.class).init(server);
+                screenManager.getScreen(LobbyMenu.class).init(server, userName.getText());
                 pause();
             }
         });
@@ -155,12 +154,11 @@ public class JoinGameMenu extends AbstractScreen {
 
             }
             else {
-                userName.setText(userName.getText());
                 userIP.setText(userIP.getText());
                 client.clientStart(userIP.getText(), Integer.parseInt(tcpPort.getText()), Integer.parseInt(udpPort.getText()));
                 sound.play();
                 screenManager.showScreen(LobbyMenu.class);
-                screenManager.getScreen(LobbyMenu.class).init(client);
+                screenManager.getScreen(LobbyMenu.class).init(client, userName.getText());
                pause();
             }
         });

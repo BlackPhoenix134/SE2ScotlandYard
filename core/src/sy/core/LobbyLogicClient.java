@@ -30,7 +30,7 @@ public class LobbyLogicClient extends LobbyLogic {
             List<Player> players = new ArrayList<>();
             Player localPlayer = null;
             for(LobbyPlayer lobbyPlayer : currLobbyPlayers.values()) {
-                Player player = new Player(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture());
+                Player player = new Player(lobbyPlayer.getConnectionId(), lobbyPlayer.getCustomTexture(), lobbyPlayer.getName());
                 if(lobbyPlayer.getConnectionId() == clientHandler.getKryonetClient().getID()) {
                     player.setLocalPlayer(true);
                     localPlayer = player;
@@ -42,9 +42,9 @@ public class LobbyLogicClient extends LobbyLogic {
         });
     }
 
-    public void sendJoinRequest() {
+    public void sendJoinRequest(String name) {
         int id =  clientHandler.getKryonetClient().getID();
-        clientHandler.send(new PlayerJoinLobbyRequest(id));
+        clientHandler.send(new PlayerJoinLobbyRequest(id, name));
     }
 
     @Override
